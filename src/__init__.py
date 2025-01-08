@@ -2,4 +2,4 @@
 # Rolling Noise Calculation Toolbox
 # ------------------------------------------------------------------------------
 
-from .components import Pad, Rail
+from .components import Pad, Rail, Sleeper
