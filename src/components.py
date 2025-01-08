@@ -13,7 +13,7 @@ class Rail(HasTraits):
     rl_geo = List(Tuple(Float(), Float()), default_value=[(0.0, 0.0)], minlen=1)
 
     # Rail number
-    rl_num = Int(default_value=1, options=[1, 2])
+    rl_num = Int(default_value=1, min=1, max=2)
 
     # Rail bending stiffness [Nm^2]
     Br = Float(default_value=0.0)
