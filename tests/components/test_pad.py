@@ -4,27 +4,21 @@ from traitlets import TraitError
 from src.components import Pad
 
 
-def test_initializes_with_default_values():
+def test_pad_initialization():
+    """Test the initialization of the Pad class."""
     pad = Pad()
-    assert pad.sp == 0.0
+    assert pad.sp == [0.0, 0.0]
     assert pad.dp == 0.0
     assert pad.wdthp == 0.0
 
-def test_sets_values_correctly():
-    pad = Pad(sp=5.0, dp=3.0, wdthp=2.0)
-    assert pad.sp == 5.0
-    assert pad.dp == 3.0
-    assert pad.wdthp == 2.0
-
-def test_raises_error_for_invalid_type():
+def test_pad_invalid_stiffness():
+    """Test the initialization of the Pad class with invalid stiffness."""
     with pytest.raises(TraitError):
-        Pad(sp="invalid")
+        Pad(sp=[0.0, 0.0, 0.0])
 
-def test_updates_values_correctly():
-    pad = Pad()
-    pad.sp = 7.0
-    pad.dp = 4.0
-    pad.wdthp = 1.0
-    assert pad.sp == 7.0
-    assert pad.dp == 4.0
-    assert pad.wdthp == 1.0
+def test_pad_set_values():
+    """Test the setting of values in the Pad class."""
+    pad = Pad(sp=[1000.0, 2000.0], dp=5.0, wdthp=0.5)
+    assert pad.sp == [1000.0, 2000.0]
+    assert pad.dp == 5.0
+    assert pad.wdthp == 0.5
