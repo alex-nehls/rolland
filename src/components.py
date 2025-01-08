@@ -22,7 +22,7 @@ class Rail(HasTraits):
     dr = Float()
 
     # Rail mass per unit length [kg/m]
-    mr = Float(default_value=0.0)
+    mr = Float()
 
 
 class Pad(HasTraits):
