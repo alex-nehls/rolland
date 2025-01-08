@@ -1,12 +1,16 @@
 """Defines all superstructure components."""
 
-from traitlets import Float, HasTraits
+from traitlets import Float, HasTraits, List
 
 
 class Pad(HasTraits):
     """rail pad class."""
 
-    sp = Float(default_value=0.0)
-    dp = Float(default_value=0.0)
-    wdthp = Float(default_value=0.0)
+    # Pad stiffness vertical/lateral [N/m]
+    sp = List(Float(), default_value=(0.0, 0.0), maxlen=2)
 
+    # Pad damping coefficient [Ns/m]
+    dp = Float(default_value=0.0)
+
+    # Pad width [m]
+    wdthp = Float(default_value=0.0)
