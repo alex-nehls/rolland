@@ -35,4 +35,21 @@ class Pad(HasTraits):
     dp = Float()
 
     # Pad width [m]
-    wdthp = Float(default_value=0.0)
+    wdthp = Float()
+
+
+class Sleeper(HasTraits):
+    """Sleeper class."""
+
+    # Sleeper type
+    sl_typ = Unicode(default_value="B70")
+
+    # Sleeper mass [kg]
+    ms = Float()
+
+    # Sleeper length [m]
+    ls = Float()
+
+    # Sleeper bending stiffness [Nm^2]
+    Bs = Float()
+
