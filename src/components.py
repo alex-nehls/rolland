@@ -19,7 +19,7 @@ class Rail(HasTraits):
     Br = Float()
 
     # Rail damping coefficient [Ns/m]
-    dr = Float(default_value=0.0)
+    dr = Float()
 
     # Rail mass per unit length [kg/m]
     mr = Float(default_value=0.0)
