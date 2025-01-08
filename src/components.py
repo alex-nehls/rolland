@@ -32,7 +32,7 @@ class Pad(HasTraits):
     sp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
 
     # Pad damping coefficient [Ns/m]
-    dp = Float(default_value=0.0)
+    dp = Float()
 
     # Pad width [m]
     wdthp = Float(default_value=0.0)
