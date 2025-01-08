@@ -1,6 +1,28 @@
 """Defines all superstructure components."""
 
-from traitlets import Float, HasTraits, List
+from traitlets import Float, HasTraits, Int, List, Tuple, Unicode
+
+
+class Rail(HasTraits):
+    """Rail class."""
+
+    # Rail profile
+    rl_prof = Unicode(default_value="UIC60")
+
+    # Rail outline coordinates [m]
+    rl_geo = List(Tuple(Float(), Float()), default_value=[(0.0, 0.0)], minlen=1)
+
+    # Rail number
+    rl_num = Int(default_value=1, options=[1, 2])
+
+    # Rail bending stiffness [Nm^2]
+    Br = Float(default_value=0.0)
+
+    # Rail damping coefficient [Ns/m]
+    dr = Float(default_value=0.0)
+
+    # Rail mass per unit length [kg/m]
+    mr = Float(default_value=0.0)
 
 
 class Pad(HasTraits):
