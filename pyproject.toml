@@ -1,0 +1,12 @@
+[project]
+name = "rolling_noise_fdm"
+
+[tool.hatch.envs.hatch-static-analysis]
+config-path = [".ruff.toml"]
+dependencies = [
+    "numpy",
+    "scipy>=1.1.0",
+    "traitlets>=5.0",
+    "ruff==0.8.1",
+]
+
