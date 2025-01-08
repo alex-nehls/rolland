@@ -16,7 +16,7 @@ class Rail(HasTraits):
     rl_num = Int(default_value=1, min=1, max=2)
 
     # Rail bending stiffness [Nm^2]
-    Br = Float(default_value=0.0)
+    Br = Float()
 
     # Rail damping coefficient [Ns/m]
     dr = Float(default_value=0.0)
