@@ -7,7 +7,7 @@ class Pad(HasTraits):
     """Rail pad class."""
 
     # Pad stiffness vertical/lateral [N/m]
-    sp = List(Float(), default_value=(0.0, 0.0), maxlen=2)
+    sp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
 
     # Pad damping coefficient [Ns/m]
     dp = Float(default_value=0.0)
