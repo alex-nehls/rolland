@@ -9,7 +9,7 @@ class Rail(HasTraits):
     """Rail class."""
 
     # Rail profile
-    rl_prof = Unicode(default_value="UIC60")
+    rl_prof = Enum(list(RAIL_DATABASE.keys()), default_value="UIC60")
 
     # Rail number
     rl_num = Int(default_value=1, min=1, max=2)
