@@ -63,7 +63,7 @@ class Sleeper(HasTraits):
     """Sleeper class."""
 
     # Sleeper type (discr: discrete, cont: continuous)
-    sl_typ = Enum(["discr", "cont"], default_value="discr").tag(config=True)
+    sl_type = Enum(["discr", "cont"], default_value="discr").tag(config=True)
 
     # Foundation type (slab, ballast)
     fnd_typ = Enum(["slab", "ballast"], default_value="ballast").tag(config=True)
