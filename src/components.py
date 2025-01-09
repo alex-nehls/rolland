@@ -66,13 +66,3 @@ class Sleeper(HasTraits):
     # Sleeper bending stiffness [Nm^2]
     Bs = Float()
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.set_attributes_from_type()
-
-    def set_attributes_from_type(self):
-        attributes = SLEEPER_DATABASE.get(self.sl_typ, {})
-        self.ms = attributes.get("ms", 0.0)
-        self.ls = attributes.get("ls", 0.0)
-        self.Bs = attributes.get("Bs", 0.0)
-
