@@ -1,6 +1,6 @@
 """Defines all superstructure components."""
 
-from traitlets import Float, HasTraits, Int, List, Tuple, Unicode
+from traitlets import Enum, Float, HasTraits, Int, List, Tuple, Unicode
 
 from database.db_rail import RAIL_DATABASE
 
@@ -43,6 +43,7 @@ class Pad(HasTraits):
 
     # Pad type (discr: discrete, cont: continuous)
     p_type = Unicode(default_value="discr").tag(config=True)
+    p_type =
 
     # Pad stiffness vertical/lateral (discr: [N/m], cont: [N/m^2])
     sp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
@@ -66,7 +67,7 @@ class Sleeper(HasTraits):
     sl_type = Enum(["discr", "cont"], default_value="discr").tag(config=True)
 
     # Foundation type (slab, ballast)
-    fnd_typ = Enum(["slab", "ballast"], default_value="ballast").tag(config=True)
+    fnd_type = Enum(["slab", "ballast"], default_value="ballast").tag(config=True)
 
     # Sleeper mass [kg] (discr: [kg], cont: [kg/m])
     ms = Float()
@@ -77,7 +78,7 @@ class Sleeper(HasTraits):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        if self.fnd_typ == "slab":
+        if self.fnd_type == "slab":
             self.ms = float(999999999)
             self.Bs = float(999999999)
 
@@ -93,5 +94,3 @@ class Ballast(HasTraits):
 
     # Ballast damping coefficient [Ns/m]
     db = Float()
-
-
