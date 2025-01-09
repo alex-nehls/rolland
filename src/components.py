@@ -71,3 +71,15 @@ class Sleeper(HasTraits):
     # Sleeper bending stiffness [Nm^2]
     Bs = Float()
 
+
+
+class Ballast(HasTraits):
+    """Ballast class."""
+
+    # Ballast stiffness [N/m]
+    sb = Float()
+
+    # Ballast damping coefficient [Ns/m]
+    db = Float()
+
+
