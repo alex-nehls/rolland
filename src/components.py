@@ -42,8 +42,7 @@ class Pad(HasTraits):
     """Rail pad class."""
 
     # Pad type (discr: discrete, cont: continuous)
-    p_type = Unicode(default_value="discr").tag(config=True)
-    p_type =
+    p_type = Enum(["discr", "cont"], default_value="discr").tag(config=True)
 
     # Pad stiffness vertical/lateral (discr: [N/m], cont: [N/m^2])
     sp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
