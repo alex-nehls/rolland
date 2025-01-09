@@ -54,9 +54,6 @@ class Pad(HasTraits):
 class Sleeper(HasTraits):
     """Sleeper class."""
 
-    # Sleeper type
-    sl_typ = Unicode(default_value="B70")
-
     # Sleeper mass [kg]
     ms = Float()
 
