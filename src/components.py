@@ -62,8 +62,8 @@ class Pad(HasTraits):
 class Sleeper(HasTraits):
     """Sleeper class."""
 
-    # Sleeper type
-    sl_typ = Unicode(default_value="discr").tag(config=True)
+    # Sleeper type (discr: discrete, cont: continuous)
+    sl_typ = Enum(["discr", "cont"], default_value="discr").tag(config=True)
 
     # Foundation type (slab, ballast)
     fnd_typ = Unicode(default_value="ballast").tag(config=True)
