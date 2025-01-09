@@ -66,7 +66,7 @@ class Sleeper(HasTraits):
     sl_typ = Enum(["discr", "cont"], default_value="discr").tag(config=True)
 
     # Foundation type (slab, ballast)
-    fnd_typ = Unicode(default_value="ballast").tag(config=True)
+    fnd_typ = Enum(["slab", "ballast"], default_value="ballast").tag(config=True)
 
     # Sleeper mass [kg] (discr: [kg], cont: [kg/m])
     ms = Float()
