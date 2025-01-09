@@ -1,5 +1,5 @@
-import pytest
 from src.components import Rail
+
 
 def test_rail_initialization():
     """Test the initialization of the Rail class."""

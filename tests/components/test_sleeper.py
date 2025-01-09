@@ -1,5 +1,3 @@
-import pytest
-from traitlets import TraitError
 
 from src.components import Sleeper
 
