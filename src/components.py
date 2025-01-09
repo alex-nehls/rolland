@@ -62,15 +62,27 @@ class Pad(HasTraits):
 class Sleeper(HasTraits):
     """Sleeper class."""
 
-    # Sleeper mass [kg]
-    ms = Float()
+    # Sleeper type
+    sl_typ = Unicode(default_value="discr").tag(config=True)
 
-    # Sleeper length [m]
-    ls = Float()
+    # Foundation type (slab, ballast)
+    fnd_typ = Unicode(default_value="ballast").tag(config=True)
+
+    # Sleeper mass [kg] (discr: [kg], cont: [kg/m])
+    ms = Float()
 
     # Sleeper bending stiffness [Nm^2]
     Bs = Float()
 
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        if self.fnd_typ == "slab":
+            self.ms = float(999999999)
+            self.Bs = float(999999999)
+
+    # Sleeper length [m]
+    ls = Float()
 
 
 class Ballast(HasTraits):
