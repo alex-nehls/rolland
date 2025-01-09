@@ -53,6 +53,11 @@ class Pad(HasTraits):
     # Pad width [m]
     wdthp = Float()
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        if self.p_type == "cont":
+            self.wdthp = None
+
 
 class Sleeper(HasTraits):
     """Sleeper class."""
