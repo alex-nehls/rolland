@@ -3,7 +3,6 @@
 from traitlets import Float, HasTraits, Int, List, Tuple, Unicode
 
 from database.db_rail import RAIL_DATABASE
-from database.db_sleeper import SLEEPER_DATABASE
 
 
 class Rail(HasTraits):
