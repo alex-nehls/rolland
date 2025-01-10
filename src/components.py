@@ -184,7 +184,7 @@ class Wheel(HasTraits):
     w_greensf = Array()
 
     # Wheel contact filter type (w_rough_a, w_rough_b, w_rough_c, ...)
-    w_rough_type = Enum(list(RAIL_ROUGHNESS_DATABASE.keys()), default_value="r_rough_a")
+    w_rough_type = Enum(list(WHEEL_ROUGHNESS_DATABASE.keys()), default_value="w_rough_a")
 
     # Wheel roughness/contact filter [f, m]
     w_rough = Tuple(List(Float()), List(Float()), default_value=([0.0, 0.0], [0.0, 0.0]), minlen=2, maxlen=2)
