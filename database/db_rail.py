@@ -1,4 +1,4 @@
-"""Defines all rail components.
+"""Rail database.
 
 The database contains the following rail profiles:
 - UIC60
