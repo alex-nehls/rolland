@@ -80,6 +80,16 @@ class Rail(HasTraits):
         self.Asr = attributes.get("Asr", 0.0)
         self.Vr = attributes.get("Vr", 0.0)
 
+    # Rail contact filter type (r_rough_a, r_rough_b, r_rough_c, ...)
+    r_rough_type = Enum(list(RAIL_ROUGHNESS_DATABASE.keys()), default_value="r_rough_a")
+
+    # Rail roughness/contact filter [f, m]
+    r_rough = Tuple(List(Float()), List(Float()), default_value=([0, 0], [0.0, 0.0]), minlen=2, maxlen=2)
+
+    def set_roughness_attributes(self):
+        attributes = RAIL_ROUGHNESS_DATABASE.get(self.r_rough_type, {})
+        self.r_rough = attributes.get("r_rough", [(0.0, 0.0), (0.0, 0.0)])
+
 
 class Pad(HasTraits):
     """Rail pad class."""
