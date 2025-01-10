@@ -133,8 +133,8 @@ class Sleeper(HasTraits):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if self.fnd_type == "slab":
-            self.ms = float(1e20)
-            self.Bs = float(1e20)
+            self.ms = 1e20
+            self.Bs = 1e20
 
     # Sleeper length [m]
     ls = Float()
