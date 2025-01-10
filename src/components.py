@@ -1,9 +1,13 @@
 """Defines all superstructure components."""
 
 from traitlets import Enum, Float, HasTraits, Int, List, Tuple
+from traittypes import Array
 
 from database.db_rail import RAIL_DATABASE
 from database.db_rail_roughn import RAIL_ROUGHNESS_DATABASE
+from database.db_wheel import WHEEL_DATABASE
+from database.db_wheel_prof import WHEEL_PROF_DATABASE
+from database.db_wheel_roughn import WHEEL_ROUGHNESS_DATABASE
 
 
 class Rail(HasTraits):
@@ -147,3 +151,65 @@ class Ballast(HasTraits):
 
     # Ballast damping coefficient [Ns/m]
     db = Float()
+
+
+class Wheel(HasTraits):
+    """Wheel class."""
+
+    # Wheel type (w_type_a, w_type_b, ...)
+    w_type = Enum(list(WHEEL_DATABASE.keys()), default_value="w_type_a")
+
+    # Wheel running surface profile
+    w_prof = Enum(list(WHEEL_PROF_DATABASE.keys()), default_value="S1002")
+
+    # Wheel running surface coordinates [m]
+    w_geo = List(Tuple(Float(), Float()), default_value=[(0.0, 0.0)], minlen=1)
+
+    # wheel deformability (rigid, deformable)
+    w_deform = Enum(["rigid", "deform"], default_value="rigid")
+
+    # Wheel mass [kg]
+    mw = Float()
+
+    # Reduced wheel mass (lateral dynamics) [kg]
+    mw_red = Float()
+
+    # Wheel radius [m]
+    rw = Float()
+
+    # Wheel damping coefficient [Ns/m]
+    dw = Float()
+
+    # Green’s function type
+    w_greensf = Array()
+
+    # Wheel contact filter type (w_rough_a, w_rough_b, w_rough_c, ...)
+    w_rough_type = Enum(list(RAIL_ROUGHNESS_DATABASE.keys()), default_value="r_rough_a")
+
+    # Wheel roughness/contact filter [f, m]
+    w_rough = Tuple(List(Float()), List(Float()), default_value=([0.0, 0.0], [0.0, 0.0]), minlen=2, maxlen=2)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.set_attributes_from_profile()
+        self.set_profile_attributes()
+        self.set_roughness_attributes()
+        if self.w_deform == "rigid":
+            self.w_greensf = []
+
+
+    def set_attributes_from_profile(self):
+        attributes = WHEEL_DATABASE.get(self.w_type, {})
+        self.mw = attributes.get("mw", 0.0)
+        self.mw_red = attributes.get("mw_red", 0.0)
+        self.rw = attributes.get("rw", 0.0)
+        self.dw = attributes.get("dw", 0.0)
+        self.w_greensf = attributes.get("w_greensf", [])
+
+    def set_profile_attributes(self):
+        attributes = WHEEL_PROF_DATABASE.get(self.w_prof, {})
+        self.w_geo = attributes.get("w_geo", [(0.0, 0.0), (0.0, 0.0)])
+
+    def set_roughness_attributes(self):
+        attributes = WHEEL_ROUGHNESS_DATABASE.get(self.w_rough_type, {})
+        self.w_rough = attributes.get("w_rough", [(0.0, 0.0), (0.0, 0.0)])
