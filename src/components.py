@@ -115,8 +115,7 @@ class Pad(HasTraits):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if self.p_type == "cont":
-            self.wdthp = None
-
+            self.wdthp = 0.0
 
 class Sleeper(HasTraits):
     """Sleeper class."""
