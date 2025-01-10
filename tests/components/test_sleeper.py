@@ -6,5 +6,5 @@ def test_sleeper_slab_initialization():
     sleeper = Sleeper(fnd_type="slab")
     assert sleeper.sl_type == "discr"
     assert sleeper.fnd_type == "slab"
-    assert sleeper.ms == float(999999999)
-    assert sleeper.Bs == float(999999999)
+    assert sleeper.ms == 1e20
+    assert sleeper.Bs == 1e20
