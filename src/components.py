@@ -129,7 +129,6 @@ class Sleeper(HasTraits):
     # Sleeper bending stiffness [Nm^2]
     Bs = Float()
 
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if self.fnd_type == "slab":
