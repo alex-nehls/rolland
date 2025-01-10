@@ -3,6 +3,7 @@
 from traitlets import Enum, Float, HasTraits, Int, List, Tuple
 
 from database.db_rail import RAIL_DATABASE
+from database.db_rail_roughn import RAIL_ROUGHNESS_DATABASE
 
 
 class Rail(HasTraits):
