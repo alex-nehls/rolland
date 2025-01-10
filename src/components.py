@@ -63,6 +63,7 @@ class Rail(HasTraits):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.set_attributes_from_profile()
+        self.set_roughness_attributes()
 
     def set_attributes_from_profile(self):
         attributes = RAIL_DATABASE.get(self.rl_prof, {})
