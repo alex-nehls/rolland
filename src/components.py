@@ -1,12 +1,10 @@
 """Defines all superstructure components."""
 
 from traitlets import Enum, Float, HasTraits, List, Tuple
-from traittypes import Array
 
 from database.db_rail import RAIL_DATABASE
 from database.db_wheel import WHEEL_DATABASE
 from database.db_wheel_prof import WHEEL_PROF_DATABASE
-from database.db_wheel_roughn import WHEEL_ROUGHNESS_DATABASE
 
 
 class Rail(HasTraits):
