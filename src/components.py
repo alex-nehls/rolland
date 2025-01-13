@@ -1,10 +1,9 @@
 """Defines all superstructure components."""
 
-from traitlets import Enum, Float, HasTraits, Int, List, Tuple
+from traitlets import Enum, Float, HasTraits, List, Tuple
 from traittypes import Array
 
 from database.db_rail import RAIL_DATABASE
-from database.db_rail_roughn import RAIL_ROUGHNESS_DATABASE
 from database.db_wheel import WHEEL_DATABASE
 from database.db_wheel_prof import WHEEL_PROF_DATABASE
 from database.db_wheel_roughn import WHEEL_ROUGHNESS_DATABASE
@@ -63,25 +62,24 @@ class Rail(HasTraits):
     Vr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Vr", 0.0))
 
 
-class Pad(HasTraits):
-    """Rail pad class."""
+class DiscrPad(HasTraits):
+    """Discr pad class."""
 
-    # Pad type (discr: discrete, cont: continuous)
-    p_type = Enum(["discr", "cont"], default_value="discr").tag(config=True)
-
-    # Pad stiffness vertical/lateral (discr: [N/m], cont: [N/m^2])
+    # Pad stiffness vertical/lateral (total value) [N/m]
     sp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
-
-    # Pad damping coefficient [Ns/m]
-    dp = Float()
 
     # Pad width [m]
     wdthp = Float()
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        if self.p_type == "cont":
-            self.wdthp = 0.0
+class ContPad(HasTraits):
+    """Cont pad class."""
+
+    # Pad stiffness vertical/lateral (per meter) [N/m^2]
+    sp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
+
+    # Pad width [m]
+    wdthp = None
+
 
 class Sleeper(HasTraits):
     """Sleeper class."""
