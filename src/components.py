@@ -16,9 +16,6 @@ class Rail(HasTraits):
     # Rail profile
     rl_prof = Enum(list(RAIL_DATABASE.keys()), default_value="UIC60")
 
-    # Rail number
-    rl_num = Int(default_value=1, min=1, max=2)
-
     # Rail outline coordinates [m]
     rl_geo = List(Tuple(Float(), Float()), default_value=[(0.0, 0.0)], minlen=1)
 
