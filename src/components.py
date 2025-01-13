@@ -17,81 +17,49 @@ class Rail(HasTraits):
     rl_prof = Enum(list(RAIL_DATABASE.keys()), default_value="UIC60")
 
     # Rail outline coordinates [m]
-    rl_geo = List(Tuple(Float(), Float()), default_value=[(0.0, 0.0)], minlen=1)
+    rl_geo = List(Tuple(Float(), Float()), default_value=RAIL_DATABASE.get("UIC60", {}).get("rl_geo", [(0.0, 0.0)]), minlen=1)
 
-    # Beam type (TS: Timoshenko, EB: Euler-Bernoulli)
-    bm_type = Enum(["TS", "EB"], default_value="TS").tag(config=True)
-
-    # Elastic modulus of rail [Pa]
-    E = Float()
+    # Youngs modulus of rail [Pa]
+    E = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("E", 0.0))
 
     # Shear modulus of rail [Pa]
-    G = Float()
+    G = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("G", 0.0))
 
     # Poisson's ratio of rail [-]
-    nu = Float()
+    nu = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("nu", 0.0))
 
     # Timoshenko shear correction factor [-]
-    kap = Float()
+    kap = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("kap", 0.0))
 
     # Rail mass per unit length [kg/m]
-    mr = Float()
+    mr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("mr", 0.0))
 
     # Rail damping coefficient [Ns/m]
-    dr = Float()
+    dr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("dr", 0.0))
 
-    # Rail shear center with respect to centroid in z-direction [m]
-    gammar = Float()
+    # Rail shear center [m]
+    gamr = List(Float(), default_value=RAIL_DATABASE.get("UIC60", {}).get("gamr", [0.0, 0.0]), minlen=2, maxlen=2)
+
+    # Center of gravity [m]
+    epsr = List(Float(), default_value=RAIL_DATABASE.get("UIC60", {}).get("epsr", [0.0, 0.0]), minlen=2, maxlen=2)
 
     # Area moment of inertia of rail around y-axis [m^4]
-    Iyr = Float()
+    Iyr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Iyr", 0.0))
 
     # Area moment of inertia of rail around z-axis [m^4]
-    Izr = Float()
+    Izr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Izr", 0.0))
 
     # Torsional constant of rail [m^4]
-    Itr = Float()
+    Itr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Itr", 0.0))
 
     # Cross-sectional area of rail [m^2]
-    Ar = Float()
+    Ar = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Ar", 0.0))
 
     # Surface area per unit length of rail [m^2/m]
-    Asr = Float()
+    Asr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Asr", 0.0))
 
     # Volume per unit length of rail [m^3/m]
-    Vr = Float()
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.set_attributes_from_profile()
-        self.set_roughness_attributes()
-
-    def set_attributes_from_profile(self):
-        attributes = RAIL_DATABASE.get(self.rl_prof, {})
-        self.rl_geo = attributes.get("rl_geo", [(0.0, 0.0)])
-        self.E = attributes.get("E", 0.0)
-        self.G = attributes.get("G", 0.0)
-        self.nu = attributes.get("nu", 0.0)
-        self.kap = attributes.get("kap", 0.0)
-        self.mr = attributes.get("mr", 0.0)
-        self.dr = attributes.get("dr", 0.0)
-        self.gammar = attributes.get("gammar", 0.0)
-        self.Iyr = attributes.get("Iyr", 0.0)
-        self.Izr = attributes.get("Izr", 0.0)
-        self.Itr = attributes.get("Itr", 0.0)
-        self.Ar = attributes.get("Ar", 0.0)
-        self.Asr = attributes.get("Asr", 0.0)
-        self.Vr = attributes.get("Vr", 0.0)
-
-    # Rail contact filter type (r_rough_a, r_rough_b, r_rough_c, ...)
-    r_rough_type = Enum(list(RAIL_ROUGHNESS_DATABASE.keys()), default_value="r_rough_a")
-
-    # Rail roughness/contact filter [f, m]
-    r_rough = Tuple(List(Float()), List(Float()), default_value=([0, 0], [0.0, 0.0]), minlen=2, maxlen=2)
-
-    def set_roughness_attributes(self):
-        attributes = RAIL_ROUGHNESS_DATABASE.get(self.r_rough_type, {})
-        self.r_rough = attributes.get("r_rough", [(0.0, 0.0), (0.0, 0.0)])
+    Vr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Vr", 0.0))
 
 
 class Pad(HasTraits):
