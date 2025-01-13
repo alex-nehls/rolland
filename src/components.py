@@ -84,26 +84,17 @@ class ContPad(HasTraits):
 class Sleeper(HasTraits):
     """Sleeper class."""
 
-    # Sleeper type (discr: discrete, cont: continuous)
-    sl_type = Enum(["discr", "cont"], default_value="discr").tag(config=True)
-
-    # Foundation type (slab, ballast)
-    fnd_type = Enum(["slab", "ballast"], default_value="ballast").tag(config=True)
-
-    # Sleeper mass [kg] (discr: [kg], cont: [kg/m])
+    # Sleeper mass [kg]
     ms = Float()
 
     # Sleeper bending stiffness [Nm^2]
     Bs = Float()
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        if self.fnd_type == "slab":
-            self.ms = 1e20
-            self.Bs = 1e20
-
     # Sleeper length [m]
     ls = Float()
+
+    # Sleeper width [m]
+    wdths = Float()
 
 
 class Ballast(HasTraits):
