@@ -103,9 +103,6 @@ class Ballast(HasTraits):
     # Ballast stiffness [N/m]
     sb = Float()
 
-    # Ballast damping coefficient [Ns/m]
-    db = Float()
-
 
 class Wheel(HasTraits):
     """Wheel class."""
