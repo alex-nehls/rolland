@@ -17,7 +17,8 @@ class Rail(HasTraits):
     rl_prof = Enum(list(RAIL_DATABASE.keys()), default_value="UIC60")
 
     # Rail outline coordinates [m]
-    rl_geo = List(Tuple(Float(), Float()), default_value=RAIL_DATABASE.get("UIC60", {}).get("rl_geo", [(0.0, 0.0)]), minlen=1)
+    rl_geo = List(Tuple(Float(), Float()),
+                  default_value=RAIL_DATABASE.get("UIC60", {}).get("rl_geo", [(0.0, 0.0)]), minlen=1)
 
     # Youngs modulus of rail [Pa]
     E = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("E", 0.0))
