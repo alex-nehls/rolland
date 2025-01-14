@@ -155,5 +155,41 @@ class Roughness(HasTraits):
     w_rough_type = Enum(list(WHEEL_ROUGHNESS_DATABASE.keys()), default_value="w_rough_a")
 
     # Wheel roughness spectrum [f, m]
-    w_rough = Tuple(List(Float()), List(Float()), default_value=WHEEL_ROUGHNESS_DATABASE.get("w_rough_a", {})
-                    .get("w_rough", ([0.0, 0.0], [0.0, 0.0])), minlen=2, maxlen=2)
+    w_rough = Tuple(List(Float()), List(Float()))
+
+    # Contact filter [f, m]
+    c_filter = Any()
+
+
+class Damping(HasTraits):
+    """Damping class."""
+
+    # Rail loss factor [-]
+    etar = Float()
+
+    # Rail resonance frequency [Hz]
+    fresr = Float()
+
+    # Rail damping coefficient (viscous) [Ns/m]
+    dr = Float()
+
+    # Pad loss factor [-]
+    etap = Float()
+
+    # Pad resonance frequency [Hz]
+    fresp = Float()
+
+    # Pad damping coefficient (viscous) for continuous pad [Ns/m^2]
+    dp_cont = Float()
+
+    # Pad damping coefficient (viscous) for discrete pad [Ns/m]
+    dp_discr = Float()
+
+    # Ballast loss factor [-]
+    etab = Float()
+
+    # Ballast resonance frequency [Hz]
+    fresb = Float()
+
+    # Ballast damping coefficient (viscous) [Ns/m]
+    db = Float()
