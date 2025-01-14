@@ -15,7 +15,6 @@ Attributes
     rw (float): Wheel radius [m].
 """
 
-
 from src.components import Wheel
 
 w_type_a = Wheel(
