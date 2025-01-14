@@ -143,16 +143,7 @@ class Roughness(HasTraits):
     r_rough_type = Enum(list(RAIL_ROUGHNESS_DATABASE.keys()), default_value="r_rough_a")
 
     # Rail roughness spectrum [f, m]
-    r_rough = Tuple(List(Float()), List(Float()),
-                    default_value=RAIL_ROUGHNESS_DATABASE.get("r_rough_a", {})
-                    .get("r_rough", ([0.0, 0.0], [0.0, 0.0])), minlen=2, maxlen=2)
-
-    # Rail roughness frequency values [Hz]
-    r_rough_f = List(Float(),
-                     default_value=RAIL_ROUGHNESS_DATABASE.get("r_rough_a", {}).get("r_rough", [0.0, 0.0]), minlen=2)
-
-    # Wheel roughness type (w_rough_a, w_rough_b, w_rough_c, ...)
-    w_rough_type = Enum(list(WHEEL_ROUGHNESS_DATABASE.keys()), default_value="w_rough_a")
+    r_rough = Tuple(List(Float()), List(Float()))
 
     # Wheel roughness spectrum [f, m]
     w_rough = Tuple(List(Float()), List(Float()))
