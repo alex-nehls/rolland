@@ -1,63 +1,52 @@
 """Defines all superstructure components."""
-
-from traitlets import Enum, Float, HasTraits, List, Tuple
-
-from database.db_rail import RAIL_DATABASE
-from database.db_wheel import WHEEL_DATABASE
-from database.db_wheel_prof import WHEEL_PROF_DATABASE
+from traitlets import Any, Float, HasTraits, List, Tuple, Unicode
+from traittypes import Array
 
 
 class Rail(HasTraits):
     """Rail class."""
 
-    # Rail profile
-    rl_prof = Enum(list(RAIL_DATABASE.keys()), default_value="UIC60")
-
     # Rail outline coordinates [m]
-    rl_geo = List(Tuple(Float(), Float()),
-                  default_value=RAIL_DATABASE.get("UIC60", {}).get("rl_geo", [(0.0, 0.0)]), minlen=1)
+    rl_geo = List(Tuple(Float(), Float()))
 
     # Youngs modulus of rail [Pa]
-    E = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("E", 0.0))
+    E = Float()
 
     # Shear modulus of rail [Pa]
-    G = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("G", 0.0))
+    G = Float()
 
     # Poisson's ratio of rail [-]
-    nu = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("nu", 0.0))
+    nu = Float()
 
     # Timoshenko shear correction factor [-]
-    kap = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("kap", 0.0))
+    kap = Float()
 
     # Rail mass per unit length [kg/m]
-    mr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("mr", 0.0))
-
-    # Rail damping coefficient [Ns/m]
-    dr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("dr", 0.0))
+    mr = Float()
 
     # Rail shear center [m]
-    gamr = List(Float(), default_value=RAIL_DATABASE.get("UIC60", {}).get("gamr", [0.0, 0.0]), minlen=2, maxlen=2)
+    gamr = List(Float())
 
     # Center of gravity [m]
-    epsr = List(Float(), default_value=RAIL_DATABASE.get("UIC60", {}).get("epsr", [0.0, 0.0]), minlen=2, maxlen=2)
+    epsr = List(Float())
 
     # Area moment of inertia of rail around y-axis [m^4]
-    Iyr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Iyr", 0.0))
+    Iyr = Float()
 
     # Area moment of inertia of rail around z-axis [m^4]
-    Izr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Izr", 0.0))
+    Izr = Float()
 
     # Torsional constant of rail [m^4]
-    Itr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Itr", 0.0))
+    Itr = Float()
 
     # Cross-sectional area of rail [m^2]
-    Ar = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Ar", 0.0))
+    Ar = Float()
 
     # Surface area per unit length of rail [m^2/m]
-    Asr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Asr", 0.0))
+    Asr = Float()
 
     # Volume per unit length of rail [m^3/m]
-    Vr = Float(default_value=RAIL_DATABASE.get("UIC60", {}).get("Vr", 0.0))
+    Vr = Float()
 
 
 class DiscrPad(HasTraits):
@@ -68,6 +57,7 @@ class DiscrPad(HasTraits):
 
     # Pad width [m]
     wdthp = Float()
+
 
 class ContPad(HasTraits):
     """Cont pad class."""
@@ -105,24 +95,23 @@ class Ballast(HasTraits):
 class Wheel(HasTraits):
     """Wheel class."""
 
-    # Wheel type (w_type_a, w_type_b, ...)
-    w_type = Enum(list(WHEEL_DATABASE.keys()), default_value="w_type_a")
+    # Wheel cross-sectional geometry coordinates [m]
+    w_geo_cross_sec = List(Tuple(Float(), Float()))
 
     # Wheel running surface profile
-    w_prof = Enum(list(WHEEL_PROF_DATABASE.keys()), default_value="S1002")
+    w_prof = Unicode()
 
     # Wheel geometry coordinates [m]
-    w_geo = List(Tuple(Float(), Float()),
-                 default_value=WHEEL_DATABASE.get("w_type_a", {}).get("w_geo", [(0.0, 0.0)]), minlen=1)
+    w_geo = List(Tuple(Float(), Float()))
 
     # Wheel mass [kg]
-    mw = Float(default_value=WHEEL_DATABASE.get("w_type_a", {}).get("mw", 0.0))
+    mw = Float()
 
     # Reduced wheel mass (lateral dynamics) [kg]
-    mw_red = Float(default_value=WHEEL_DATABASE.get("w_type_a", {}).get("mw_red", 0.0))
+    mw_red = Float()
 
     # Wheel radius [m]
-    rw = Float(default_value=WHEEL_DATABASE.get("w_type_a", {}).get("rw", 0.0))
+    rw = Float()
 
 
 class WheelGreensfunc(HasTraits):
@@ -138,9 +127,6 @@ class WheelGreensfunc(HasTraits):
 
 class Roughness(HasTraits):
     """Roughness class."""
-
-    # Rail roughness type (r_rough_a, r_rough_b, r_rough_c, ...)
-    r_rough_type = Enum(list(RAIL_ROUGHNESS_DATABASE.keys()), default_value="r_rough_a")
 
     # Rail roughness spectrum [f, m]
     r_rough = Tuple(List(Float()), List(Float()))
