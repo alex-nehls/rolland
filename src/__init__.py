@@ -2,6 +2,6 @@
 # Rolling Noise Calculation Toolbox
 # ------------------------------------------------------------------------------
 
-from .components import Pad, Rail, Sleeper
+from .components import Ballast, ContPad, Damping, DiscrPad, Rail, Roughness, Sleeper, Wheel, WheelGreensfunc
 
-__all__ = ["Pad", "Rail", "Sleeper"]
+__all__ = ["Rail", "DiscrPad", "ContPad", "Sleeper", "Ballast", "Wheel", "WheelGreensfunc", "Roughness", "Damping"]
