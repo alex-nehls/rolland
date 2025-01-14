@@ -1,0 +1,2 @@
+"""Defines the track structure."""
+
