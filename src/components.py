@@ -129,7 +129,11 @@ class WheelGreensfunc(HasTraits):
     """Wheel Greens function class."""
 
     # Green's function type
-    # w_greensf = List(Float(), default_value=WHEEL_DATABASE.get("w_type_a", {}).get("w_greensf", [0.0, 0.0]), minlen=2, maxlen=2)
+    w_gf = Array()
+
+    # Green's function frequency values [Hz]
+    w_gf_freq = Array()
+
 
 
 class Roughness(HasTraits):
