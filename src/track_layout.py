@@ -1,4 +1,6 @@
 """Defines the track layout."""
+from types import NoneType
+
 from traitlets import Float, HasTraits, List, Tuple, Union, Instance
 
 
@@ -32,19 +34,18 @@ class LayoutStoch(HasTraits):
     lim_max = Union((Float(), List(Float())))
 
 
+
 class TrackLayout(HasTraits):
     """Defines the track layout."""
 
     # Layout of pad stiffness
-    lay_pad_stiff = Union((Instance(LayoutConst), Instance(LayoutPeriod), Instance(LayoutStoch)))
+    lay_pad_stiff = Union((Instance(LayoutConst), Instance(LayoutPeriod), Instance(LayoutStoch)),
+                          default_value=None)
 
     # Layout of sleeper mass
-    lay_slep_mass = Union((Instance(LayoutConst), Instance(LayoutPeriod), Instance(LayoutStoch)))
+    lay_slep_mass = Union((Instance(LayoutConst), Instance(LayoutPeriod), Instance(LayoutStoch)),
+                          default_value=None)
 
     # Layout of sleeper distance
-    lay_slep_dist = Union((Instance(LayoutConst), Instance(LayoutPeriod), Instance(LayoutStoch)))
-
-    def __init__(self, lay_pad_stiff, lay_slep_mass, lay_slep_dist):
-        self.lay_pad_stiff = lay_pad_stiff
-        self.lay_slep_mass = lay_slep_mass
-        self.lay_slep_dist = lay_slep_dist
+    lay_slep_dist = Union((Instance(LayoutConst), Instance(LayoutPeriod), Instance(LayoutStoch)),
+                          default_value=None)
