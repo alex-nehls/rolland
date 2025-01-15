@@ -15,7 +15,7 @@ class LayoutPeriod(HasTraits):
     """Defines a periodic layout."""
 
     # Period of variable layout parameter
-    period = Union((List(Float()), Tuple(List(Float()), List(Float()))))
+    period = Union((List(Float()), List(Tuple(Float(), Float()))))
 
 
 class LayoutStoch(HasTraits):
