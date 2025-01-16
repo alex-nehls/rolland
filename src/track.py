@@ -130,9 +130,21 @@ class DiscrSlappedSingleRailTrack(SlabbedSingleRailTrack):
         self.mount_properties(self.mount_pos)
 
 
+class BallastedSingleRailTrack(SingleRailTrack):
+    """Single rail track with ballast class."""
+
+    def __init__(self, rail, ballast):
+        super().__init__(rail, ballast)
 
 
+class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
+    """Single rail track with ballast and continuous mounting points."""
 
+    # Pad instance
+    slab = Instance(Slab)
+    pad = Instance(ContPad)
 
-
-
+    def __init__(self, rail, ballast, slab, pad):
+        super().__init__(rail, ballast)
+        self.slab = slab
+        self.pad = pad
