@@ -3,7 +3,7 @@
 from scipy.stats import truncnorm
 from traitlets import HasTraits, Instance, Integer
 
-from src.components import Ballast, ContPad, DiscrPad, Rail, Sleeper
+from src.components import Ballast, ContPad, DiscrPad, Rail, Slab
 from src.track_layout import LayoutConst, LayoutPeriod, LayoutStoch, TrackLayout
 
 
@@ -32,17 +32,13 @@ class SlabbedSingleRailTrack(SingleRailTrack):
     """Slabbed single rail track class."""
 
     # Sleeper instance
-    sleeper = Sleeper()
+    slab = Instance(Slab)
 
     def __init__(self, rail, ballast):
 
-        # Set sleeper properties to infinity to avoid sleeper discplacement
+        # Set slab properties to infinity to avoid discplacement
         super().__init__(rail, ballast)
-        self.sleeper = Sleeper()
-        self.sleeper.ms = 1e20
-        self.sleeper.Bs = 1e20
-        self.sleeper.ls = 1e20
-        self.sleeper.wdths = 1e20
+        self.slab = Slab(ms=1e20)
 
 
 class ContSlabbedSingleRailTrack(SlabbedSingleRailTrack):
@@ -62,7 +58,7 @@ class DiscrSlappedSingleRailTrack(SlabbedSingleRailTrack):
     # Number of mounting positions
     num_mount_pos = Integer(min=1)
 
-    # Track layout instance (includes sleeper mass, sleeper distance, and pad stiffness layout)
+    # Track layout instance
     track_layout = Instance(TrackLayout)
 
     def calc_mount_pos(self):
@@ -132,7 +128,6 @@ class DiscrSlappedSingleRailTrack(SlabbedSingleRailTrack):
         self.num_mount_pos = num_mount_pos
         self.calc_mount_pos()
         self.mount_properties(self.mount_pos)
-
 
 
 
