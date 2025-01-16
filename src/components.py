@@ -123,7 +123,17 @@ class Ballast(HasTraits):
     """Ballast class."""
 
     # Ballast stiffness [N/m]
-    sb = Float()
+    sb = List(Float(), default_value=[0.0, 0.0], maxlen=2)
+
+    # Ballast loss factor [-]
+    etab = Float()
+
+    # Ballast resonance frequency [Hz]
+    fresb = List(Float(), default_value=[0.0, 0.0], maxlen=2)
+
+    # Ballast damping coefficient (viscous) [Ns/m]
+    db = List(Float(), default_value=[0.0, 0.0], maxlen=2)
+
 
 
 class Wheel(HasTraits):
