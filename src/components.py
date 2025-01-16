@@ -90,9 +90,6 @@ class ContPad(HasTraits):
     # Pad stiffness vertical/lateral (per meter) [N/m^2]
     sp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
 
-    # Pad width [m]
-    wdthp = None
-
     # Pad loss factor [-]
     etap = Float()
 
