@@ -49,6 +49,13 @@ class Rail(HasTraits):
     Vr = Float()
 
 
+class RailRoughness(HasTraits):
+    """Rail roughness class."""
+
+    # Rail roughness spectrum [f, m]
+    r_rough = Tuple(List(Float()), List(Float()))
+
+
 class DiscrPad(HasTraits):
     """Discr pad class."""
 
@@ -114,6 +121,13 @@ class Wheel(HasTraits):
     rw = Float()
 
 
+class WheelRoughness(HasTraits):
+    """Wheel roughness class."""
+
+    # Wheel roughness spectrum [f, m]
+    w_rough = Tuple(List(Float()), List(Float()))
+
+
 class WheelGreensfunc(HasTraits):
     """Wheel Greens function class."""
 
@@ -122,20 +136,6 @@ class WheelGreensfunc(HasTraits):
 
     # Green's function frequency values [Hz]
     w_gf_freq = Array()
-
-
-
-class Roughness(HasTraits):
-    """Roughness class."""
-
-    # Rail roughness spectrum [f, m]
-    r_rough = Tuple(List(Float()), List(Float()))
-
-    # Wheel roughness spectrum [f, m]
-    w_rough = Tuple(List(Float()), List(Float()))
-
-    # Contact filter [f, m]
-    c_filter = Any()
 
 
 class Damping(HasTraits):
