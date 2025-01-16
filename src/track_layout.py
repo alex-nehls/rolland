@@ -1,7 +1,6 @@
 """Defines the track layout."""
-from types import NoneType
 
-from traitlets import Float, HasTraits, List, Tuple, Union, Instance
+from traitlets import Float, HasTraits, Instance, List, Tuple, Union
 
 
 class LayoutConst(HasTraits):
