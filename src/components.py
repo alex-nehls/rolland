@@ -74,6 +74,15 @@ class DiscrPad(HasTraits):
     # Pad width [m]
     wdthp = Float()
 
+    # Pad loss factor [-]
+    etap = Float()
+
+    # Pad resonance frequency [Hz]
+    fresp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
+
+    # Pad damping coefficient (viscous) for discrete pad [Ns/m]
+    dp_discr = List(Float(), default_value=[0.0, 0.0], maxlen=2)
+
 
 class ContPad(HasTraits):
     """Cont pad class."""
@@ -83,6 +92,15 @@ class ContPad(HasTraits):
 
     # Pad width [m]
     wdthp = None
+
+    # Pad loss factor [-]
+    etap = Float()
+
+    # Pad resonance frequency [Hz]
+    fresp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
+
+    # Pad damping coefficient (viscous) for continuous pad [Ns/m^2]
+    dp_cont = List(Float(), default_value=[0.0, 0.0], maxlen=2)
 
 
 class Sleeper(HasTraits):
