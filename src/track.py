@@ -36,6 +36,12 @@ class BallastedSingleRailTrack(SingleRailTrack):
     # pads and sleepers may have nonuniform properties Dictionary (x-> (Pad, Sleeper))
     padsleepers = Dict(value_trait=Float, key_trait=Tuple(DiscrPad, Sleeper))
 
+    def __repr__(self):
+        st = ""
+        for x in sorted(self.padsleepers.keys()):
+            p, s = self.padsleepers[x]
+            st += f'{x}, {p.sp}, {s.ms} \n'
+        return st
 # option 1
 class SimplePeriodicBallastedSingleRailTrackFactory(HasTraits):
     """each call to the factory produces a new track"""
@@ -89,3 +95,52 @@ class SimplePeriodicBallastedSingleRailTrack(BallastedSingleRailTrack):
         for i in range(self.count):
             self.padsleepers[x] = (self.pad, self.sleeper)
             x += self.distance
+
+# some classes to define the arrangement along the track
+class Arrangement(HasTraits):
+    
+    # characteristic object or objects to repeat
+    item = Any
+
+    def generate(self, count):
+        """generate count repetitions of objects"""
+        pass
+
+class PeriodicArrangment(Arrangement):
+
+    def generate(self, count):
+        c = 0
+        while c<count: 
+            if isinstance(self.item, list):
+                for item_ in self.item:
+                    yield item_
+                    c += 1
+            else: 
+                yield self.item
+                c += 1
+
+class ArrangedBallastedSingleRailTrack(BallastedSingleRailTrack):
+
+    # Sleeper instance
+    sleeper = Instance(Arrangement)
+
+    # Pad instance
+    pad = Instance(Arrangement)
+
+    # sleeper distance
+    distance = Instance(Arrangement)
+
+    # sleeper count
+    count = Integer
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # factory
+        x = 0
+        for s, p, d in zip(self.sleeper.generate(self.count), 
+                           self.pad.generate(self.count), 
+                           self.distance.generate(self.count)):
+            self.padsleepers[x] = (p, s)
+            print(s,p,d)
+            x += d
+
