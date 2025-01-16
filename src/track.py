@@ -3,7 +3,7 @@
 from scipy.stats import truncnorm
 from traitlets import HasTraits, Instance, Integer, Float, Dict, Tuple, Any
 
-from src.components import Ballast, ContPad, DiscrPad, Rail, Sleeper
+from src.components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
 from src.track_layout import LayoutConst, LayoutPeriod, LayoutStoch, TrackLayout
 
 
@@ -33,6 +33,7 @@ class BallastedSingleRailTrack(SingleRailTrack):
     # ballast has uniform properties
     ballast = Instance(Ballast)
 
+
     # pads and sleepers may have nonuniform properties Dictionary (x-> (Pad, Sleeper))
     padsleepers = Dict(value_trait=Float, key_trait=Tuple(DiscrPad, Sleeper))
 
@@ -52,14 +53,18 @@ class SimplePeriodicBallastedSingleRailTrackFactory(HasTraits):
     # Ballast instance
     ballast = Instance(Ballast)
 
+
     # Ballast instance
     sleeper = Instance(Sleeper)
+
 
     # Ballast instance
     pad = Instance(DiscrPad)
 
+
     # sleeper distance
     distance = Float
+
 
     # sleeper count
     count = Integer
@@ -144,3 +149,10 @@ class ArrangedBallastedSingleRailTrack(BallastedSingleRailTrack):
             print(s,p,d)
             x += d
 
+    def __init__(self, rail, ballast, track_layout, num_mount_pos):
+        self.rail = rail
+        self.ballast = ballast
+        self.track_layout = track_layout
+        self.num_mount_pos = num_mount_pos
+        self.calc_mount_pos()
+        self.mount_properties(self.mount_pos)

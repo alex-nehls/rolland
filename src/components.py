@@ -116,6 +116,16 @@ class Sleeper(HasTraits):
     wdths = Float()
 
 
+class Slab(HasTraits):
+    """Slab class."""
+
+    # Slab mass per unit length [kg/m]
+    ms = Float()
+
+    # Slab depth [m]
+    ls = Float()
+
+
 class Ballast(HasTraits):
     """Ballast class."""
 
