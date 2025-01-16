@@ -24,6 +24,15 @@ class Rail(HasTraits):
     # Rail mass per unit length [kg/m]
     mr = Float()
 
+    # Rail loss factor [-]
+    etar = Float()
+
+    # Rail resonance frequency [Hz]
+    fresr = Float()
+
+    # Rail damping coefficient (viscous) [Ns/m]
+    dr = Float()
+
     # Rail shear center [m]
     gamr = List(Float())
 
@@ -136,37 +145,3 @@ class WheelGreensfunc(HasTraits):
 
     # Green's function frequency values [Hz]
     w_gf_freq = Array()
-
-
-class Damping(HasTraits):
-    """Damping class."""
-
-    # Rail loss factor [-]
-    etar = Float()
-
-    # Rail resonance frequency [Hz]
-    fresr = Float()
-
-    # Rail damping coefficient (viscous) [Ns/m]
-    dr = Float()
-
-    # Pad loss factor [-]
-    etap = Float()
-
-    # Pad resonance frequency [Hz]
-    fresp = Float()
-
-    # Pad damping coefficient (viscous) for continuous pad [Ns/m^2]
-    dp_cont = Float()
-
-    # Pad damping coefficient (viscous) for discrete pad [Ns/m]
-    dp_discr = Float()
-
-    # Ballast loss factor [-]
-    etab = Float()
-
-    # Ballast resonance frequency [Hz]
-    fresb = Float()
-
-    # Ballast damping coefficient (viscous) [Ns/m]
-    db = Float()
