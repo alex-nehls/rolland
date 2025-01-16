@@ -1,5 +1,5 @@
 """Defines all superstructure components."""
-from traitlets import Any, Float, HasTraits, List, Tuple, Unicode
+from traitlets import Float, HasTraits, List, Tuple, Unicode
 from traittypes import Array
 
 
