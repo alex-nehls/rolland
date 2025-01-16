@@ -36,7 +36,9 @@ class BallastedSingleRailTrack(SingleRailTrack):
     # pads and sleepers may have nonuniform properties Dictionary (x-> (Pad, Sleeper))
     padsleepers = Dict(value_trait=Float, key_trait=Tuple(DiscrPad, Sleeper))
 
+# option 1
 class SimplePeriodicBallastedSingleRailTrackFactory(HasTraits):
+    """each call to the factory produces a new track"""
 
     # Rail instance
     rail = Instance(Rail)
@@ -56,12 +58,34 @@ class SimplePeriodicBallastedSingleRailTrackFactory(HasTraits):
     # sleeper count
     count = Integer
 
-    def __call__(self):
+    def factory(self):
         track =  BallastedSingleRailTrack(rail = self.rail, ballast = self.ballast)
         x = 0
         for i in range(self.count):
-            track[x] = (self.pad, self.sleeper)
-            x += self.distance()
+            track.padsleepers[x] = (self.pad, self.sleeper)
+            x += self.distance
         return track
 
+# option 2
+class SimplePeriodicBallastedSingleRailTrack(BallastedSingleRailTrack):
+    """this comes with a built-in factory"""
 
+    # Sleeper instance
+    sleeper = Instance(Sleeper)
+
+    # Pad instance
+    pad = Instance(DiscrPad)
+
+    # sleeper distance
+    distance = Float
+
+    # sleeper count
+    count = Integer
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # factory
+        x = 0
+        for i in range(self.count):
+            self.padsleepers[x] = (self.pad, self.sleeper)
+            x += self.distance
