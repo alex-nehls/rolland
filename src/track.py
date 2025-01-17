@@ -113,7 +113,7 @@ class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
         # Set the mounting properties
         super().__init__(*args, **kwargs)
         x = 0
-        for i in range(self.num_mount):
+        for _i in range(self.num_mount):
             self.mount_prop[x] = (self.pad, None)
             x += self.distance
 
@@ -162,7 +162,7 @@ class BallastedSingleRailTrack(SingleRailTrack):
 
 
 class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
-    """Ballasted single rail track class
+    """Continuous ballasted single rail track class.
 
     This class represents a single rail track with ballast, pads and a slab.
 
@@ -182,7 +182,7 @@ class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
 
 
 class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
-    """Ballasted single rail track class
+    """Ballasted single rail track class.
 
     This class represents a single rail track with ballast, pads and sleepers and
     allows for nonuniform properties of pads and sleepers.
@@ -227,7 +227,7 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         x = 0
-        for i in range(self.num_mount):
+        for _i in range(self.num_mount):
             self.mount_prop[x] = (self.pad, self.sleeper)
             x += self.distance
 
