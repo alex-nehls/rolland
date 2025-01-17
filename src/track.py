@@ -244,7 +244,6 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
     >>> tr.mount_prop[0.55] = (thepadA, thesleeperA)
     >>> tr.mount_prop[1.3] = (thepadB, thesleeperB)
     >>> tr.mount_prop[1.85] = (thepadB, thesleeperB)
-
     """
 
     # Sleeper instance
