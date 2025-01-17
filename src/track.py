@@ -1,20 +1,28 @@
-"""Defines track structure."""
+"""Defines track structures.
 
-from scipy.stats import truncnorm
-from traitlets import HasTraits, Instance, Integer
+Contains classes for the following superstructure types:
+    - Single rail track
+        - Slab track
+            - Continuous slab track
+            - Discrete slab track
+                - Simple periodic slab track (uniform properties)
+                - Arranged slab track (nonuniform properties)
 
+        - Ballasted single rail track
+            - Continuous ballasted single rail track
+            - Discrete ballasted single rail track
+                - Simple periodic ballasted single rail track (uniform properties)
+                - Arranged ballasted single rail track (nonuniform properties)
+"""
+
+from traitlets import Dict, Float, HasTraits, Instance, Integer, Tuple
+
+from src.arrangement import Arrangement
 from src.components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
-from src.track_layout import LayoutConst, LayoutPeriod, LayoutStoch, TrackLayout
 
 
 class Track(HasTraits):
     """Base class for track structure."""
-
-    # Ballast instance
-    ballast = Instance(Ballast)
-
-    def __init__(self, ballast):
-        self.ballast = ballast
 
 
 class SingleRailTrack(Track):
@@ -23,224 +31,240 @@ class SingleRailTrack(Track):
     # Rail instance
     rail = Instance(Rail)
 
-    def __init__(self, rail, ballast):
-        super().__init__(ballast)
-        self.rail = rail
+
+class SlabSingleRailTrack(SingleRailTrack):
+    """Single rail slab track class.
+
+    Slab is defined as rigid foundation.
+    """
+
+    # Slab instance
+    slab = Slab()
+
+    def __init__(self, *args, **kwargs):
+        # Set the mass of the slab to a very large number to avoid discplacement
+        super().__init__(*args, **kwargs)
+        self.slab.ms = 1e20
 
 
-class SlabbedSingleRailTrack(SingleRailTrack):
-    """Slabbed single rail track class."""
+class ContSlabSingleRailTrack(SlabSingleRailTrack):
+    """Single rail continuous slab track class.
+
+    All superstructure properties are uniform along the track.
+
+    Example:
+    --------
+    >>> tr = ContSlabSingleRailTrack(rail = UIC60)
+    >>> tr.pad = thepad
+    >>> tr.slab = theslab
+    ...
+    """
+
+    # Pad instance
+    pad = Instance(ContPad)
+
+
+class DiscrSlabSingleRailTrack(SlabSingleRailTrack):
+    """Single rail discrete slab track class.
+
+    Rail is mounted discretely. Mounting properties may vary.
+    """
+
+    # Pad instance
+    pad = Instance(DiscrPad)
+
+    # Dictionary for discrete mounting positions (x-> (Pad)).
+    # May have nonuniform properties.
+    mount_prop = Dict(value_trait=Float, key_trait=Tuple(DiscrPad, None))
+
+    def __repr__(self):
+        # String representation of the track
+        st = ""
+        for x in sorted(self.mount_prop.keys()):
+            p, s = self.mount_prop[x]
+            st += f'{x}, {p.sp}, {s.ms} \n'
+        return st
+
+
+class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
+    """Single rail simple periodic slab track class.
+
+    Rail is mounted discretely. Mounting properties are uniform.
+
+    Example:
+    --------
+    >>> tr = SimplePeriodicSlabSingleRailTrack(rail = UIC60)
+    >>> tr.mount_prop[0.0] = (thepad, None)
+    >>> tr.mount_prop[0.6] = (thepad, None)
+    >>> tr.mount_prop[1.2] = (thepad, None)
+    ...
+    """
+
+    # Pad instance
+    pad = Instance(DiscrPad)
+
+    # Distance between mounting positions
+    distance = Float()
+
+    # Number of mounting positions
+    num_mount = Integer()
+
+    def __init__(self, *args, **kwargs):
+        # Set the mounting properties
+        super().__init__(*args, **kwargs)
+        x = 0
+        for i in range(self.num_mount):
+            self.mount_prop[x] = (self.pad, None)
+            x += self.distance
+
+class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
+    """Single rail arranged slab track class.
+
+    Rail is mounted discretely. Mounting properties may vary.
+
+    Example:
+    --------
+    >>> tr = ArrangedSlabSingleRailTrack(rail = UIC60)
+    >>> tr.mount_prop[0.0] = (thepadA, None)
+    >>> tr.mount_prop[0.65] = (thepadA, None)
+    >>> tr.mount_prop[1.15] = (thepadB, None)
+    >>> tr.mount_prop[1.8] = (thepadB, None)
+    ...
+    """
+
+    # Pad instance
+    pad = Instance(Arrangement)
+
+    # Distance between mounting positions
+    distance = Instance(Arrangement)
+
+    # Number of mounting positions
+    num_mount = Integer()
+
+    def __init__(self, *args, **kwargs):
+        # Set the mounting properties
+        super().__init__(*args, **kwargs)
+        x = 0
+        for p, d in zip(self.pad.generate(self.num_mount),
+                        self.distance.generate(self.num_mount), strict=False):
+            self.mount_prop[x] = (p, None)
+            x += d
+
+
+class BallastedSingleRailTrack(SingleRailTrack):
+    """Ballasted single rail track class.
+
+    This class represents a single rail track with ballast.
+    """
+
+    # Ballast instance
+    ballast = Instance(Ballast)
+
+
+class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
+    """Ballasted single rail track class
+
+    This class represents a single rail track with ballast, pads and a slab.
+
+    Example:
+    --------
+    >>> tr = BallastedSingleRailTrack(rail = UIC60, ballast = default_ballast)
+    >>> tr.pad = thepad
+    >>> tr.slab = theslab
+    ...
+    """
+
+    # Pad instance
+    pad = Instance(ContPad)
 
     # Sleeper instance
     slab = Instance(Slab)
 
-    def __init__(self, rail, ballast):
-
-        # Set slab properties to infinity to avoid discplacement
-        super().__init__(rail, ballast)
-        self.slab = Slab(ms=1e20)
-
-
-class ContSlabbedSingleRailTrack(SlabbedSingleRailTrack):
-    """Slabbed single rail track class with continuous mounting."""
-
-    # Pad instance
-    pad = Instance(ContPad)
-
-    def __init__(self, rail, ballast, pad):
-        super().__init__(rail, ballast)
-        self.pad = pad
-
-
-class DiscrSlappedSingleRailTrack(SlabbedSingleRailTrack):
-    """Slabbed single rail track class with discrete mounting points."""
-
-    # Number of mounting positions
-    num_mount_pos = Integer(min=1)
-
-    # Track layout instance
-    track_layout = Instance(TrackLayout)
-
-    def calc_mount_pos(self):
-        """Calculate mounting positions based on layout."""
-
-        # Mounting positions are equally spaced
-        if isinstance(self.track_layout.lay_slep_dist, LayoutConst):
-            self.mount_pos = [self.track_layout.lay_slep_dist.value * i for i in range(self.num_mount_pos)]
-
-        # Mounting positions with periodic layout
-        elif isinstance(self.track_layout.lay_slep_dist, LayoutPeriod):
-            period = self.track_layout.lay_slep_dist.period
-            self.mount_pos = [round(sum(period[:i % len(period)]) + (i // len(period)) * sum(period), 10) for i in
-                              range(self.num_mount_pos)]
-
-        # Mounting positions with stochastic layout
-        elif isinstance(self.track_layout.lay_slep_dist, LayoutStoch):
-
-            mean = self.track_layout.lay_slep_dist.mean
-            std = self.track_layout.lay_slep_dist.std
-            lim_min = self.track_layout.lay_slep_dist.lim_min
-            lim_max = self.track_layout.lay_slep_dist.lim_max
-
-            # Generate mounting positions based on truncated normal distribution
-            self.mount_pos = [0.0]
-            while len(self.mount_pos) < self.num_mount_pos:
-                value = truncnorm((lim_min - mean) / std, (lim_max - mean) / std, loc=mean, scale=std).rvs(1)[0]
-                self.mount_pos.append(round(self.mount_pos[-1] + value, 5))
-
-
-    def mount_properties(self, mount_pos):
-        """Calculate mounting properties based on layout and generate
-        dictionary with properties for each mounting position.
-        """
-        # Mounting properties dictionary
-        self.mount_prop = {}
-
-        # Pad stiffness with constant layout
-        if isinstance(self.track_layout.lay_pad_stiff, LayoutConst):
-            for pos in mount_pos:
-                self.mount_prop[pos] = {'pad': DiscrPad(sp=self.track_layout.lay_pad_stiff.value)}
-
-        # Pad stiffness with periodic layout
-        elif isinstance(self.track_layout.lay_pad_stiff, LayoutPeriod):
-            period = self.track_layout.lay_pad_stiff.period
-            for i, pos in enumerate(mount_pos):
-                self.mount_prop[pos] = {'pad': DiscrPad(sp=period[i % len(period)])}
-
-        # Pad stiffness with stochastic layout
-        elif isinstance(self.track_layout.lay_pad_stiff, LayoutStoch):
-            mean = self.track_layout.lay_pad_stiff.mean
-            std = self.track_layout.lay_pad_stiff.std
-            lim_min = self.track_layout.lay_pad_stiff.lim_min
-            lim_max = self.track_layout.lay_pad_stiff.lim_max
-
-            # Generate pad stiffness properties based on truncated normal distribution
-            for pos in mount_pos:
-                value = [round(truncnorm((lim_min[i] - mean[i]) / std[i], (lim_max[i] - mean[i]) / std[i], loc=mean[i],
-                                         scale=std[i]).rvs(1)[0], 5) for i in range(len(mean))]
-                self.mount_prop[pos] = {'pad': DiscrPad(sp=value)}
-
-
-class BallastedSingleRailTrack(SingleRailTrack):
-    """Single rail track with ballast class."""
-
-    def __init__(self, rail, ballast):
-        super().__init__(rail, ballast)
-
-
-class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
-    """Single rail track with ballast and continuous mounting points."""
-
-    # Slab instance
-    slab = Instance(Slab)
-
-    # Pad instance
-    pad = Instance(ContPad)
-
-    def __init__(self, rail, ballast, slab, pad):
-        super().__init__(rail, ballast)
-        self.slab = slab
-        self.pad = pad
-
 
 class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
-    """Single rail track with ballast and discrete mounting points."""
+    """Ballasted single rail track class
+
+    This class represents a single rail track with ballast, pads and sleepers and
+    allows for nonuniform properties of pads and sleepers.
+    """
+
+    # Pads and sleepers may have nonuniform properties Dictionary (x-> (Pad, Sleeper))
+    mount_prop = Dict(value_trait=Float, key_trait=Tuple(DiscrPad, Sleeper))
+
+    def __repr__(self):
+        st = ""
+        for x in sorted(self.mount_prop.keys()):
+            p, s = self.mount_prop[x]
+            st += f'{x}, {p.sp}, {s.ms} \n'
+        return st
+
+
+class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
+    """Class to generate a simple periodic ballasted single rail track.
+
+    All mounting properties are uniform.
+
+    Example:
+    --------
+    >>> tr = SimplePeriodicBallastedSingleRailTrack(rail = UIC60, ballast = default_ballast)
+    >>> tr.mount_prop[0.0] = (thepad, thesleeper)
+    >>> tr.mount_prop[0.6] = (thepad, thesleeper)
+    ...
+    """
+
+    # Sleeper instance
+    sleeper = Instance(Sleeper)
+
+    # Pad instance
+    pad = Instance(DiscrPad)
+
+    # Sleeper distance
+    distance = Float
+
+    # Sleeper count
+    num_mount = Integer
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        x = 0
+        for i in range(self.num_mount):
+            self.mount_prop[x] = (self.pad, self.sleeper)
+            x += self.distance
+
+
+class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
+    """Class to generate an arranged ballasted single rail track.
+
+    Mounting properties may vary.
+
+    Example:
+    --------
+    >>> tr = ArrangedBallastedSingleRailTrack(rail = UIC60, ballast = default_ballast)
+    >>> tr.mount_prop[0.0] = (thepadA, thesleeperA)
+    >>> tr.mount_prop[0.55] = (thepadA, thesleeperA)
+    >>> tr.mount_prop[1.3] = (thepadB, thesleeperB)
+    >>> tr.mount_prop[1.85] = (thepadB, thesleeperB)
+
+    """
+
+    # Sleeper instance
+    sleeper = Instance(Arrangement)
+
+    # Pad instance
+    pad = Instance(Arrangement)
+
+    # Sleeper distance instance
+    distance = Instance(Arrangement)
 
     # Number of mounting positions
-    num_mount_pos = Integer(min=1)
+    num_mount = Integer()
 
-    # Track layout instance
-    track_layout = Instance(TrackLayout)
-
-
-    def calc_mount_pos(self):
-        """Calculate mounting positions based on layout."""
-
-        # Mounting positions are equally spaced
-        if isinstance(self.track_layout.lay_slep_dist, LayoutConst):
-            self.mount_pos = [self.track_layout.lay_slep_dist.value * i for i in range(self.num_mount_pos)]
-
-        # Mounting positions with periodic layout
-        elif isinstance(self.track_layout.lay_slep_dist, LayoutPeriod):
-            period = self.track_layout.lay_slep_dist.period
-            self.mount_pos = [round(sum(period[:i % len(period)]) + (i // len(period)) * sum(period), 10) for i in
-                              range(self.num_mount_pos)]
-
-        # Mounting positions with stochastic layout
-        elif isinstance(self.track_layout.lay_slep_dist, LayoutStoch):
-
-            mean = self.track_layout.lay_slep_dist.mean
-            std = self.track_layout.lay_slep_dist.std
-            lim_min = self.track_layout.lay_slep_dist.lim_min
-            lim_max = self.track_layout.lay_slep_dist.lim_max
-
-            # Generate mounting positions based on truncated normal distribution
-            self.mount_pos = [0.0]
-            while len(self.mount_pos) < self.num_mount_pos:
-                value = truncnorm((lim_min - mean) / std, (lim_max - mean) / std, loc=mean, scale=std).rvs(1)[0]
-                self.mount_pos.append(round(self.mount_pos[-1] + value, 5))
-
-
-    def mount_properties(self, mount_pos):
-        """Calculate mounting properties based on layout and generate
-        dictionary with properties for each mounting position.
-        """
-        # Mounting properties dictionary
-        self.mount_prop = {}
-
-        # Pad stiffness with constant layout
-        if isinstance(self.track_layout.lay_pad_stiff, LayoutConst):
-            for pos in mount_pos:
-                self.mount_prop[pos] = {'pad': DiscrPad(sp=self.track_layout.lay_pad_stiff.value)}
-
-        # Pad stiffness with periodic layout
-        elif isinstance(self.track_layout.lay_pad_stiff, LayoutPeriod):
-            period = self.track_layout.lay_pad_stiff.period
-            for i, pos in enumerate(mount_pos):
-                self.mount_prop[pos] = {'pad': DiscrPad(sp=period[i % len(period)])}
-
-        # Pad stiffness with stochastic layout
-        elif isinstance(self.track_layout.lay_pad_stiff, LayoutStoch):
-            mean = self.track_layout.lay_pad_stiff.mean
-            std = self.track_layout.lay_pad_stiff.std
-            lim_min = self.track_layout.lay_pad_stiff.lim_min
-            lim_max = self.track_layout.lay_pad_stiff.lim_max
-
-            # Generate pad stiffness properties based on truncated normal distribution
-            for pos in mount_pos:
-                value = [round(truncnorm((lim_min[i] - mean[i]) / std[i], (lim_max[i] - mean[i]) / std[i], loc=mean[i],
-                                         scale=std[i]).rvs(1)[0], 5) for i in range(len(mean))]
-                self.mount_prop[pos] = {'pad': DiscrPad(sp=value)}
-
-        # Sleeper mass with constant layout
-        if isinstance(self.track_layout.lay_slep_mass, LayoutConst):
-            for pos in mount_pos:
-                self.mount_prop[pos]['sleeper'] = Sleeper(ms=self.track_layout.lay_slep_mass.value)
-
-        # Sleeper mass with periodic layout
-        elif isinstance(self.track_layout.lay_slep_mass, LayoutPeriod):
-            period = self.track_layout.lay_slep_mass.period
-            for i, pos in enumerate(mount_pos):
-                self.mount_prop[pos]['sleeper'] = Sleeper(ms=period[i % len(period)])
-
-        # Sleeper mass with stochastic layout
-        elif isinstance(self.track_layout.lay_slep_mass, LayoutStoch):
-            mean = self.track_layout.lay_slep_mass.mean
-            std = self.track_layout.lay_slep_mass.std
-            lim_min = self.track_layout.lay_slep_mass.lim_min
-            lim_max = self.track_layout.lay_slep_mass.lim_max
-
-            # Generate sleeper mass properties based on truncated normal distribution
-            for pos in mount_pos:
-                value = round(truncnorm((lim_min - mean) / std, (lim_max - mean) / std, loc=mean,
-                                         scale=std).rvs(1)[0], 5)
-                self.mount_prop[pos]['sleeper'] = Sleeper(ms=value)
-
-
-    def __init__(self, rail, ballast, track_layout, num_mount_pos):
-        self.rail = rail
-        self.ballast = ballast
-        self.track_layout = track_layout
-        self.num_mount_pos = num_mount_pos
-        self.calc_mount_pos()
-        self.mount_properties(self.mount_pos)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # factory
+        x = 0
+        for s, p, d in zip(self.sleeper.generate(self.num_mount),
+                           self.pad.generate(self.num_mount),
+                           self.distance.generate(self.num_mount), strict=False):
+            self.mount_prop[x] = (p, s)
+            x += d
