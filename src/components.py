@@ -81,7 +81,7 @@ class DiscrPad(HasTraits):
     fresp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
 
     # Pad damping coefficient (viscous) for discrete pad [Ns/m]
-    dp_discr = List(Float(), default_value=[0.0, 0.0], maxlen=2)
+    dp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
 
 
 class ContPad(HasTraits):
@@ -97,7 +97,7 @@ class ContPad(HasTraits):
     fresp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
 
     # Pad damping coefficient (viscous) for continuous pad [Ns/m^2]
-    dp_cont = List(Float(), default_value=[0.0, 0.0], maxlen=2)
+    dp = List(Float(), default_value=[0.0, 0.0], maxlen=2)
 
 
 class Sleeper(HasTraits):
