@@ -25,16 +25,20 @@ Attributes
 """
 
 from src.components import Rail
+import os
+
+
+def load_rail_geo(file_path):
+    """Load rail geometry from pts file.
+    """
+
+    with open(file_path, 'r') as file:
+        return [(float(parts[0]), float(parts[2])) for line in file if
+                (parts := line.split()) and len(parts) == 3 and not line.startswith(':!') and line.strip()]
+
 
 UIC60 = Rail(
-    rl_geo=[ # arbitrary values!
-        (0, 4.6), (1, 4.5), (2, 5.3), (3, 4.8), (4, 9.8), (5, 3.7), (6, 7.9), (7, 2.1), (8, 0.5), (9, 1.7),
-        (10, 2.0), (11, 2.6), (12, 8.0), (13, 8.2), (14, 1.8), (15, 8.4), (16, 5.3), (17, 7.9), (18, 5.5),
-        (19, 7.0), (20, 0.6), (21, 3.6), (22, 6.2), (23, 4.3), (24, 1.1), (25, 5.2), (26, 0.0), (27, 3.6),
-        (28, 1.1), (29, 5.3), (30, 0.9), (31, 7.0), (32, 5.9), (33, 8.8), (34, 7.4), (35, 4.4), (36, 2.3),
-        (37, 7.5), (38, 6.9), (39, 2.4), (40, 0.9), (41, 7.8), (42, 8.4), (43, 5.7), (44, 8.3), (45, 5.5),
-        (46, 7.8), (47, 2.0), (48, 4.4), (49, 2.7)
-    ],
+    rl_geo=load_rail_geo(os.path.join(os.path.dirname(__file__), 'UIC60')),
     E=210e9,
     G=81e9,
     nu=0.3,
