@@ -1,8 +1,13 @@
-from numpy import exp, pi, sqrt, zeros, zeros_like
-from traitlets import HasTraits, Instance
+from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros, zeros_like
+from traitlets import Float, HasTraits, Instance
 from traittypes import Array
 
-from src.track import ContBallastedSingleRailTrack, ContSlabSingleRailTrack
+from src.track import (
+    ContBallastedSingleRailTrack,
+    ContSlabSingleRailTrack,
+    DiscrBallastedSingleRailTrack,
+    DiscrSlabSingleRailTrack,
+)
 
 
 class AnalyticalMethods(HasTraits):
@@ -93,9 +98,9 @@ class ThompsonEBBCont2LSupp(AnalyticalMethods):
         ms = self.track.slab.ms
 
         # Resonance frequencies
-        self.omega_0 = sqrt(sp / mr)
-        self.omega_1 = sqrt(sb / ms)
-        self.omega_2 = sqrt((sp + sb) / ms)
+        self.omega_0 = sqrt(sp / mr)            # Resonance frequency rail <--> pads [Hz]
+        self.omega_1 = sqrt(sb / ms)            # Resonance frequency ballast <--> slab [Hz]
+        self.omega_2 = sqrt((sp + sb) / ms)     # Resonance frequency rail <--> slab [Hz]
 
         # Dynamic stiffness
         sp_tot = sp + 1j * self.omega * dp
@@ -113,3 +118,207 @@ class ThompsonEBBCont2LSupp(AnalyticalMethods):
                    * (term1 + term2))
         return self.Yb, self.omega_0, self.omega_1, self.omega_2
 
+
+class HecklTBDicr(AnalyticalMethods):
+    """Analytical solution for a discrete single rail track consisting of 1-layer support.
+
+    According to Heckl, M.A., 1995. Railway noise–Can random sleeper spacings help?.
+    Acta Acustica United with Acustica, 81(6), pp.559-564.
+    """
+
+    # Coordinate of excitation point [m]
+    x_excit = Float()
+
+    def calc_greens_func(self, xm, xn, k_p, k_d, f_p, f_d):
+        """Calculate Green's function for any two points xm and xn."""
+        dist = abs(xm - xn)
+        term1 = exp(-1j * k_p * dist)
+        term2 = exp(-k_d * dist)
+        term3 = 1  # term3 = exp(1j * self.omega * t) usually dropped (acc. to Heckl)
+        return f_p * term1 + (f_d * term2) * term3
+
+
+class HecklTBDiscr1LSupp(HecklTBDicr):
+    """Solution for a discrete single rail track consisting of 1-layer support.
+
+    Slab can be considered as rigid.
+    """
+
+    # Track instance
+    track = Instance(DiscrSlabSingleRailTrack)
+
+    def compute_mobility(self):
+        """Compute the mobility of the track."""
+        # Track properties
+        mr = self.track.rail.mr
+        ms = self.track.slab.ms
+        rho = self.track.rail.rho
+        etar = self.track.rail.etar
+        etap = self.track.pad.etap
+        youm = self.track.rail.E * (1 + (1j * etar))
+        shearm = self.track.rail.G * (1 + (1j * etar))
+        arem = self.track.rail.Iyr
+        bend_stiff = youm * arem
+        sp = self.track.pad.sp[0] * (1 + (etap * 1j))
+        sb = 1e20
+
+        # Positions of point forces [m]
+        x_n = array(list(self.track.mount_prop.keys()))
+
+        # Resonance frequencies
+        self.f_0 = real(sqrt(sp / mr)) / (2 * pi)       # Resonance frequency rail <--> pads [Hz]
+        self.f_1 = real(sqrt(sb / ms)) / (2 * pi)       # Resonance frequency ballast <--> sleepers [Hz]
+        self.f_2 = real(sqrt(sp + sb)) / (2 * pi)       # Resonance frequency rail <--> sleepers [Hz]
+
+        # Dynamic stiffness (eq. 6)
+        impend = (ms * self.omega ** 2 * sp - sp * sb) / (ms * self.omega ** 2 - (sp + sb))
+
+        # Wave numbers (eq. 2a)
+        k_c = self.omega * lib.scimath.sqrt(rho / youm)
+        k_t = self.omega * lib.scimath.sqrt(rho / shearm)
+
+        # Free bending wave (eq. 2a)
+        k_p = lib.scimath.sqrt(1/2 * (k_c ** 2 + k_t ** 2 +
+                                      lib.scimath.sqrt((k_c ** 2 + k_t ** 2) ** 2 - 4 *
+                                                       (k_c**2 * k_t**2 - k_c**2 * mr * youm / (bend_stiff * rho)))))
+
+        # Bending wave near field (eq. 2b)
+        k_d = lib.scimath.sqrt(1/2 * (k_c ** 2 + k_t ** 2 -
+                                      lib.scimath.sqrt((k_c ** 2 + k_t ** 2) ** 2 - 4 *
+                                                       (k_c**2 * k_t**2 - k_c**2 * mr * youm / (bend_stiff * rho)))))
+
+        # Amplitude of propagating bending wave (eq. 3a)
+        f_p = (1j * ((rho ** 2 * bend_stiff / (youm * mr)) * self.omega ** 2 - shearm -
+                     (bend_stiff * rho * k_p ** 2) / mr) / (bend_stiff * shearm * 2 * k_p * (k_p ** 2 + k_d ** 2)))
+
+        # Peak value of bending wave near-field (eq. 3b)
+        f_d = (1j * ((rho ** 2 * bend_stiff / (youm * mr)) * self.omega ** 2 - shearm +
+                     (bend_stiff * rho * k_d ** 2) / mr) / (bend_stiff * shearm * 2 * k_d * (k_p ** 2 + k_d ** 2)))
+
+        # Displacements at reaction points
+        uxn = zeros((self.f.size, x_n.size), dtype=complex)
+
+        # Displacements at requested points
+        self.ux = zeros((self.x.size, self.f.size), dtype=complex)
+
+        for f in range(self.f.size):
+            # Greens function matrix reaction points <--> reaction points
+            greensm_mn = zeros((x_n.size, x_n.size), dtype=complex)
+
+            # Greens function matrix reaction points <--> excitation point
+            greensm_exc = zeros(x_n.size, dtype=complex)
+
+            # Greens function matrix requested points <--> reaction points
+            greensm_xn = zeros(self.x.size, dtype=complex)
+
+            # Greens function matrix requested points <--> excitation point
+            greensm_xf = zeros(self.x.size, dtype=complex)
+
+            for p in range(self.x.size):
+                greensm_mn = self.calc_greens_func(x_n[:,newaxis], x_n[newaxis, :], k_p[f], k_d[f], f_p[f], f_d[f])
+                greensm_exc = self.calc_greens_func(x_n, self.x_excit, k_p[f], k_d[f], f_p[f], f_d[f])
+
+                # m = I + impend * greensm_mn
+                m = eye(x_n.size) + impend[f] * greensm_mn
+
+                # u(x_n) = greensm_exc - (I + impend * greensm_mn)
+                uxn[f, :] = linalg.solve(m, greensm_exc)
+
+                greensm_xn = self.calc_greens_func(self.x[p], x_n, k_p[f], k_d[f], f_p[f], f_d[f])
+                greensm_xf = self.calc_greens_func(self.x[p], self.x_excit, k_p[f], k_d[f], f_p[f], f_d[f])
+
+                self.ux[p, f] = - impend[f] * greensm_xn.dot(uxn[f, :]) + greensm_xf
+
+        self.Yb = (self.ux * self.omega * 1j) / self.F
+
+
+class HecklTBDiscr2LSupp(HecklTBDicr):
+    """Solution for a discrete single rail track consisting of 2-layer support."""
+
+    # Track instance
+    track = Instance(DiscrBallastedSingleRailTrack)
+
+    def compute_mobility(self):
+        """Compute the mobility of the track."""
+        # Track properties
+        mr = self.track.rail.mr
+        ms = self.track.sleeper.ms
+        rho = self.track.rail.rho
+        etar = self.track.rail.etar
+        etap = self.track.pad.etap
+        etab = self.track.ballast.etab
+        youm = self.track.rail.E * (1 + (1j * etar))
+        shearm = self.track.rail.G * (1 + (1j * etar))
+        aream = self.track.rail.Iyr
+        bend_stiff = youm * aream
+        sp = self.track.pad.sp[0] * (1 + (etap * 1j))
+        sb = self.track.ballast.sb[0] * (1 + (etab * 1j))
+
+        # Positions of point forces [m]
+        x_n = array(list(self.track.mount_prop.keys()))
+
+        # Resonance frequencies
+        self.f_0 = real(sqrt(sp / mr)) / (2 * pi)       # Resonance frequency rail <--> pads [Hz]
+        self.f_1 = real(sqrt(sb / ms)) / (2 * pi)       # Resonance frequency ballast <--> sleepers [Hz]
+        self.f_2 = real(sqrt(sp + sb)) / (2 * pi)       # Resonance frequency rail <--> sleepers [Hz]
+
+        # Dynamic stiffness (eq. 6)
+        impend = (ms * self.omega ** 2 * sp - sp * sb) / (ms * self.omega ** 2 - (sp + sb))
+
+        # Wave numbers (eq. 2a)
+        k_c = self.omega * lib.scimath.sqrt(rho / youm)
+        k_t = self.omega * lib.scimath.sqrt(rho / shearm)
+
+        # Free bending wave (eq. 2a)
+        k_p = lib.scimath.sqrt(1/2 * (k_c ** 2 + k_t ** 2 +
+                                      lib.scimath.sqrt((k_c ** 2 + k_t ** 2) ** 2 - 4 *
+                                                       (k_c**2 * k_t**2 - k_c**2 * mr * youm / (bend_stiff * rho)))))
+
+        # Bending wave near field (eq. 2b)
+        k_d = lib.scimath.sqrt(1/2 * (k_c ** 2 + k_t ** 2 -
+                                      lib.scimath.sqrt((k_c ** 2 + k_t ** 2) ** 2 - 4 *
+                                                       (k_c**2 * k_t**2 - k_c**2 * mr * youm / (bend_stiff * rho)))))
+
+        # Amplitude of propagating bending wave (eq. 3a)
+        f_p = (1j * ((rho ** 2 * bend_stiff / (youm * mr)) * self.omega ** 2 - shearm -
+                     (bend_stiff * rho * k_p ** 2) / mr) / (bend_stiff * shearm * 2 * k_p * (k_p ** 2 + k_d ** 2)))
+
+        # Peak value of bending wave near-field (eq. 3b)
+        f_d = (1j * ((rho ** 2 * bend_stiff / (youm * mr)) * self.omega ** 2 - shearm +
+                     (bend_stiff * rho * k_d ** 2) / mr) / (bend_stiff * shearm * 2 * k_d * (k_p ** 2 + k_d ** 2)))
+
+        # Displacements at reaction points
+        uxn = zeros((self.f.size, x_n.size), dtype=complex)
+
+        # Displacements at requested points
+        self.ux = zeros((self.x.size, self.f.size), dtype=complex)
+
+        for f in range(self.f.size):
+            # Greens function matrix reaction points <--> reaction points
+            greensm_mn = zeros((x_n.size, x_n.size), dtype=complex)
+
+            # Greens function matrix reaction points <--> excitation point
+            greensm_exc = zeros(x_n.size, dtype=complex)
+
+            # Greens function matrix requested points <--> reaction points
+            greensm_xn = zeros(self.x.size, dtype=complex)
+
+            # Greens function matrix requested points <--> excitation point
+            greensm_xf = zeros(self.x.size, dtype=complex)
+
+            for p in range(self.x.size):
+                greensm_mn = self.calc_greens_func(x_n[:,newaxis], x_n[newaxis, :], k_p[f], k_d[f], f_p[f], f_d[f])
+                greensm_exc = self.calc_greens_func(x_n, self.x_excit, k_p[f], k_d[f], f_p[f], f_d[f])
+
+                # m = I + impend * greensm_mn
+                m = eye(x_n.size) + impend[f] * greensm_mn
+
+                # u(x_n) = greensm_exc - (I + impend * greensm_mn)
+                uxn[f, :] = linalg.solve(m, greensm_exc)
+
+                greensm_xn = self.calc_greens_func(self.x[p], x_n, k_p[f], k_d[f], f_p[f], f_d[f])
+                greensm_xf = self.calc_greens_func(self.x[p], self.x_excit, k_p[f], k_d[f], f_p[f], f_d[f])
+
+                self.ux[p, f] = - impend[f] * greensm_xn.dot(uxn[f, :]) + greensm_xf
+
+        self.Yb = (self.ux * self.omega * 1j) / self.F
