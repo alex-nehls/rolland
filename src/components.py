@@ -24,6 +24,9 @@ class Rail(HasTraits):
     # Rail mass per unit length [kg/m]
     mr = Float()
 
+    # Density of rail [kg/m^3]
+    rho = Float()
+
     # Rail loss factor [-]
     etar = Float()
 
