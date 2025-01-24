@@ -24,15 +24,14 @@ Attributes
     Vr (float): Volume per unit length of rail [m^3/m].
 """
 
-from src.components import Rail
 import os
+
+from src.components import Rail
 
 
 def load_rail_geo(file_path):
-    """Load rail geometry from pts file.
-    """
-
-    with open(file_path, 'r') as file:
+    """Load rail geometry from pts file."""
+    with open(file_path) as file:
         return [(float(parts[0]), float(parts[2])) for line in file if
                 (parts := line.split()) and len(parts) == 3 and not line.startswith(':!') and line.strip()]
 
