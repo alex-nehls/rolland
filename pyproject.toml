@@ -1,5 +1,5 @@
 [project]
-name = "rolling_noise_fdm"
+name = "rolland"
 version = "0.1"
 dependencies = [
     "numpy",
