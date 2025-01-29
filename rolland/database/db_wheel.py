@@ -28,7 +28,7 @@ Attributes (WheelGreensfunc)
 
 from numpy import array
 
-from src.components import Wheel, WheelGreensfunc
+from rolland.components import Wheel, WheelGreensfunc
 
 w_type_a = Wheel(
     w_geo=[(0.0, 0.0)],
@@ -36,7 +36,7 @@ w_type_a = Wheel(
     w_geo_cross_sec=[(0.0, 0.0)],
     mw=400.0,
     mw_red=5.0,
-    rw=0.46
+    rw=0.46,
 )
 
 w_type_b = Wheel(
@@ -45,15 +45,15 @@ w_type_b = Wheel(
     w_geo_cross_sec=[(0.0, 0.0)],
     mw=450.0,
     mw_red=5.5,
-    rw=0.48
+    rw=0.48,
 )
 
 gf_w_type_a = WheelGreensfunc(
     w_gf=array(([0.0, 0.0], [0.0, 0.0])),
-    w_gf_freq=array([0.0, 0.0])
+    w_gf_freq=array([0.0, 0.0]),
 )
 
 gf_w_type_b = WheelGreensfunc(
     w_gf=array(([0.0, 0.0], [0.0, 0.0])),
-    w_gf_freq=array([0.0, 0.0])
+    w_gf_freq=array([0.0, 0.0]),
 )

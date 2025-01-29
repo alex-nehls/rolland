@@ -17,8 +17,8 @@ Contains classes for the following superstructure types:
 
 from traitlets import Dict, Float, HasTraits, Instance, Integer, Tuple
 
-from src.arrangement import Arrangement
-from src.components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
+from rolland.arrangement import Arrangement
+from rolland.components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
 
 
 class Track(HasTraits):

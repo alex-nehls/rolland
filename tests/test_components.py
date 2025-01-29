@@ -2,7 +2,7 @@ import inspect
 
 import pytest
 
-import src.components as components_module
+import rolland.components as components_module
 
 
 def get_classes(module):

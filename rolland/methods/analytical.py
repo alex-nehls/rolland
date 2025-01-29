@@ -2,7 +2,7 @@ from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros, 
 from traitlets import Float, HasTraits, Instance
 from traittypes import Array
 
-from src.track import (
+from rolland.track import (
     ContBallastedSingleRailTrack,
     ContSlabSingleRailTrack,
     DiscrBallastedSingleRailTrack,
