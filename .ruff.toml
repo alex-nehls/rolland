@@ -1,4 +1,5 @@
 target-version = "py312" # Python version in your project
+exclude = ["demo"]
 
 line-length = 120
 
