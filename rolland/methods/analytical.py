@@ -11,7 +11,12 @@ from rolland.track import (
 
 
 class AnalyticalMethods(HasTraits):
-    """Base class for analytical methods."""
+    """Base class for analytical methods.
+
+    This class provides the common interface and basic functionality for
+    different analytical methods used in railway track analysis.
+
+    """
 
     # Excitation frequencies [Hz]
     f = Array()
@@ -58,6 +63,7 @@ class ThompsonEBBCont1LSupp(AnalyticalMethods):
 
     def compute_mobility(self):
         """Compute the mobility of the track."""
+
         mr = self.track.rail.mr
         sp = self.track.pad.sp[0]
         dp = self.track.pad.dp[0]
@@ -128,9 +134,8 @@ class ThompsonTBDiscr(AnalyticalMethods):
     # Coordinate of excitation point [m]
     x_excit = Float()
 
-    # Greens function of free Timoshenko Beam (eq. 3.69)
     def calc_greens_func(self, xm, xn, k_p, k_d, f_p, f_d):
-        """Calculate Green's function for any two points xm and xn."""
+        """Calculate Greens function of free Timoshenko Beam (eq. 3.69)."""
         dist = abs(xm - xn)
         term1 = exp(-1j * k_p * dist)
         term2 = exp(-k_d * dist)
@@ -138,7 +143,7 @@ class ThompsonTBDiscr(AnalyticalMethods):
         return f_p * term1 + (f_d * term2) * term3
 
     def compute_mobility_common(self, track, ms, sb, etab):
-        """Common mobility computation for 1-layer and 2-layer support."""
+        """Compute common mobility for 1-layer and 2-layer support."""
         mr = track.rail.mr
         rho = track.rail.rho
         etar = track.rail.etar
@@ -263,7 +268,7 @@ class HecklTBDiscr(AnalyticalMethods):
         return f_p * term1 + (f_d * term2) * term3
 
     def compute_mobility_common(self, track, ms, sb, etab):
-        """Common mobility computation for 1-layer and 2-layer support."""
+        """Calculate common mobility for 1-layer and 2-layer support."""
         mr = track.rail.mr
         rho = track.rail.rho
         etar = track.rail.etar
