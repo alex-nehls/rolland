@@ -1,17 +1,22 @@
 from matplotlib import pyplot as plt
 from numpy import array, linspace
 
-from rolland.components import Ballast, DiscrPad, Slab, Sleeper
+from rolland.components import Ballast, DiscrPad, Slab, Sleeper, ContPad
 from rolland.database.rail.db_rail import UIC60
 from rolland.methods.analytical import (
-    HecklTBDiscr1LSupp,
-    HecklTBDiscr2LSupp,
+    ThompsonEBBCont1LSupp,
+    ThompsonEBBCont2LSupp,
     ThompsonTSDiscr1LSupp,
     ThompsonTSDiscr2LSupp,
+    HecklTBDiscr1LSupp,
+    HecklTBDiscr2LSupp,
 )
+
 from rolland.track import (
-                                        SimplePeriodicBallastedSingleRailTrack,
-                                        SimplePeriodicSlabSingleRailTrack,
+    ContBallastedSingleRailTrack,
+    ContSlabSingleRailTrack,
+    SimplePeriodicBallastedSingleRailTrack,
+    SimplePeriodicSlabSingleRailTrack,
 )
 
 
@@ -28,6 +33,14 @@ track_cont_ball = ContBallastedSingleRailTrack(
 )
 
 
+track_discr_slab = SimplePeriodicSlabSingleRailTrack(
+    rail=UIC60,
+    pad=DiscrPad(sp=[300*10**6, 0], etap=0.25),
+    slab=Slab(ms=162),
+    num_mount=241,
+    distance=0.6,
+)
+
 track_discr_ball = SimplePeriodicBallastedSingleRailTrack(
     rail=UIC60,
     pad=DiscrPad(sp=[300*10**6, 0], etap=0.25),
@@ -37,63 +50,57 @@ track_discr_ball = SimplePeriodicBallastedSingleRailTrack(
     distance=0.6,
 )
 
-track_discr_slab = SimplePeriodicSlabSingleRailTrack(
-    rail=UIC60,
-    pad=DiscrPad(sp=[300*10**6, 0], etap=0.25),
-    slab=Slab(ms=162),
-    num_mount=241,
-    distance=0.6,
-)
-"""
-method1 = ThompsonEBBCont1LSupp(
-    track=track_cont_slab,
-    f=arange(10, 10000, 10),
-    F=1,
-    x=array([0, 10]),
-)
 
-method2 = ThompsonEBBCont2LSupp(
-    track=track_cont_ball,
-    f=arange(10, 10000, 10),
-    F=1,
-    x=array([0, 10]),
-)
-"""
+method_1 = ThompsonEBBCont1LSupp(track=track_cont_slab, f=linspace(20, 3000, 1500),
+                                 F=1, x=array([0, 10]))
 
-method1 = ThompsonTSDiscr2LSupp(track=track_discr_ball, f=linspace(20, 3000, 1500), F=1, x=array([240 * 0.3 + 0.6]),
-                                x_excit=240*0.3 + 0.6)
-
-method2 = ThompsonTSDiscr1LSupp(track=track_discr_slab, f=linspace(20, 3000, 1500), F=1, x=array([240 * 0.3 + 0.6]),
-                                x_excit=240*0.3 + 0.6)
+method_2 = ThompsonEBBCont2LSupp(track=track_cont_ball, f=linspace(20, 3000, 1500),
+                                 F=1, x=array([0, 10]))
 
 
-method3 = HecklTBDiscr2LSupp(track=track_discr_ball, f=linspace(20, 3000, 1500), F=1, x=array([240*0.3 + 0.6]),
-    x_excit=240*0.3 + 0.6)
+method_3 = ThompsonTSDiscr2LSupp(track=track_discr_ball, f=linspace(20, 3000, 1500),
+                                 F=1, x=array([240 * 0.3 + 0.6]), x_excit=240*0.3 + 0.6)
 
-method4 = HecklTBDiscr1LSupp(track=track_discr_slab, f=linspace(20, 3000, 1500), F=1, x=array([240*0.3 + 0.6]),
-    x_excit=240*0.3 + 0.6)
+method_4 = ThompsonTSDiscr1LSupp(track=track_discr_slab, f=linspace(20, 3000, 1500),
+                                 F=1, x=array([240 * 0.3 + 0.6]), x_excit=240*0.3 + 0.6)
+
+
+method_5 = HecklTBDiscr2LSupp(track=track_discr_ball, f=linspace(20, 3000, 1500),
+                              F=1, x=array([240*0.3 + 0.6]), x_excit=240*0.3 + 0.6)
+
+method_6 = HecklTBDiscr1LSupp(track=track_discr_slab, f=linspace(20, 3000, 1500),
+                              F=1, x=array([240*0.3 + 0.6]), x_excit=240*0.3 + 0.6)
 
 
 
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 15))
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 20))
 
-# Plot ax1 and ax3 in one plot
-ax1.loglog(method1.f, abs(method1.Yb[0, :]), label='method1')
-ax1.loglog(method3.f, abs(method3.Yb[0, :]), label='method3')
-ax1.set_title('Yb over f for method1 and method3')
+# Plot method_1 and method_2 in one plot
+ax1.loglog(method_1.f, abs(method_1.Yb[0, :]), label='ThompsonEBBCont1LSupp')
+ax1.loglog(method_2.f, abs(method_2.Yb[0, :]), label='ThompsonEBBCont2LSupp')
+ax1.set_title('Yb over f for method_1 and method_2')
 ax1.set_xlabel('Frequency [Hz]')
 ax1.set_ylabel('Yb [m/N]')
 ax1.grid(True)
 ax1.legend()
 
-# Plot ax2 and ax4 in one plot
-ax2.loglog(method2.f, abs(method2.Yb[0, :]), label='method2')
-ax2.loglog(method4.f, abs(method4.Yb[0, :]), label='method4')
-ax2.set_title('Yb over f for method2 and method4')
+# Plot method_3 and method_5 in one plot
+ax2.loglog(method_3.f, abs(method_3.Yb[0, :]), label='ThompsonTSDiscr2LSupp')
+ax2.loglog(method_5.f, abs(method_5.Yb[0, :]), label='HecklTBDiscr2LSupp')
+ax2.set_title('Yb over f for method_3 and method_5')
 ax2.set_xlabel('Frequency [Hz]')
 ax2.set_ylabel('Yb [m/N]')
 ax2.grid(True)
 ax2.legend()
+
+# Plot method_4 and method_6 in one plot
+ax3.loglog(method_4.f, abs(method_4.Yb[0, :]), label='ThompsonTSDiscr1LSupp')
+ax3.loglog(method_6.f, abs(method_6.Yb[0, :]), label='HecklTBDiscr1LSupp')
+ax3.set_title('Yb over f for method_4 and method_6')
+ax3.set_xlabel('Frequency [Hz]')
+ax3.set_ylabel('Yb [m/N]')
+ax3.grid(True)
+ax3.legend()
 
 plt.tight_layout()
 plt.show()
