@@ -76,8 +76,8 @@ method_6 = HecklTBDiscr1LSupp(track=track_discr_slab, f=linspace(20, 3000, 1500)
 fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 20))
 
 # Plot method_1 and method_2 in one plot
-ax1.loglog(method_1.f, abs(method_1.Yb[0, :]), label='ThompsonEBBCont1LSupp')
-ax1.loglog(method_2.f, abs(method_2.Yb[0, :]), label='ThompsonEBBCont2LSupp')
+ax1.loglog(method_1.f, abs(method_1.Yb[0, :]), label='ThompsonEBBCont1LSupp', color='black')
+ax1.loglog(method_2.f, abs(method_2.Yb[0, :]), label='ThompsonEBBCont2LSupp', color='blue')
 ax1.set_title('Yb over f for method_1 and method_2')
 ax1.set_xlabel('Frequency [Hz]')
 ax1.set_ylabel('Yb [m/N]')
@@ -85,8 +85,8 @@ ax1.grid(True)
 ax1.legend()
 
 # Plot method_3 and method_5 in one plot
-ax2.loglog(method_3.f, abs(method_3.Yb[0, :]), label='ThompsonTSDiscr2LSupp')
-ax2.loglog(method_5.f, abs(method_5.Yb[0, :]), label='HecklTBDiscr2LSupp')
+ax2.loglog(method_3.f, abs(method_3.Yb[0, :]), label='ThompsonTSDiscr2LSupp', color='black')
+ax2.loglog(method_5.f, abs(method_5.Yb[0, :]), label='HecklTBDiscr2LSupp', color='blue')
 ax2.set_title('Yb over f for method_3 and method_5')
 ax2.set_xlabel('Frequency [Hz]')
 ax2.set_ylabel('Yb [m/N]')
@@ -94,8 +94,8 @@ ax2.grid(True)
 ax2.legend()
 
 # Plot method_4 and method_6 in one plot
-ax3.loglog(method_4.f, abs(method_4.Yb[0, :]), label='ThompsonTSDiscr1LSupp')
-ax3.loglog(method_6.f, abs(method_6.Yb[0, :]), label='HecklTBDiscr1LSupp')
+ax3.loglog(method_4.f, abs(method_4.Yb[0, :]), label='ThompsonTSDiscr1LSupp', color='black')
+ax3.loglog(method_6.f, abs(method_6.Yb[0, :]), label='HecklTBDiscr1LSupp', color='blue')
 ax3.set_title('Yb over f for method_4 and method_6')
 ax3.set_xlabel('Frequency [Hz]')
 ax3.set_ylabel('Yb [m/N]')
