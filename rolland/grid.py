@@ -46,9 +46,6 @@ class GridFDMStampka(HasTraits):
         self.bx_upd = self.dx / (((self.track.rail.E * self.track.rail.Iyr) / (6 * self.track.rail.mr)) ** (1 / 4)
                        * self.dt ** (1 / 2))
 
-        if self.bx_upd < 1:
-            print('Calculation not valid!!! ---> Coefficient for step size must be >= 1')
-
         # Number of spatial steps [-]
         self.nx = int(self.req_l / self.dx + (2 * self.n_bound)) + 1
 
