@@ -1,7 +1,20 @@
 # ------------------------------------------------------------------------------
-# Rolling Noise Calculation Toolbox
+# Rolland
 # ------------------------------------------------------------------------------
 
-from .components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper, Wheel, WheelGreensfunc
+"""The Rolland library: several classes for the implementation of rolling noise calculation."""
 
-__all__ = ["Rail", "DiscrPad", "ContPad", "Sleeper", "Ballast", "Wheel", "WheelGreensfunc", "Slab"]
+from .arrangement import Arrangement
+from .components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper, Wheel, WheelGreensfunc
+from .track import Track
+
+__all__ = ["Arrangement",
+           "Ballast",
+           "ContPad",
+           "DiscrPad",
+           "Rail",
+           "Slab",
+           "Sleeper",
+           "Track",
+           "Wheel",
+           "WheelGreensfunc"]

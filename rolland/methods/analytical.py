@@ -1,4 +1,6 @@
-from numpy import abs, array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros, zeros_like
+"""Analytical methods for railway track analysis."""
+
+from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros, zeros_like
 from traitlets import Float, HasTraits, Instance
 from traittypes import Array
 
@@ -22,7 +24,7 @@ class AnalyticalMethods(HasTraits):
     f = Array()
 
     # Force amplitude corresponding to the excitation frequencies f [N]
-    F = Array()
+    force = Array()
 
     # Distances to the excitation point [m]
     x = Array()
@@ -36,9 +38,9 @@ class AnalyticalMethods(HasTraits):
     def initialize_attributes(self):
         """Initialize computed attributes."""
         self.omega = 2 * pi * self.f
-        self.Yb = zeros((len(self.x), len(self.f)), dtype=complex)
-        self.vb = zeros_like(self.Yb)
-        self.ub = zeros_like(self.Yb)
+        self.mobility = zeros((len(self.x), len(self.f)), dtype=complex)
+        self.vb = zeros_like(self.mobility)
+        self.ub = zeros_like(self.mobility)
 
     def compute_mobility(self):
         """Compute the mobility of the track."""
@@ -47,7 +49,7 @@ class AnalyticalMethods(HasTraits):
 
     def compute_vibration(self):
         """Calculate the frequency response of the track."""
-        self.vb = self.Yb * self.F
+        self.vb = self.mobility * self.force
         self.ub = self.vb / (self.omega * 1j)
 
 
@@ -63,7 +65,6 @@ class ThompsonEBBCont1LSupp(AnalyticalMethods):
 
     def compute_mobility(self):
         """Compute the mobility of the track."""
-
         mr = self.track.rail.mr
         sp = self.track.pad.sp[0]
         dp = self.track.pad.dp[0]
@@ -79,9 +80,9 @@ class ThompsonEBBCont1LSupp(AnalyticalMethods):
         abs_x = abs(self.x[:, None])  # Broadcast x over omega
         term1 = exp(-1j * k_p * abs_x)
         term2 = -1j * exp(-k_p * abs_x)
-        self.Yb = (self.omega / (4 * (self.track.rail.E * self.track.rail.Iyr) * k_p ** 3)
-                   * (term1 + term2))
-        return self.Yb, self.omega_0
+        self.mobility = (self.omega / (4 * (self.track.rail.E * self.track.rail.Iyr) * k_p ** 3)
+                         * (term1 + term2))
+        return self.mobility, self.omega_0
 
 
 class ThompsonEBBCont2LSupp(AnalyticalMethods):
@@ -120,15 +121,15 @@ class ThompsonEBBCont2LSupp(AnalyticalMethods):
         abs_x = abs(self.x[:, None])  # Broadcast x over omega
         term1 = exp(-1j * k_p * abs_x)
         term2 = -1j * exp(-k_p * abs_x)
-        self.Yb = (self.omega / (4 * (self.track.rail.E * self.track.rail.Iyr) * k_p ** 3)
-                   * (term1 + term2))
-        return self.Yb, self.omega_0, self.omega_1, self.omega_2
+        self.mobility = (self.omega / (4 * (self.track.rail.E * self.track.rail.Iyr) * k_p ** 3)
+                         * (term1 + term2))
+        return self.mobility, self.omega_0, self.omega_1, self.omega_2
 
 class ThompsonTBDiscr(AnalyticalMethods):
     """Analytical solution for a discrete single rail track.
 
     According to:
-    Thompson - RAILWAY NOISE AND VIBRATION - CHAPTER 3.5.1 TRACK VIBRATION (PERIODICALLY SUPPORTED TRACK.)
+    Thompson - RAILWAY NOISE AND VIBRATION - CHAPTER 3.5.1.
     """
 
     # Coordinate of excitation point [m]
@@ -146,14 +147,12 @@ class ThompsonTBDiscr(AnalyticalMethods):
         """Compute common mobility for 1-layer and 2-layer support."""
         mr = track.rail.mr
         rho = track.rail.rho
-        etar = track.rail.etar
         etap = track.pad.etap
         kap = track.rail.kap
-        youm = track.rail.E * (1 + (1j * etar))
-        shearm = track.rail.G * (1 + (1j * etar))
+        youm = track.rail.E * (1 + (1j * track.rail.etar))
+        shearm = track.rail.G * (1 + (1j * track.rail.etar))
         ar = track.rail.Ar
         aream = track.rail.Iyr
-        bend_stiff = youm * aream
         sp = track.pad.sp[0]
         sb = sb
 
@@ -220,7 +219,7 @@ class ThompsonTBDiscr(AnalyticalMethods):
                 greensm_xf = self.calc_greens_func(self.x[p], self.x_excit, k_p[f], k_d[f], f_p[f], f_d[f])
                 self.ux[p, f] = - impend[f] * greensm_xn.dot(uxn[f, :]) + greensm_xf
 
-        self.Yb = (self.ux * self.omega * 1j) / self.F
+        self.mobility = (self.ux * self.omega * 1j) / self.force
 
 
 class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
@@ -271,7 +270,6 @@ class HecklTBDiscr(AnalyticalMethods):
         """Calculate common mobility for 1-layer and 2-layer support."""
         mr = track.rail.mr
         rho = track.rail.rho
-        etar = track.rail.etar
         etap = track.pad.etap
         youm = track.rail.E
         shearm = track.rail.G
@@ -343,7 +341,7 @@ class HecklTBDiscr(AnalyticalMethods):
                 greensm_xf = self.calc_greens_func(self.x[p], self.x_excit, k_p[f], k_d[f], f_p[f], f_d[f])
                 self.ux[p, f] = - impend[f] * greensm_xn.dot(uxn[f, :]) + greensm_xf
 
-        self.Yb = (self.ux * self.omega * 1j) / self.F
+        self.mobility = (self.ux * self.omega * 1j) / self.force
 
 
 class HecklTBDiscr1LSupp(HecklTBDiscr):

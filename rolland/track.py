@@ -75,10 +75,10 @@ class DiscrSlabSingleRailTrack(SlabSingleRailTrack):
 
     # Dictionary for discrete mounting positions (x-> (Pad)).
     # May have nonuniform properties.
-    mount_prop = Dict(value_trait=Float, key_trait=Tuple(DiscrPad, None))
+    mount_prop = Dict(value_trait=Float(), key_trait=Tuple(DiscrPad, None))
 
     def __repr__(self):
-        # String representation of the track
+        """Represent mounting properties as string."""
         st = ""
         for x in sorted(self.mount_prop.keys()):
             p, s = self.mount_prop[x]
@@ -189,9 +189,10 @@ class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
     """
 
     # Pads and sleepers may have nonuniform properties Dictionary (x-> (Pad, Sleeper))
-    mount_prop = Dict(value_trait=Float, key_trait=Tuple(DiscrPad, Sleeper))
+    mount_prop = Dict(value_trait=Float(), key_trait=Tuple(DiscrPad, Sleeper))
 
     def __repr__(self):
+        """Represent mounting properties as string."""
         st = ""
         for x in sorted(self.mount_prop.keys()):
             p, s = self.mount_prop[x]
@@ -219,10 +220,10 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
     pad = Instance(DiscrPad)
 
     # Sleeper distance
-    distance = Float
+    distance = Float()
 
     # Sleeper count
-    num_mount = Integer
+    num_mount = Integer()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
