@@ -13,7 +13,10 @@ class StationaryExcitation(Excitation):
     """Stationary excitation class."""
 
 class GaussianImpulse(StationaryExcitation):
-    """Gaussian impulse excitation class."""
+    """Gaussian impulse excitation class.
+
+    Approach according to Stampka.
+    """
 
     # Grid instance
     grid = Instance(GridFDMStampka)
