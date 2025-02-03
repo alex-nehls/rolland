@@ -1,5 +1,5 @@
 """Grid classes."""
-from traitlets import Float, HasTraits, Instance
+from traitlets import Float, HasTraits, Instance, Integer
 
 from rolland import Track
 
@@ -23,17 +23,17 @@ class GridFDMStampka(HasTraits):
     bx = Float()
 
     # Number of spatial steps in single sided boundary domain [-]
-    n_bound = Float()
+    n_bound = Integer()
 
 
     def __init__(self, *args, **kwargs):
         """Compute grid parameters."""
         super().__init__(*args, **kwargs)
         # Number of time steps [-]
-        nt = int(self.req_simt / self.dt)
+        self.nt = int(self.req_simt / self.dt)
 
         # Actual simulation time [s]
-        self.sim_t = nt * self.dt
+        self.sim_t = self.nt * self.dt
 
         # Minimum step size in space [m]
         dx_min = self.bx * ((self.track.rail.E * self.track.rail.Iyr) /
