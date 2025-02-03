@@ -4,11 +4,14 @@ from traitlets import Float, HasTraits, Instance, Integer
 from rolland import Track
 
 
-class GridFDMStampka(HasTraits):
-    """Calculate grid parameters for FDM simulation."""
+class Grid(HasTraits):
+    """Base class for grid."""
 
     # Track instance
     track = Instance(Track)
+
+class GridFDMStampka(Grid):
+    """Calculate grid parameters for FDM simulation."""
 
     # Step size in time [s]
     dt = Float()
