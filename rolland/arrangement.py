@@ -1,3 +1,5 @@
+"""Arrangement classes."""
+
 import random
 
 from traitlets import Any, HasTraits
@@ -39,6 +41,7 @@ class StochasticArrangement(Arrangement):
     """
 
     def generate(self, num_mount):
+        """Generate count repetitions of objects."""
         for _ in range(num_mount):
             if isinstance(self.item, list):
                 yield random.choice(self.item)
