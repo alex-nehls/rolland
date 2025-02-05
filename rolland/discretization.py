@@ -40,7 +40,8 @@ class DiscretizationFDMStampka(Discretization):
         warnings.simplefilter("ignore", category=SparseEfficiencyWarning)
 
         # simplification factor
-        r = (self.track.rail.E * self.track.rail.Iyr) * self.grid.dt ** 2 / (2 * self.track.rail.mr * self.grid.dx ** 4)
+        r = ((self.track.rail.E * self.track.rail.Iyr) * self.grid.dt ** 2 /
+             (2 * self.track.rail.mr * self.grid.dx ** 4))
 
         # Coefficient matrix for x'''' (4th derivative)
         D_diagonals = [ones(self.grid.nx - 2),  # noqa: N806
@@ -127,7 +128,7 @@ class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
         super().__init__(*args, **kwargs)
         self.initialize_vectors()
         self.add_boundary_conditions()
-        self.handle_track_specific_logic()
+        self.build_superstructure_vectors()
 
         self.build_matrix(self.vec_dr, self.vec_sp, self.vec_dp, self.vec_ms, self.vec_sb, self.vec_db)
 
@@ -136,26 +137,30 @@ class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
         self.vec_dr = self.track.rail.dr * ones(self.grid.nx)
         self.vec_sp = zeros(self.grid.nx)
         self.vec_dp = zeros(self.grid.nx)
-        self.vec_ms = ones(self.grid.nx)
+        self.vec_ms = ones(self.grid.nx)    # ones instead of zeros to avoid division by zero
         self.vec_sb = zeros(self.grid.nx)
         self.vec_db = zeros(self.grid.nx)
 
     def add_boundary_conditions(self):
         """Add boundary conditions."""
+        # Boundary condition left side
         self.vec_dr[:self.bound.pml.size] += self.bound.pml[::-1]
+        # Boundary condition right side
         self.vec_dr[-self.bound.pml.size:] += self.bound.pml
 
-    def handle_track_specific_logic(self):
+    def build_superstructure_vectors(self):
         """Handle track-specific logic."""
         if isinstance(self.track, ContSlabSingleRailTrack):
+            # Properties are assigned to each grid point
             self.vec_sp += self.track.pad.sp[0]
             self.vec_dp += self.track.pad.dp[0]
             self.vec_ms += self.track.slab.ms
 
         elif isinstance(self.track, SimplePeriodicSlabSingleRailTrack | ArrangedSlabSingleRailTrack):
-            self.handle_periodic_slab_track()
+            self.build_discrete_slab_track()
 
         elif isinstance(self.track, ContBallastedSingleRailTrack):
+            # Properties are assigned to each grid point
             self.vec_sp += self.track.pad.sp[0]
             self.vec_dp += self.track.pad.dp[0]
             self.vec_ms += self.track.slab.ms
@@ -163,28 +168,38 @@ class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
             self.vec_db += self.track.ballast.db[0]
 
         elif isinstance(self.track, SimplePeriodicBallastedSingleRailTrack | ArrangedBallastedSingleRailTrack):
-            self.handle_periodic_ballasted_track()
+            self.build_discrete_ballasted_track()
 
         else:
             msg = "Track type not recognized!"
             raise ValueError(msg)
 
-    def handle_periodic_slab_track(self):
-        """Handle periodic slab track."""
-        mount_pos = list(self.track.mount_prop.keys())
-        for i in mount_pos:
-            self.vec_sp[int(i / self.grid.dx)] = self.track.mount_prop[i][0].sp[0]
-            self.vec_dp[int(i / self.grid.dx)] = self.track.mount_prop[i][0].dp[0]
-        self.vec_ms += self.track.slab.ms
+    def build_discrete_slab_track(self):
+        """Build discrete slab track.
 
-    def handle_periodic_ballasted_track(self):
-        """Handle periodic ballasted track."""
+        Properties are assigned to the corresponding mounting positions.
+        """
+        # Get mounting positions as list
         mount_pos = list(self.track.mount_prop.keys())
         for i in mount_pos:
-            self.vec_sp[int(i / self.grid.dx)] = self.track.mount_prop[i][0].sp[0]
-            self.vec_dp[int(i / self.grid.dx)] = self.track.mount_prop[i][0].dp[0]
-            self.vec_ms[int(i / self.grid.dx)] = self.track.mount_prop[i][1].ms
-        self.vec_sb += self.track.ballast.sb[0]
-        self.vec_db += self.track.ballast.db[0]
+            # Mounting positions are rounded to avoid floating point errors
+            self.vec_sp[int(round(i,5) / self.grid.dx)] = self.track.mount_prop[i][0].sp[0] / self.grid.dx
+            self.vec_dp[int(round(i,5) / self.grid.dx)] = self.track.mount_prop[i][0].dp[0] / self.grid.dx
+            self.vec_ms[int(round(i,5) / self.grid.dx)] = self.track.slab.ms / self.grid.dx
+
+    def build_discrete_ballasted_track(self):
+        """Build discrete ballasted track.
+
+        Properties are assigned to the corresponding mounting positions.
+        """
+        # Get mounting positions as list
+        mount_pos = list(self.track.mount_prop.keys())
+        for i in mount_pos:
+            # Mounting positions are rounded to avoid floating point errors
+            self.vec_sp[int(round(i,5) / self.grid.dx)] = self.track.mount_prop[i][0].sp[0] / self.grid.dx
+            self.vec_dp[int(round(i,5) / self.grid.dx)] = self.track.mount_prop[i][0].dp[0] / self.grid.dx
+            self.vec_ms[int(round(i,5) / self.grid.dx)] = self.track.mount_prop[i][1].ms / self.grid.dx
+        self.vec_sb += self.track.ballast.sb[0] / self.grid.dx
+        self.vec_db += self.track.ballast.db[0] / self.grid.dx
 
 
