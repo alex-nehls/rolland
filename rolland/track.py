@@ -22,7 +22,13 @@ from rolland.components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
 
 
 class Track(HasTraits):
-    """Base class for track structure."""
+    """Base class for track structure.
+
+    This class serves as the base for different types of track structures.
+    It inherits from HasTraits to utilize traitlets for attribute validation and
+    dynamic notifications.
+    """
+
 
 
 class SingleRailTrack(Track):

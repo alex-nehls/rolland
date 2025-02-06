@@ -1,0 +1,14 @@
+.. _settingup:
+
+Setting up Rolland
+=======================
+
+
+This section will explain how to set up Rolland and get started with your first simulation.
+
+Installation
+------------
+
+1. First step
+2. Second step
+3. Third step
