@@ -18,7 +18,7 @@ class Arrangement(HasTraits):
 class PeriodicArrangement(Arrangement):
     """Periodic arrangement of objects.
 
-    Fills the track with a periodic sequence of objects.
+    Fills the track.rst with a periodic sequence of objects.
     """
 
     def generate(self, num_mount):
@@ -37,7 +37,7 @@ class PeriodicArrangement(Arrangement):
 class StochasticArrangement(Arrangement):
     """Stochastic arrangement of objects.
 
-    Fills the track with a stochastic sequence of objects.
+    Fills the track.rst with a stochastic sequence of objects.
     """
 
     def generate(self, num_mount):

@@ -1,4 +1,4 @@
-"""Analytical methods for railway track analysis."""
+"""Analytical methods for railway track.rst analysis."""
 
 from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros, zeros_like
 from traitlets import Float, HasTraits, Instance
@@ -16,7 +16,7 @@ class AnalyticalMethods(HasTraits):
     """Base class for analytical methods.
 
     This class provides the common interface and basic functionality for
-    different analytical methods used in railway track analysis.
+    different analytical methods used in railway track.rst analysis.
 
     """
 
@@ -43,18 +43,18 @@ class AnalyticalMethods(HasTraits):
         self.ub = zeros_like(self.mobility)
 
     def compute_mobility(self):
-        """Compute the mobility of the track."""
+        """Compute the mobility of the track.rst."""
         message = "Subclasses must implement compute_mobility."
         raise NotImplementedError(message)
 
     def compute_vibration(self):
-        """Calculate the frequency response of the track."""
+        """Calculate the frequency response of the track.rst."""
         self.vb = self.mobility * self.force
         self.ub = self.vb / (self.omega * 1j)
 
 
 class ThompsonEBBCont1LSupp(AnalyticalMethods):
-    """Analytical solution for a continuous slab single rail track with a 1-layer support.
+    """Analytical solution for a continuous slab single rail track.rst with a 1-layer support.
 
     According to chapter 3.2 (Thompson, D., 2024. Railway Noise and Vibration
     (Second Edition). Elsevier).
@@ -64,7 +64,7 @@ class ThompsonEBBCont1LSupp(AnalyticalMethods):
     track = Instance(ContSlabSingleRailTrack)
 
     def compute_mobility(self):
-        """Compute the mobility of the track."""
+        """Compute the mobility of the track.rst."""
         mr = self.track.rail.mr
         sp = self.track.pad.sp[0]
         dp = self.track.pad.dp[0]
@@ -86,7 +86,7 @@ class ThompsonEBBCont1LSupp(AnalyticalMethods):
 
 
 class ThompsonEBBCont2LSupp(AnalyticalMethods):
-    """Analytical solution for a continuous ballasted single rail track with a 2-layer support.
+    """Analytical solution for a continuous ballasted single rail track.rst with a 2-layer support.
 
     According to chapter 3.3 (Thompson, D., 2024. Railway Noise and Vibration (Second Edition).
     Elsevier).
@@ -96,7 +96,7 @@ class ThompsonEBBCont2LSupp(AnalyticalMethods):
     track = Instance(ContBallastedSingleRailTrack)
 
     def compute_mobility(self):
-        """Compute the mobility of the track."""
+        """Compute the mobility of the track.rst."""
         mr = self.track.rail.mr
         sp = self.track.pad.sp[0]
         sb = self.track.ballast.sb[0]
@@ -126,7 +126,7 @@ class ThompsonEBBCont2LSupp(AnalyticalMethods):
         return self.mobility, self.omega_0, self.omega_1, self.omega_2
 
 class ThompsonTBDiscr(AnalyticalMethods):
-    """Analytical solution for a discrete single rail track.
+    """Analytical solution for a discrete single rail track.rst.
 
     According to:
     Thompson - RAILWAY NOISE AND VIBRATION - CHAPTER 3.5.1.
@@ -223,7 +223,7 @@ class ThompsonTBDiscr(AnalyticalMethods):
 
 
 class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
-    """Solution for a discrete single rail track consisting of 1-layer support.
+    """Solution for a discrete single rail track.rst consisting of 1-layer support.
 
     Slab can be considered as rigid.
     """
@@ -232,24 +232,24 @@ class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
     track = Instance(DiscrSlabSingleRailTrack)
 
     def compute_mobility(self):
-        """Compute the mobility of the track."""
+        """Compute the mobility of the track.rst."""
         self.compute_mobility_common(self.track, self.track.slab.ms, 1e20, 0)
 
 
 class ThompsonTSDiscr2LSupp(ThompsonTBDiscr):
-    """Solution for a discrete single rail track consisting of 2-layer support."""
+    """Solution for a discrete single rail track.rst consisting of 2-layer support."""
 
     # Track instance
     track = Instance(DiscrBallastedSingleRailTrack)
 
     def compute_mobility(self):
-        """Compute the mobility of the track."""
+        """Compute the mobility of the track.rst."""
         self.compute_mobility_common(self.track, self.track.sleeper.ms,
                                      self.track.ballast.sb[0], self.track.ballast.etab)
 
 
 class HecklTBDiscr(AnalyticalMethods):
-    """Analytical solution for a discrete single rail track.
+    """Analytical solution for a discrete single rail track.rst.
 
     According to Heckl, M.A., 1995. Railway noise–Can random sleeper spacings help?.
     Acta Acustica United with Acustica, 81(6), pp.559-564.
@@ -345,7 +345,7 @@ class HecklTBDiscr(AnalyticalMethods):
 
 
 class HecklTBDiscr1LSupp(HecklTBDiscr):
-    """Solution for a discrete single rail track consisting of 1-layer support.
+    """Solution for a discrete single rail track.rst consisting of 1-layer support.
 
     Slab can be considered as rigid.
     """
@@ -354,17 +354,17 @@ class HecklTBDiscr1LSupp(HecklTBDiscr):
     track = Instance(DiscrSlabSingleRailTrack)
 
     def compute_mobility(self):
-        """Compute the mobility of the track."""
+        """Compute the mobility of the track.rst."""
         self.compute_mobility_common(self.track, self.track.slab.ms, 1e20, 0)
 
 
 class HecklTBDiscr2LSupp(HecklTBDiscr):
-    """Solution for a discrete single rail track consisting of 2-layer support."""
+    """Solution for a discrete single rail track.rst consisting of 2-layer support."""
 
     # Track instance
     track = Instance(DiscrBallastedSingleRailTrack)
 
     def compute_mobility(self):
-        """Compute the mobility of the track."""
+        """Compute the mobility of the track.rst."""
         self.compute_mobility_common(self.track, self.track.sleeper.ms,
                                      self.track.ballast.sb[0], self.track.ballast.etab)

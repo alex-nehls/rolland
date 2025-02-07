@@ -19,12 +19,20 @@ release = '0.1'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc',
-              'sphinx.ext.coverage',
-              'sphinx.ext.napoleon']
+extensions = [
+    'sphinx.ext.autodoc',             # For automatic doc generation from docstrings
+    'sphinx.ext.napoleon',            # Supports NumPy and Google style docstrings
+    'sphinx.ext.viewcode',            # Links to source code
+    'sphinx.ext.mathjax',             # For LaTeX math rendering
+#    'sphinxcontrib.bibtex',           # For bibliography
+]
 
 templates_path = ['_templates']
 exclude_patterns = []
+
+autodoc_typehints = "description"  # Include type hints in the description
+napoleon_google_docstring = False   # Use NumPy-style docstrings
+napoleon_numpy_docstring = True
 
 
 
@@ -32,5 +40,6 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinxawesome_theme'
-html_add_permalinks = None
-html_static_path = ['_static']
+html_permalinks_icon = "<span>¶</span>"
+
+

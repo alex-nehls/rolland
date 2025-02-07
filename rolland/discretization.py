@@ -149,7 +149,7 @@ class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
         self.vec_dr[-self.bound.pml.size:] += self.bound.pml
 
     def build_superstructure_vectors(self):
-        """Handle track-specific logic."""
+        """Handle track.rst-specific logic."""
         if isinstance(self.track, ContSlabSingleRailTrack):
             # Properties are assigned to each grid point
             self.vec_sp += self.track.pad.sp[0]
@@ -175,7 +175,7 @@ class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
             raise ValueError(msg)
 
     def build_discrete_slab_track(self):
-        """Build discrete slab track.
+        """Build discrete slab track.rst.
 
         Properties are assigned to the corresponding mounting positions.
         """
@@ -188,7 +188,7 @@ class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
             self.vec_ms[int(round(i,5) / self.grid.dx)] = self.track.slab.ms / self.grid.dx
 
     def build_discrete_ballasted_track(self):
-        """Build discrete ballasted track.
+        """Build discrete ballasted track.rst.
 
         Properties are assigned to the corresponding mounting positions.
         """

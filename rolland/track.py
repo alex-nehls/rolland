@@ -1,18 +1,18 @@
-"""Defines track structures.
+"""Defines track.rst structures.
 
 Contains classes for the following superstructure types:
-    - Single rail track
-        - Slab track
-            - Continuous slab track
-            - Discrete slab track
-                - Simple periodic slab track (uniform properties)
-                - Arranged slab track (nonuniform properties)
+    - Single rail track.rst
+        - Slab track.rst
+            - Continuous slab track.rst
+            - Discrete slab track.rst
+                - Simple periodic slab track.rst (uniform properties)
+                - Arranged slab track.rst (nonuniform properties)
 
-        - Ballasted single rail track
-            - Continuous ballasted single rail track
-            - Discrete ballasted single rail track
-                - Simple periodic ballasted single rail track (uniform properties)
-                - Arranged ballasted single rail track (nonuniform properties)
+        - Ballasted single rail track.rst
+            - Continuous ballasted single rail track.rst
+            - Discrete ballasted single rail track.rst
+                - Simple periodic ballasted single rail track.rst (uniform properties)
+                - Arranged ballasted single rail track.rst (nonuniform properties)
 """
 
 from traitlets import Dict, Float, HasTraits, Instance, Integer, Tuple
@@ -22,9 +22,9 @@ from rolland.components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
 
 
 class Track(HasTraits):
-    """Base class for track structure.
+    """Base class for track.rst structure.
 
-    This class serves as the base for different types of track structures.
+    This class serves as the base for different types of track.rst structures.
     It inherits from HasTraits to utilize traitlets for attribute validation and
     dynamic notifications.
     """
@@ -32,14 +32,14 @@ class Track(HasTraits):
 
 
 class SingleRailTrack(Track):
-    """Single rail track class."""
+    """Single rail track.rst class."""
 
     # Rail instance
     rail = Instance(Rail)
 
 
 class SlabSingleRailTrack(SingleRailTrack):
-    """Single rail slab track class.
+    """Single rail slab track.rst class.
 
     Slab is defined as rigid foundation.
     """
@@ -54,9 +54,9 @@ class SlabSingleRailTrack(SingleRailTrack):
 
 
 class ContSlabSingleRailTrack(SlabSingleRailTrack):
-    """Single rail continuous slab track class.
+    """Single rail continuous slab track.rst class.
 
-    All superstructure properties are uniform along the track.
+    All superstructure properties are uniform along the track.rst.
 
     Example:
     --------
@@ -71,7 +71,7 @@ class ContSlabSingleRailTrack(SlabSingleRailTrack):
 
 
 class DiscrSlabSingleRailTrack(SlabSingleRailTrack):
-    """Single rail discrete slab track class.
+    """Single rail discrete slab track.rst class.
 
     Rail is mounted discretely. Mounting properties may vary.
     """
@@ -93,7 +93,7 @@ class DiscrSlabSingleRailTrack(SlabSingleRailTrack):
 
 
 class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
-    """Single rail simple periodic slab track class.
+    """Single rail simple periodic slab track.rst class.
 
     Rail is mounted discretely. Mounting properties are uniform.
 
@@ -124,7 +124,7 @@ class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
             x += self.distance
 
 class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
-    """Single rail arranged slab track class.
+    """Single rail arranged slab track.rst class.
 
     Rail is mounted discretely. Mounting properties may vary.
 
@@ -158,9 +158,9 @@ class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
 
 
 class BallastedSingleRailTrack(SingleRailTrack):
-    """Ballasted single rail track class.
+    """Ballasted single rail track.rst class.
 
-    This class represents a single rail track with ballast.
+    This class represents a single rail track.rst with ballast.
     """
 
     # Ballast instance
@@ -168,9 +168,9 @@ class BallastedSingleRailTrack(SingleRailTrack):
 
 
 class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
-    """Continuous ballasted single rail track class.
+    """Continuous ballasted single rail track.rst class.
 
-    This class represents a single rail track with ballast, pads and a slab.
+    This class represents a single rail track.rst with ballast, pads and a slab.
 
     Example:
     --------
@@ -188,9 +188,9 @@ class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
 
 
 class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
-    """Ballasted single rail track class.
+    """Ballasted single rail track.rst class.
 
-    This class represents a single rail track with ballast, pads and sleepers and
+    This class represents a single rail track.rst with ballast, pads and sleepers and
     allows for nonuniform properties of pads and sleepers.
     """
 
@@ -207,7 +207,7 @@ class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
 
 
 class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
-    """Class to generate a simple periodic ballasted single rail track.
+    """Class to generate a simple periodic ballasted single rail track.rst.
 
     All mounting properties are uniform.
 
@@ -240,7 +240,7 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
 
 
 class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
-    """Class to generate an arranged ballasted single rail track.
+    """Class to generate an arranged ballasted single rail track.rst.
 
     Mounting properties may vary.
 
