@@ -43,7 +43,9 @@
   class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
     <div class="hidden mr-4 md:flex">
       <a href="index.html" class="flex items-center mr-6"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Rolland 0.1 documentation</span>
-      </a></div><button
+      </a><nav class="flex items-center space-x-6 text-sm font-medium">
+        <a href="/about.html" class="transition-colors hover:text-foreground/80 text-foreground/60">About</a>
+      </nav></div><button
       class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden"
       type="button" @click="showSidebar = true">
       <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" aria-hidden="true"
@@ -101,12 +103,41 @@
     </a>
 
     <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
-      <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+      <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="flex md:hidden flex-col font-medium mt-4">
+  <a href="/about.html">About</a>
+</nav><nav class="table w-full min-w-full my-6 lg:my-8">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up Rolland</a></li>
-<li class="toctree-l1"><a class="reference internal" href="components.html">Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="track.html">Track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Components/rolland.components.Rail.html">rolland.components.Rail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Components/rolland.components.RailRoughness.html">rolland.components.RailRoughness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Components/rolland.components.DiscrPad.html">rolland.components.DiscrPad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Components/rolland.components.ContPad.html">rolland.components.ContPad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Components/rolland.components.Sleeper.html">rolland.components.Sleeper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Components/rolland.components.Slab.html">rolland.components.Slab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Components/rolland.components.Ballast.html">rolland.components.Ballast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Components/rolland.components.Wheel.html">rolland.components.Wheel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Components/rolland.components.WheelRoughness.html">rolland.components.WheelRoughness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Components/rolland.components.WheelGreensfunc.html">rolland.components.WheelGreensfunc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="track.html">Track</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.Track.html">rolland.track.Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.SingleRailTrack.html">rolland.track.SingleRailTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.SlabSingleRailTrack.html">rolland.track.SlabSingleRailTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.ContSlabSingleRailTrack.html">rolland.track.ContSlabSingleRailTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.DiscrSlabSingleRailTrack.html">rolland.track.DiscrSlabSingleRailTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.SimplePeriodicSlabSingleRailTrack.html">rolland.track.SimplePeriodicSlabSingleRailTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.ArrangedSlabSingleRailTrack.html">rolland.track.ArrangedSlabSingleRailTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.BallastedSingleRailTrack.html">rolland.track.BallastedSingleRailTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.ContBallastedSingleRailTrack.html">rolland.track.ContBallastedSingleRailTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.DiscrBallastedSingleRailTrack.html">rolland.track.DiscrBallastedSingleRailTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html">rolland.track.SimplePeriodicBallastedSingleRailTrack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Track/rolland.track.ArrangedBallastedSingleRailTrack.html">rolland.track.ArrangedBallastedSingleRailTrack</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="literature/index.html">Literature</a></li>
 </ul>
 
 </nav>
@@ -147,7 +178,7 @@
     <div id="content" role="main">
       <section id="setting-up-rolland">
 <span id="settingup"></span><h1>Setting up Rolland<a class="headerlink" href="#setting-up-rolland" title="Link to this heading"><span>¶</span></a></h1>
-<p>This section will explain how to set up Rolland and get started with your first simulation.</p>
+<p>This section explains how to set up Rolland and get started with your first simulation.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"><span>¶</span></a></h2>
 <ol class="arabic simple">

@@ -40,7 +40,9 @@
   class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
     <div class="hidden mr-4 md:flex">
       <a href="index.html" class="flex items-center mr-6"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Rolland 0.1 documentation</span>
-      </a></div><button
+      </a><nav class="flex items-center space-x-6 text-sm font-medium">
+        <a href="/about.html" class="transition-colors hover:text-foreground/80 text-foreground/60">About</a>
+      </nav></div><button
       class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden"
       type="button" @click="showSidebar = true">
       <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" aria-hidden="true"
@@ -98,12 +100,13 @@
     </a>
 
     <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
-      <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+      <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="flex md:hidden flex-col font-medium mt-4">
+  <a href="/about.html">About</a>
+</nav><nav class="table w-full min-w-full my-6 lg:my-8">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="beforeyoustart.html">Setting up Rolland</a></li>
-<li class="toctree-l1"><a class="reference internal" href="components.html">Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="track.html">Track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start.html">Start using Rolland</a></li>
+<li class="toctree-l1"><a class="reference internal" href="buildtrack/buildtrack.html">Build track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="literature/index.html">Literature</a></li>
 </ul>
 
@@ -148,15 +151,17 @@
   <h2 id="A">A</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.Ar">Ar (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.Ar">Ar (rolland.components.Rail attribute)</a>
 </li>
-      <li><a href="track.html#rolland.track.ArrangedBallastedSingleRailTrack">ArrangedBallastedSingleRailTrack (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.ArrangedBallastedSingleRailTrack.html#rolland.track.ArrangedBallastedSingleRailTrack">ArrangedBallastedSingleRailTrack (class in rolland.track)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="track.html#rolland.track.ArrangedSlabSingleRailTrack">ArrangedSlabSingleRailTrack (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.ArrangedSlabSingleRailTrack.html#rolland.track.ArrangedSlabSingleRailTrack">ArrangedSlabSingleRailTrack (class in rolland.track)</a>
 </li>
-      <li><a href="components.html#rolland.components.Rail.Asr">Asr (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/arrangement/rolland.arrangement.Arrangement.html#rolland.arrangement.Arrangement">Arrangement (class in rolland.arrangement)</a>
+</li>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.Asr">Asr (rolland.components.Rail attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -165,13 +170,25 @@
   <h2 id="B">B</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Ballast">Ballast (class in rolland.components)</a>
+      <li><a href="buildtrack/components/rolland.components.Ballast.html#rolland.components.Ballast">Ballast (class in rolland.components)</a>
 </li>
+      <li><a href="buildtrack/track/rolland.track.ArrangedBallastedSingleRailTrack.html#rolland.track.ArrangedBallastedSingleRailTrack.ballast">ballast (rolland.track.ArrangedBallastedSingleRailTrack attribute)</a>
+
+      <ul style="list-style-type:none">
+        <li><a href="buildtrack/track/rolland.track.BallastedSingleRailTrack.html#rolland.track.BallastedSingleRailTrack.ballast">(rolland.track.BallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.ContBallastedSingleRailTrack.html#rolland.track.ContBallastedSingleRailTrack.ballast">(rolland.track.ContBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.DiscrBallastedSingleRailTrack.html#rolland.track.DiscrBallastedSingleRailTrack.ballast">(rolland.track.DiscrBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html#rolland.track.SimplePeriodicBallastedSingleRailTrack.ballast">(rolland.track.SimplePeriodicBallastedSingleRailTrack attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="track.html#rolland.track.BallastedSingleRailTrack">BallastedSingleRailTrack (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.BallastedSingleRailTrack.html#rolland.track.BallastedSingleRailTrack">BallastedSingleRailTrack (class in rolland.track)</a>
 </li>
-      <li><a href="components.html#rolland.components.Sleeper.Bs">Bs (rolland.components.Sleeper attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Sleeper.html#rolland.components.Sleeper.Bs">Bs (rolland.components.Sleeper attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -180,13 +197,13 @@
   <h2 id="C">C</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="track.html#rolland.track.ContBallastedSingleRailTrack">ContBallastedSingleRailTrack (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.ContBallastedSingleRailTrack.html#rolland.track.ContBallastedSingleRailTrack">ContBallastedSingleRailTrack (class in rolland.track)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.ContPad">ContPad (class in rolland.components)</a>
+      <li><a href="buildtrack/components/rolland.components.ContPad.html#rolland.components.ContPad">ContPad (class in rolland.components)</a>
 </li>
-      <li><a href="track.html#rolland.track.ContSlabSingleRailTrack">ContSlabSingleRailTrack (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.ContSlabSingleRailTrack.html#rolland.track.ContSlabSingleRailTrack">ContSlabSingleRailTrack (class in rolland.track)</a>
 </li>
   </ul></td>
   </tr>
@@ -195,23 +212,33 @@
   <h2 id="D">D</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Ballast.db">db (rolland.components.Ballast attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Ballast.html#rolland.components.Ballast.db">db (rolland.components.Ballast attribute)</a>
 </li>
-      <li><a href="track.html#rolland.track.DiscrBallastedSingleRailTrack">DiscrBallastedSingleRailTrack (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.DiscrBallastedSingleRailTrack.html#rolland.track.DiscrBallastedSingleRailTrack">DiscrBallastedSingleRailTrack (class in rolland.track)</a>
 </li>
-      <li><a href="components.html#rolland.components.DiscrPad">DiscrPad (class in rolland.components)</a>
+      <li><a href="buildtrack/components/rolland.components.DiscrPad.html#rolland.components.DiscrPad">DiscrPad (class in rolland.components)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="track.html#rolland.track.DiscrSlabSingleRailTrack">DiscrSlabSingleRailTrack (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.DiscrSlabSingleRailTrack.html#rolland.track.DiscrSlabSingleRailTrack">DiscrSlabSingleRailTrack (class in rolland.track)</a>
 </li>
-      <li><a href="components.html#rolland.components.ContPad.dp">dp (rolland.components.ContPad attribute)</a>
+      <li><a href="buildtrack/track/rolland.track.ArrangedBallastedSingleRailTrack.html#rolland.track.ArrangedBallastedSingleRailTrack.distance">distance (rolland.track.ArrangedBallastedSingleRailTrack attribute)</a>
 
       <ul style="list-style-type:none">
-        <li><a href="components.html#rolland.components.DiscrPad.dp">(rolland.components.DiscrPad attribute)</a>
+        <li><a href="buildtrack/track/rolland.track.ArrangedSlabSingleRailTrack.html#rolland.track.ArrangedSlabSingleRailTrack.distance">(rolland.track.ArrangedSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html#rolland.track.SimplePeriodicBallastedSingleRailTrack.distance">(rolland.track.SimplePeriodicBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicSlabSingleRailTrack.html#rolland.track.SimplePeriodicSlabSingleRailTrack.distance">(rolland.track.SimplePeriodicSlabSingleRailTrack attribute)</a>
 </li>
       </ul></li>
-      <li><a href="components.html#rolland.components.Rail.dr">dr (rolland.components.Rail attribute)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
+      <li><a href="buildtrack/components/rolland.components.ContPad.html#rolland.components.ContPad.dp">dp (rolland.components.ContPad attribute)</a>
+
+      <ul style="list-style-type:none">
+        <li><a href="buildtrack/components/rolland.components.DiscrPad.html#rolland.components.DiscrPad.dp">(rolland.components.DiscrPad attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.dr">dr (rolland.components.Rail attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -220,21 +247,21 @@
   <h2 id="E">E</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.E">E (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.E">E (rolland.components.Rail attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Rail.epsr">epsr (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.epsr">epsr (rolland.components.Rail attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Ballast.etab">etab (rolland.components.Ballast attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Ballast.html#rolland.components.Ballast.etab">etab (rolland.components.Ballast attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.ContPad.etap">etap (rolland.components.ContPad attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.ContPad.html#rolland.components.ContPad.etap">etap (rolland.components.ContPad attribute)</a>
 
       <ul style="list-style-type:none">
-        <li><a href="components.html#rolland.components.DiscrPad.etap">(rolland.components.DiscrPad attribute)</a>
+        <li><a href="buildtrack/components/rolland.components.DiscrPad.html#rolland.components.DiscrPad.etap">(rolland.components.DiscrPad attribute)</a>
 </li>
       </ul></li>
-      <li><a href="components.html#rolland.components.Rail.etar">etar (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.etar">etar (rolland.components.Rail attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -243,17 +270,17 @@
   <h2 id="F">F</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Ballast.fresb">fresb (rolland.components.Ballast attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Ballast.html#rolland.components.Ballast.fresb">fresb (rolland.components.Ballast attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.ContPad.fresp">fresp (rolland.components.ContPad attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.ContPad.html#rolland.components.ContPad.fresp">fresp (rolland.components.ContPad attribute)</a>
 
       <ul style="list-style-type:none">
-        <li><a href="components.html#rolland.components.DiscrPad.fresp">(rolland.components.DiscrPad attribute)</a>
+        <li><a href="buildtrack/components/rolland.components.DiscrPad.html#rolland.components.DiscrPad.fresp">(rolland.components.DiscrPad attribute)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.fresr">fresr (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.fresr">fresr (rolland.components.Rail attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -262,11 +289,11 @@
   <h2 id="G">G</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.G">G (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.G">G (rolland.components.Rail attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.gamr">gamr (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.gamr">gamr (rolland.components.Rail attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -275,13 +302,21 @@
   <h2 id="I">I</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.Itr">Itr (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/arrangement/rolland.arrangement.Arrangement.html#rolland.arrangement.Arrangement.item">item (rolland.arrangement.Arrangement attribute)</a>
+
+      <ul style="list-style-type:none">
+        <li><a href="buildtrack/arrangement/rolland.arrangement.PeriodicArrangement.html#rolland.arrangement.PeriodicArrangement.item">(rolland.arrangement.PeriodicArrangement attribute)</a>
 </li>
+        <li><a href="buildtrack/arrangement/rolland.arrangement.StochasticArrangement.html#rolland.arrangement.StochasticArrangement.item">(rolland.arrangement.StochasticArrangement attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.Iyr">Iyr (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.Itr">Itr (rolland.components.Rail attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Rail.Izr">Izr (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.Iyr">Iyr (rolland.components.Rail attribute)</a>
+</li>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.Izr">Izr (rolland.components.Rail attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -290,7 +325,7 @@
   <h2 id="K">K</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.kap">kap (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.kap">kap (rolland.components.Rail attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -299,7 +334,7 @@
   <h2 id="L">L</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Sleeper.ls">ls (rolland.components.Sleeper attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Sleeper.html#rolland.components.Sleeper.ls">ls (rolland.components.Sleeper attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -308,24 +343,29 @@
   <h2 id="M">M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li>
-    module
+      <li><a href="buildtrack/track/rolland.track.ArrangedBallastedSingleRailTrack.html#rolland.track.ArrangedBallastedSingleRailTrack.mount_prop">mount_prop (rolland.track.ArrangedBallastedSingleRailTrack attribute)</a>
 
       <ul style="list-style-type:none">
-        <li><a href="components.html#module-rolland.components">rolland.components</a>
+        <li><a href="buildtrack/track/rolland.track.ArrangedSlabSingleRailTrack.html#rolland.track.ArrangedSlabSingleRailTrack.mount_prop">(rolland.track.ArrangedSlabSingleRailTrack attribute)</a>
 </li>
-        <li><a href="track.html#module-rolland.track">rolland.track</a>
+        <li><a href="buildtrack/track/rolland.track.DiscrBallastedSingleRailTrack.html#rolland.track.DiscrBallastedSingleRailTrack.mount_prop">(rolland.track.DiscrBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.DiscrSlabSingleRailTrack.html#rolland.track.DiscrSlabSingleRailTrack.mount_prop">(rolland.track.DiscrSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html#rolland.track.SimplePeriodicBallastedSingleRailTrack.mount_prop">(rolland.track.SimplePeriodicBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicSlabSingleRailTrack.html#rolland.track.SimplePeriodicSlabSingleRailTrack.mount_prop">(rolland.track.SimplePeriodicSlabSingleRailTrack attribute)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.mr">mr (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.mr">mr (rolland.components.Rail attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Sleeper.ms">ms (rolland.components.Sleeper attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Sleeper.html#rolland.components.Sleeper.ms">ms (rolland.components.Sleeper attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Wheel.mw">mw (rolland.components.Wheel attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Wheel.html#rolland.components.Wheel.mw">mw (rolland.components.Wheel attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Wheel.mw_red">mw_red (rolland.components.Wheel attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Wheel.html#rolland.components.Wheel.mw_red">mw_red (rolland.components.Wheel attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -334,7 +374,44 @@
   <h2 id="N">N</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.nu">nu (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.nu">nu (rolland.components.Rail attribute)</a>
+</li>
+      <li><a href="buildtrack/track/rolland.track.ArrangedBallastedSingleRailTrack.html#rolland.track.ArrangedBallastedSingleRailTrack.num_mount">num_mount (rolland.track.ArrangedBallastedSingleRailTrack attribute)</a>
+
+      <ul style="list-style-type:none">
+        <li><a href="buildtrack/track/rolland.track.ArrangedSlabSingleRailTrack.html#rolland.track.ArrangedSlabSingleRailTrack.num_mount">(rolland.track.ArrangedSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html#rolland.track.SimplePeriodicBallastedSingleRailTrack.num_mount">(rolland.track.SimplePeriodicBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicSlabSingleRailTrack.html#rolland.track.SimplePeriodicSlabSingleRailTrack.num_mount">(rolland.track.SimplePeriodicSlabSingleRailTrack attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  </tr>
+      </table>
+  
+  <h2 id="P">P</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
+      <li><a href="buildtrack/track/rolland.track.ArrangedBallastedSingleRailTrack.html#rolland.track.ArrangedBallastedSingleRailTrack.pad">pad (rolland.track.ArrangedBallastedSingleRailTrack attribute)</a>
+
+      <ul style="list-style-type:none">
+        <li><a href="buildtrack/track/rolland.track.ArrangedSlabSingleRailTrack.html#rolland.track.ArrangedSlabSingleRailTrack.pad">(rolland.track.ArrangedSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.ContBallastedSingleRailTrack.html#rolland.track.ContBallastedSingleRailTrack.pad">(rolland.track.ContBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.ContSlabSingleRailTrack.html#rolland.track.ContSlabSingleRailTrack.pad">(rolland.track.ContSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.DiscrSlabSingleRailTrack.html#rolland.track.DiscrSlabSingleRailTrack.pad">(rolland.track.DiscrSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html#rolland.track.SimplePeriodicBallastedSingleRailTrack.pad">(rolland.track.SimplePeriodicBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicSlabSingleRailTrack.html#rolland.track.SimplePeriodicSlabSingleRailTrack.pad">(rolland.track.SimplePeriodicSlabSingleRailTrack attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
+      <li><a href="buildtrack/arrangement/rolland.arrangement.PeriodicArrangement.html#rolland.arrangement.PeriodicArrangement">PeriodicArrangement (class in rolland.arrangement)</a>
 </li>
   </ul></td>
   </tr>
@@ -343,33 +420,43 @@
   <h2 id="R">R</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.RailRoughness.r_rough">r_rough (rolland.components.RailRoughness attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.RailRoughness.html#rolland.components.RailRoughness.r_rough">r_rough (rolland.components.RailRoughness attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Rail">Rail (class in rolland.components)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail">Rail (class in rolland.components)</a>
 </li>
-      <li><a href="components.html#rolland.components.RailRoughness">RailRoughness (class in rolland.components)</a>
+      <li><a href="buildtrack/track/rolland.track.ArrangedBallastedSingleRailTrack.html#rolland.track.ArrangedBallastedSingleRailTrack.rail">rail (rolland.track.ArrangedBallastedSingleRailTrack attribute)</a>
+
+      <ul style="list-style-type:none">
+        <li><a href="buildtrack/track/rolland.track.ArrangedSlabSingleRailTrack.html#rolland.track.ArrangedSlabSingleRailTrack.rail">(rolland.track.ArrangedSlabSingleRailTrack attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Rail.rho">rho (rolland.components.Rail attribute)</a>
+        <li><a href="buildtrack/track/rolland.track.BallastedSingleRailTrack.html#rolland.track.BallastedSingleRailTrack.rail">(rolland.track.BallastedSingleRailTrack attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Rail.rl_geo">rl_geo (rolland.components.Rail attribute)</a>
+        <li><a href="buildtrack/track/rolland.track.ContBallastedSingleRailTrack.html#rolland.track.ContBallastedSingleRailTrack.rail">(rolland.track.ContBallastedSingleRailTrack attribute)</a>
 </li>
+        <li><a href="buildtrack/track/rolland.track.ContSlabSingleRailTrack.html#rolland.track.ContSlabSingleRailTrack.rail">(rolland.track.ContSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.DiscrBallastedSingleRailTrack.html#rolland.track.DiscrBallastedSingleRailTrack.rail">(rolland.track.DiscrBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.DiscrSlabSingleRailTrack.html#rolland.track.DiscrSlabSingleRailTrack.rail">(rolland.track.DiscrSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html#rolland.track.SimplePeriodicBallastedSingleRailTrack.rail">(rolland.track.SimplePeriodicBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicSlabSingleRailTrack.html#rolland.track.SimplePeriodicSlabSingleRailTrack.rail">(rolland.track.SimplePeriodicSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SingleRailTrack.html#rolland.track.SingleRailTrack.rail">(rolland.track.SingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SlabSingleRailTrack.html#rolland.track.SlabSingleRailTrack.rail">(rolland.track.SlabSingleRailTrack attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li>
-    rolland.components
-
-      <ul style="list-style-type:none">
-        <li><a href="components.html#module-rolland.components">module</a>
+      <li><a href="buildtrack/components/rolland.components.RailRoughness.html#rolland.components.RailRoughness">RailRoughness (class in rolland.components)</a>
 </li>
-      </ul></li>
-      <li>
-    rolland.track
-
-      <ul style="list-style-type:none">
-        <li><a href="track.html#module-rolland.track">module</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.rho">rho (rolland.components.Rail attribute)</a>
 </li>
-      </ul></li>
-      <li><a href="components.html#rolland.components.Wheel.rw">rw (rolland.components.Wheel attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.rl_geo">rl_geo (rolland.components.Rail attribute)</a>
+</li>
+      <li><a href="buildtrack/components/rolland.components.Wheel.html#rolland.components.Wheel.rw">rw (rolland.components.Wheel attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -378,28 +465,50 @@
   <h2 id="S">S</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Ballast.sb">sb (rolland.components.Ballast attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Ballast.html#rolland.components.Ballast.sb">sb (rolland.components.Ballast attribute)</a>
 </li>
-      <li><a href="track.html#rolland.track.SimplePeriodicBallastedSingleRailTrack">SimplePeriodicBallastedSingleRailTrack (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html#rolland.track.SimplePeriodicBallastedSingleRailTrack">SimplePeriodicBallastedSingleRailTrack (class in rolland.track)</a>
 </li>
-      <li><a href="track.html#rolland.track.SimplePeriodicSlabSingleRailTrack">SimplePeriodicSlabSingleRailTrack (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.SimplePeriodicSlabSingleRailTrack.html#rolland.track.SimplePeriodicSlabSingleRailTrack">SimplePeriodicSlabSingleRailTrack (class in rolland.track)</a>
 </li>
-      <li><a href="track.html#rolland.track.SingleRailTrack">SingleRailTrack (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.SingleRailTrack.html#rolland.track.SingleRailTrack">SingleRailTrack (class in rolland.track)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Slab">Slab (class in rolland.components)</a>
+      <li><a href="buildtrack/components/rolland.components.Slab.html#rolland.components.Slab">Slab (class in rolland.components)</a>
 </li>
-      <li><a href="track.html#rolland.track.SlabSingleRailTrack">SlabSingleRailTrack (class in rolland.track)</a>
-</li>
-      <li><a href="components.html#rolland.components.Sleeper">Sleeper (class in rolland.components)</a>
-</li>
-      <li><a href="components.html#rolland.components.ContPad.sp">sp (rolland.components.ContPad attribute)</a>
+      <li><a href="buildtrack/track/rolland.track.ArrangedSlabSingleRailTrack.html#rolland.track.ArrangedSlabSingleRailTrack.slab">slab (rolland.track.ArrangedSlabSingleRailTrack attribute)</a>
 
       <ul style="list-style-type:none">
-        <li><a href="components.html#rolland.components.DiscrPad.sp">(rolland.components.DiscrPad attribute)</a>
+        <li><a href="buildtrack/track/rolland.track.ContBallastedSingleRailTrack.html#rolland.track.ContBallastedSingleRailTrack.slab">(rolland.track.ContBallastedSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.ContSlabSingleRailTrack.html#rolland.track.ContSlabSingleRailTrack.slab">(rolland.track.ContSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.DiscrSlabSingleRailTrack.html#rolland.track.DiscrSlabSingleRailTrack.slab">(rolland.track.DiscrSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicSlabSingleRailTrack.html#rolland.track.SimplePeriodicSlabSingleRailTrack.slab">(rolland.track.SimplePeriodicSlabSingleRailTrack attribute)</a>
+</li>
+        <li><a href="buildtrack/track/rolland.track.SlabSingleRailTrack.html#rolland.track.SlabSingleRailTrack.slab">(rolland.track.SlabSingleRailTrack attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
+      <li><a href="buildtrack/track/rolland.track.SlabSingleRailTrack.html#rolland.track.SlabSingleRailTrack">SlabSingleRailTrack (class in rolland.track)</a>
+</li>
+      <li><a href="buildtrack/components/rolland.components.Sleeper.html#rolland.components.Sleeper">Sleeper (class in rolland.components)</a>
+</li>
+      <li><a href="buildtrack/track/rolland.track.ArrangedBallastedSingleRailTrack.html#rolland.track.ArrangedBallastedSingleRailTrack.sleeper">sleeper (rolland.track.ArrangedBallastedSingleRailTrack attribute)</a>
+
+      <ul style="list-style-type:none">
+        <li><a href="buildtrack/track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html#rolland.track.SimplePeriodicBallastedSingleRailTrack.sleeper">(rolland.track.SimplePeriodicBallastedSingleRailTrack attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="buildtrack/components/rolland.components.ContPad.html#rolland.components.ContPad.sp">sp (rolland.components.ContPad attribute)</a>
+
+      <ul style="list-style-type:none">
+        <li><a href="buildtrack/components/rolland.components.DiscrPad.html#rolland.components.DiscrPad.sp">(rolland.components.DiscrPad attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="buildtrack/arrangement/rolland.arrangement.StochasticArrangement.html#rolland.arrangement.StochasticArrangement">StochasticArrangement (class in rolland.arrangement)</a>
+</li>
   </ul></td>
   </tr>
       </table>
@@ -407,7 +516,7 @@
   <h2 id="T">T</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="track.html#rolland.track.Track">Track (class in rolland.track)</a>
+      <li><a href="buildtrack/track/rolland.track.Track.html#rolland.track.Track">Track (class in rolland.track)</a>
 </li>
   </ul></td>
   </tr>
@@ -416,7 +525,7 @@
   <h2 id="V">V</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Rail.Vr">Vr (rolland.components.Rail attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Rail.html#rolland.components.Rail.Vr">Vr (rolland.components.Rail attribute)</a>
 </li>
   </ul></td>
   </tr>
@@ -425,29 +534,29 @@
   <h2 id="W">W</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.Wheel.w_geo">w_geo (rolland.components.Wheel attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Wheel.html#rolland.components.Wheel.w_geo">w_geo (rolland.components.Wheel attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Wheel.w_geo_cross_sec">w_geo_cross_sec (rolland.components.Wheel attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Wheel.html#rolland.components.Wheel.w_geo_cross_sec">w_geo_cross_sec (rolland.components.Wheel attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.WheelGreensfunc.w_gf">w_gf (rolland.components.WheelGreensfunc attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.WheelGreensfunc.html#rolland.components.WheelGreensfunc.w_gf">w_gf (rolland.components.WheelGreensfunc attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.WheelGreensfunc.w_gf_freq">w_gf_freq (rolland.components.WheelGreensfunc attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.WheelGreensfunc.html#rolland.components.WheelGreensfunc.w_gf_freq">w_gf_freq (rolland.components.WheelGreensfunc attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Wheel.w_prof">w_prof (rolland.components.Wheel attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Wheel.html#rolland.components.Wheel.w_prof">w_prof (rolland.components.Wheel attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul style="margin-left:0;list-style-type:none">
-      <li><a href="components.html#rolland.components.WheelRoughness.w_rough">w_rough (rolland.components.WheelRoughness attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.WheelRoughness.html#rolland.components.WheelRoughness.w_rough">w_rough (rolland.components.WheelRoughness attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.DiscrPad.wdthp">wdthp (rolland.components.DiscrPad attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.DiscrPad.html#rolland.components.DiscrPad.wdthp">wdthp (rolland.components.DiscrPad attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Sleeper.wdths">wdths (rolland.components.Sleeper attribute)</a>
+      <li><a href="buildtrack/components/rolland.components.Sleeper.html#rolland.components.Sleeper.wdths">wdths (rolland.components.Sleeper attribute)</a>
 </li>
-      <li><a href="components.html#rolland.components.Wheel">Wheel (class in rolland.components)</a>
+      <li><a href="buildtrack/components/rolland.components.Wheel.html#rolland.components.Wheel">Wheel (class in rolland.components)</a>
 </li>
-      <li><a href="components.html#rolland.components.WheelGreensfunc">WheelGreensfunc (class in rolland.components)</a>
+      <li><a href="buildtrack/components/rolland.components.WheelGreensfunc.html#rolland.components.WheelGreensfunc">WheelGreensfunc (class in rolland.components)</a>
 </li>
-      <li><a href="components.html#rolland.components.WheelRoughness">WheelRoughness (class in rolland.components)</a>
+      <li><a href="buildtrack/components/rolland.components.WheelRoughness.html#rolland.components.WheelRoughness">WheelRoughness (class in rolland.components)</a>
 </li>
   </ul></td>
   </tr>
@@ -457,7 +566,7 @@
 </div></div>
 <aside id="right-sidebar" class="hidden text-sm xl:block">
 <div class="sticky top-16 -mt-10 max-h-[calc(var(--vh)-4rem)] overflow-y-auto pt-6 space-y-2">
-<a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#A">A</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#B">B</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#C">C</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#D">D</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#E">E</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#F">F</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#G">G</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#I">I</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#K">K</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#L">L</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#M">M</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#N">N</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#R">R</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#S">S</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#T">T</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#V">V</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#W">W</a>
+<a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#A">A</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#B">B</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#C">C</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#D">D</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#E">E</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#F">F</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#G">G</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#I">I</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#K">K</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#L">L</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#M">M</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#N">N</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#P">P</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#R">R</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#S">S</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#T">T</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#V">V</a><a class="pt-2 block text-muted-foreground no-underline transition-colors hover:text-foreground focus-visible:outline-offset-[-1px]" href="#W">W</a>
 </div>
 </aside>
         </main>

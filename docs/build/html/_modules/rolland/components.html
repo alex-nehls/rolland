@@ -40,7 +40,9 @@
   class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
     <div class="hidden mr-4 md:flex">
       <a href="../../index.html" class="flex items-center mr-6"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Rolland 0.1 documentation</span>
-      </a></div><button
+      </a><nav class="flex items-center space-x-6 text-sm font-medium">
+        <a href="/about.html" class="transition-colors hover:text-foreground/80 text-foreground/60">About</a>
+      </nav></div><button
       class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden"
       type="button" @click="showSidebar = true">
       <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" aria-hidden="true"
@@ -98,12 +100,49 @@
     </a>
 
     <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
-      <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+      <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="flex md:hidden flex-col font-medium mt-4">
+  <a href="/about.html">About</a>
+</nav><nav class="table w-full min-w-full my-6 lg:my-8">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../beforeyoustart.html">Setting up Rolland</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../components.html">Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../track.html">Track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../buildtrack/buildtrack.html">Build track</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../buildtrack/components.html">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/components/rolland.components.Rail.html">rolland.components.Rail</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/components/rolland.components.RailRoughness.html">rolland.components.RailRoughness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/components/rolland.components.DiscrPad.html">rolland.components.DiscrPad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/components/rolland.components.ContPad.html">rolland.components.ContPad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/components/rolland.components.Sleeper.html">rolland.components.Sleeper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/components/rolland.components.Slab.html">rolland.components.Slab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/components/rolland.components.Ballast.html">rolland.components.Ballast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/components/rolland.components.Wheel.html">rolland.components.Wheel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/components/rolland.components.WheelRoughness.html">rolland.components.WheelRoughness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/components/rolland.components.WheelGreensfunc.html">rolland.components.WheelGreensfunc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../buildtrack/track.html">Track</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.Track.html">rolland.track.Track</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.SingleRailTrack.html">rolland.track.SingleRailTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.SlabSingleRailTrack.html">rolland.track.SlabSingleRailTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.ContSlabSingleRailTrack.html">rolland.track.ContSlabSingleRailTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.DiscrSlabSingleRailTrack.html">rolland.track.DiscrSlabSingleRailTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.SimplePeriodicSlabSingleRailTrack.html">rolland.track.SimplePeriodicSlabSingleRailTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.ArrangedSlabSingleRailTrack.html">rolland.track.ArrangedSlabSingleRailTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.BallastedSingleRailTrack.html">rolland.track.BallastedSingleRailTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.ContBallastedSingleRailTrack.html">rolland.track.ContBallastedSingleRailTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.DiscrBallastedSingleRailTrack.html">rolland.track.DiscrBallastedSingleRailTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html">rolland.track.SimplePeriodicBallastedSingleRailTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/track/rolland.track.ArrangedBallastedSingleRailTrack.html">rolland.track.ArrangedBallastedSingleRailTrack</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../buildtrack/arrangement.html">Arrangement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/arrangement/rolland.arrangement.Arrangement.html">rolland.arrangement.Arrangement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/arrangement/rolland.arrangement.PeriodicArrangement.html">rolland.arrangement.PeriodicArrangement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../buildtrack/arrangement/rolland.arrangement.StochasticArrangement.html">rolland.arrangement.StochasticArrangement</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../literature/index.html">Literature</a></li>
 </ul>
 
@@ -147,306 +186,320 @@
 
     <div id="content" role="main">
       <h1>Source code for rolland.components</h1><div class="highlight"><pre>
-<span></span><code><span id="line-1"><span class="sd">&quot;&quot;&quot;Defines all superstructure components.&quot;&quot;&quot;</span>
-</span><span id="line-2"><span class="kn">from</span><span class="w"> </span><span class="nn">traitlets</span><span class="w"> </span><span class="kn">import</span> <span class="n">Float</span><span class="p">,</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Unicode</span>
-</span><span id="line-3"><span class="kn">from</span><span class="w"> </span><span class="nn">traittypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">Array</span>
-</span><span id="line-4">
+<span></span><code><span id="line-1"><span class="sd">&quot;&quot;&quot;Defines required superstructure components.</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="sd">.. autosummary::</span>
+</span><span id="line-4"><span class="sd">    :toctree: components</span>
 </span><span id="line-5">
+</span><span id="line-6"><span class="sd">    Rail</span>
+</span><span id="line-7"><span class="sd">    RailRoughness</span>
+</span><span id="line-8"><span class="sd">    DiscrPad</span>
+</span><span id="line-9"><span class="sd">    ContPad</span>
+</span><span id="line-10"><span class="sd">    Sleeper</span>
+</span><span id="line-11"><span class="sd">    Slab</span>
+</span><span id="line-12"><span class="sd">    Ballast</span>
+</span><span id="line-13"><span class="sd">    Wheel</span>
+</span><span id="line-14"><span class="sd">    WheelRoughness</span>
+</span><span id="line-15"><span class="sd">    WheelGreensfunc</span>
+</span><span id="line-16"><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-17"><span class="kn">from</span><span class="w"> </span><span class="nn">traitlets</span><span class="w"> </span><span class="kn">import</span> <span class="n">Float</span><span class="p">,</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Unicode</span>
+</span><span id="line-18"><span class="kn">from</span><span class="w"> </span><span class="nn">traittypes</span><span class="w"> </span><span class="kn">import</span> <span class="n">Array</span>
+</span><span id="line-19">
+</span><span id="line-20">
 <div class="viewcode-block" id="Rail">
-<a class="viewcode-back" href="../../components.html#rolland.components.Rail">[docs]</a>
-</span><span id="line-6"><span class="k">class</span><span class="w"> </span><span class="nc">Rail</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-</span><span id="line-7"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;**Rail Class**.</span>
-</span><span id="line-8">
-</span><span id="line-9"><span class="sd">    Defines a rail with certain properties. UIC 60 rail is usually used as default rail.</span>
-</span><span id="line-10">
-</span><span id="line-11"><span class="sd">    .. hint:: A set of predefined rail instances is available in the `database` module.</span>
-</span><span id="line-12">
-</span><span id="line-13"><span class="sd">    Attributes</span>
-</span><span id="line-14"><span class="sd">    ----------</span>
-</span><span id="line-15"><span class="sd">    rl_geo : list of tuple of float</span>
-</span><span id="line-16"><span class="sd">        Rail outline coordinates :math:`[m]`. TODO: Define coordinate system!</span>
-</span><span id="line-17"><span class="sd">    E : float</span>
-</span><span id="line-18"><span class="sd">        Young&#39;s modulus of rail :math:`[Pa]`.</span>
-</span><span id="line-19"><span class="sd">    G : float</span>
-</span><span id="line-20"><span class="sd">        Shear modulus of rail :math:`[Pa]`.</span>
-</span><span id="line-21"><span class="sd">    nu : float</span>
-</span><span id="line-22"><span class="sd">        Poisson&#39;s ratio of rail :math:`[-]`.</span>
-</span><span id="line-23"><span class="sd">    kap : float</span>
-</span><span id="line-24"><span class="sd">        Timoshenko shear correction factor :math:`[-]`.</span>
-</span><span id="line-25"><span class="sd">    mr : float</span>
-</span><span id="line-26"><span class="sd">        Rail mass per unit length :math:`[kg/m]`.</span>
-</span><span id="line-27"><span class="sd">    rho : float</span>
-</span><span id="line-28"><span class="sd">        Density of rail :math:`[kg/m^3]`.</span>
-</span><span id="line-29"><span class="sd">    etar : float</span>
-</span><span id="line-30"><span class="sd">        Rail loss factor :math:`[-]`.</span>
-</span><span id="line-31"><span class="sd">    fresr : float</span>
-</span><span id="line-32"><span class="sd">        Rail resonance frequency :math:`[Hz]`.</span>
-</span><span id="line-33"><span class="sd">    dr : float</span>
-</span><span id="line-34"><span class="sd">        Rail damping coefficient (viscous) :math:`[Ns/m]`.</span>
-</span><span id="line-35"><span class="sd">    gamr : list of float</span>
-</span><span id="line-36"><span class="sd">        Coordinates of rail shear center :math:`[m]`.</span>
-</span><span id="line-37"><span class="sd">    epsr : list of float</span>
-</span><span id="line-38"><span class="sd">        Coordinates of center of gravity :math:`[m]`.</span>
-</span><span id="line-39"><span class="sd">    Iyr : float</span>
-</span><span id="line-40"><span class="sd">        Area moment of inertia of rail around y-axis :math:`[m^4]`.</span>
-</span><span id="line-41"><span class="sd">    Izr : float</span>
-</span><span id="line-42"><span class="sd">        Area moment of inertia of rail around z-axis :math:`[m^4]`.</span>
-</span><span id="line-43"><span class="sd">    Itr : float</span>
-</span><span id="line-44"><span class="sd">        Torsional constant of rail :math:`[m^4]`.</span>
-</span><span id="line-45"><span class="sd">    Ar : float</span>
-</span><span id="line-46"><span class="sd">        Cross-sectional area of rail :math:`[m^2]`.</span>
-</span><span id="line-47"><span class="sd">    Asr : float</span>
-</span><span id="line-48"><span class="sd">        Surface area per unit length of rail :math:`[m^2/m]`.</span>
-</span><span id="line-49"><span class="sd">    Vr : float</span>
-</span><span id="line-50"><span class="sd">        Volume per unit length of rail :math:`[m^3/m]`.</span>
-</span><span id="line-51"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-52">
-</span><span id="line-53">    <span class="n">rl_geo</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Tuple</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">Float</span><span class="p">()))</span>
-</span><span id="line-54">    <span class="n">E</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-55">    <span class="n">G</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-56">    <span class="n">nu</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-57">    <span class="n">kap</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-58">    <span class="n">mr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-59">    <span class="n">rho</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-60">    <span class="n">etar</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-61">    <span class="n">fresr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-62">    <span class="n">dr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-63">    <span class="n">gamr</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">())</span>
-</span><span id="line-64">    <span class="n">epsr</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">())</span>
-</span><span id="line-65">    <span class="n">Iyr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-66">    <span class="n">Izr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-67">    <span class="n">Itr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-68">    <span class="n">Ar</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-69">    <span class="n">Asr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-70">    <span class="n">Vr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span></div>
-
-</span><span id="line-71">
-</span><span id="line-72">
-<div class="viewcode-block" id="RailRoughness">
-<a class="viewcode-back" href="../../components.html#rolland.components.RailRoughness">[docs]</a>
-</span><span id="line-73"><span class="k">class</span><span class="w"> </span><span class="nc">RailRoughness</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-</span><span id="line-74"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;**Rail Roughness Class**.</span>
-</span><span id="line-75">
-</span><span id="line-76"><span class="sd">    Contains a rail roughness spectrum in frequency domain, which can later be used to calculate the</span>
-</span><span id="line-77"><span class="sd">    rail roughness along the track.</span>
-</span><span id="line-78">
-</span><span id="line-79"><span class="sd">    Attributes</span>
-</span><span id="line-80"><span class="sd">    ----------</span>
-</span><span id="line-81"><span class="sd">    r_rough : Tuple containing two lists of float</span>
-</span><span id="line-82"><span class="sd">        Rail roughness spectrum :math:`[f, m]`.</span>
-</span><span id="line-83"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-84">
-</span><span id="line-85">    <span class="n">r_rough</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">(</span><span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">()),</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">()))</span></div>
+<a class="viewcode-back" href="../../buildtrack/components/rolland.components.Rail.html#rolland.components.Rail">[docs]</a>
+</span><span id="line-21"><span class="k">class</span><span class="w"> </span><span class="nc">Rail</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+</span><span id="line-22"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Rail Class.</span>
+</span><span id="line-23">
+</span><span id="line-24"><span class="sd">    Defines a rail with certain properties. UIC 60 rail is usually used as default rail.</span>
+</span><span id="line-25">
+</span><span id="line-26"><span class="sd">    .. hint:: A set of predefined rail instances is available in the `database` module.</span>
+</span><span id="line-27">
+</span><span id="line-28"><span class="sd">    Attributes</span>
+</span><span id="line-29"><span class="sd">    ----------</span>
+</span><span id="line-30"><span class="sd">    rl_geo : list of tuple of float</span>
+</span><span id="line-31"><span class="sd">        Rail outline coordinates :math:`[m]`. TODO: Define coordinate system!</span>
+</span><span id="line-32"><span class="sd">    E : float</span>
+</span><span id="line-33"><span class="sd">        Young&#39;s modulus of rail :math:`[Pa]`.</span>
+</span><span id="line-34"><span class="sd">    G : float</span>
+</span><span id="line-35"><span class="sd">        Shear modulus of rail :math:`[Pa]`.</span>
+</span><span id="line-36"><span class="sd">    nu : float</span>
+</span><span id="line-37"><span class="sd">        Poisson&#39;s ratio of rail :math:`[-]`.</span>
+</span><span id="line-38"><span class="sd">    kap : float</span>
+</span><span id="line-39"><span class="sd">        Timoshenko shear correction factor :math:`[-]`.</span>
+</span><span id="line-40"><span class="sd">    mr : float</span>
+</span><span id="line-41"><span class="sd">        Rail mass per unit length :math:`[kg/m]`.</span>
+</span><span id="line-42"><span class="sd">    rho : float</span>
+</span><span id="line-43"><span class="sd">        Density of rail :math:`[kg/m^3]`.</span>
+</span><span id="line-44"><span class="sd">    etar : float</span>
+</span><span id="line-45"><span class="sd">        Rail loss factor :math:`[-]`.</span>
+</span><span id="line-46"><span class="sd">    fresr : float</span>
+</span><span id="line-47"><span class="sd">        Rail resonance frequency :math:`[Hz]`.</span>
+</span><span id="line-48"><span class="sd">    dr : float</span>
+</span><span id="line-49"><span class="sd">        Rail damping coefficient (viscous) :math:`[Ns/m]`.</span>
+</span><span id="line-50"><span class="sd">    gamr : list of float</span>
+</span><span id="line-51"><span class="sd">        Coordinates of rail shear center :math:`[m]`.</span>
+</span><span id="line-52"><span class="sd">    epsr : list of float</span>
+</span><span id="line-53"><span class="sd">        Coordinates of center of gravity :math:`[m]`.</span>
+</span><span id="line-54"><span class="sd">    Iyr : float</span>
+</span><span id="line-55"><span class="sd">        Area moment of inertia of rail around y-axis :math:`[m^4]`.</span>
+</span><span id="line-56"><span class="sd">    Izr : float</span>
+</span><span id="line-57"><span class="sd">        Area moment of inertia of rail around z-axis :math:`[m^4]`.</span>
+</span><span id="line-58"><span class="sd">    Itr : float</span>
+</span><span id="line-59"><span class="sd">        Torsional constant of rail :math:`[m^4]`.</span>
+</span><span id="line-60"><span class="sd">    Ar : float</span>
+</span><span id="line-61"><span class="sd">        Cross-sectional area of rail :math:`[m^2]`.</span>
+</span><span id="line-62"><span class="sd">    Asr : float</span>
+</span><span id="line-63"><span class="sd">        Surface area per unit length of rail :math:`[m^2/m]`.</span>
+</span><span id="line-64"><span class="sd">    Vr : float</span>
+</span><span id="line-65"><span class="sd">        Volume per unit length of rail :math:`[m^3/m]`.</span>
+</span><span id="line-66"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-67">
+</span><span id="line-68">    <span class="n">rl_geo</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Tuple</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">Float</span><span class="p">()))</span>
+</span><span id="line-69">    <span class="n">E</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-70">    <span class="n">G</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-71">    <span class="n">nu</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-72">    <span class="n">kap</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-73">    <span class="n">mr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-74">    <span class="n">rho</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-75">    <span class="n">etar</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-76">    <span class="n">fresr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-77">    <span class="n">dr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-78">    <span class="n">gamr</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">())</span>
+</span><span id="line-79">    <span class="n">epsr</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">())</span>
+</span><span id="line-80">    <span class="n">Iyr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-81">    <span class="n">Izr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-82">    <span class="n">Itr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-83">    <span class="n">Ar</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-84">    <span class="n">Asr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-85">    <span class="n">Vr</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span></div>
 
 </span><span id="line-86">
 </span><span id="line-87">
-<div class="viewcode-block" id="DiscrPad">
-<a class="viewcode-back" href="../../components.html#rolland.components.DiscrPad">[docs]</a>
-</span><span id="line-88"><span class="k">class</span><span class="w"> </span><span class="nc">DiscrPad</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-</span><span id="line-89"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;**Discrete Pad Class**.</span>
+<div class="viewcode-block" id="RailRoughness">
+<a class="viewcode-back" href="../../buildtrack/components/rolland.components.RailRoughness.html#rolland.components.RailRoughness">[docs]</a>
+</span><span id="line-88"><span class="k">class</span><span class="w"> </span><span class="nc">RailRoughness</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+</span><span id="line-89"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Rail Roughness Class.</span>
 </span><span id="line-90">
-</span><span id="line-91"><span class="sd">    Contains the properties of a discrete pad.</span>
-</span><span id="line-92">
-</span><span id="line-93"><span class="sd">    Attributes</span>
-</span><span id="line-94"><span class="sd">    ----------</span>
-</span><span id="line-95"><span class="sd">    sp : list of float</span>
-</span><span id="line-96"><span class="sd">        Vertical/lateral pad stiffness (total value) :math:`[N/m]`. Lateral value can be set to zero</span>
-</span><span id="line-97"><span class="sd">        when lateral rail deflections are omitted.</span>
-</span><span id="line-98"><span class="sd">    wdthp : float</span>
-</span><span id="line-99"><span class="sd">        Pad width in x-direction :math:`[m]`.</span>
-</span><span id="line-100"><span class="sd">    etap : float</span>
-</span><span id="line-101"><span class="sd">        Pad loss factor :math:`[-]`.</span>
-</span><span id="line-102"><span class="sd">    fresp : list of float</span>
-</span><span id="line-103"><span class="sd">        Vertical/lateral pad resonance frequencies [Hz]. This frequency is needed for calculating</span>
-</span><span id="line-104"><span class="sd">        the viscous damping coefficient if it is not provided. Lateral value can be set to zero when</span>
-</span><span id="line-105"><span class="sd">        lateral rail deflections are omitted.</span>
-</span><span id="line-106"><span class="sd">    dp : list of float</span>
-</span><span id="line-107"><span class="sd">        Vertical/lateral pad damping coefficient (viscous) :math:`[Ns/m]`. Lateral value can be set</span>
-</span><span id="line-108"><span class="sd">        to zero when lateral rail deflections are omitted.</span>
-</span><span id="line-109"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-110">
-</span><span id="line-111">    <span class="n">sp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="line-112">    <span class="n">wdthp</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-113">    <span class="n">etap</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-114">    <span class="n">fresp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="line-115">    <span class="n">dp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+</span><span id="line-91"><span class="sd">    Contains a rail roughness spectrum in frequency domain, which can later be used to calculate the</span>
+</span><span id="line-92"><span class="sd">    rail roughness along the track.</span>
+</span><span id="line-93">
+</span><span id="line-94"><span class="sd">    Attributes</span>
+</span><span id="line-95"><span class="sd">    ----------</span>
+</span><span id="line-96"><span class="sd">    r_rough : Tuple containing two lists of float</span>
+</span><span id="line-97"><span class="sd">        Rail roughness spectrum :math:`[f, m]`.</span>
+</span><span id="line-98"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-99">
+</span><span id="line-100">    <span class="n">r_rough</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">(</span><span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">()),</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">()))</span></div>
 
-</span><span id="line-116">
-</span><span id="line-117">
+</span><span id="line-101">
+</span><span id="line-102">
+<div class="viewcode-block" id="DiscrPad">
+<a class="viewcode-back" href="../../buildtrack/components/rolland.components.DiscrPad.html#rolland.components.DiscrPad">[docs]</a>
+</span><span id="line-103"><span class="k">class</span><span class="w"> </span><span class="nc">DiscrPad</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+</span><span id="line-104"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Discrete Pad Class.</span>
+</span><span id="line-105">
+</span><span id="line-106"><span class="sd">    Contains the properties of a discrete pad.</span>
+</span><span id="line-107">
+</span><span id="line-108"><span class="sd">    Attributes</span>
+</span><span id="line-109"><span class="sd">    ----------</span>
+</span><span id="line-110"><span class="sd">    sp : list of float</span>
+</span><span id="line-111"><span class="sd">        Vertical/lateral pad stiffness (total value) :math:`[N/m]`. Lateral value can be set to zero</span>
+</span><span id="line-112"><span class="sd">        when lateral rail deflections are omitted.</span>
+</span><span id="line-113"><span class="sd">    wdthp : float</span>
+</span><span id="line-114"><span class="sd">        Pad width in x-direction :math:`[m]`.</span>
+</span><span id="line-115"><span class="sd">    etap : float</span>
+</span><span id="line-116"><span class="sd">        Pad loss factor :math:`[-]`.</span>
+</span><span id="line-117"><span class="sd">    fresp : list of float</span>
+</span><span id="line-118"><span class="sd">        Vertical/lateral pad resonance frequencies [Hz]. This frequency is needed for calculating</span>
+</span><span id="line-119"><span class="sd">        the viscous damping coefficient if it is not provided. Lateral value can be set to zero when</span>
+</span><span id="line-120"><span class="sd">        lateral rail deflections are omitted.</span>
+</span><span id="line-121"><span class="sd">    dp : list of float</span>
+</span><span id="line-122"><span class="sd">        Vertical/lateral pad damping coefficient (viscous) :math:`[Ns/m]`. Lateral value can be set</span>
+</span><span id="line-123"><span class="sd">        to zero when lateral rail deflections are omitted.</span>
+</span><span id="line-124"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-125">
+</span><span id="line-126">    <span class="n">sp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="line-127">    <span class="n">wdthp</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-128">    <span class="n">etap</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-129">    <span class="n">fresp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="line-130">    <span class="n">dp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+</span><span id="line-131">
+</span><span id="line-132">
 <div class="viewcode-block" id="ContPad">
-<a class="viewcode-back" href="../../components.html#rolland.components.ContPad">[docs]</a>
-</span><span id="line-118"><span class="k">class</span><span class="w"> </span><span class="nc">ContPad</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-</span><span id="line-119"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;**Cont Pad Class**.</span>
-</span><span id="line-120">
-</span><span id="line-121"><span class="sd">    Contains the properties of a continuous pad.</span>
-</span><span id="line-122">
-</span><span id="line-123"><span class="sd">    Attributes</span>
-</span><span id="line-124"><span class="sd">    ----------</span>
-</span><span id="line-125"><span class="sd">    sp : list of float</span>
-</span><span id="line-126"><span class="sd">        Vertical/lateral pad stiffness (per meter) :math:`[N/m^2]`. Lateral value can be set to zero</span>
-</span><span id="line-127"><span class="sd">        when lateral rail deflections are omitted.</span>
-</span><span id="line-128"><span class="sd">    etap : float</span>
-</span><span id="line-129"><span class="sd">        Pad loss factor :math:`[-]`.</span>
-</span><span id="line-130"><span class="sd">    fresp : list of float</span>
-</span><span id="line-131"><span class="sd">        Vertical/lateral pad resonance frequencies :math:`[Hz]`. These frequencies are needed for</span>
-</span><span id="line-132"><span class="sd">        calculating the viscous damping coefficients if they are not provided. Lateral value can be</span>
-</span><span id="line-133"><span class="sd">        set to zero when lateral rail deflections are omitted.</span>
-</span><span id="line-134"><span class="sd">    dp : list of float</span>
-</span><span id="line-135"><span class="sd">        Vertical/lateral viscous damping coefficient (per meter) :math:`[Ns/m^2]`. Lateral value can</span>
-</span><span id="line-136"><span class="sd">        be set to zero when lateral rail deflections are omitted.</span>
-</span><span id="line-137"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-138">
-</span><span id="line-139">    <span class="n">sp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="line-140">    <span class="n">etap</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-141">    <span class="n">fresp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="line-142">    <span class="n">dp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+<a class="viewcode-back" href="../../buildtrack/components/rolland.components.ContPad.html#rolland.components.ContPad">[docs]</a>
+</span><span id="line-133"><span class="k">class</span><span class="w"> </span><span class="nc">ContPad</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+</span><span id="line-134"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Cont Pad Class.</span>
+</span><span id="line-135">
+</span><span id="line-136"><span class="sd">    Contains the properties of a continuous pad.</span>
+</span><span id="line-137">
+</span><span id="line-138"><span class="sd">    Attributes</span>
+</span><span id="line-139"><span class="sd">    ----------</span>
+</span><span id="line-140"><span class="sd">    sp : list of float</span>
+</span><span id="line-141"><span class="sd">        Vertical/lateral pad stiffness (per meter) :math:`[N/m^2]`. Lateral value can be set to zero</span>
+</span><span id="line-142"><span class="sd">        when lateral rail deflections are omitted.</span>
+</span><span id="line-143"><span class="sd">    etap : float</span>
+</span><span id="line-144"><span class="sd">        Pad loss factor :math:`[-]`.</span>
+</span><span id="line-145"><span class="sd">    fresp : list of float</span>
+</span><span id="line-146"><span class="sd">        Vertical/lateral pad resonance frequencies :math:`[Hz]`. These frequencies are needed for</span>
+</span><span id="line-147"><span class="sd">        calculating the viscous damping coefficients if they are not provided. Lateral value can be</span>
+</span><span id="line-148"><span class="sd">        set to zero when lateral rail deflections are omitted.</span>
+</span><span id="line-149"><span class="sd">    dp : list of float</span>
+</span><span id="line-150"><span class="sd">        Vertical/lateral viscous damping coefficient (per meter) :math:`[Ns/m^2]`. Lateral value can</span>
+</span><span id="line-151"><span class="sd">        be set to zero when lateral rail deflections are omitted.</span>
+</span><span id="line-152"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-153">
+</span><span id="line-154">    <span class="n">sp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="line-155">    <span class="n">etap</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-156">    <span class="n">fresp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="line-157">    <span class="n">dp</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
 
-</span><span id="line-143">
-</span><span id="line-144">
+</span><span id="line-158">
+</span><span id="line-159">
 <div class="viewcode-block" id="Sleeper">
-<a class="viewcode-back" href="../../components.html#rolland.components.Sleeper">[docs]</a>
-</span><span id="line-145"><span class="k">class</span><span class="w"> </span><span class="nc">Sleeper</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-</span><span id="line-146"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;**Sleeper Class**.</span>
-</span><span id="line-147">
-</span><span id="line-148"><span class="sd">    Contains the properties of a sleeper.</span>
-</span><span id="line-149">
-</span><span id="line-150"><span class="sd">    Attributes</span>
-</span><span id="line-151"><span class="sd">    ----------</span>
-</span><span id="line-152"><span class="sd">    ms : float</span>
-</span><span id="line-153"><span class="sd">        Sleeper mass :math:`[kg]`.</span>
-</span><span id="line-154"><span class="sd">    Bs : float</span>
-</span><span id="line-155"><span class="sd">        Sleeper bending stiffness :math:`[Nm^2]`.</span>
-</span><span id="line-156"><span class="sd">    ls : float</span>
-</span><span id="line-157"><span class="sd">        Sleeper length in y-direction :math:`[m]`.</span>
-</span><span id="line-158"><span class="sd">    wdths : float</span>
-</span><span id="line-159"><span class="sd">        Sleeper width in x-direction :math:`[m]`.</span>
-</span><span id="line-160"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-161">
-</span><span id="line-162">    <span class="n">ms</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-163">    <span class="n">Bs</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-164">    <span class="n">ls</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-165">    <span class="n">wdths</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span></div>
-
-</span><span id="line-166">
-</span><span id="line-167">
-<div class="viewcode-block" id="Slab">
-<a class="viewcode-back" href="../../components.html#rolland.components.Slab">[docs]</a>
-</span><span id="line-168"><span class="k">class</span><span class="w"> </span><span class="nc">Slab</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-</span><span id="line-169"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Slab class.&quot;&quot;&quot;</span>
-</span><span id="line-170">
-</span><span id="line-171">    <span class="c1"># Slab mass per unit length [kg/m]</span>
-</span><span id="line-172">    <span class="n">ms</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-173">
-</span><span id="line-174">    <span class="c1"># Slab depth [m]</span>
-</span><span id="line-175">    <span class="n">ls</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span></div>
-
+<a class="viewcode-back" href="../../buildtrack/components/rolland.components.Sleeper.html#rolland.components.Sleeper">[docs]</a>
+</span><span id="line-160"><span class="k">class</span><span class="w"> </span><span class="nc">Sleeper</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+</span><span id="line-161"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sleeper Class.</span>
+</span><span id="line-162">
+</span><span id="line-163"><span class="sd">    Contains the properties of a sleeper.</span>
+</span><span id="line-164">
+</span><span id="line-165"><span class="sd">    Attributes</span>
+</span><span id="line-166"><span class="sd">    ----------</span>
+</span><span id="line-167"><span class="sd">    ms : float</span>
+</span><span id="line-168"><span class="sd">        Sleeper mass :math:`[kg]`.</span>
+</span><span id="line-169"><span class="sd">    Bs : float</span>
+</span><span id="line-170"><span class="sd">        Sleeper bending stiffness :math:`[Nm^2]`.</span>
+</span><span id="line-171"><span class="sd">    ls : float</span>
+</span><span id="line-172"><span class="sd">        Sleeper length in y-direction :math:`[m]`.</span>
+</span><span id="line-173"><span class="sd">    wdths : float</span>
+</span><span id="line-174"><span class="sd">        Sleeper width in x-direction :math:`[m]`.</span>
+</span><span id="line-175"><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="line-176">
-</span><span id="line-177">
-<div class="viewcode-block" id="Ballast">
-<a class="viewcode-back" href="../../components.html#rolland.components.Ballast">[docs]</a>
-</span><span id="line-178"><span class="k">class</span><span class="w"> </span><span class="nc">Ballast</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-</span><span id="line-179"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;**Ballast Class**.</span>
-</span><span id="line-180">
-</span><span id="line-181"><span class="sd">    Contains the properties of the ballast.</span>
+</span><span id="line-177">    <span class="n">ms</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-178">    <span class="n">Bs</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-179">    <span class="n">ls</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-180">    <span class="n">wdths</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span></div>
+
+</span><span id="line-181">
 </span><span id="line-182">
-</span><span id="line-183"><span class="sd">    .. caution::</span>
-</span><span id="line-184"><span class="sd">        Properties of the ballast can either be defined as discrete values acting at the</span>
-</span><span id="line-185"><span class="sd">        mounting positions or as continuous values acting per meter depending. The values need to be</span>
-</span><span id="line-186"><span class="sd">        chosen accordingly to the track type.</span>
-</span><span id="line-187">
-</span><span id="line-188"><span class="sd">    Attributes</span>
-</span><span id="line-189"><span class="sd">    ----------</span>
-</span><span id="line-190"><span class="sd">    sb : list of float</span>
-</span><span id="line-191"><span class="sd">        Vertical/lateral ballast stiffness (total value :math:`[N/m]` or per meter :math:`[N/m^2]`).</span>
-</span><span id="line-192"><span class="sd">        Lateral value can be set to zero when lateral rail deflections are omitted.</span>
-</span><span id="line-193">
-</span><span id="line-194"><span class="sd">    etab : float</span>
-</span><span id="line-195"><span class="sd">        Ballast loss factor :math:`[-]`.</span>
-</span><span id="line-196"><span class="sd">    fresb : list of float</span>
-</span><span id="line-197"><span class="sd">        Vertical/lateral ballast resonance frequencies :math:`[Hz]`. These frequencies are needed</span>
-</span><span id="line-198"><span class="sd">        for calculating the viscous damping coefficients if they are not provided. Lateral value can</span>
-</span><span id="line-199"><span class="sd">        be set to zero when lateral rail deflections are omitted.</span>
-</span><span id="line-200"><span class="sd">    db : list of float</span>
-</span><span id="line-201"><span class="sd">        Vertical/lateral viscous damping coefficient (per meter) :math:`[Ns/m]`. Lateral value can</span>
-</span><span id="line-202"><span class="sd">        be set to zero when lateral rail deflections are omitted.</span>
-</span><span id="line-203"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-204">
-</span><span id="line-205">    <span class="n">sb</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="line-206">    <span class="n">etab</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-207">    <span class="n">fresb</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="line-208">    <span class="n">db</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Slab">
+<a class="viewcode-back" href="../../buildtrack/components/rolland.components.Slab.html#rolland.components.Slab">[docs]</a>
+</span><span id="line-183"><span class="k">class</span><span class="w"> </span><span class="nc">Slab</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+</span><span id="line-184"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Slab class.&quot;&quot;&quot;</span>
+</span><span id="line-185">
+</span><span id="line-186">    <span class="c1"># Slab mass per unit length [kg/m]</span>
+</span><span id="line-187">    <span class="n">ms</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-188">
+</span><span id="line-189">    <span class="c1"># Slab depth [m]</span>
+</span><span id="line-190">    <span class="n">ls</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span></div>
 
-</span><span id="line-209">
-</span><span id="line-210">
-</span><span id="line-211">
+</span><span id="line-191">
+</span><span id="line-192">
+<div class="viewcode-block" id="Ballast">
+<a class="viewcode-back" href="../../buildtrack/components/rolland.components.Ballast.html#rolland.components.Ballast">[docs]</a>
+</span><span id="line-193"><span class="k">class</span><span class="w"> </span><span class="nc">Ballast</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+</span><span id="line-194"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Ballast Class.</span>
+</span><span id="line-195">
+</span><span id="line-196"><span class="sd">    Contains the properties of the ballast.</span>
+</span><span id="line-197">
+</span><span id="line-198"><span class="sd">    .. caution::</span>
+</span><span id="line-199"><span class="sd">        Properties of the ballast can either be defined as discrete values acting at the</span>
+</span><span id="line-200"><span class="sd">        mounting positions or as continuous values acting per meter depending. The values need to be</span>
+</span><span id="line-201"><span class="sd">        chosen accordingly to the track type.</span>
+</span><span id="line-202">
+</span><span id="line-203"><span class="sd">    Attributes</span>
+</span><span id="line-204"><span class="sd">    ----------</span>
+</span><span id="line-205"><span class="sd">    sb : list of float</span>
+</span><span id="line-206"><span class="sd">        Vertical/lateral ballast stiffness (total value :math:`[N/m]` or per meter :math:`[N/m^2]`).</span>
+</span><span id="line-207"><span class="sd">        Lateral value can be set to zero when lateral rail deflections are omitted.</span>
+</span><span id="line-208">
+</span><span id="line-209"><span class="sd">    etab : float</span>
+</span><span id="line-210"><span class="sd">        Ballast loss factor :math:`[-]`.</span>
+</span><span id="line-211"><span class="sd">    fresb : list of float</span>
+</span><span id="line-212"><span class="sd">        Vertical/lateral ballast resonance frequencies :math:`[Hz]`. These frequencies are needed</span>
+</span><span id="line-213"><span class="sd">        for calculating the viscous damping coefficients if they are not provided. Lateral value can</span>
+</span><span id="line-214"><span class="sd">        be set to zero when lateral rail deflections are omitted.</span>
+</span><span id="line-215"><span class="sd">    db : list of float</span>
+</span><span id="line-216"><span class="sd">        Vertical/lateral viscous damping coefficient (per meter) :math:`[Ns/m]`. Lateral value can</span>
+</span><span id="line-217"><span class="sd">        be set to zero when lateral rail deflections are omitted.</span>
+</span><span id="line-218"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-219">
+</span><span id="line-220">    <span class="n">sb</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="line-221">    <span class="n">etab</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-222">    <span class="n">fresb</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="line-223">    <span class="n">db</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">default_value</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">maxlen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+</span><span id="line-224">
+</span><span id="line-225">
 <div class="viewcode-block" id="Wheel">
-<a class="viewcode-back" href="../../components.html#rolland.components.Wheel">[docs]</a>
-</span><span id="line-212"><span class="k">class</span><span class="w"> </span><span class="nc">Wheel</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-</span><span id="line-213"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;**Wheel Class**.</span>
-</span><span id="line-214">
-</span><span id="line-215"><span class="sd">    Contains the properties of a wheel.</span>
-</span><span id="line-216">
-</span><span id="line-217"><span class="sd">    Attributes</span>
-</span><span id="line-218"><span class="sd">    ----------</span>
-</span><span id="line-219"><span class="sd">    w_geo_cross_sec : list of tuple of float</span>
-</span><span id="line-220"><span class="sd">        Wheel cross-sectional geometry coordinates (y-z plane) :math:`[m]`. TODO: Define coordinate system</span>
-</span><span id="line-221"><span class="sd">    w_prof : str</span>
-</span><span id="line-222"><span class="sd">        Wheel running surface profile.</span>
-</span><span id="line-223"><span class="sd">    w_geo : list of tuple of float</span>
-</span><span id="line-224"><span class="sd">        Wheel geometry coordinates (x-y plane) :math:`[m]`. TODO: Define coordinate system</span>
-</span><span id="line-225"><span class="sd">    mw : float</span>
-</span><span id="line-226"><span class="sd">        Wheel mass :math:`[kg]`.</span>
-</span><span id="line-227"><span class="sd">    mw_red : float</span>
-</span><span id="line-228"><span class="sd">        Reduced wheel mass :math:`[kg]`. Needed in order to calculate the lateral dynamics</span>
-</span><span id="line-229"><span class="sd">        according to :cite:t:`wu2004a`.</span>
-</span><span id="line-230"><span class="sd">    rw : float</span>
-</span><span id="line-231"><span class="sd">        Wheel radius from the axis of rotation to the contact point :math:`[m]`.</span>
-</span><span id="line-232"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-233">
-</span><span id="line-234">    <span class="n">w_geo_cross_sec</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Tuple</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">Float</span><span class="p">()))</span>
-</span><span id="line-235">    <span class="n">w_prof</span> <span class="o">=</span> <span class="n">Unicode</span><span class="p">()</span>
-</span><span id="line-236">    <span class="n">w_geo</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Tuple</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">Float</span><span class="p">()))</span>
-</span><span id="line-237">    <span class="n">mw</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-238">    <span class="n">mw_red</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-239">    <span class="n">rw</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span></div>
-
-</span><span id="line-240">
-</span><span id="line-241">
-<div class="viewcode-block" id="WheelRoughness">
-<a class="viewcode-back" href="../../components.html#rolland.components.WheelRoughness">[docs]</a>
-</span><span id="line-242"><span class="k">class</span><span class="w"> </span><span class="nc">WheelRoughness</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-</span><span id="line-243"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;**Wheel Roughness Class**.</span>
-</span><span id="line-244">
-</span><span id="line-245"><span class="sd">    Contains a wheel roughness spectrum in frequency domain.</span>
-</span><span id="line-246">
-</span><span id="line-247"><span class="sd">    Attributes</span>
-</span><span id="line-248"><span class="sd">    ----------</span>
-</span><span id="line-249"><span class="sd">    w_rough : tuple of two lists of float</span>
-</span><span id="line-250"><span class="sd">        Wheel roughness spectrum :math:`[f, m]`.</span>
-</span><span id="line-251"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-252">
-</span><span id="line-253">    <span class="n">w_rough</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">(</span><span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">()),</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">()))</span></div>
+<a class="viewcode-back" href="../../buildtrack/components/rolland.components.Wheel.html#rolland.components.Wheel">[docs]</a>
+</span><span id="line-226"><span class="k">class</span><span class="w"> </span><span class="nc">Wheel</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+</span><span id="line-227"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Wheel Class.</span>
+</span><span id="line-228">
+</span><span id="line-229"><span class="sd">    Contains the properties of a wheel.</span>
+</span><span id="line-230">
+</span><span id="line-231"><span class="sd">    Attributes</span>
+</span><span id="line-232"><span class="sd">    ----------</span>
+</span><span id="line-233"><span class="sd">    w_geo_cross_sec : list of tuple of float</span>
+</span><span id="line-234"><span class="sd">        Wheel cross-sectional geometry coordinates (y-z plane) :math:`[m]`. TODO: Define coordinate system</span>
+</span><span id="line-235"><span class="sd">    w_prof : str</span>
+</span><span id="line-236"><span class="sd">        Wheel running surface profile.</span>
+</span><span id="line-237"><span class="sd">    w_geo : list of tuple of float</span>
+</span><span id="line-238"><span class="sd">        Wheel geometry coordinates (x-y plane) :math:`[m]`. TODO: Define coordinate system</span>
+</span><span id="line-239"><span class="sd">    mw : float</span>
+</span><span id="line-240"><span class="sd">        Wheel mass :math:`[kg]`.</span>
+</span><span id="line-241"><span class="sd">    mw_red : float</span>
+</span><span id="line-242"><span class="sd">        Reduced wheel mass :math:`[kg]`. Needed in order to calculate the lateral dynamics</span>
+</span><span id="line-243"><span class="sd">        according to :cite:t:`wu2004a`.</span>
+</span><span id="line-244"><span class="sd">    rw : float</span>
+</span><span id="line-245"><span class="sd">        Wheel radius from the axis of rotation to the contact point :math:`[m]`.</span>
+</span><span id="line-246"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-247">
+</span><span id="line-248">    <span class="n">w_geo_cross_sec</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Tuple</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">Float</span><span class="p">()))</span>
+</span><span id="line-249">    <span class="n">w_prof</span> <span class="o">=</span> <span class="n">Unicode</span><span class="p">()</span>
+</span><span id="line-250">    <span class="n">w_geo</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Tuple</span><span class="p">(</span><span class="n">Float</span><span class="p">(),</span> <span class="n">Float</span><span class="p">()))</span>
+</span><span id="line-251">    <span class="n">mw</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-252">    <span class="n">mw_red</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-253">    <span class="n">rw</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span></div>
 
 </span><span id="line-254">
 </span><span id="line-255">
-<div class="viewcode-block" id="WheelGreensfunc">
-<a class="viewcode-back" href="../../components.html#rolland.components.WheelGreensfunc">[docs]</a>
-</span><span id="line-256"><span class="k">class</span><span class="w"> </span><span class="nc">WheelGreensfunc</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-</span><span id="line-257"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;**Wheel Greens Function Class**.</span>
+<div class="viewcode-block" id="WheelRoughness">
+<a class="viewcode-back" href="../../buildtrack/components/rolland.components.WheelRoughness.html#rolland.components.WheelRoughness">[docs]</a>
+</span><span id="line-256"><span class="k">class</span><span class="w"> </span><span class="nc">WheelRoughness</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+</span><span id="line-257"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Wheel Roughness Class.</span>
 </span><span id="line-258">
-</span><span id="line-259"><span class="sd">    Contains the Green&#39;s function of a wheel.</span>
+</span><span id="line-259"><span class="sd">    Contains a wheel roughness spectrum in frequency domain.</span>
 </span><span id="line-260">
 </span><span id="line-261"><span class="sd">    Attributes</span>
 </span><span id="line-262"><span class="sd">    ----------</span>
-</span><span id="line-263"><span class="sd">    w_gf : numpy.ndarray</span>
-</span><span id="line-264"><span class="sd">        Green&#39;s function data. Contains the response of the wheel to a unit impulse at</span>
-</span><span id="line-265"><span class="sd">        multiple points :math:`[m/N]`.</span>
-</span><span id="line-266"><span class="sd">    w_gf_freq : numpy.ndarray</span>
-</span><span id="line-267"><span class="sd">        Frequency values of the Green&#39;s function :math:`[Hz]`.</span>
-</span><span id="line-268"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-263"><span class="sd">    w_rough : tuple of two lists of float</span>
+</span><span id="line-264"><span class="sd">        Wheel roughness spectrum :math:`[f, m]`.</span>
+</span><span id="line-265"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-266">
+</span><span id="line-267">    <span class="n">w_rough</span> <span class="o">=</span> <span class="n">Tuple</span><span class="p">(</span><span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">()),</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">()))</span></div>
+
+</span><span id="line-268">
 </span><span id="line-269">
-</span><span id="line-270">    <span class="n">w_gf</span> <span class="o">=</span> <span class="n">Array</span><span class="p">()</span>
-</span><span id="line-271">    <span class="n">w_gf_freq</span> <span class="o">=</span> <span class="n">Array</span><span class="p">()</span></div>
+<div class="viewcode-block" id="WheelGreensfunc">
+<a class="viewcode-back" href="../../buildtrack/components/rolland.components.WheelGreensfunc.html#rolland.components.WheelGreensfunc">[docs]</a>
+</span><span id="line-270"><span class="k">class</span><span class="w"> </span><span class="nc">WheelGreensfunc</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+</span><span id="line-271"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Wheel Greens Function Class.</span>
+</span><span id="line-272">
+</span><span id="line-273"><span class="sd">    Contains the Green&#39;s function of a wheel.</span>
+</span><span id="line-274">
+</span><span id="line-275"><span class="sd">    Attributes</span>
+</span><span id="line-276"><span class="sd">    ----------</span>
+</span><span id="line-277"><span class="sd">    w_gf : numpy.ndarray</span>
+</span><span id="line-278"><span class="sd">        Green&#39;s function data. Contains the response of the wheel to a unit impulse at</span>
+</span><span id="line-279"><span class="sd">        multiple points :math:`[m/N]`.</span>
+</span><span id="line-280"><span class="sd">    w_gf_freq : numpy.ndarray</span>
+</span><span id="line-281"><span class="sd">        Frequency values of the Green&#39;s function :math:`[Hz]`.</span>
+</span><span id="line-282"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-283">
+</span><span id="line-284">    <span class="n">w_gf</span> <span class="o">=</span> <span class="n">Array</span><span class="p">()</span>
+</span><span id="line-285">    <span class="n">w_gf_freq</span> <span class="o">=</span> <span class="n">Array</span><span class="p">()</span></div>
 
 </span></code></pre></div>
     </div></div>

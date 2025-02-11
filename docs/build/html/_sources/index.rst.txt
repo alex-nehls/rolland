@@ -5,12 +5,10 @@ Rolling Noise and Dynamics (**Rolland**) is an advanced simulation and calculati
 
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
    :caption: Contents:
    :titlesonly:
 
-
-   beforeyoustart
-   components
-   track
+   start
+   buildtrack/buildtrack
    literature/index

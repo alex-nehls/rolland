@@ -40,7 +40,9 @@
   class="sticky top-0 z-40 w-full border-b shadow-sm border-border supports-backdrop-blur:bg-background/60 bg-background/95 backdrop-blur"><div class="container flex items-center h-14">
     <div class="hidden mr-4 md:flex">
       <a href="index.html" class="flex items-center mr-6"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">Rolland 0.1 documentation</span>
-      </a></div><button
+      </a><nav class="flex items-center space-x-6 text-sm font-medium">
+        <a href="/about.html" class="transition-colors hover:text-foreground/80 text-foreground/60">About</a>
+      </nav></div><button
       class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden"
       type="button" @click="showSidebar = true">
       <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" aria-hidden="true"
@@ -98,12 +100,13 @@
     </a>
 
     <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
-      <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+      <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="flex md:hidden flex-col font-medium mt-4">
+  <a href="/about.html">About</a>
+</nav><nav class="table w-full min-w-full my-6 lg:my-8">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="beforeyoustart.html">Setting up Rolland</a></li>
-<li class="toctree-l1"><a class="reference internal" href="components.html">Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="track.html">Track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start.html">Start using Rolland</a></li>
+<li class="toctree-l1"><a class="reference internal" href="buildtrack/buildtrack.html">Build track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="literature/index.html">Literature</a></li>
 </ul>
 
