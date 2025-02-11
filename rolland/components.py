@@ -1,10 +1,25 @@
-"""Defines all superstructure components."""
+"""Defines required superstructure components.
+
+.. autosummary::
+    :toctree: components
+
+    Rail
+    RailRoughness
+    DiscrPad
+    ContPad
+    Sleeper
+    Slab
+    Ballast
+    Wheel
+    WheelRoughness
+    WheelGreensfunc
+"""
 from traitlets import Float, HasTraits, List, Tuple, Unicode
 from traittypes import Array
 
 
 class Rail(HasTraits):
-    r"""**Rail Class**.
+    r"""Rail Class.
 
     Defines a rail with certain properties. UIC 60 rail is usually used as default rail.
 
@@ -71,7 +86,7 @@ class Rail(HasTraits):
 
 
 class RailRoughness(HasTraits):
-    r"""**Rail Roughness Class**.
+    r"""Rail Roughness Class.
 
     Contains a rail roughness spectrum in frequency domain, which can later be used to calculate the
     rail roughness along the track.
@@ -86,7 +101,7 @@ class RailRoughness(HasTraits):
 
 
 class DiscrPad(HasTraits):
-    r"""**Discrete Pad Class**.
+    r"""Discrete Pad Class.
 
     Contains the properties of a discrete pad.
 
@@ -116,7 +131,7 @@ class DiscrPad(HasTraits):
 
 
 class ContPad(HasTraits):
-    r"""**Cont Pad Class**.
+    r"""Cont Pad Class.
 
     Contains the properties of a continuous pad.
 
@@ -143,7 +158,7 @@ class ContPad(HasTraits):
 
 
 class Sleeper(HasTraits):
-    r"""**Sleeper Class**.
+    r"""Sleeper Class.
 
     Contains the properties of a sleeper.
 
@@ -166,7 +181,7 @@ class Sleeper(HasTraits):
 
 
 class Slab(HasTraits):
-    """Slab class."""
+    r"""Slab class."""
 
     # Slab mass per unit length [kg/m]
     ms = Float()
@@ -176,7 +191,7 @@ class Slab(HasTraits):
 
 
 class Ballast(HasTraits):
-    r"""**Ballast Class**.
+    r"""Ballast Class.
 
     Contains the properties of the ballast.
 
@@ -209,7 +224,7 @@ class Ballast(HasTraits):
 
 
 class Wheel(HasTraits):
-    r"""**Wheel Class**.
+    r"""Wheel Class.
 
     Contains the properties of a wheel.
 
@@ -239,7 +254,7 @@ class Wheel(HasTraits):
 
 
 class WheelRoughness(HasTraits):
-    r"""**Wheel Roughness Class**.
+    r"""Wheel Roughness Class.
 
     Contains a wheel roughness spectrum in frequency domain.
 
@@ -253,7 +268,7 @@ class WheelRoughness(HasTraits):
 
 
 class WheelGreensfunc(HasTraits):
-    r"""**Wheel Greens Function Class**.
+    r"""Wheel Greens Function Class.
 
     Contains the Green's function of a wheel.
 
