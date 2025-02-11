@@ -24,8 +24,13 @@ extensions = [
     'sphinx.ext.napoleon',            # Supports NumPy and Google style docstrings
     'sphinx.ext.viewcode',            # Links to source code
     'sphinx.ext.mathjax',             # For LaTeX math rendering
-#    'sphinxcontrib.bibtex',           # For bibliography
+    'sphinxcontrib.bibtex',           # Citation support
 ]
+
+# sphinxcontrib-bibtex extension settings
+# ---------------------------------------
+bibtex_bibfiles = ["literature/literature.bib"]
+bibtex_default_style = 'unsrt'
 
 templates_path = ['_templates']
 exclude_patterns = []

@@ -208,7 +208,6 @@ class Ballast(HasTraits):
     db = List(Float(), default_value=[0.0, 0.0], maxlen=2)
 
 
-
 class Wheel(HasTraits):
     r"""**Wheel Class**.
 
@@ -226,7 +225,7 @@ class Wheel(HasTraits):
         Wheel mass :math:`[kg]`.
     mw_red : float
         Reduced wheel mass :math:`[kg]`. Needed in order to calculate the lateral dynamics
-        TODO: Add citation
+        according to :cite:t:`wu2004a`.
     rw : float
         Wheel radius from the axis of rotation to the contact point :math:`[m]`.
     """
