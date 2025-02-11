@@ -1,4 +1,12 @@
-"""Arrangement classes."""
+"""Arrangement classes for the definition of non-uniform mounting properties.
+
+.. autosummary::
+    :toctree: arrangement
+
+    Arrangement
+    PeriodicArrangement
+    StochasticArrangement
+"""
 
 import random
 
@@ -6,9 +14,14 @@ from traitlets import Any, HasTraits
 
 
 class Arrangement(HasTraits):
-    """Base class for object arrangements."""
+    """Base class for the definition of non-uniform mounting properties.
 
-    # Characteristic object or objects to repeat
+    Attributes
+    ----------
+    item : any
+        Characteristic object or objects to repeat.
+    """
+
     item = Any()
 
     def generate(self, num_mount):
@@ -16,9 +29,23 @@ class Arrangement(HasTraits):
 
 
 class PeriodicArrangement(Arrangement):
-    """Periodic arrangement of objects.
+    """Periodic arrangement of given objects.
 
-    Fills the track.rst with a periodic sequence of objects.
+    Given sequence of objects is repeated periodically when building track using
+    :class:`~rolland.track.ArrangedSlabSingleRailTrack` or :class:`~rolland.track.ArrangedBallastedSingleRailTrack`
+    class. Mounting position start at :math:`x=0`.
+
+    Attributes
+    ----------
+    item : any
+        Characteristic object or objects to repeat.
+
+    Examples
+    --------
+    >>> from rolland.arrangement import PeriodicArrangement
+    >>> thepadA = DiscrPad()
+    >>> thepadB = DiscrPad()
+    >>> pad = PeriodicArrangement(item=[thepadA, thepadB])
     """
 
     def generate(self, num_mount):
@@ -35,9 +62,23 @@ class PeriodicArrangement(Arrangement):
 
 
 class StochasticArrangement(Arrangement):
-    """Stochastic arrangement of objects.
+    """Stochastic arrangement of given objects.
 
-    Fills the track.rst with a stochastic sequence of objects.
+    Given sequence of objects is repeated randomly when building track using
+    :class:`~rolland.track.ArrangedSlabSingleRailTrack` or :class:`~rolland.track.ArrangedBallastedSingleRailTrack`
+    class. Mounting position start at :math:`x=0`.
+
+    Attributes
+    ----------
+    item : any
+        Characteristic object or objects to repeat.
+
+    Examples
+    --------
+    >>> from rolland.arrangement import StochasticArrangement
+    >>> thepadA = DiscrPad()
+    >>> thepadB = DiscrPad()
+    >>> pad = StochasticArrangement(item=[thepadA, thepadB])
     """
 
     def generate(self, num_mount):
