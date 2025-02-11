@@ -1,18 +1,20 @@
-"""Defines track.rst structures.
+"""Defines track structure and arrangement.
 
-Contains classes for the following superstructure types:
-    - Single rail track.rst
-        - Slab track.rst
-            - Continuous slab track.rst
-            - Discrete slab track.rst
-                - Simple periodic slab track.rst (uniform properties)
-                - Arranged slab track.rst (nonuniform properties)
+.. autosummary::
+    :toctree: track
 
-        - Ballasted single rail track.rst
-            - Continuous ballasted single rail track.rst
-            - Discrete ballasted single rail track.rst
-                - Simple periodic ballasted single rail track.rst (uniform properties)
-                - Arranged ballasted single rail track.rst (nonuniform properties)
+    Track
+    SingleRailTrack
+    SlabSingleRailTrack
+    ContSlabSingleRailTrack
+    DiscrSlabSingleRailTrack
+    SimplePeriodicSlabSingleRailTrack
+    ArrangedSlabSingleRailTrack
+    BallastedSingleRailTrack
+    ContBallastedSingleRailTrack
+    DiscrBallastedSingleRailTrack
+    SimplePeriodicBallastedSingleRailTrack
+    ArrangedBallastedSingleRailTrack
 """
 
 from traitlets import Dict, Float, HasTraits, Instance, Integer, Tuple
@@ -22,45 +24,74 @@ from rolland.components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
 
 
 class Track(HasTraits):
-    """Base class for track.rst structure.
-
-    This class serves as the base for different types of track.rst structures.
-    It inherits from HasTraits to utilize traitlets for attribute validation and
-    dynamic notifications.
-    """
-
+    r"""Base class for track classes."""
 
 
 class SingleRailTrack(Track):
-    """Single rail track.rst class."""
+    r"""Base class for single rail track classes.
 
-    # Rail instance
+    Attributes
+    ----------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance
+    """
+
     rail = Instance(Rail)
 
 
 class SlabSingleRailTrack(SingleRailTrack):
-    """Single rail slab track.rst class.
+    r"""Base class for slab single rail track classes.
 
-    Slab is defined as rigid foundation.
+    Slab mass is set to a very large number to avoid displacement in order to avoid
+    displacement and simulate a rigid slab.
+
+    Attributes
+    ----------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance.
+    slab : Instance of :class:`~rolland.components.Slab` class
+        Slab instance.
     """
 
-    # Slab instance
     slab = Slab()
 
     def __init__(self, *args, **kwargs):
-        # Set the mass of the slab to a very large number to avoid discplacement
+        # Set the mass of the slab to a very large number to avoid displacement
         super().__init__(*args, **kwargs)
         self.slab.ms = 1e20
 
 
 class ContSlabSingleRailTrack(SlabSingleRailTrack):
-    """Single rail continuous slab track.rst class.
+    r"""Single rail slab track with continuous support.
 
-    All superstructure properties are uniform along the track.rst.
+    All superstructure properties are continuous along the track. The slab is assumed to be rigid.
+
+    +-------+---------------+--------------------+-------------+
+    | Layer | Component     | Arrangement        | Variability |
+    +=======+===============+====================+=============+
+    | /     | rail          | continuous         | no          |
+    +-------+---------------+--------------------+-------------+
+    | 1st   | pads          | continuous         | no          |
+    |       +---------------+--------------------+-------------+
+    |       | slab          | continuous (rigid) | no          |
+    +-------+---------------+--------------------+-------------+
+    | 2nd   | ballast       | /                  | /           |
+    +-------+---------------+--------------------+-------------+
+
+    Attributes
+    ----------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance.
+    slab : Instance of :class:`~rolland.components.Slab` class
+        Slab instance.
+    pad : Instance of :class:`~rolland.components.ContPad` class
+        Continuous pad instance.
+
 
     Example:
     --------
-    >>> tr = ContSlabSingleRailTrack(rail = UIC60)
+    >>> from rolland.database.rail.db_rail import UIC60
+    >>> tr = ContSlabSingleRailTrack(rail = UIC60, pad = thepad, slab = theslab)
     >>> tr.pad = thepad
     >>> tr.slab = theslab
     ...
@@ -71,12 +102,22 @@ class ContSlabSingleRailTrack(SlabSingleRailTrack):
 
 
 class DiscrSlabSingleRailTrack(SlabSingleRailTrack):
-    """Single rail discrete slab track.rst class.
+    r"""Base class for discrete slab single rail track classes.
 
-    Rail is mounted discretely. Mounting properties may vary.
+    The pad and sleeper properties are discrete and the slab is assumed to be rigid.
+
+    Attributes
+    ----------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance.
+    slab : Instance of :class:`~rolland.components.Slab` class
+        Slab instance.
+    pad : Instance of :class:`~rolland.components.DiscrPad` class
+        Discrete pad instance.
+    mount_prop : dict
+        Dictionary for discrete mounting positions (x-> (Pad, None)).
     """
 
-    # Pad instance
     pad = Instance(DiscrPad)
 
     # Dictionary for discrete mounting positions (x-> (Pad)).
@@ -93,26 +134,50 @@ class DiscrSlabSingleRailTrack(SlabSingleRailTrack):
 
 
 class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
-    """Single rail simple periodic slab track.rst class.
+    r"""Single rail slab track with simple periodic support.
 
-    Rail is mounted discretely. Mounting properties are uniform.
+    All mounting properties are uniform and no variation is allowed. Slab is assumed to be rigid.
+
+    +-------+-----------+------------------+-------------+
+    | Layer | Component | Arrangement      | Variability |
+    +=======+===========+==================+=============+
+    | /     | rail      | continuous       | no          |
+    +-------+-----------+------------------+-------------+
+    | 1st   | pads      | discrete         | no          |
+    |       +-----------+------------------+-------------+
+    |       | slab      | discrete (rigid) | no          |
+    +-------+-----------+------------------+-------------+
+    | 2nd   | ballast   | /                | /           |
+    +-------+-----------+------------------+-------------+
+
+    Attributes
+    ----------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance.
+    slab : Instance of :class:`~rolland.components.Slab` class
+        Slab instance.
+    pad : Instance of :class:`~rolland.components.DiscrPad` class
+        Discrete pad instance.
+    distance : float
+        Distance between mounting positions.
+    num_mount : int
+        Number of mounting positions.
+    mount_prop : dict
+        Dictionary for discrete mounting positions (x-> (Pad, None)).
+
 
     Example:
     --------
-    >>> tr = SimplePeriodicSlabSingleRailTrack(rail = UIC60)
+    >>> from rolland.database.rail.db_rail import UIC60
+    >>> tr = SimplePeriodicSlabSingleRailTrack(rail = UIC60, distance = 0.6, num_mount = 100)
     >>> tr.mount_prop[0.0] = (thepad, None)
     >>> tr.mount_prop[0.6] = (thepad, None)
     >>> tr.mount_prop[1.2] = (thepad, None)
     ...
     """
 
-    # Pad instance
     pad = Instance(DiscrPad)
-
-    # Distance between mounting positions
     distance = Float()
-
-    # Number of mounting positions
     num_mount = Integer()
 
     def __init__(self, *args, **kwargs):
@@ -124,13 +189,45 @@ class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
             x += self.distance
 
 class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
-    """Single rail arranged slab track.rst class.
+    """Single rail slab track with varying periodic support.
 
-    Rail is mounted discretely. Mounting properties may vary.
+    Variations in the form of periodicaly or stochasticaly varying mounting properties are allowed.
+    Slab is assumed to be rigid.
+
+    +-------+-----------+------------------+---------------------+
+    | Layer | Component | Arrangement      | Variability         |
+    +=======+===========+==================+=====================+
+    | /     | rail      | continuous       | no                  |
+    +-------+-----------+------------------+---------------------+
+    | 1st   | pads      | discrete         | periodic/stochastic |
+    |       +-----------+------------------+---------------------+
+    |       | slab      | discrete (rigid) | periodic/stochastic |
+    +-------+-----------+------------------+---------------------+
+    | 2nd   | ballast   | /                | /                   |
+    +-------+-----------+------------------+---------------------+
+
+    Attributes
+    ----------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance.
+    slab : Instance of :class:`~rolland.components.Slab` class
+        Slab instance.
+    pad : Instance of :class:`~rolland.arrangement.Arrangement` class
+        Arrangement instance containing multiple pads.
+    distance : Instance of :class:`~rolland.arrangement.Arrangement` class
+        Arrangement instance containing multiple distances.
+    num_mount : int
+        Number of mounting positions.
+    mount_prop : dict
+        Dictionary for discrete mounting positions (x-> (Pad, None)).
+
 
     Example:
     --------
-    >>> tr = ArrangedSlabSingleRailTrack(rail = UIC60)
+    >>> from rolland.database.rail.db_rail import UIC60
+    >>> pad = PeriodicArrangement(item=[thepadA, thepadB])
+    >>> distance = PeriodicArrangement(item=[0.65, 0.5])
+    >>> tr = ArrangedSlabSingleRailTrack(rail = UIC60, pad, distance)
     >>> tr.mount_prop[0.0] = (thepadA, None)
     >>> tr.mount_prop[0.65] = (thepadA, None)
     >>> tr.mount_prop[1.15] = (thepadB, None)
@@ -138,13 +235,8 @@ class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
     ...
     """
 
-    # Pad instance
     pad = Instance(Arrangement)
-
-    # Distance between mounting positions
     distance = Instance(Arrangement)
-
-    # Number of mounting positions
     num_mount = Integer()
 
     def __init__(self, *args, **kwargs):
@@ -158,40 +250,76 @@ class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
 
 
 class BallastedSingleRailTrack(SingleRailTrack):
-    """Ballasted single rail track.rst class.
+    r"""Base class for ballasted single rail track classes.
 
-    This class represents a single rail track.rst with ballast.
+    Attributes
+    ----------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance.
+    ballast : Instance of :class:`~rolland.components.Ballast` class
+        Ballast instance.
     """
 
-    # Ballast instance
     ballast = Instance(Ballast)
 
 
 class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
-    """Continuous ballasted single rail track.rst class.
+    r"""Single rail slab track with ballasted support.
 
-    This class represents a single rail track.rst with ballast, pads and a slab.
+    All superstructure properties are continuous along the track.
+
+    .. note:: Properties of ballast need to be defined as continious values (per meter).
+
+    +-------+-----------+-------------+-------------+
+    | Layer | Component | Arrangement | Variability |
+    +=======+===========+=============+=============+
+    | /     | rail      | continuous  | no          |
+    +-------+-----------+-------------+-------------+
+    | 1st   | pads      | continuous  | no          |
+    |       +-----------+-------------+-------------+
+    |       | slab      | continuous  | no          |
+    +-------+-----------+-------------+-------------+
+    | 2nd   | ballast   | continuous  | no          |
+    +-------+-----------+-------------+-------------+
+
+    Attributes
+    ---------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance.
+    pad : Instance of :class:`~rolland.components.ContPad` class
+        Continuous pad instance.
+    slab : Instance of :class:`~rolland.components.Slab` class
+        Slab instance.
+    ballast : Instance of :class:`~rolland.components.Ballast` class
+        Ballast instance.
+
 
     Example:
     --------
-    >>> tr = BallastedSingleRailTrack(rail = UIC60, ballast = default_ballast)
+    >>> from rolland.database.rail.db_rail import UIC60
+    >>> tr = BallastedSingleRailTrack(rail = UIC60, pad = thepad, slab = theslab)
     >>> tr.pad = thepad
     >>> tr.slab = theslab
     ...
     """
 
-    # Pad instance
     pad = Instance(ContPad)
-
-    # Sleeper instance
     slab = Instance(Slab)
 
 
 class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
-    """Ballasted single rail track.rst class.
+    """Base class for discrete ballasted single rail track classes.
 
-    This class represents a single rail track.rst with ballast, pads and sleepers and
-    allows for nonuniform properties of pads and sleepers.
+    The pad and sleeper properties are discrete.
+
+    Attributes
+    ----------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance.
+    ballast : Instance of :class:`~rolland.components.Ballast` class
+        Ballast instance.
+    mount_prop : dict
+        Dictionary for discrete mounting positions (x-> (Pad, Sleeper)).
     """
 
     # Pads and sleepers may have nonuniform properties Dictionary (x-> (Pad, Sleeper))
@@ -207,28 +335,53 @@ class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
 
 
 class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
-    """Class to generate a simple periodic ballasted single rail track.rst.
+    """Single rail ballasted track with simple periodic support.
 
-    All mounting properties are uniform.
+    All mounting properties are uniform and no variation is allowed.
+
+    .. note:: Properties of ballast need to be defined as discrete values.
+
+
+    +-------+-----------+-------------+-------------+
+    | Layer | Component | Arrangement | Variability |
+    +=======+===========+=============+=============+
+    | /     | rail      | continuous  | no          |
+    +-------+-----------+-------------+-------------+
+    | 1st   | pads      | discrete    | no          |
+    |       +-----------+-------------+-------------+
+    |       | sleeper   | discrete    | no          |
+    +-------+-----------+-------------+-------------+
+    | 2nd   | ballast   | discrete    | no          |
+    +-------+-----------+-------------+-------------+
+
+    Attributes
+    ----------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance.
+    ballast : Instance of :class:`~rolland.components.Ballast` class
+        Ballast instance.
+    pad : Instance of :class:`~rolland.components.ContPad` class
+        Continuous pad instance.
+    sleeper : Sleeper instance
+        Sleeper instance.
+    distance : float
+        Distance between mounting positions.
+    num_mount : int
+        Number of mounting positions.
+    mount_prop : dict
+
 
     Example:
     --------
-    >>> tr = SimplePeriodicBallastedSingleRailTrack(rail = UIC60, ballast = default_ballast)
+    >>> tr = SimplePeriodicBallastedSingleRailTrack(distance = 0.6, pad = thepad, sleeper = thesleeper)
     >>> tr.mount_prop[0.0] = (thepad, thesleeper)
     >>> tr.mount_prop[0.6] = (thepad, thesleeper)
     ...
     """
 
-    # Sleeper instance
     sleeper = Instance(Sleeper)
-
-    # Pad instance
     pad = Instance(DiscrPad)
-
-    # Sleeper distance
     distance = Float()
-
-    # Sleeper count
     num_mount = Integer()
 
     def __init__(self, *args, **kwargs):
@@ -240,29 +393,60 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
 
 
 class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
-    """Class to generate an arranged ballasted single rail track.rst.
+    """Single rail ballasted track with varying periodic support.
 
-    Mounting properties may vary.
+    Variations in the form of periodicaly or stochasticaly varying mounting properties are allowed.
+
+    .. note:: Properties of ballast need to be defined as discrete values.
+
+
+    +-------+-----------+------------------+---------------------+
+    | Layer | Component | Arrangement      | Variability         |
+    +=======+===========+==================+=====================+
+    | /     | rail      | continuous       | no                  |
+    +-------+-----------+------------------+---------------------+
+    | 1st   | pads      | discrete         | periodic/stochastic |
+    |       +-----------+------------------+---------------------+
+    |       | sleepers  | discrete         | periodic/stochastic |
+    +-------+-----------+------------------+---------------------+
+    | 2nd   | ballast   | discrete         | no                  |
+    +-------+-----------+------------------+---------------------+
+
+    Attributes
+    ----------
+    rail : Instance of :class:`~rolland.components.Rail` class
+        Rail instance.
+    ballast : Instance of :class:`~rolland.components.Ballast` class
+        Ballast instance.
+    pad : Instance of :class:`~rolland.arrangement.Arrangement` class
+        Arrangement instance containing multiple pads.
+    sleeper : Instance of :class:`~rolland.arrangement.Arrangement` class
+        Arrangement instance containing multiple sleepers.
+    distance : Instance of :class:`~rolland.arrangement.Arrangement` class
+        Arrangement instance containing multiple distances.
+    num_mount : int
+        Number of mounting positions.
+    mount_prop : dict
+        Dictionary for discrete mounting positions (x-> (Pad, Sleeper)).
+
 
     Example:
     --------
-    >>> tr = ArrangedBallastedSingleRailTrack(rail = UIC60, ballast = default_ballast)
+    >>> from rolland.database.rail.db_rail import UIC60
+    >>> pad = PeriodicArrangement(item=[thepadA, thepadB])
+    >>> distance = PeriodicArrangement(item=[0.65, 0.5])
+    >>> sleeper = PeriodicArrangement(item=[thesleeperA, thesleeperB])
+    >>> tr = ArrangedSlabSingleRailTrack(rail = UIC60, pad, distance)
     >>> tr.mount_prop[0.0] = (thepadA, thesleeperA)
-    >>> tr.mount_prop[0.55] = (thepadA, thesleeperA)
-    >>> tr.mount_prop[1.3] = (thepadB, thesleeperB)
-    >>> tr.mount_prop[1.85] = (thepadB, thesleeperB)
+    >>> tr.mount_prop[0.65] = (thepadB, thesleeperB)
+    >>> tr.mount_prop[1.15] = (thepadA, thesleeperA)
+    >>> tr.mount_prop[1.8] = (thepadB, thesleeperB)
+    ...
     """
 
-    # Sleeper instance
     sleeper = Instance(Arrangement)
-
-    # Pad instance
     pad = Instance(Arrangement)
-
-    # Sleeper distance instance
     distance = Instance(Arrangement)
-
-    # Number of mounting positions
     num_mount = Integer()
 
     def __init__(self, *args, **kwargs):
