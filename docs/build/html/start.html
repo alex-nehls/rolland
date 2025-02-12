@@ -111,10 +111,10 @@
 </nav>
 <div id="content" role="main">
 <section id="start-using-rolland">
-<span id="start"></span><h1>Start using Rolland<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#start-using-rolland"><span>¶</span></a></h1>
+<span id="start"></span><h1>Start using Rolland<a class="headerlink" href="#start-using-rolland" title="Link to this heading"><span>¶</span></a></h1>
 <p>This section explains how to set up Rolland and get started with your first simulation.</p>
 <section id="installation">
-<h2>Installation<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#installation" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#installation'"><span>¶</span></a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#installation'"><span>¶</span></a></h2>
 <ol class="arabic simple">
 <li><p>First step</p></li>
 <li><p>Second step</p></li>
@@ -122,9 +122,9 @@
 </ol>
 </section>
 <section id="define-tracks">
-<h2>Define Tracks<a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#define-tracks" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#define-tracks'"><span>¶</span></a></h2>
+<h2>Define Tracks<a class="headerlink" href="#define-tracks" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#define-tracks'"><span>¶</span></a></h2>
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Define several tracks</span><a @click.prevent="window.navigator.clipboard.writeText($el.href); $el.setAttribute('data-tooltip', 'Copied!'); setTimeout(() =&gt; $el.setAttribute('data-tooltip', 'Copy link to this element'), 2000)" aria-label="Copy link to this element" class="headerlink" data-tooltip="Copy link to this element" href="#id1"><span>¶</span></a></div>
+<div class="code-block-caption"><span class="caption-text">Define several tracks</span><a class="headerlink" href="#id1" title="Link to this code"><span>¶</span></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.database.rail.db_rail</span><span class="w"> </span><span class="kn">import</span> <span class="n">UIC60</span>
 </span><span id="line-2"><span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.arrangement</span><span class="w"> </span><span class="kn">import</span> <span class="n">PeriodicArrangement</span><span class="p">,</span> <span class="n">StochasticArrangement</span>
 </span><span id="line-3"><span class="linenos"> 3</span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.track</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>

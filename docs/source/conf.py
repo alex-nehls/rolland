@@ -66,6 +66,8 @@ theme_options = ThemeOptions(
     main_nav_links={"About": "/about"},
     show_scrolltop=True,
     show_prev_next=False,
+    show_breadcrumbs=True,
+    awesome_headerlinks=False,
 )
 
 html_theme_options = asdict(theme_options)
