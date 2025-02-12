@@ -17,8 +17,8 @@ Installation
 Define Tracks
 --------------
 
-
 .. code-block:: python
+  :caption: Define several tracks
   :linenos:
 
   from rolland.database.rail.db_rail import UIC60

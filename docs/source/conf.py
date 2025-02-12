@@ -27,6 +27,7 @@ extensions = [
     'sphinxcontrib.bibtex',           # Citation support
     'sphinx.ext.autosummary',         # Generate autodoc summaries
     'autodoc_traits',                 # Support for traitlets
+    'sphinx_design',                  # Debugging info
 ]
 
 # sphinxcontrib-bibtex extension settings
@@ -41,6 +42,8 @@ autodoc_typehints = "description"       # Include type hints in the description
 napoleon_google_docstring = False       # Use NumPy-style docstrings
 napoleon_numpy_docstring = True
 
+pygments_style = "default"  # Replace with a valid Pygments style for light mode
+pygments_style_dark = "native"  # Replace with a valid Pygments style for dark mode
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
@@ -48,10 +51,21 @@ napoleon_numpy_docstring = True
 html_theme = 'sphinxawesome_theme'
 html_permalinks_icon = "<span>¶</span>"
 
-html_theme_options = {
-   # Add your theme options. For example:
-   "main_nav_links": {
-      "About": "/about",
-   }
-}
+html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 
+html_title = "Rolland Documentation"
+
+
+from dataclasses import asdict
+from sphinxawesome_theme import ThemeOptions
+
+theme_options = ThemeOptions(
+
+    # Add your theme options. For example:
+    main_nav_links={"About": "/about"},
+    show_scrolltop=True,
+    show_prev_next=False,
+)
+
+html_theme_options = asdict(theme_options)
