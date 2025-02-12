@@ -20,6 +20,7 @@ class Arrangement(HasTraits):
     ----------
     item : any
         Characteristic object or objects to repeat.
+    test: test
     """
 
     item = Any()
