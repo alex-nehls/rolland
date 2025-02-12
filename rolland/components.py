@@ -231,11 +231,13 @@ class Wheel(HasTraits):
     Attributes
     ----------
     w_geo_cross_sec : list of tuple of float
-        Wheel cross-sectional geometry coordinates (y-z plane) :math:`[m]`. TODO: Define coordinate system
+        Wheel cross-sectional geometry coordinates (y-z plane) :math:`[m]`.
+        TODO: Define coordinate system
     w_prof : str
         Wheel running surface profile.
     w_geo : list of tuple of float
-        Wheel geometry coordinates (x-y plane) :math:`[m]`. TODO: Define coordinate system
+        Wheel geometry coordinates (x-y plane) :math:`[m]`.
+        TODO: Define coordinate system
     mw : float
         Wheel mass :math:`[kg]`.
     mw_red : float

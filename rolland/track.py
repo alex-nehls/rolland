@@ -283,7 +283,7 @@ class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
     +-------+-----------+-------------+-------------+
 
     Attributes
-    ---------
+    ----------
     rail : Instance of :class:`~rolland.components.Rail` class
         Rail instance.
     pad : Instance of :class:`~rolland.components.ContPad` class
@@ -373,9 +373,9 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
 
     Example:
     --------
-    >>> tr = SimplePeriodicBallastedSingleRailTrack(distance = 0.6, pad = thepad, sleeper = thesleeper)
-    >>> tr.mount_prop[0.0] = (thepad, thesleeper)
-    >>> tr.mount_prop[0.6] = (thepad, thesleeper)
+    >>> tr = SimplePeriodicBallastedSingleRailTrack(distance = 0.6, pad = p1, sleeper = s1)
+    >>> tr.mount_prop[0.0] = (p1, s1)
+    >>> tr.mount_prop[0.6] = (p1, s1)
     ...
     """
 

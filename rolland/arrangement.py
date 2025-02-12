@@ -32,8 +32,9 @@ class PeriodicArrangement(Arrangement):
     """Periodic arrangement of given objects.
 
     Given sequence of objects is repeated periodically when building track using
-    :class:`~rolland.track.ArrangedSlabSingleRailTrack` or :class:`~rolland.track.ArrangedBallastedSingleRailTrack`
-    class. Mounting position start at :math:`x=0`.
+    :class:`~rolland.track.ArrangedSlabSingleRailTrack` or
+    :class:`~rolland.track.ArrangedBallastedSingleRailTrack` class. Mounting position starts at
+    :math:`x=0`.
 
     Attributes
     ----------
@@ -65,8 +66,9 @@ class StochasticArrangement(Arrangement):
     """Stochastic arrangement of given objects.
 
     Given sequence of objects is repeated randomly when building track using
-    :class:`~rolland.track.ArrangedSlabSingleRailTrack` or :class:`~rolland.track.ArrangedBallastedSingleRailTrack`
-    class. Mounting position start at :math:`x=0`.
+    :class:`~rolland.track.ArrangedSlabSingleRailTrack` or
+    :class:`~rolland.track.ArrangedBallastedSingleRailTrack` class. Mounting position starts at
+    :math:`x=0`.
 
     Attributes
     ----------

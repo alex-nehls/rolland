@@ -9,4 +9,6 @@ from .analytical import (
     AnalyticalMethods,
 )
 
+__all__ = ["AnalyticalMethods"]
+
 
