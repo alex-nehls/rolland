@@ -33,7 +33,7 @@ class PeriodicArrangement(Arrangement):
 
     Given sequence of objects is repeated periodically when building track using
     :class:`~rolland.track.ArrangedSlabSingleRailTrack` or
-    :class:`~rolland.track.ArrangedBallastedSingleRailTrack` class. Mounting position starts at
+    :class:`~rolland.track.ArrangedBallastedSingleRailTrack` class. Mounting positions start at
     :math:`x=0`.
 
     Attributes
@@ -41,12 +41,31 @@ class PeriodicArrangement(Arrangement):
     item : any
         Characteristic object or objects to repeat.
 
-    Examples
+    Example
     --------
+    >>> from rolland.database.rail.db_rail import UIC60
+    >>> from rolland.components import DiscrPad, Sleeper
     >>> from rolland.arrangement import PeriodicArrangement
-    >>> thepadA = DiscrPad()
-    >>> thepadB = DiscrPad()
+    >>> from track import ArrangedBallastedSingleRailTrack
+
+    >>> thepadA = DiscrPad(sp = [300*10**6, 0], dp = [30000, 0])
+    >>> thepadB = DiscrPad(sp = [400*10**6, 0], dp = [40000, 0])
+    >>> thesleeperA = Sleeper(ms = 150)
+    >>> thesleeperB = Sleeper(ms = 200)
     >>> pad = PeriodicArrangement(item=[thepadA, thepadB])
+    >>> distance = PeriodicArrangement(item=[0.65, 0.5])
+    >>> sleeper = PeriodicArrangement(item=[thesleeperA, thesleeperB])
+    >>> tr = ArrangedBallastedSingleRailTrack(
+    ...     rail=UIC60,
+    ...     pad=pad,
+    ...     sleeper=sleeper,
+    ...     distance=distance,
+    ...     num_mount=100)
+    >>> tr.mount_prop[0.0] = (thepadA, thesleeperA)
+    >>> tr.mount_prop[0.65] = (thepadB, thesleeperB)
+    >>> tr.mount_prop[1.15] = (thepadA, thesleeperA)
+    >>> tr.mount_prop[1.8] = (thepadB, thesleeperB)
+    ...
     """
 
     def generate(self, num_mount):
@@ -67,7 +86,7 @@ class StochasticArrangement(Arrangement):
 
     Given sequence of objects is repeated randomly when building track using
     :class:`~rolland.track.ArrangedSlabSingleRailTrack` or
-    :class:`~rolland.track.ArrangedBallastedSingleRailTrack` class. Mounting position starts at
+    :class:`~rolland.track.ArrangedBallastedSingleRailTrack` class. Mounting positions start at
     :math:`x=0`.
 
     Attributes
@@ -75,12 +94,31 @@ class StochasticArrangement(Arrangement):
     item : any
         Characteristic object or objects to repeat.
 
-    Examples
+    Example
     --------
+    >>> from rolland.database.rail.db_rail import UIC60
+    >>> from rolland.components import DiscrPad, Sleeper
     >>> from rolland.arrangement import StochasticArrangement
-    >>> thepadA = DiscrPad()
-    >>> thepadB = DiscrPad()
+    >>> from rolland.track import ArrangedBallastedSingleRailTrack
+
+    >>> thepadA = DiscrPad(sp = [300*10**6, 0], dp = [30000, 0])
+    >>> thepadB = DiscrPad(sp = [400*10**6, 0], dp = [40000, 0])
+    >>> thesleeperA = Sleeper(ms = 150)
+    >>> thesleeperB = Sleeper(ms = 200)
     >>> pad = StochasticArrangement(item=[thepadA, thepadB])
+    >>> distance = StochasticArrangement(item=[0.65, 0.5])
+    >>> sleeper = StochasticArrangement(item=[thesleeperA, thesleeperB])
+    >>> tr = ArrangedBallastedSingleRailTrack(
+    ...     rail=UIC60,
+    ...     pad=pad,
+    ...     sleeper=sleeper,
+    ...     distance=distance,
+    ...     num_mount=100)
+    >>> tr.mount_prop[0.0] = (thepadA, thesleeperA)
+    >>> tr.mount_prop[0.65] = (thepadB, thesleeperA)
+    >>> tr.mount_prop[1.3] = (thepadB, thesleeperA)
+    >>> tr.mount_prop[1.8] = (thepadA, thesleeperB)
+    ...
     """
 
     def generate(self, num_mount):

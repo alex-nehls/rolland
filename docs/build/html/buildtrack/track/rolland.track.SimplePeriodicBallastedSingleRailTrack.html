@@ -126,7 +126,7 @@
 <thead>
 <tr class="row-odd"><th class="head"><p>Layer</p></th>
 <th class="head"><p>Component</p></th>
-<th class="head"><p>Arrangement</p></th>
+<th class="head"><p>Condition</p></th>
 <th class="head"><p>Variability</p></th>
 </tr>
 </thead>
@@ -136,12 +136,13 @@
 <td><p>continuous</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-odd"><td rowspan="2"><p>1st</p></td>
+<tr class="row-odd"><td><p>1st</p></td>
 <td><p>pads</p></td>
 <td><p>discrete</p></td>
 <td><p>no</p></td>
 </tr>
-<tr class="row-even"><td><p>sleeper</p></td>
+<tr class="row-even"><td><p>1st/2nd</p></td>
+<td><p>sleeper</p></td>
 <td><p>discrete</p></td>
 <td><p>no</p></td>
 </tr>
@@ -188,7 +189,7 @@
 <dd><p>Sleeper instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Sleeper instance</p>
+<dd class="field-odd"><p>Instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">sleeper</span></code> class</p>
 </dd>
 </dl>
 </dd></dl>
@@ -221,15 +222,26 @@
 </dd>
 </dl>
 </dd></dl>
-<section id="example">
-<h2>Example:<a class="headerlink" href="#example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example'"><span>¶</span></a></h2>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">SimplePeriodicBallastedSingleRailTrack</span><span class="p">(</span><span class="n">distance</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">pad</span> <span class="o">=</span> <span class="n">thepad</span><span class="p">,</span> <span class="n">sleeper</span> <span class="o">=</span> <span class="n">thesleeper</span><span class="p">)</span>
-</span><span id="line-2"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">thepad</span><span class="p">,</span> <span class="n">thesleeper</span><span class="p">)</span>
-</span><span id="line-3"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="mf">0.6</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">thepad</span><span class="p">,</span> <span class="n">thesleeper</span><span class="p">)</span>
-</span><span id="line-4"><span class="gp">...</span>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.database.rail.db_rail</span><span class="w"> </span><span class="kn">import</span> <span class="n">UIC60</span>
+</span><span id="line-2"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.components</span><span class="w"> </span><span class="kn">import</span> <span class="n">DiscrPad</span><span class="p">,</span> <span class="n">Sleeper</span>
+</span><span id="line-3"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.track</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimplePeriodicBallastedSingleRailTrack</span>
 </span></code></pre></div>
 </div>
-</section>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="gp">&gt;&gt;&gt; </span><span class="n">thepad</span> <span class="o">=</span> <span class="n">DiscrPad</span><span class="p">(</span><span class="n">sp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">300</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30000</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</span><span id="line-2"><span class="gp">&gt;&gt;&gt; </span><span class="n">thesleeper</span> <span class="o">=</span> <span class="n">Sleeper</span><span class="p">(</span><span class="n">ms</span> <span class="o">=</span> <span class="mi">150</span><span class="p">)</span>
+</span><span id="line-3"><span class="gp">&gt;&gt;&gt; </span><span class="n">distance</span> <span class="o">=</span> <span class="mf">0.6</span>
+</span><span id="line-4"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">SimplePeriodicBallastedSingleRailTrack</span><span class="p">(</span>
+</span><span id="line-5"><span class="gp">... </span>    <span class="n">rail</span><span class="o">=</span><span class="n">UIC60</span><span class="p">,</span>
+</span><span id="line-6"><span class="gp">... </span>    <span class="n">pad</span><span class="o">=</span><span class="n">thepad</span><span class="p">,</span>
+</span><span id="line-7"><span class="gp">... </span>    <span class="n">sleeper</span><span class="o">=</span><span class="n">thesleeper</span><span class="p">,</span>
+</span><span id="line-8"><span class="gp">... </span>    <span class="n">distance</span><span class="o">=</span><span class="n">distance</span><span class="p">,</span>
+</span><span id="line-9"><span class="gp">... </span>    <span class="n">num_mount</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span><span id="line-10"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">thepad</span><span class="p">,</span> <span class="n">thesleeper</span><span class="p">)</span>
+</span><span id="line-11"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="mf">0.6</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">thepad</span><span class="p">,</span> <span class="n">thesleeper</span><span class="p">)</span>
+</span><span id="line-12"><span class="gp">...</span>
+</span></code></pre></div>
+</div>
 </dd></dl>
 </section>
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">

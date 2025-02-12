@@ -28,6 +28,7 @@ extensions = [
     'sphinx.ext.autosummary',         # Generate autodoc summaries
     'autodoc_traits',                 # Support for traitlets
     'sphinx_design',                  # Debugging info
+    'myst_parser',                    # Markdown support
 ]
 
 # sphinxcontrib-bibtex extension settings
