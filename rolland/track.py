@@ -32,8 +32,8 @@ class SingleRailTrack(Track):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
-        Rail instance
+    rail : Rail
+        Rail instance.
     """
 
     rail = Instance(Rail)
@@ -47,9 +47,9 @@ class SlabSingleRailTrack(SingleRailTrack):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
+    rail : Rail
         Rail instance.
-    slab : Instance of :class:`~rolland.components.Slab` class
+    slab : Slab
         Slab instance.
     """
 
@@ -81,11 +81,11 @@ class ContSlabSingleRailTrack(SlabSingleRailTrack):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
+    rail : Rail
         Rail instance.
-    slab : Instance of :class:`~rolland.components.Slab` class
+    slab : Slab
         Slab instance.
-    pad : Instance of :class:`~rolland.components.ContPad` class
+    pad : ContPad
         Continuous pad instance.
 
 
@@ -113,11 +113,11 @@ class DiscrSlabSingleRailTrack(SlabSingleRailTrack):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
+    rail : Rail
         Rail instance.
-    slab : Instance of :class:`~rolland.components.Slab` class
+    slab : Slab
         Slab instance.
-    pad : Instance of :class:`~rolland.components.DiscrPad` class
+    pad : DiscrPad
         Discrete pad instance.
     mount_prop : dict
         Dictionary for discrete mounting positions (x-> (Pad, None)).
@@ -157,11 +157,11 @@ class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
+    rail : Rail
         Rail instance.
-    slab : Instance of :class:`~rolland.components.Slab` class
+    slab : Slab
         Slab instance.
-    pad : Instance of :class:`~rolland.components.DiscrPad` class
+    pad : DiscrPad
         Discrete pad instance.
     distance : float
         Distance between mounting positions.
@@ -223,13 +223,14 @@ class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
+    rail : Rail
         Rail instance.
-    slab : Instance of :class:`~rolland.components.Slab` class
+    slab : Slab
         Slab instance.
-    pad : Instance of :class:`~rolland.arrangement.Arrangement` class
+    pad : Arrangement
         Arrangement instance containing multiple pads.
-    distance : Instance of :class:`~rolland.arrangement.Arrangement` class
+    distance : Arrangement
+
         Arrangement instance containing multiple distances.
     num_mount : int
         Number of mounting positions.
@@ -281,9 +282,9 @@ class BallastedSingleRailTrack(SingleRailTrack):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
+    rail : Rail
         Rail instance.
-    ballast : Instance of :class:`~rolland.components.Ballast` class
+    ballast : Ballast
         Ballast instance.
     """
 
@@ -311,13 +312,13 @@ class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
+    rail : Rail
         Rail instance.
-    pad : Instance of :class:`~rolland.components.ContPad` class
+    pad : ContPad
         Continuous pad instance.
-    slab : Instance of :class:`~rolland.components.Slab` class
+    slab : Slab
         Slab instance.
-    ballast : Instance of :class:`~rolland.components.Ballast` class
+    ballast : Ballast
         Ballast instance.
 
 
@@ -346,9 +347,9 @@ class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
+    rail : Rail
         Rail instance.
-    ballast : Instance of :class:`~rolland.components.Ballast` class
+    ballast : Ballast
         Ballast instance.
     mount_prop : dict
         Dictionary for discrete mounting positions (x-> (Pad, Sleeper)).
@@ -388,11 +389,11 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
+    rail : Rail
         Rail instance.
-    ballast : Instance of :class:`~rolland.components.Ballast` class
+    ballast : Ballast
         Ballast instance.
-    pad : Instance of :class:`~rolland.components.ContPad` class
+    pad : ContPad
         Continuous pad instance.
     sleeper : Instance of :class:`~rolland.components.sleeper` class
         Sleeper instance.
@@ -457,15 +458,15 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
 
     Attributes
     ----------
-    rail : Instance of :class:`~rolland.components.Rail` class
+    rail : Rail
         Rail instance.
-    ballast : Instance of :class:`~rolland.components.Ballast` class
+    ballast : Ballast
         Ballast instance.
-    pad : Instance of :class:`~rolland.arrangement.Arrangement` class
+    pad : Arrangement
         Arrangement instance containing multiple pads.
-    sleeper : Instance of :class:`~rolland.arrangement.Arrangement` class
+    sleeper : Arrangement
         Arrangement instance containing multiple sleepers.
-    distance : Instance of :class:`~rolland.arrangement.Arrangement` class
+    distance : Arrangement
         Arrangement instance containing multiple distances.
     num_mount : int
         Number of mounting positions.
