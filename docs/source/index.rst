@@ -19,7 +19,7 @@ Explore
       In the **How-to** section, you can learn more about the basic usage of Rolland.
 
       .. toctree::
-         :caption: How To
+         :caption: How to
          :maxdepth: 1
          :titlesonly:
 
@@ -37,6 +37,43 @@ Explore
          buildtrack/components
          buildtrack/track
          buildtrack/arrangement
+
+   .. tab-item:: Rolland
+
+      The **Rolland** section contains all classes and functions corresponding to the Rolland model.
+
+      .. toctree::
+         :caption: Rolland
+         :maxdepth: 1
+         :titlesonly:
+
+
+
+   .. tab-item:: Analytical Methods
+
+      The **Analytical Methods** section contains analytical methods in order to compare the results of the
+      Rolland model with analytical solutions.
+
+      .. toctree::
+         :caption: Analytical Methods
+         :maxdepth: 2
+         :titlesonly:
+
+         analyticalmethods/analyticalmethods
+
+
+
+   .. tab-item:: Postprocessing
+
+      The **Postprocessing** section contains all classes and functions to postprocess the results of
+      the Rolland model and the analytical methods.
+
+      .. toctree::
+         :caption: Postprocessing
+         :maxdepth: 1
+         :titlesonly:
+
+
 
 
 .. toctree::

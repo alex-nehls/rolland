@@ -106,7 +106,7 @@
       <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="flex md:hidden flex-col font-medium mt-4">
   <a href="/about.html">About</a>
 </nav><nav class="table w-full min-w-full my-6 lg:my-8">
-  <p class="caption" role="heading"><span class="caption-text">How To</span></p>
+  <p class="caption" role="heading"><span class="caption-text">How to</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
@@ -115,6 +115,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../buildtrack/components.html">Components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../buildtrack/track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../buildtrack/arrangement.html">Arrangement</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analytical Methods</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../analyticalmethods/analyticalmethods.html">Analytical Methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.AnalyticalMethods.html">rolland.methods.analytical.AnalyticalMethods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonEBBCont1LSupp.html">rolland.methods.analytical.ThompsonEBBCont1LSupp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonEBBCont2LSupp.html">rolland.methods.analytical.ThompsonEBBCont2LSupp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTBDiscr.html">rolland.methods.analytical.ThompsonTBDiscr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTSDiscr1LSupp.html">rolland.methods.analytical.ThompsonTSDiscr1LSupp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTSDiscr2LSupp.html">rolland.methods.analytical.ThompsonTSDiscr2LSupp</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Literature</span></p>
 <ul>
@@ -200,8 +212,8 @@
 </span><span id="line-32">
 </span><span id="line-33"><span class="sd">    Attributes</span>
 </span><span id="line-34"><span class="sd">    ----------</span>
-</span><span id="line-35"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
-</span><span id="line-36"><span class="sd">        Rail instance</span>
+</span><span id="line-35"><span class="sd">    rail : Rail</span>
+</span><span id="line-36"><span class="sd">        Rail instance.</span>
 </span><span id="line-37"><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="line-38">
 </span><span id="line-39">    <span class="n">rail</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Rail</span><span class="p">)</span></div>
@@ -218,9 +230,9 @@
 </span><span id="line-47">
 </span><span id="line-48"><span class="sd">    Attributes</span>
 </span><span id="line-49"><span class="sd">    ----------</span>
-</span><span id="line-50"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
+</span><span id="line-50"><span class="sd">    rail : Rail</span>
 </span><span id="line-51"><span class="sd">        Rail instance.</span>
-</span><span id="line-52"><span class="sd">    slab : Instance of :class:`~rolland.components.Slab` class</span>
+</span><span id="line-52"><span class="sd">    slab : Slab</span>
 </span><span id="line-53"><span class="sd">        Slab instance.</span>
 </span><span id="line-54"><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="line-55">
@@ -255,11 +267,11 @@
 </span><span id="line-81">
 </span><span id="line-82"><span class="sd">    Attributes</span>
 </span><span id="line-83"><span class="sd">    ----------</span>
-</span><span id="line-84"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
+</span><span id="line-84"><span class="sd">    rail : Rail</span>
 </span><span id="line-85"><span class="sd">        Rail instance.</span>
-</span><span id="line-86"><span class="sd">    slab : Instance of :class:`~rolland.components.Slab` class</span>
+</span><span id="line-86"><span class="sd">    slab : Slab</span>
 </span><span id="line-87"><span class="sd">        Slab instance.</span>
-</span><span id="line-88"><span class="sd">    pad : Instance of :class:`~rolland.components.ContPad` class</span>
+</span><span id="line-88"><span class="sd">    pad : ContPad</span>
 </span><span id="line-89"><span class="sd">        Continuous pad instance.</span>
 </span><span id="line-90">
 </span><span id="line-91">
@@ -290,11 +302,11 @@
 </span><span id="line-113">
 </span><span id="line-114"><span class="sd">    Attributes</span>
 </span><span id="line-115"><span class="sd">    ----------</span>
-</span><span id="line-116"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
+</span><span id="line-116"><span class="sd">    rail : Rail</span>
 </span><span id="line-117"><span class="sd">        Rail instance.</span>
-</span><span id="line-118"><span class="sd">    slab : Instance of :class:`~rolland.components.Slab` class</span>
+</span><span id="line-118"><span class="sd">    slab : Slab</span>
 </span><span id="line-119"><span class="sd">        Slab instance.</span>
-</span><span id="line-120"><span class="sd">    pad : Instance of :class:`~rolland.components.DiscrPad` class</span>
+</span><span id="line-120"><span class="sd">    pad : DiscrPad</span>
 </span><span id="line-121"><span class="sd">        Discrete pad instance.</span>
 </span><span id="line-122"><span class="sd">    mount_prop : dict</span>
 </span><span id="line-123"><span class="sd">        Dictionary for discrete mounting positions (x-&gt; (Pad, None)).</span>
@@ -337,11 +349,11 @@
 </span><span id="line-157">
 </span><span id="line-158"><span class="sd">    Attributes</span>
 </span><span id="line-159"><span class="sd">    ----------</span>
-</span><span id="line-160"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
+</span><span id="line-160"><span class="sd">    rail : Rail</span>
 </span><span id="line-161"><span class="sd">        Rail instance.</span>
-</span><span id="line-162"><span class="sd">    slab : Instance of :class:`~rolland.components.Slab` class</span>
+</span><span id="line-162"><span class="sd">    slab : Slab</span>
 </span><span id="line-163"><span class="sd">        Slab instance.</span>
-</span><span id="line-164"><span class="sd">    pad : Instance of :class:`~rolland.components.DiscrPad` class</span>
+</span><span id="line-164"><span class="sd">    pad : DiscrPad</span>
 </span><span id="line-165"><span class="sd">        Discrete pad instance.</span>
 </span><span id="line-166"><span class="sd">    distance : float</span>
 </span><span id="line-167"><span class="sd">        Distance between mounting positions.</span>
@@ -406,312 +418,313 @@
 </span><span id="line-223">
 </span><span id="line-224"><span class="sd">    Attributes</span>
 </span><span id="line-225"><span class="sd">    ----------</span>
-</span><span id="line-226"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
+</span><span id="line-226"><span class="sd">    rail : Rail</span>
 </span><span id="line-227"><span class="sd">        Rail instance.</span>
-</span><span id="line-228"><span class="sd">    slab : Instance of :class:`~rolland.components.Slab` class</span>
+</span><span id="line-228"><span class="sd">    slab : Slab</span>
 </span><span id="line-229"><span class="sd">        Slab instance.</span>
-</span><span id="line-230"><span class="sd">    pad : Instance of :class:`~rolland.arrangement.Arrangement` class</span>
+</span><span id="line-230"><span class="sd">    pad : Arrangement</span>
 </span><span id="line-231"><span class="sd">        Arrangement instance containing multiple pads.</span>
-</span><span id="line-232"><span class="sd">    distance : Instance of :class:`~rolland.arrangement.Arrangement` class</span>
-</span><span id="line-233"><span class="sd">        Arrangement instance containing multiple distances.</span>
-</span><span id="line-234"><span class="sd">    num_mount : int</span>
-</span><span id="line-235"><span class="sd">        Number of mounting positions.</span>
-</span><span id="line-236"><span class="sd">    mount_prop : dict</span>
-</span><span id="line-237"><span class="sd">        Dictionary for discrete mounting positions (x-&gt; (Pad, None)).</span>
-</span><span id="line-238">
+</span><span id="line-232"><span class="sd">    distance : Arrangement</span>
+</span><span id="line-233">
+</span><span id="line-234"><span class="sd">        Arrangement instance containing multiple distances.</span>
+</span><span id="line-235"><span class="sd">    num_mount : int</span>
+</span><span id="line-236"><span class="sd">        Number of mounting positions.</span>
+</span><span id="line-237"><span class="sd">    mount_prop : dict</span>
+</span><span id="line-238"><span class="sd">        Dictionary for discrete mounting positions (x-&gt; (Pad, None)).</span>
 </span><span id="line-239">
-</span><span id="line-240"><span class="sd">    Example</span>
-</span><span id="line-241"><span class="sd">    --------</span>
-</span><span id="line-242"><span class="sd">    &gt;&gt;&gt; from rolland.database.rail.db_rail import UIC60</span>
-</span><span id="line-243"><span class="sd">    &gt;&gt;&gt; from rolland.components import DiscrPad, Slab</span>
-</span><span id="line-244"><span class="sd">    &gt;&gt;&gt; from rolland.arrangement import PeriodicArrangement</span>
-</span><span id="line-245"><span class="sd">    &gt;&gt;&gt; from rolland.track import ArrangedSlabSingleRailTrack</span>
-</span><span id="line-246">
-</span><span id="line-247"><span class="sd">    &gt;&gt;&gt; thepadA = DiscrPad(sp = [300*10**6, 0], dp = [30000, 0])</span>
-</span><span id="line-248"><span class="sd">    &gt;&gt;&gt; thepadB = DiscrPad(sp = [400*10**6, 0], dp = [40000, 0])</span>
-</span><span id="line-249"><span class="sd">    &gt;&gt;&gt; theslab = Slab(ms = 250)</span>
-</span><span id="line-250"><span class="sd">    &gt;&gt;&gt; pad = PeriodicArrangement(item=[thepadA, thepadB])</span>
-</span><span id="line-251"><span class="sd">    &gt;&gt;&gt; distance = PeriodicArrangement(item=[0.65, 0.5])</span>
-</span><span id="line-252"><span class="sd">    &gt;&gt;&gt; tr = ArrangedSlabSingleRailTrack(</span>
-</span><span id="line-253"><span class="sd">    ...     rail=UIC60,</span>
-</span><span id="line-254"><span class="sd">    ...     pad=pad,</span>
-</span><span id="line-255"><span class="sd">    ...     slab=theslab,</span>
-</span><span id="line-256"><span class="sd">    ...     distance=distance,</span>
-</span><span id="line-257"><span class="sd">    ...     num_mount=100)</span>
-</span><span id="line-258"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.0] = (thepadA, None)</span>
-</span><span id="line-259"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.65] = (thepadA, None)</span>
-</span><span id="line-260"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[1.15] = (thepadB, None)</span>
-</span><span id="line-261"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[1.8] = (thepadB, None)</span>
-</span><span id="line-262"><span class="sd">    ...</span>
-</span><span id="line-263"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-264">
-</span><span id="line-265">    <span class="n">pad</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Arrangement</span><span class="p">)</span>
-</span><span id="line-266">    <span class="n">distance</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Arrangement</span><span class="p">)</span>
-</span><span id="line-267">    <span class="n">num_mount</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
-</span><span id="line-268">
-</span><span id="line-269">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="line-270">        <span class="c1"># Set the mounting properties</span>
-</span><span id="line-271">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="line-272">        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="line-273">        <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">),</span>
-</span><span id="line-274">                        <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-</span><span id="line-275">            <span class="bp">self</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-</span><span id="line-276">            <span class="n">x</span> <span class="o">+=</span> <span class="n">d</span></div>
+</span><span id="line-240">
+</span><span id="line-241"><span class="sd">    Example</span>
+</span><span id="line-242"><span class="sd">    --------</span>
+</span><span id="line-243"><span class="sd">    &gt;&gt;&gt; from rolland.database.rail.db_rail import UIC60</span>
+</span><span id="line-244"><span class="sd">    &gt;&gt;&gt; from rolland.components import DiscrPad, Slab</span>
+</span><span id="line-245"><span class="sd">    &gt;&gt;&gt; from rolland.arrangement import PeriodicArrangement</span>
+</span><span id="line-246"><span class="sd">    &gt;&gt;&gt; from rolland.track import ArrangedSlabSingleRailTrack</span>
+</span><span id="line-247">
+</span><span id="line-248"><span class="sd">    &gt;&gt;&gt; thepadA = DiscrPad(sp = [300*10**6, 0], dp = [30000, 0])</span>
+</span><span id="line-249"><span class="sd">    &gt;&gt;&gt; thepadB = DiscrPad(sp = [400*10**6, 0], dp = [40000, 0])</span>
+</span><span id="line-250"><span class="sd">    &gt;&gt;&gt; theslab = Slab(ms = 250)</span>
+</span><span id="line-251"><span class="sd">    &gt;&gt;&gt; pad = PeriodicArrangement(item=[thepadA, thepadB])</span>
+</span><span id="line-252"><span class="sd">    &gt;&gt;&gt; distance = PeriodicArrangement(item=[0.65, 0.5])</span>
+</span><span id="line-253"><span class="sd">    &gt;&gt;&gt; tr = ArrangedSlabSingleRailTrack(</span>
+</span><span id="line-254"><span class="sd">    ...     rail=UIC60,</span>
+</span><span id="line-255"><span class="sd">    ...     pad=pad,</span>
+</span><span id="line-256"><span class="sd">    ...     slab=theslab,</span>
+</span><span id="line-257"><span class="sd">    ...     distance=distance,</span>
+</span><span id="line-258"><span class="sd">    ...     num_mount=100)</span>
+</span><span id="line-259"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.0] = (thepadA, None)</span>
+</span><span id="line-260"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.65] = (thepadA, None)</span>
+</span><span id="line-261"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[1.15] = (thepadB, None)</span>
+</span><span id="line-262"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[1.8] = (thepadB, None)</span>
+</span><span id="line-263"><span class="sd">    ...</span>
+</span><span id="line-264"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-265">
+</span><span id="line-266">    <span class="n">pad</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Arrangement</span><span class="p">)</span>
+</span><span id="line-267">    <span class="n">distance</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Arrangement</span><span class="p">)</span>
+</span><span id="line-268">    <span class="n">num_mount</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+</span><span id="line-269">
+</span><span id="line-270">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="line-271">        <span class="c1"># Set the mounting properties</span>
+</span><span id="line-272">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="line-273">        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="line-274">        <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">),</span>
+</span><span id="line-275">                        <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="line-276">            <span class="bp">self</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span id="line-277">            <span class="n">x</span> <span class="o">+=</span> <span class="n">d</span></div>
 
-</span><span id="line-277">
 </span><span id="line-278">
+</span><span id="line-279">
 <div class="viewcode-block" id="BallastedSingleRailTrack">
 <a class="viewcode-back" href="../../buildtrack/track/rolland.track.BallastedSingleRailTrack.html#rolland.track.BallastedSingleRailTrack">[docs]</a>
-</span><span id="line-279"><span class="k">class</span><span class="w"> </span><span class="nc">BallastedSingleRailTrack</span><span class="p">(</span><span class="n">SingleRailTrack</span><span class="p">):</span>
-</span><span id="line-280"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Base class for ballasted single rail track classes.</span>
-</span><span id="line-281">
-</span><span id="line-282"><span class="sd">    Attributes</span>
-</span><span id="line-283"><span class="sd">    ----------</span>
-</span><span id="line-284"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
-</span><span id="line-285"><span class="sd">        Rail instance.</span>
-</span><span id="line-286"><span class="sd">    ballast : Instance of :class:`~rolland.components.Ballast` class</span>
-</span><span id="line-287"><span class="sd">        Ballast instance.</span>
-</span><span id="line-288"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-289">
-</span><span id="line-290">    <span class="n">ballast</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Ballast</span><span class="p">)</span></div>
+</span><span id="line-280"><span class="k">class</span><span class="w"> </span><span class="nc">BallastedSingleRailTrack</span><span class="p">(</span><span class="n">SingleRailTrack</span><span class="p">):</span>
+</span><span id="line-281"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Base class for ballasted single rail track classes.</span>
+</span><span id="line-282">
+</span><span id="line-283"><span class="sd">    Attributes</span>
+</span><span id="line-284"><span class="sd">    ----------</span>
+</span><span id="line-285"><span class="sd">    rail : Rail</span>
+</span><span id="line-286"><span class="sd">        Rail instance.</span>
+</span><span id="line-287"><span class="sd">    ballast : Ballast</span>
+</span><span id="line-288"><span class="sd">        Ballast instance.</span>
+</span><span id="line-289"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-290">
+</span><span id="line-291">    <span class="n">ballast</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Ballast</span><span class="p">)</span></div>
 
-</span><span id="line-291">
 </span><span id="line-292">
+</span><span id="line-293">
 <div class="viewcode-block" id="ContBallastedSingleRailTrack">
 <a class="viewcode-back" href="../../buildtrack/track/rolland.track.ContBallastedSingleRailTrack.html#rolland.track.ContBallastedSingleRailTrack">[docs]</a>
-</span><span id="line-293"><span class="k">class</span><span class="w"> </span><span class="nc">ContBallastedSingleRailTrack</span><span class="p">(</span><span class="n">BallastedSingleRailTrack</span><span class="p">):</span>
-</span><span id="line-294"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Single rail slab track with ballasted support.</span>
-</span><span id="line-295">
-</span><span id="line-296"><span class="sd">    All superstructure properties are continuous along the track.</span>
-</span><span id="line-297">
-</span><span id="line-298"><span class="sd">    .. note:: Properties of ballast need to be defined as continious values (per meter).</span>
-</span><span id="line-299">
-</span><span id="line-300"><span class="sd">    +---------+-----------+------------+-------------+</span>
-</span><span id="line-301"><span class="sd">    | Layer   | Component | Condition  | Variability |</span>
-</span><span id="line-302"><span class="sd">    +=========+===========+============+=============+</span>
-</span><span id="line-303"><span class="sd">    | /       | rail      | continuous | no          |</span>
-</span><span id="line-304"><span class="sd">    +---------+-----------+------------+-------------+</span>
-</span><span id="line-305"><span class="sd">    | 1st     | pads      | continuous | no          |</span>
-</span><span id="line-306"><span class="sd">    +---------+-----------+------------+-------------+</span>
-</span><span id="line-307"><span class="sd">    | 1st/2nd | slab      | continuous | no          |</span>
-</span><span id="line-308"><span class="sd">    +---------+-----------+------------+-------------+</span>
-</span><span id="line-309"><span class="sd">    | 2nd     | ballast   | continuous | no          |</span>
-</span><span id="line-310"><span class="sd">    +---------+-----------+------------+-------------+</span>
-</span><span id="line-311">
-</span><span id="line-312"><span class="sd">    Attributes</span>
-</span><span id="line-313"><span class="sd">    ----------</span>
-</span><span id="line-314"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
-</span><span id="line-315"><span class="sd">        Rail instance.</span>
-</span><span id="line-316"><span class="sd">    pad : Instance of :class:`~rolland.components.ContPad` class</span>
-</span><span id="line-317"><span class="sd">        Continuous pad instance.</span>
-</span><span id="line-318"><span class="sd">    slab : Instance of :class:`~rolland.components.Slab` class</span>
-</span><span id="line-319"><span class="sd">        Slab instance.</span>
-</span><span id="line-320"><span class="sd">    ballast : Instance of :class:`~rolland.components.Ballast` class</span>
-</span><span id="line-321"><span class="sd">        Ballast instance.</span>
-</span><span id="line-322">
+</span><span id="line-294"><span class="k">class</span><span class="w"> </span><span class="nc">ContBallastedSingleRailTrack</span><span class="p">(</span><span class="n">BallastedSingleRailTrack</span><span class="p">):</span>
+</span><span id="line-295"><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Single rail slab track with ballasted support.</span>
+</span><span id="line-296">
+</span><span id="line-297"><span class="sd">    All superstructure properties are continuous along the track.</span>
+</span><span id="line-298">
+</span><span id="line-299"><span class="sd">    .. note:: Properties of ballast need to be defined as continious values (per meter).</span>
+</span><span id="line-300">
+</span><span id="line-301"><span class="sd">    +---------+-----------+------------+-------------+</span>
+</span><span id="line-302"><span class="sd">    | Layer   | Component | Condition  | Variability |</span>
+</span><span id="line-303"><span class="sd">    +=========+===========+============+=============+</span>
+</span><span id="line-304"><span class="sd">    | /       | rail      | continuous | no          |</span>
+</span><span id="line-305"><span class="sd">    +---------+-----------+------------+-------------+</span>
+</span><span id="line-306"><span class="sd">    | 1st     | pads      | continuous | no          |</span>
+</span><span id="line-307"><span class="sd">    +---------+-----------+------------+-------------+</span>
+</span><span id="line-308"><span class="sd">    | 1st/2nd | slab      | continuous | no          |</span>
+</span><span id="line-309"><span class="sd">    +---------+-----------+------------+-------------+</span>
+</span><span id="line-310"><span class="sd">    | 2nd     | ballast   | continuous | no          |</span>
+</span><span id="line-311"><span class="sd">    +---------+-----------+------------+-------------+</span>
+</span><span id="line-312">
+</span><span id="line-313"><span class="sd">    Attributes</span>
+</span><span id="line-314"><span class="sd">    ----------</span>
+</span><span id="line-315"><span class="sd">    rail : Rail</span>
+</span><span id="line-316"><span class="sd">        Rail instance.</span>
+</span><span id="line-317"><span class="sd">    pad : ContPad</span>
+</span><span id="line-318"><span class="sd">        Continuous pad instance.</span>
+</span><span id="line-319"><span class="sd">    slab : Slab</span>
+</span><span id="line-320"><span class="sd">        Slab instance.</span>
+</span><span id="line-321"><span class="sd">    ballast : Ballast</span>
+</span><span id="line-322"><span class="sd">        Ballast instance.</span>
 </span><span id="line-323">
-</span><span id="line-324"><span class="sd">    Example</span>
-</span><span id="line-325"><span class="sd">    --------</span>
-</span><span id="line-326"><span class="sd">    &gt;&gt;&gt; from rolland.database.rail.db_rail import UIC60</span>
-</span><span id="line-327"><span class="sd">    &gt;&gt;&gt; from rolland.components import ContPad, Slab</span>
-</span><span id="line-328"><span class="sd">    &gt;&gt;&gt; from rolland.track import ContBallastedSingleRailTrack</span>
-</span><span id="line-329">
-</span><span id="line-330"><span class="sd">    &gt;&gt;&gt; thepad = ContPad(sp = [300*10**6, 0], dp = [30000, 0])</span>
-</span><span id="line-331"><span class="sd">    &gt;&gt;&gt; theslab = Slab(ms = 250)</span>
-</span><span id="line-332"><span class="sd">    &gt;&gt;&gt; tr = ContBallastedSingleRailTrack(rail = UIC60, pad = thepad, slab = theslab)</span>
-</span><span id="line-333"><span class="sd">    &gt;&gt;&gt; tr.pad = thepad</span>
-</span><span id="line-334"><span class="sd">    &gt;&gt;&gt; tr.slab = theslab</span>
-</span><span id="line-335"><span class="sd">    ...</span>
-</span><span id="line-336"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-337">
-</span><span id="line-338">    <span class="n">pad</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">ContPad</span><span class="p">)</span>
-</span><span id="line-339">    <span class="n">slab</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Slab</span><span class="p">)</span></div>
+</span><span id="line-324">
+</span><span id="line-325"><span class="sd">    Example</span>
+</span><span id="line-326"><span class="sd">    --------</span>
+</span><span id="line-327"><span class="sd">    &gt;&gt;&gt; from rolland.database.rail.db_rail import UIC60</span>
+</span><span id="line-328"><span class="sd">    &gt;&gt;&gt; from rolland.components import ContPad, Slab</span>
+</span><span id="line-329"><span class="sd">    &gt;&gt;&gt; from rolland.track import ContBallastedSingleRailTrack</span>
+</span><span id="line-330">
+</span><span id="line-331"><span class="sd">    &gt;&gt;&gt; thepad = ContPad(sp = [300*10**6, 0], dp = [30000, 0])</span>
+</span><span id="line-332"><span class="sd">    &gt;&gt;&gt; theslab = Slab(ms = 250)</span>
+</span><span id="line-333"><span class="sd">    &gt;&gt;&gt; tr = ContBallastedSingleRailTrack(rail = UIC60, pad = thepad, slab = theslab)</span>
+</span><span id="line-334"><span class="sd">    &gt;&gt;&gt; tr.pad = thepad</span>
+</span><span id="line-335"><span class="sd">    &gt;&gt;&gt; tr.slab = theslab</span>
+</span><span id="line-336"><span class="sd">    ...</span>
+</span><span id="line-337"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-338">
+</span><span id="line-339">    <span class="n">pad</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">ContPad</span><span class="p">)</span>
+</span><span id="line-340">    <span class="n">slab</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Slab</span><span class="p">)</span></div>
 
-</span><span id="line-340">
 </span><span id="line-341">
+</span><span id="line-342">
 <div class="viewcode-block" id="DiscrBallastedSingleRailTrack">
 <a class="viewcode-back" href="../../buildtrack/track/rolland.track.DiscrBallastedSingleRailTrack.html#rolland.track.DiscrBallastedSingleRailTrack">[docs]</a>
-</span><span id="line-342"><span class="k">class</span><span class="w"> </span><span class="nc">DiscrBallastedSingleRailTrack</span><span class="p">(</span><span class="n">BallastedSingleRailTrack</span><span class="p">):</span>
-</span><span id="line-343"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for discrete ballasted single rail track classes.</span>
-</span><span id="line-344">
-</span><span id="line-345"><span class="sd">    The pad and sleeper properties are discrete.</span>
-</span><span id="line-346">
-</span><span id="line-347"><span class="sd">    Attributes</span>
-</span><span id="line-348"><span class="sd">    ----------</span>
-</span><span id="line-349"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
-</span><span id="line-350"><span class="sd">        Rail instance.</span>
-</span><span id="line-351"><span class="sd">    ballast : Instance of :class:`~rolland.components.Ballast` class</span>
-</span><span id="line-352"><span class="sd">        Ballast instance.</span>
-</span><span id="line-353"><span class="sd">    mount_prop : dict</span>
-</span><span id="line-354"><span class="sd">        Dictionary for discrete mounting positions (x-&gt; (Pad, Sleeper)).</span>
-</span><span id="line-355"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-356">
-</span><span id="line-357">    <span class="c1"># Pads and sleepers may have nonuniform properties Dictionary (x-&gt; (Pad, Sleeper))</span>
-</span><span id="line-358">    <span class="n">mount_prop</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="n">value_trait</span><span class="o">=</span><span class="n">Float</span><span class="p">(),</span> <span class="n">key_trait</span><span class="o">=</span><span class="n">Tuple</span><span class="p">(</span><span class="n">DiscrPad</span><span class="p">,</span> <span class="n">Sleeper</span><span class="p">))</span>
-</span><span id="line-359">
-</span><span id="line-360">    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="line-361"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Represent mounting properties as string.&quot;&quot;&quot;</span>
-</span><span id="line-362">        <span class="n">st</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span id="line-363">        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mount_prop</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
-</span><span id="line-364">            <span class="n">p</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-</span><span id="line-365">            <span class="n">st</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">sp</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">ms</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span>
-</span><span id="line-366">        <span class="k">return</span> <span class="n">st</span></div>
+</span><span id="line-343"><span class="k">class</span><span class="w"> </span><span class="nc">DiscrBallastedSingleRailTrack</span><span class="p">(</span><span class="n">BallastedSingleRailTrack</span><span class="p">):</span>
+</span><span id="line-344"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for discrete ballasted single rail track classes.</span>
+</span><span id="line-345">
+</span><span id="line-346"><span class="sd">    The pad and sleeper properties are discrete.</span>
+</span><span id="line-347">
+</span><span id="line-348"><span class="sd">    Attributes</span>
+</span><span id="line-349"><span class="sd">    ----------</span>
+</span><span id="line-350"><span class="sd">    rail : Rail</span>
+</span><span id="line-351"><span class="sd">        Rail instance.</span>
+</span><span id="line-352"><span class="sd">    ballast : Ballast</span>
+</span><span id="line-353"><span class="sd">        Ballast instance.</span>
+</span><span id="line-354"><span class="sd">    mount_prop : dict</span>
+</span><span id="line-355"><span class="sd">        Dictionary for discrete mounting positions (x-&gt; (Pad, Sleeper)).</span>
+</span><span id="line-356"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-357">
+</span><span id="line-358">    <span class="c1"># Pads and sleepers may have nonuniform properties Dictionary (x-&gt; (Pad, Sleeper))</span>
+</span><span id="line-359">    <span class="n">mount_prop</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="n">value_trait</span><span class="o">=</span><span class="n">Float</span><span class="p">(),</span> <span class="n">key_trait</span><span class="o">=</span><span class="n">Tuple</span><span class="p">(</span><span class="n">DiscrPad</span><span class="p">,</span> <span class="n">Sleeper</span><span class="p">))</span>
+</span><span id="line-360">
+</span><span id="line-361">    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="line-362"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Represent mounting properties as string.&quot;&quot;&quot;</span>
+</span><span id="line-363">        <span class="n">st</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="line-364">        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mount_prop</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+</span><span id="line-365">            <span class="n">p</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+</span><span id="line-366">            <span class="n">st</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">sp</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">ms</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span>
+</span><span id="line-367">        <span class="k">return</span> <span class="n">st</span></div>
 
-</span><span id="line-367">
 </span><span id="line-368">
+</span><span id="line-369">
 <div class="viewcode-block" id="SimplePeriodicBallastedSingleRailTrack">
 <a class="viewcode-back" href="../../buildtrack/track/rolland.track.SimplePeriodicBallastedSingleRailTrack.html#rolland.track.SimplePeriodicBallastedSingleRailTrack">[docs]</a>
-</span><span id="line-369"><span class="k">class</span><span class="w"> </span><span class="nc">SimplePeriodicBallastedSingleRailTrack</span><span class="p">(</span><span class="n">DiscrBallastedSingleRailTrack</span><span class="p">):</span>
-</span><span id="line-370"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Single rail ballasted track with simple periodic support.</span>
-</span><span id="line-371">
-</span><span id="line-372"><span class="sd">    All mounting properties are uniform and no variation is allowed.</span>
-</span><span id="line-373">
-</span><span id="line-374"><span class="sd">    .. note:: Properties of ballast need to be defined as discrete values.</span>
-</span><span id="line-375">
+</span><span id="line-370"><span class="k">class</span><span class="w"> </span><span class="nc">SimplePeriodicBallastedSingleRailTrack</span><span class="p">(</span><span class="n">DiscrBallastedSingleRailTrack</span><span class="p">):</span>
+</span><span id="line-371"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Single rail ballasted track with simple periodic support.</span>
+</span><span id="line-372">
+</span><span id="line-373"><span class="sd">    All mounting properties are uniform and no variation is allowed.</span>
+</span><span id="line-374">
+</span><span id="line-375"><span class="sd">    .. note:: Properties of ballast need to be defined as discrete values.</span>
 </span><span id="line-376">
-</span><span id="line-377"><span class="sd">    +---------+-----------+------------+-------------+</span>
-</span><span id="line-378"><span class="sd">    | Layer   | Component | Condition  | Variability |</span>
-</span><span id="line-379"><span class="sd">    +=========+===========+============+=============+</span>
-</span><span id="line-380"><span class="sd">    | /       | rail      | continuous | no          |</span>
-</span><span id="line-381"><span class="sd">    +---------+-----------+------------+-------------+</span>
-</span><span id="line-382"><span class="sd">    | 1st     | pads      | discrete   | no          |</span>
-</span><span id="line-383"><span class="sd">    +---------+-----------+------------+-------------+</span>
-</span><span id="line-384"><span class="sd">    | 1st/2nd | sleeper   | discrete   | no          |</span>
-</span><span id="line-385"><span class="sd">    +---------+-----------+------------+-------------+</span>
-</span><span id="line-386"><span class="sd">    | 2nd     | ballast   | discrete   | no          |</span>
-</span><span id="line-387"><span class="sd">    +---------+-----------+------------+-------------+</span>
-</span><span id="line-388">
-</span><span id="line-389"><span class="sd">    Attributes</span>
-</span><span id="line-390"><span class="sd">    ----------</span>
-</span><span id="line-391"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
-</span><span id="line-392"><span class="sd">        Rail instance.</span>
-</span><span id="line-393"><span class="sd">    ballast : Instance of :class:`~rolland.components.Ballast` class</span>
-</span><span id="line-394"><span class="sd">        Ballast instance.</span>
-</span><span id="line-395"><span class="sd">    pad : Instance of :class:`~rolland.components.ContPad` class</span>
-</span><span id="line-396"><span class="sd">        Continuous pad instance.</span>
-</span><span id="line-397"><span class="sd">    sleeper : Instance of :class:`~rolland.components.sleeper` class</span>
-</span><span id="line-398"><span class="sd">        Sleeper instance.</span>
-</span><span id="line-399"><span class="sd">    distance : float</span>
-</span><span id="line-400"><span class="sd">        Distance between mounting positions.</span>
-</span><span id="line-401"><span class="sd">    num_mount : int</span>
-</span><span id="line-402"><span class="sd">        Number of mounting positions.</span>
-</span><span id="line-403"><span class="sd">    mount_prop : dict</span>
-</span><span id="line-404">
+</span><span id="line-377">
+</span><span id="line-378"><span class="sd">    +---------+-----------+------------+-------------+</span>
+</span><span id="line-379"><span class="sd">    | Layer   | Component | Condition  | Variability |</span>
+</span><span id="line-380"><span class="sd">    +=========+===========+============+=============+</span>
+</span><span id="line-381"><span class="sd">    | /       | rail      | continuous | no          |</span>
+</span><span id="line-382"><span class="sd">    +---------+-----------+------------+-------------+</span>
+</span><span id="line-383"><span class="sd">    | 1st     | pads      | discrete   | no          |</span>
+</span><span id="line-384"><span class="sd">    +---------+-----------+------------+-------------+</span>
+</span><span id="line-385"><span class="sd">    | 1st/2nd | sleeper   | discrete   | no          |</span>
+</span><span id="line-386"><span class="sd">    +---------+-----------+------------+-------------+</span>
+</span><span id="line-387"><span class="sd">    | 2nd     | ballast   | discrete   | no          |</span>
+</span><span id="line-388"><span class="sd">    +---------+-----------+------------+-------------+</span>
+</span><span id="line-389">
+</span><span id="line-390"><span class="sd">    Attributes</span>
+</span><span id="line-391"><span class="sd">    ----------</span>
+</span><span id="line-392"><span class="sd">    rail : Rail</span>
+</span><span id="line-393"><span class="sd">        Rail instance.</span>
+</span><span id="line-394"><span class="sd">    ballast : Ballast</span>
+</span><span id="line-395"><span class="sd">        Ballast instance.</span>
+</span><span id="line-396"><span class="sd">    pad : ContPad</span>
+</span><span id="line-397"><span class="sd">        Continuous pad instance.</span>
+</span><span id="line-398"><span class="sd">    sleeper : Instance of :class:`~rolland.components.sleeper` class</span>
+</span><span id="line-399"><span class="sd">        Sleeper instance.</span>
+</span><span id="line-400"><span class="sd">    distance : float</span>
+</span><span id="line-401"><span class="sd">        Distance between mounting positions.</span>
+</span><span id="line-402"><span class="sd">    num_mount : int</span>
+</span><span id="line-403"><span class="sd">        Number of mounting positions.</span>
+</span><span id="line-404"><span class="sd">    mount_prop : dict</span>
 </span><span id="line-405">
-</span><span id="line-406"><span class="sd">    Example</span>
-</span><span id="line-407"><span class="sd">    --------</span>
-</span><span id="line-408"><span class="sd">    &gt;&gt;&gt; from rolland.database.rail.db_rail import UIC60</span>
-</span><span id="line-409"><span class="sd">    &gt;&gt;&gt; from rolland.components import DiscrPad, Sleeper</span>
-</span><span id="line-410"><span class="sd">    &gt;&gt;&gt; from rolland.track import SimplePeriodicBallastedSingleRailTrack</span>
-</span><span id="line-411">
-</span><span id="line-412"><span class="sd">    &gt;&gt;&gt; thepad = DiscrPad(sp = [300*10**6, 0], dp = [30000, 0])</span>
-</span><span id="line-413"><span class="sd">    &gt;&gt;&gt; thesleeper = Sleeper(ms = 150)</span>
-</span><span id="line-414"><span class="sd">    &gt;&gt;&gt; distance = 0.6</span>
-</span><span id="line-415"><span class="sd">    &gt;&gt;&gt; tr = SimplePeriodicBallastedSingleRailTrack(</span>
-</span><span id="line-416"><span class="sd">    ...     rail=UIC60,</span>
-</span><span id="line-417"><span class="sd">    ...     pad=thepad,</span>
-</span><span id="line-418"><span class="sd">    ...     sleeper=thesleeper,</span>
-</span><span id="line-419"><span class="sd">    ...     distance=distance,</span>
-</span><span id="line-420"><span class="sd">    ...     num_mount=100)</span>
-</span><span id="line-421"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.0] = (thepad, thesleeper)</span>
-</span><span id="line-422"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.6] = (thepad, thesleeper)</span>
-</span><span id="line-423"><span class="sd">    ...</span>
-</span><span id="line-424"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-425">
-</span><span id="line-426">    <span class="n">sleeper</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Sleeper</span><span class="p">)</span>
-</span><span id="line-427">    <span class="n">pad</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">DiscrPad</span><span class="p">)</span>
-</span><span id="line-428">    <span class="n">distance</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
-</span><span id="line-429">    <span class="n">num_mount</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
-</span><span id="line-430">
-</span><span id="line-431">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="line-432">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="line-433">        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="line-434">        <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">):</span>
-</span><span id="line-435">            <span class="bp">self</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sleeper</span><span class="p">)</span>
-</span><span id="line-436">            <span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span></div>
+</span><span id="line-406">
+</span><span id="line-407"><span class="sd">    Example</span>
+</span><span id="line-408"><span class="sd">    --------</span>
+</span><span id="line-409"><span class="sd">    &gt;&gt;&gt; from rolland.database.rail.db_rail import UIC60</span>
+</span><span id="line-410"><span class="sd">    &gt;&gt;&gt; from rolland.components import DiscrPad, Sleeper</span>
+</span><span id="line-411"><span class="sd">    &gt;&gt;&gt; from rolland.track import SimplePeriodicBallastedSingleRailTrack</span>
+</span><span id="line-412">
+</span><span id="line-413"><span class="sd">    &gt;&gt;&gt; thepad = DiscrPad(sp = [300*10**6, 0], dp = [30000, 0])</span>
+</span><span id="line-414"><span class="sd">    &gt;&gt;&gt; thesleeper = Sleeper(ms = 150)</span>
+</span><span id="line-415"><span class="sd">    &gt;&gt;&gt; distance = 0.6</span>
+</span><span id="line-416"><span class="sd">    &gt;&gt;&gt; tr = SimplePeriodicBallastedSingleRailTrack(</span>
+</span><span id="line-417"><span class="sd">    ...     rail=UIC60,</span>
+</span><span id="line-418"><span class="sd">    ...     pad=thepad,</span>
+</span><span id="line-419"><span class="sd">    ...     sleeper=thesleeper,</span>
+</span><span id="line-420"><span class="sd">    ...     distance=distance,</span>
+</span><span id="line-421"><span class="sd">    ...     num_mount=100)</span>
+</span><span id="line-422"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.0] = (thepad, thesleeper)</span>
+</span><span id="line-423"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.6] = (thepad, thesleeper)</span>
+</span><span id="line-424"><span class="sd">    ...</span>
+</span><span id="line-425"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-426">
+</span><span id="line-427">    <span class="n">sleeper</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Sleeper</span><span class="p">)</span>
+</span><span id="line-428">    <span class="n">pad</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">DiscrPad</span><span class="p">)</span>
+</span><span id="line-429">    <span class="n">distance</span> <span class="o">=</span> <span class="n">Float</span><span class="p">()</span>
+</span><span id="line-430">    <span class="n">num_mount</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+</span><span id="line-431">
+</span><span id="line-432">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="line-433">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="line-434">        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="line-435">        <span class="k">for</span> <span class="n">_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">):</span>
+</span><span id="line-436">            <span class="bp">self</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sleeper</span><span class="p">)</span>
+</span><span id="line-437">            <span class="n">x</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distance</span></div>
 
-</span><span id="line-437">
 </span><span id="line-438">
+</span><span id="line-439">
 <div class="viewcode-block" id="ArrangedBallastedSingleRailTrack">
 <a class="viewcode-back" href="../../buildtrack/track/rolland.track.ArrangedBallastedSingleRailTrack.html#rolland.track.ArrangedBallastedSingleRailTrack">[docs]</a>
-</span><span id="line-439"><span class="k">class</span><span class="w"> </span><span class="nc">ArrangedBallastedSingleRailTrack</span><span class="p">(</span><span class="n">DiscrBallastedSingleRailTrack</span><span class="p">):</span>
-</span><span id="line-440"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Single rail ballasted track with varying periodic support.</span>
-</span><span id="line-441">
-</span><span id="line-442"><span class="sd">    Variations in the form of periodicaly or stochasticaly varying mounting properties are allowed.</span>
-</span><span id="line-443">
-</span><span id="line-444"><span class="sd">    .. note:: Properties of ballast need to be defined as discrete values.</span>
-</span><span id="line-445">
-</span><span id="line-446"><span class="sd">    +---------+-----------+------------+---------------------+</span>
-</span><span id="line-447"><span class="sd">    | Layer   | Component | Condition  | Variability         |</span>
-</span><span id="line-448"><span class="sd">    +=========+===========+============+=====================+</span>
-</span><span id="line-449"><span class="sd">    | /       | rail      | continuous | no                  |</span>
-</span><span id="line-450"><span class="sd">    +---------+-----------+------------+---------------------+</span>
-</span><span id="line-451"><span class="sd">    | 1st     | pads      | discrete   | periodic/stochastic |</span>
-</span><span id="line-452"><span class="sd">    +---------+-----------+------------+---------------------+</span>
-</span><span id="line-453"><span class="sd">    | 1st/2nd | sleepers  | discrete   | periodic/stochastic |</span>
-</span><span id="line-454"><span class="sd">    +---------+-----------+------------+---------------------+</span>
-</span><span id="line-455"><span class="sd">    | 2nd     | ballast   | discrete   | no                  |</span>
-</span><span id="line-456"><span class="sd">    +---------+-----------+------------+---------------------+</span>
-</span><span id="line-457">
-</span><span id="line-458"><span class="sd">    Attributes</span>
-</span><span id="line-459"><span class="sd">    ----------</span>
-</span><span id="line-460"><span class="sd">    rail : Instance of :class:`~rolland.components.Rail` class</span>
-</span><span id="line-461"><span class="sd">        Rail instance.</span>
-</span><span id="line-462"><span class="sd">    ballast : Instance of :class:`~rolland.components.Ballast` class</span>
-</span><span id="line-463"><span class="sd">        Ballast instance.</span>
-</span><span id="line-464"><span class="sd">    pad : Instance of :class:`~rolland.arrangement.Arrangement` class</span>
-</span><span id="line-465"><span class="sd">        Arrangement instance containing multiple pads.</span>
-</span><span id="line-466"><span class="sd">    sleeper : Instance of :class:`~rolland.arrangement.Arrangement` class</span>
-</span><span id="line-467"><span class="sd">        Arrangement instance containing multiple sleepers.</span>
-</span><span id="line-468"><span class="sd">    distance : Instance of :class:`~rolland.arrangement.Arrangement` class</span>
-</span><span id="line-469"><span class="sd">        Arrangement instance containing multiple distances.</span>
-</span><span id="line-470"><span class="sd">    num_mount : int</span>
-</span><span id="line-471"><span class="sd">        Number of mounting positions.</span>
-</span><span id="line-472"><span class="sd">    mount_prop : dict</span>
-</span><span id="line-473"><span class="sd">        Dictionary for discrete mounting positions (x-&gt; (Pad, Sleeper)).</span>
-</span><span id="line-474">
+</span><span id="line-440"><span class="k">class</span><span class="w"> </span><span class="nc">ArrangedBallastedSingleRailTrack</span><span class="p">(</span><span class="n">DiscrBallastedSingleRailTrack</span><span class="p">):</span>
+</span><span id="line-441"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Single rail ballasted track with varying periodic support.</span>
+</span><span id="line-442">
+</span><span id="line-443"><span class="sd">    Variations in the form of periodicaly or stochasticaly varying mounting properties are allowed.</span>
+</span><span id="line-444">
+</span><span id="line-445"><span class="sd">    .. note:: Properties of ballast need to be defined as discrete values.</span>
+</span><span id="line-446">
+</span><span id="line-447"><span class="sd">    +---------+-----------+------------+---------------------+</span>
+</span><span id="line-448"><span class="sd">    | Layer   | Component | Condition  | Variability         |</span>
+</span><span id="line-449"><span class="sd">    +=========+===========+============+=====================+</span>
+</span><span id="line-450"><span class="sd">    | /       | rail      | continuous | no                  |</span>
+</span><span id="line-451"><span class="sd">    +---------+-----------+------------+---------------------+</span>
+</span><span id="line-452"><span class="sd">    | 1st     | pads      | discrete   | periodic/stochastic |</span>
+</span><span id="line-453"><span class="sd">    +---------+-----------+------------+---------------------+</span>
+</span><span id="line-454"><span class="sd">    | 1st/2nd | sleepers  | discrete   | periodic/stochastic |</span>
+</span><span id="line-455"><span class="sd">    +---------+-----------+------------+---------------------+</span>
+</span><span id="line-456"><span class="sd">    | 2nd     | ballast   | discrete   | no                  |</span>
+</span><span id="line-457"><span class="sd">    +---------+-----------+------------+---------------------+</span>
+</span><span id="line-458">
+</span><span id="line-459"><span class="sd">    Attributes</span>
+</span><span id="line-460"><span class="sd">    ----------</span>
+</span><span id="line-461"><span class="sd">    rail : Rail</span>
+</span><span id="line-462"><span class="sd">        Rail instance.</span>
+</span><span id="line-463"><span class="sd">    ballast : Ballast</span>
+</span><span id="line-464"><span class="sd">        Ballast instance.</span>
+</span><span id="line-465"><span class="sd">    pad : Arrangement</span>
+</span><span id="line-466"><span class="sd">        Arrangement instance containing multiple pads.</span>
+</span><span id="line-467"><span class="sd">    sleeper : Arrangement</span>
+</span><span id="line-468"><span class="sd">        Arrangement instance containing multiple sleepers.</span>
+</span><span id="line-469"><span class="sd">    distance : Arrangement</span>
+</span><span id="line-470"><span class="sd">        Arrangement instance containing multiple distances.</span>
+</span><span id="line-471"><span class="sd">    num_mount : int</span>
+</span><span id="line-472"><span class="sd">        Number of mounting positions.</span>
+</span><span id="line-473"><span class="sd">    mount_prop : dict</span>
+</span><span id="line-474"><span class="sd">        Dictionary for discrete mounting positions (x-&gt; (Pad, Sleeper)).</span>
 </span><span id="line-475">
-</span><span id="line-476"><span class="sd">    Example</span>
-</span><span id="line-477"><span class="sd">    --------</span>
-</span><span id="line-478"><span class="sd">    &gt;&gt;&gt; from rolland.database.rail.db_rail import UIC60</span>
-</span><span id="line-479"><span class="sd">    &gt;&gt;&gt; from rolland.components import DiscrPad, Sleeper</span>
-</span><span id="line-480"><span class="sd">    &gt;&gt;&gt; from rolland.arrangement import PeriodicArrangement</span>
-</span><span id="line-481"><span class="sd">    &gt;&gt;&gt; from rolland.track import ArrangedBallastedSingleRailTrack</span>
-</span><span id="line-482">
-</span><span id="line-483"><span class="sd">    &gt;&gt;&gt; thepadA = DiscrPad(sp = [300*10**6, 0], dp = [30000, 0])</span>
-</span><span id="line-484"><span class="sd">    &gt;&gt;&gt; thepadB = DiscrPad(sp = [400*10**6, 0], dp = [40000, 0])</span>
-</span><span id="line-485"><span class="sd">    &gt;&gt;&gt; thesleeperA = Sleeper(ms = 150)</span>
-</span><span id="line-486"><span class="sd">    &gt;&gt;&gt; thesleeperB = Sleeper(ms = 200)</span>
-</span><span id="line-487"><span class="sd">    &gt;&gt;&gt; pad = PeriodicArrangement(item=[thepadA, thepadB])</span>
-</span><span id="line-488"><span class="sd">    &gt;&gt;&gt; distance = PeriodicArrangement(item=[0.65, 0.5])</span>
-</span><span id="line-489"><span class="sd">    &gt;&gt;&gt; sleeper = PeriodicArrangement(item=[thesleeperA, thesleeperB])</span>
-</span><span id="line-490"><span class="sd">    &gt;&gt;&gt; tr = ArrangedBallastedSingleRailTrack(</span>
-</span><span id="line-491"><span class="sd">    ...     rail=UIC60,</span>
-</span><span id="line-492"><span class="sd">    ...     pad=pad,</span>
-</span><span id="line-493"><span class="sd">    ...     sleeper=sleeper,</span>
-</span><span id="line-494"><span class="sd">    ...     distance=distance,</span>
-</span><span id="line-495"><span class="sd">    ...     num_mount=100)</span>
-</span><span id="line-496"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.0] = (thepadA, thesleeperA)</span>
-</span><span id="line-497"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.65] = (thepadB, thesleeperB)</span>
-</span><span id="line-498"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[1.15] = (thepadA, thesleeperA)</span>
-</span><span id="line-499"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[1.8] = (thepadB, thesleeperB)</span>
-</span><span id="line-500"><span class="sd">    ...</span>
-</span><span id="line-501"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-502">
-</span><span id="line-503">    <span class="n">sleeper</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Arrangement</span><span class="p">)</span>
-</span><span id="line-504">    <span class="n">pad</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Arrangement</span><span class="p">)</span>
-</span><span id="line-505">    <span class="n">distance</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Arrangement</span><span class="p">)</span>
-</span><span id="line-506">    <span class="n">num_mount</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
-</span><span id="line-507">
-</span><span id="line-508">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-</span><span id="line-509">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="line-510">        <span class="c1"># factory</span>
-</span><span id="line-511">        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="line-512">        <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sleeper</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">),</span>
-</span><span id="line-513">                           <span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">),</span>
-</span><span id="line-514">                           <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-</span><span id="line-515">            <span class="bp">self</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-</span><span id="line-516">            <span class="n">x</span> <span class="o">+=</span> <span class="n">d</span></div>
+</span><span id="line-476">
+</span><span id="line-477"><span class="sd">    Example</span>
+</span><span id="line-478"><span class="sd">    --------</span>
+</span><span id="line-479"><span class="sd">    &gt;&gt;&gt; from rolland.database.rail.db_rail import UIC60</span>
+</span><span id="line-480"><span class="sd">    &gt;&gt;&gt; from rolland.components import DiscrPad, Sleeper</span>
+</span><span id="line-481"><span class="sd">    &gt;&gt;&gt; from rolland.arrangement import PeriodicArrangement</span>
+</span><span id="line-482"><span class="sd">    &gt;&gt;&gt; from rolland.track import ArrangedBallastedSingleRailTrack</span>
+</span><span id="line-483">
+</span><span id="line-484"><span class="sd">    &gt;&gt;&gt; thepadA = DiscrPad(sp = [300*10**6, 0], dp = [30000, 0])</span>
+</span><span id="line-485"><span class="sd">    &gt;&gt;&gt; thepadB = DiscrPad(sp = [400*10**6, 0], dp = [40000, 0])</span>
+</span><span id="line-486"><span class="sd">    &gt;&gt;&gt; thesleeperA = Sleeper(ms = 150)</span>
+</span><span id="line-487"><span class="sd">    &gt;&gt;&gt; thesleeperB = Sleeper(ms = 200)</span>
+</span><span id="line-488"><span class="sd">    &gt;&gt;&gt; pad = PeriodicArrangement(item=[thepadA, thepadB])</span>
+</span><span id="line-489"><span class="sd">    &gt;&gt;&gt; distance = PeriodicArrangement(item=[0.65, 0.5])</span>
+</span><span id="line-490"><span class="sd">    &gt;&gt;&gt; sleeper = PeriodicArrangement(item=[thesleeperA, thesleeperB])</span>
+</span><span id="line-491"><span class="sd">    &gt;&gt;&gt; tr = ArrangedBallastedSingleRailTrack(</span>
+</span><span id="line-492"><span class="sd">    ...     rail=UIC60,</span>
+</span><span id="line-493"><span class="sd">    ...     pad=pad,</span>
+</span><span id="line-494"><span class="sd">    ...     sleeper=sleeper,</span>
+</span><span id="line-495"><span class="sd">    ...     distance=distance,</span>
+</span><span id="line-496"><span class="sd">    ...     num_mount=100)</span>
+</span><span id="line-497"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.0] = (thepadA, thesleeperA)</span>
+</span><span id="line-498"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[0.65] = (thepadB, thesleeperB)</span>
+</span><span id="line-499"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[1.15] = (thepadA, thesleeperA)</span>
+</span><span id="line-500"><span class="sd">    &gt;&gt;&gt; tr.mount_prop[1.8] = (thepadB, thesleeperB)</span>
+</span><span id="line-501"><span class="sd">    ...</span>
+</span><span id="line-502"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-503">
+</span><span id="line-504">    <span class="n">sleeper</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Arrangement</span><span class="p">)</span>
+</span><span id="line-505">    <span class="n">pad</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Arrangement</span><span class="p">)</span>
+</span><span id="line-506">    <span class="n">distance</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Arrangement</span><span class="p">)</span>
+</span><span id="line-507">    <span class="n">num_mount</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">()</span>
+</span><span id="line-508">
+</span><span id="line-509">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="line-510">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="line-511">        <span class="c1"># factory</span>
+</span><span id="line-512">        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="line-513">        <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sleeper</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">),</span>
+</span><span id="line-514">                           <span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">),</span>
+</span><span id="line-515">                           <span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_mount</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="line-516">            <span class="bp">self</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+</span><span id="line-517">            <span class="n">x</span> <span class="o">+=</span> <span class="n">d</span></div>
 
 </span></code></pre></div>
     </div></div>

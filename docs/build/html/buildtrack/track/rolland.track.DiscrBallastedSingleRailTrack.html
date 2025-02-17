@@ -75,7 +75,7 @@
 <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="flex md:hidden flex-col font-medium mt-4">
 <a href="/about.html">About</a>
 </nav><nav class="table w-full min-w-full my-6 lg:my-8">
-<p class="caption" role="heading"><span class="caption-text">How To</span></p>
+<p class="caption" role="heading"><span class="caption-text">How to</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
@@ -84,6 +84,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../components.html">Components</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analytical Methods</span></p>
+<ul>
+<li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../../analyticalmethods/analyticalmethods.html">Analytical Methods<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.AnalyticalMethods.html">rolland.methods.analytical.AnalyticalMethods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonEBBCont1LSupp.html">rolland.methods.analytical.ThompsonEBBCont1LSupp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonEBBCont2LSupp.html">rolland.methods.analytical.ThompsonEBBCont2LSupp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTBDiscr.html">rolland.methods.analytical.ThompsonTBDiscr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTSDiscr1LSupp.html">rolland.methods.analytical.ThompsonTSDiscr1LSupp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTSDiscr2LSupp.html">rolland.methods.analytical.ThompsonTSDiscr2LSupp</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Literature</span></p>
 <ul>
@@ -132,7 +144,7 @@
 <dd><p>Rail instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Instance of <a class="reference internal" href="../components/rolland.components.Rail.html#rolland.components.Rail" title="rolland.components.Rail"><code class="xref py py-class docutils literal notranslate"><span class="pre">Rail</span></code></a> class</p>
+<dd class="field-odd"><p><a class="reference internal" href="../components/rolland.components.Rail.html#rolland.components.Rail" title="rolland.components.Rail">Rail</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -142,7 +154,7 @@
 <dd><p>Ballast instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Instance of <a class="reference internal" href="../components/rolland.components.Ballast.html#rolland.components.Ballast" title="rolland.components.Ballast"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ballast</span></code></a> class</p>
+<dd class="field-odd"><p><a class="reference internal" href="../components/rolland.components.Ballast.html#rolland.components.Ballast" title="rolland.components.Ballast">Ballast</a></p>
 </dd>
 </dl>
 </dd></dl>

@@ -27,7 +27,7 @@ extensions = [
     'sphinxcontrib.bibtex',           # Citation support
     'sphinx.ext.autosummary',         # Generate autodoc summaries
     'autodoc_traits',                 # Support for traitlets
-    'sphinx_design',                  # Debugging info
+    'sphinx_design',                  # Design extension
     'myst_parser',                    # Markdown support
 ]
 
@@ -38,6 +38,9 @@ bibtex_default_style = 'unsrt'
 
 templates_path = ['_templates']
 exclude_patterns = []
+
+autosummary_generate = True  # Enable autosummary
+autodoc_member_order = 'bysource'
 
 autodoc_typehints = "description"       # Include type hints in the description
 napoleon_google_docstring = False       # Use NumPy-style docstrings

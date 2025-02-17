@@ -17,7 +17,7 @@
 <link href="../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../search.html" rel="search" title="Search"/>
 <link href="../genindex.html" rel="index" title="Index"/>
-<link href="../buildtrack/arrangement/rolland.arrangement.StochasticArrangement.html" rel="prev" title="rolland.arrangement.StochasticArrangement"/>
+<link href="../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTSDiscr2LSupp.html" rel="prev" title="rolland.methods.analytical.ThompsonTSDiscr2LSupp"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -74,7 +74,7 @@
 <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="flex md:hidden flex-col font-medium mt-4">
 <a href="/about.html">About</a>
 </nav><nav class="table w-full min-w-full my-6 lg:my-8">
-<p class="caption" role="heading"><span class="caption-text">How To</span></p>
+<p class="caption" role="heading"><span class="caption-text">How to</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../start.html">Start using Rolland</a></li>
 </ul>
@@ -83,6 +83,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../buildtrack/components.html">Components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../buildtrack/track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../buildtrack/arrangement.html">Arrangement</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analytical Methods</span></p>
+<ul>
+<li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../analyticalmethods/analyticalmethods.html">Analytical Methods<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
+<li class="toctree-l2"><a class="reference internal" href="../analyticalmethods/analyticalmethods/rolland.methods.analytical.AnalyticalMethods.html">rolland.methods.analytical.AnalyticalMethods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonEBBCont1LSupp.html">rolland.methods.analytical.ThompsonEBBCont1LSupp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonEBBCont2LSupp.html">rolland.methods.analytical.ThompsonEBBCont2LSupp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTBDiscr.html">rolland.methods.analytical.ThompsonTBDiscr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTSDiscr1LSupp.html">rolland.methods.analytical.ThompsonTSDiscr1LSupp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTSDiscr2LSupp.html">rolland.methods.analytical.ThompsonTSDiscr2LSupp</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Literature</span></p>
 <ul class="current">
@@ -114,9 +126,17 @@
 <p>The following references give some theoretical background about the methods being used in the Rolland program package.</p>
 <div class="docutils container" id="id1">
 <div class="citation-list" role="list">
-<div class="citation" id="id3" role="doc-biblioentry">
+<div class="citation" id="id5" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
 <p>T.X. Wu and D.J. Thompson. Wheel/Rail Non-linear Interactions With Coupling Between Vertical and Lateral Directions. <em>Vehicle System Dynamics</em>, 41(1):27–49, January 2004. <a class="reference external" href="https://doi.org/10.1076/vesd.41.1.27.23407">doi:10.1076/vesd.41.1.27.23407</a>.</p>
+</div>
+<div class="citation" id="id4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<p>David Thompson. 3 - Track vibration. In David Thompson, editor, <em>Railway Noise and Vibration (Second Edition)</em>, pages 33–118. Elsevier, January 2024. <a class="reference external" href="https://doi.org/10.1016/B978-0-12-804439-1.00002-0">doi:10.1016/B978-0-12-804439-1.00002-0</a>.</p>
+</div>
+<div class="citation" id="id2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<p>Maria A. Heckl. Railway noise‐Can random sleeper spacings help? <em>Acta Acustica United with Acustica</em>, January 1995. Publisher: S. Hirzel Verlag.</p>
 </div>
 </div>
 </div>
