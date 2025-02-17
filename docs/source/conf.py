@@ -39,8 +39,12 @@ bibtex_default_style = 'unsrt'
 templates_path = ['_templates']
 exclude_patterns = []
 
-autosummary_generate = True  # Enable autosummary
-autodoc_member_order = 'bysource'
+# autosummary_generate = True
+# autodoc_member_order = 'bysource'
+autodoc_default_options = {
+    'members': True,
+    'member-order': 'groupwise',
+}
 
 autodoc_typehints = "description"       # Include type hints in the description
 napoleon_google_docstring = False       # Use NumPy-style docstrings

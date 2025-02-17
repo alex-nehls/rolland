@@ -116,17 +116,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../buildtrack/track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../buildtrack/arrangement.html">Arrangement</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Analytical Methods</span></p>
+<p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../analyticalmethods/analyticalmethods.html">Analytical Methods</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.AnalyticalMethods.html">rolland.methods.analytical.AnalyticalMethods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonEBBCont1LSupp.html">rolland.methods.analytical.ThompsonEBBCont1LSupp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonEBBCont2LSupp.html">rolland.methods.analytical.ThompsonEBBCont2LSupp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTBDiscr.html">rolland.methods.analytical.ThompsonTBDiscr</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTSDiscr1LSupp.html">rolland.methods.analytical.ThompsonTSDiscr1LSupp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../analyticalmethods/analyticalmethods/rolland.methods.analytical.ThompsonTSDiscr2LSupp.html">rolland.methods.analytical.ThompsonTSDiscr2LSupp</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../other_models/analyticalmethods.html">Analytical Models</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Literature</span></p>
 <ul>
@@ -201,8 +193,11 @@
 </span><span id="line-24">
 </span><span id="line-25">    <span class="n">item</span> <span class="o">=</span> <span class="n">Any</span><span class="p">()</span>
 </span><span id="line-26">
+<div class="viewcode-block" id="Arrangement.generate">
+<a class="viewcode-back" href="../../buildtrack/arrangement/rolland.arrangement.Arrangement.html#rolland.arrangement.Arrangement.generate">[docs]</a>
 </span><span id="line-27">    <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_mount</span><span class="p">):</span>
 </span><span id="line-28"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate count repetitions of objects.&quot;&quot;&quot;</span></div>
+</div>
 
 </span><span id="line-29">
 </span><span id="line-30">
@@ -248,6 +243,8 @@
 </span><span id="line-68"><span class="sd">    ...</span>
 </span><span id="line-69"><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="line-70">
+<div class="viewcode-block" id="PeriodicArrangement.generate">
+<a class="viewcode-back" href="../../buildtrack/arrangement/rolland.arrangement.PeriodicArrangement.html#rolland.arrangement.PeriodicArrangement.generate">[docs]</a>
 </span><span id="line-71">    <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_mount</span><span class="p">):</span>
 </span><span id="line-72"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate count repetitions of objects.&quot;&quot;&quot;</span>
 </span><span id="line-73">        <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
@@ -259,6 +256,7 @@
 </span><span id="line-79">            <span class="k">else</span><span class="p">:</span>
 </span><span id="line-80">                <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span>
 </span><span id="line-81">                <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span></div>
+</div>
 
 </span><span id="line-82">
 </span><span id="line-83">
@@ -304,6 +302,8 @@
 </span><span id="line-121"><span class="sd">    ...</span>
 </span><span id="line-122"><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="line-123">
+<div class="viewcode-block" id="StochasticArrangement.generate">
+<a class="viewcode-back" href="../../buildtrack/arrangement/rolland.arrangement.StochasticArrangement.html#rolland.arrangement.StochasticArrangement.generate">[docs]</a>
 </span><span id="line-124">    <span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_mount</span><span class="p">):</span>
 </span><span id="line-125"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate count repetitions of objects.&quot;&quot;&quot;</span>
 </span><span id="line-126">        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_mount</span><span class="p">):</span>
@@ -311,6 +311,7 @@
 </span><span id="line-128">                <span class="k">yield</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
 </span><span id="line-129">            <span class="k">else</span><span class="p">:</span>
 </span><span id="line-130">                <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span></div>
+</div>
 
 </span></code></pre></div>
     </div></div>

@@ -1,7 +1,7 @@
 """Contains analytical methods that allow comparison with FDM results.
 
 .. autosummary::
-    :toctree: analyticalmethods
+    :toctree: analytical/
 
     AnalyticalMethods
     ThompsonEBBCont1LSupp
@@ -67,15 +67,9 @@ class AnalyticalMethods(HasTraits):
             Angular frequencies [rad/s].
         mobility : numpy.ndarray
             Mobility matrix initialized to zeros.
-        vb : numpy.ndarray
-            Vibration velocity matrix initialized to zeros.
-        ub : numpy.ndarray
-            Vibration displacement matrix initialized to zeros.
         """
         self.omega = 2 * pi * self.f
         self.mobility = zeros((len(self.x), len(self.f)), dtype=complex)
-        self.vb = zeros_like(self.mobility)
-        self.ub = zeros_like(self.mobility)
 
     def compute_mobility(self):
         r"""
@@ -123,10 +117,6 @@ class ThompsonEBBCont1LSupp(AnalyticalMethods):
         Excitation point :math:`[m]`.
     track : ContSlabSingleRailTrack
         Track instance.
-    omega_0 : float
-        Resonance frequency rail <--> foundation :math:`[Hz]`.
-    mobility : numpy.ndarray
-        Mobility matrix :math:`[m/N]`.
     """
 
     track = Instance(ContSlabSingleRailTrack)
@@ -420,7 +410,7 @@ class ThompsonTBDiscr(AnalyticalMethods):
 
 
 class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
-    r"""Method for discrete slab track acc. to :cite:t:`thompson2024j` and :cite:t:`heckl1995`.
+    r"""Method for discrete slab track according to :cite:t:`thompson2024j` and :cite:t:`heckl1995`.
 
     Utilizes a single-layer support with discrete track properties, applying Timoshenko beam
     theory. The excitation is stationary, and the corresponding method calculates the track's
@@ -448,8 +438,6 @@ class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
         Track instance.
     omega_0 : float
         Resonance frequency rail <--> foundation :math:`[Hz]`.
-    mobility : numpy.ndarray
-        Mobility matrix :math:`[m/N]`.
     """
 
     track = Instance(DiscrSlabSingleRailTrack)
@@ -470,7 +458,7 @@ class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
 
 
 class ThompsonTSDiscr2LSupp(ThompsonTBDiscr):
-    r"""Method for discrete ballasted track acc. to :cite:t:`thompson2024j` and :cite:t:`heckl1995`.
+    r"""Method for discrete ballasted track according to :cite:t:`thompson2024j` and :cite:t:`heckl1995`.
 
     Utilizes a double-layer support with discrete track properties, applying Timoshenko beam
     theory. The excitation is stationary, and the corresponding method calculates the track's
@@ -502,8 +490,6 @@ class ThompsonTSDiscr2LSupp(ThompsonTBDiscr):
         Resonance frequency ballast <--> slab :math:`[Hz]`.
     omega_2 : float
         Resonance frequency rail <--> slab :math:`[Hz]`.
-    mobility : numpy.ndarray
-        Mobility matrix :math:`[m/N]`.
     """
 
     track = Instance(DiscrBallastedSingleRailTrack)
@@ -513,7 +499,7 @@ class ThompsonTSDiscr2LSupp(ThompsonTBDiscr):
         Compute the mobility of the track.
 
         This method calculates the mobility of the track using the given parameters
-        and the analytical solution for a discrete slab track.
+        and the analytical solution for a discrete ballasted track.
 
         Attributes
         ----------

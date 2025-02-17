@@ -1,11 +1,12 @@
-.. _anamethods:
+.. _anammod:
 
-Analytical Methods
+Analytical Models
 ---------------------
 
 .. note:: This class is still under development and may change in the future.
 
 .. automodule:: rolland.methods.analytical
-    :show-inheritance:
+   :no-members:
+   :no-index:
 
 

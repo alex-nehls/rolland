@@ -49,17 +49,17 @@ Explore
 
 
 
-   .. tab-item:: Analytical Methods
+   .. tab-item:: Other Models
 
-      The **Analytical Methods** section contains analytical methods in order to compare the results of the
-      Rolland model with analytical solutions.
+      This section contains several analytical and numerical models in order to compare the results of the
+      Rolland model.
 
       .. toctree::
-         :caption: Analytical Methods
-         :maxdepth: 2
+         :caption: Other Models
+         :maxdepth: 1
          :titlesonly:
 
-         analyticalmethods/analyticalmethods
+         other_models/analyticalmethods
 
 
 
