@@ -11,7 +11,7 @@
     ThompsonTSDiscr2LSupp
 """
 
-from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros, zeros_like
+from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros
 from traitlets import Float, HasTraits, Instance
 from traittypes import Array
 
@@ -458,7 +458,7 @@ class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
 
 
 class ThompsonTSDiscr2LSupp(ThompsonTBDiscr):
-    r"""Method for discrete ballasted track according to :cite:t:`thompson2024j` and :cite:t:`heckl1995`.
+    r"""Method for discrete ballasted track according to :cite:t:`thompson2024j`.
 
     Utilizes a double-layer support with discrete track properties, applying Timoshenko beam
     theory. The excitation is stationary, and the corresponding method calculates the track's
