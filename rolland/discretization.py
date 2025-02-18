@@ -1,4 +1,13 @@
-"""Discretization of Differential Equation."""
+"""Defines discretization classes for FDM simulation.
+
+.. autosummary::
+    :toctree: discretization
+
+    Discretization
+    DiscretizationFDMStampka
+    DiscretizationFDMStampkaConst
+    DiscretizationFDMStampkaTimeDepend
+"""
 import warnings
 
 from numpy import ones, zeros
@@ -19,23 +28,64 @@ from rolland.track import (
 
 
 class Discretization(HasTraits):
-    """Base class for discretization."""
+    r"""Base class for discretization classes.
 
-    # Grid instance
+    Attributes
+    ----------
+    grid : Grid
+        Grid instance.
+    """
+
     grid = Instance(Grid)
 
 
 class DiscretizationFDMStampka(Discretization):
-    """Finite Difference Method (FDM) discretization for Stampka's model."""
+    r"""Base class for FDM discretization according to :cite:t:`stampka2022a`.
 
-    # Track instance
+    Discretizes the differential equation and can be applied either with constant or time-dependent
+    parameters, which is the case, for example, with a moving sound source.
+
+    Attributes
+    ----------
+    grid : Grid
+        Grid instance.
+    track : SingleRailTrack
+        Track instance.
+    bound : PMLStampka
+        Boundary instance.
+    A : scipy.sparse.csc_matrix
+        Coefficient matrix A.
+    B : scipy.sparse.csc_matrix
+        Coefficient matrix B.
+    C : scipy.sparse.csc_matrix
+        Coefficient matrix C.
+    """
+
     track = Instance(SingleRailTrack)
-
-    # Boundary instance
     bound = Instance(PMLStampka)
 
     def build_matrix(self, vec_dr, vec_sp, vec_dp, vec_ms, vec_sb, vec_db):
-        """Build matrices A,B and C according to Stampka."""
+        """Build matrices A, B, and C according to :cite:t:`stampka2022a`.
+
+        Parameters
+        ----------
+        vec_dr : numpy.ndarray
+            Rail damping vector.
+        vec_sp : numpy.ndarray
+            Pad stiffness vector.
+        vec_dp : numpy.ndarray
+            Pad damping vector.
+        vec_ms : numpy.ndarray
+            Sleeper/Slab mass vector.
+        vec_sb : numpy.ndarray
+            Ballast stiffness vector.
+        vec_db : numpy.ndarray
+            Ballast damping vector.
+
+        Returns
+        -------
+        None
+        """
         #   Suppressing warning
         warnings.simplefilter("ignore", category=SparseEfficiencyWarning)
 
@@ -117,10 +167,39 @@ class DiscretizationFDMStampka(Discretization):
         self.C[self.grid.nx:2 * self.grid.nx, 0:self.grid.nx] = C21
         self.C[self.grid.nx:2 * self.grid.nx, self.grid.nx:2 * self.grid.nx] = C22
 
-class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
-    """Finite Difference Method (FDM) discretization for Stampka's model with linear parameters.
 
-    The superstructure design defined remains constant during the simulation.
+class DiscretizationFDMStampkaConst(DiscretizationFDMStampka):
+    r"""Discretization with non-time-dependent parameters according to :cite:t:`stampka2022a`.
+
+    The parameters are constant over time. Only applicable for non-moving sound sources
+    and linear superstructure properties.
+
+    Attributes
+    ----------
+    grid : Grid
+        Grid instance.
+    track : SingleRailTrack
+        Track instance.
+    bound : PMLStampka
+        Boundary instance.
+    A : scipy.sparse.csc_matrix
+        Coefficient matrix A.
+    B : scipy.sparse.csc_matrix
+        Coefficient matrix B.
+    C : scipy.sparse.csc_matrix
+        Coefficient matrix C.
+    vec_dr : numpy.ndarray
+        Rail damping vector.
+    vec_sp : numpy.ndarray
+        Pad stiffness vector.
+    vec_dp : numpy.ndarray
+        Pad damping vector.
+    vec_ms : numpy.ndarray
+        Sleeper/Slab mass vector.
+    vec_sb : numpy.ndarray
+        Ballast stiffness vector.
+    vec_db : numpy.ndarray
+        Ballast damping vector.
     """
 
     def __init__(self, *args, **kwargs):
@@ -142,14 +221,38 @@ class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
         self.vec_db = zeros(self.grid.nx)
 
     def add_boundary_conditions(self):
-        """Add boundary conditions."""
+        """
+        Add boundary conditions to the rail damping vector.
+
+        This method modifies the rail damping vector (`vec_dr`) by adding the boundary conditions
+        from the Perfectly Matched Layer (PML) at both ends of the grid.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
         # Boundary condition left side
         self.vec_dr[:self.bound.pml.size] += self.bound.pml[::-1]
         # Boundary condition right side
         self.vec_dr[-self.bound.pml.size:] += self.bound.pml
 
     def build_superstructure_vectors(self):
-        """Handle track.rst-specific logic."""
+        """Handle track-specific logic.
+
+        This method initializes the superstructure property vectors based on the type of track.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
         if isinstance(self.track, ContSlabSingleRailTrack):
             # Properties are assigned to each grid point
             self.vec_sp += self.track.pad.sp[0]
@@ -175,9 +278,18 @@ class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
             raise ValueError(msg)
 
     def build_discrete_slab_track(self):
-        """Build discrete slab track.rst.
+        """
+        Build discrete slab track.
 
         Properties are assigned to the corresponding mounting positions.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
         """
         # Get mounting positions as list
         mount_pos = list(self.track.mount_prop.keys())
@@ -188,9 +300,17 @@ class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
             self.vec_ms[int(round(i,5) / self.grid.dx)] = self.track.slab.ms / self.grid.dx
 
     def build_discrete_ballasted_track(self):
-        """Build discrete ballasted track.rst.
+        """Build discrete ballasted track.
 
         Properties are assigned to the corresponding mounting positions.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
         """
         # Get mounting positions as list
         mount_pos = list(self.track.mount_prop.keys())
@@ -203,3 +323,16 @@ class DiscretizationFDMStampkaLinear(DiscretizationFDMStampka):
         self.vec_db += self.track.ballast.db[0] / self.grid.dx
 
 
+class DiscretizationFDMStampkaTimeDepend(DiscretizationFDMStampkaConst):
+    """
+    Discretization with time-dependent parameters based on :cite:t:`stampka2022a`.
+
+    This class extends :class:`DiscretizationFDMStampkaConst` to handle cases where the parameters
+    vary over time, such as with a moving sound source or non-linear superstructure properties.
+    This approach is a extended version of the discretization described in :cite:t:`stampka2022a`.
+
+    .. note:: This class is not implemented yet.
+
+    """
+
+    pass

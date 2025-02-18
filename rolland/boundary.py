@@ -1,4 +1,11 @@
-"""Boundary conditions for rolland model."""
+"""Defines boundary classes for FDM simulation.
+
+.. autosummary::
+    :toctree: boundary
+
+    PMLStampka
+"""
+
 from numpy import linspace
 from traitlets import HasTraits, Instance
 
@@ -7,9 +14,19 @@ from rolland.grid import GridFDMStampka
 
 
 class PMLStampka(HasTraits):
-    """Increase rail damping coefficient in boundary domain.
+    r"""Calculate the boundary domain properties according to :cite:t:`stampka2022a`.
 
-    According to Stampka.
+    A perfectly matched layer (PML) method is used which increases the rail damping
+    coefficient in the boundary domain.
+
+    Attributes
+    ----------
+    track : Track
+        Track instance.
+    grid : GridFDMStampka
+        Grid instance.
+    pml : numpy.ndarray
+        Array containing the damping values in the boundary domain :math:`[-]`.
     """
 
     # Track instance

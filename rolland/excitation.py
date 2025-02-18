@@ -1,4 +1,15 @@
-"""Defines excitation."""
+"""Defines excitation classes for FDM simulation.
+
+.. autosummary::
+    :toctree: excitation
+
+    Excitation
+    StationaryExcitation
+    GaussianImpulse
+    MovingExcitation
+"""
+
+
 from numpy import exp, linspace
 from traitlets import Float, HasTraits, Instance
 

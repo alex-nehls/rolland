@@ -18,7 +18,7 @@
 <link href="../search.html" rel="search" title="Search"/>
 <link href="../genindex.html" rel="index" title="Index"/>
 <link href="analytical/rolland.methods.analytical.AnalyticalMethods.html" rel="next" title="rolland.methods.analytical.AnalyticalMethods"/>
-<link href="../buildtrack/arrangement/rolland.arrangement.StochasticArrangement.html" rel="prev" title="rolland.arrangement.StochasticArrangement"/>
+<link href="../rolland/deflection/rolland.deflection.DeflectionFDMStampka.html" rel="prev" title="rolland.deflection.DeflectionFDMStampka"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -85,6 +85,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../buildtrack/track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../buildtrack/arrangement.html">Arrangement</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Rolland</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../rolland/grid.html">Grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rolland/boundary.html">Boundary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rolland/excitation.html">Excitation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rolland/discretization.html">Discretization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rolland/deflection.html">Deflection</a></li>
+</ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Analytical Models</a></li>
@@ -127,19 +135,19 @@
 <td><p>Base class for analytical methods.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="analytical/rolland.methods.analytical.ThompsonEBBCont1LSupp.html#rolland.methods.analytical.ThompsonEBBCont1LSupp" title="rolland.methods.analytical.ThompsonEBBCont1LSupp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThompsonEBBCont1LSupp</span></code></a>(**kwargs)</p></td>
-<td><p>Method for continuous slab single rail track according to <span id="id1">Thompson [<a class="reference internal" href="../literature/index.html#id4" title="David Thompson. 3 - Track vibration. In David Thompson, editor, Railway Noise and Vibration (Second Edition), pages 33–118. Elsevier, January 2024. doi:10.1016/B978-0-12-804439-1.00002-0.">2</a>]</span>.</p></td>
+<td><p>Method for continuous slab single rail track according to <span id="id1">Thompson [<a class="reference internal" href="../literature/index.html#id4" title="David Thompson. 3 - Track vibration. In David Thompson, editor, Railway Noise and Vibration (Second Edition), pages 33–118. Elsevier, January 2024. doi:10.1016/B978-0-12-804439-1.00002-0.">3</a>]</span>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="analytical/rolland.methods.analytical.ThompsonEBBCont2LSupp.html#rolland.methods.analytical.ThompsonEBBCont2LSupp" title="rolland.methods.analytical.ThompsonEBBCont2LSupp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThompsonEBBCont2LSupp</span></code></a>(**kwargs)</p></td>
-<td><p>Method for continuous ballasted single rail track according to <span id="id2">Thompson [<a class="reference internal" href="../literature/index.html#id4" title="David Thompson. 3 - Track vibration. In David Thompson, editor, Railway Noise and Vibration (Second Edition), pages 33–118. Elsevier, January 2024. doi:10.1016/B978-0-12-804439-1.00002-0.">2</a>]</span>.</p></td>
+<td><p>Method for continuous ballasted single rail track according to <span id="id2">Thompson [<a class="reference internal" href="../literature/index.html#id4" title="David Thompson. 3 - Track vibration. In David Thompson, editor, Railway Noise and Vibration (Second Edition), pages 33–118. Elsevier, January 2024. doi:10.1016/B978-0-12-804439-1.00002-0.">3</a>]</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="analytical/rolland.methods.analytical.ThompsonTBDiscr.html#rolland.methods.analytical.ThompsonTBDiscr" title="rolland.methods.analytical.ThompsonTBDiscr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThompsonTBDiscr</span></code></a>(**kwargs)</p></td>
 <td><p>Base class for analytical solutions of a discrete single rail track.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="analytical/rolland.methods.analytical.ThompsonTSDiscr1LSupp.html#rolland.methods.analytical.ThompsonTSDiscr1LSupp" title="rolland.methods.analytical.ThompsonTSDiscr1LSupp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThompsonTSDiscr1LSupp</span></code></a>(**kwargs)</p></td>
-<td><p>Method for discrete slab track according to <span id="id3">Thompson [<a class="reference internal" href="../literature/index.html#id4" title="David Thompson. 3 - Track vibration. In David Thompson, editor, Railway Noise and Vibration (Second Edition), pages 33–118. Elsevier, January 2024. doi:10.1016/B978-0-12-804439-1.00002-0.">2</a>]</span> and <span id="id4">Heckl [<a class="reference internal" href="../literature/index.html#id2" title="Maria A. Heckl. Railway noise‐Can random sleeper spacings help? Acta Acustica United with Acustica, January 1995. Publisher: S. Hirzel Verlag.">3</a>]</span>.</p></td>
+<td><p>Method for discrete slab track according to <span id="id3">Thompson [<a class="reference internal" href="../literature/index.html#id4" title="David Thompson. 3 - Track vibration. In David Thompson, editor, Railway Noise and Vibration (Second Edition), pages 33–118. Elsevier, January 2024. doi:10.1016/B978-0-12-804439-1.00002-0.">3</a>]</span> and <span id="id4">Heckl [<a class="reference internal" href="../literature/index.html#id2" title="Maria A. Heckl. Railway noise‐Can random sleeper spacings help? Acta Acustica United with Acustica, January 1995. Publisher: S. Hirzel Verlag.">4</a>]</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="analytical/rolland.methods.analytical.ThompsonTSDiscr2LSupp.html#rolland.methods.analytical.ThompsonTSDiscr2LSupp" title="rolland.methods.analytical.ThompsonTSDiscr2LSupp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp</span></code></a>(**kwargs)</p></td>
-<td><p>Method for discrete ballasted track according to <span id="id5">Thompson [<a class="reference internal" href="../literature/index.html#id4" title="David Thompson. 3 - Track vibration. In David Thompson, editor, Railway Noise and Vibration (Second Edition), pages 33–118. Elsevier, January 2024. doi:10.1016/B978-0-12-804439-1.00002-0.">2</a>]</span> and <span id="id6">Heckl [<a class="reference internal" href="../literature/index.html#id2" title="Maria A. Heckl. Railway noise‐Can random sleeper spacings help? Acta Acustica United with Acustica, January 1995. Publisher: S. Hirzel Verlag.">3</a>]</span>.</p></td>
+<td><p>Method for discrete ballasted track according to <span id="id5">Thompson [<a class="reference internal" href="../literature/index.html#id4" title="David Thompson. 3 - Track vibration. In David Thompson, editor, Railway Noise and Vibration (Second Edition), pages 33–118. Elsevier, January 2024. doi:10.1016/B978-0-12-804439-1.00002-0.">3</a>]</span> and <span id="id6">Heckl [<a class="reference internal" href="../literature/index.html#id2" title="Maria A. Heckl. Railway noise‐Can random sleeper spacings help? Acta Acustica United with Acustica, January 1995. Publisher: S. Hirzel Verlag.">4</a>]</span>.</p></td>
 </tr>
 </tbody>
 </table>
