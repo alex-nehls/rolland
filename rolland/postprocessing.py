@@ -27,9 +27,9 @@ def fast_fourier_transform(tsignal, dt):
     """
     samples = len(tsignal)
     window = ones(samples)
-    FFFt = 2.0 / samples * fft(tsignal[:samples] * window)
+    fftrans = 2.0 / samples * fft(tsignal[:samples] * window)
     fftfre = fftfreq(samples, dt)
-    return fftfre[0 : samples // 2], FFFt[0 : samples // 2]
+    return fftfre[0 : samples // 2], fftrans[0 : samples // 2]
 
 
 def response(defl, f_min=100, f_max=3000):
@@ -51,10 +51,10 @@ def response(defl, f_min=100, f_max=3000):
     """
     force = defl.force
     dt = defl.dt
-    fftfre, FFFT = fast_fourier_transform(force, dt)
-    fftfre, wpFFT = fast_fourier_transform(defl, dt)
+    fftfre, ffft = fast_fourier_transform(force, dt)
+    fftfre, ufft = fast_fourier_transform(defl, dt)
 
-    rez = wpFFT / FFFT
+    rez = ufft / ffft
     mob = 1j * fftfre * 2 * pi * rez
     accel = -((fftfre * 2 * pi) ** 2) * rez
     ind_fmin = int(where(fftfre > f_min)[0][0])
@@ -83,10 +83,10 @@ def response_fdm(defl, dist = 0, f_min=100, f_max=3000):
     ind_trans = defl.ind_excit + int(dist // grid.dx + 1)
     defl = defl.deflection[ind_trans, 0 : grid.nt]
 
-    fftfre, FFFT = fast_fourier_transform(force, grid.dt)
-    fftfre, wpFFT = fast_fourier_transform(defl, grid.dt)
+    fftfre, ffft = fast_fourier_transform(force, grid.dt)
+    fftfre, ufft = fast_fourier_transform(defl, grid.dt)
 
-    rez = wpFFT / FFFT
+    rez = ufft / ffft
     mob = 1j * fftfre * 2 * pi * rez
     accel = -((fftfre * 2 * pi) ** 2) * rez
     ind_fmin = int(where(fftfre > f_min)[0][0])
@@ -119,7 +119,7 @@ def plot(arrays, labels, title='Universal Plot', x_label='X-axis', y_label='Y-ax
     if colors is None:
         colors = ['k', 'r', 'b', 'g', 'c', 'm', 'y']
 
-    for (x, y), label, color in zip(arrays, labels, colors):
+    for (x, y), label, color in zip(arrays, labels, colors, strict=False):
         if plot_type == 'loglog':
             plt.loglog(x, abs(y), label=label, color=color)
         else:

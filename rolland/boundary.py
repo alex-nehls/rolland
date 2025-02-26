@@ -9,7 +9,6 @@
 from numpy import linspace
 from traitlets import HasTraits, Instance
 
-from rolland import Track
 from rolland.grid import GridFDMStampka
 
 
@@ -37,8 +36,8 @@ class PMLStampka(HasTraits):
         super().__init__(*args, **kwargs)
         # Boundary Coefficient
 
-        E = self.grid.track.rail.E
-        Iyr = self.grid.track.rail.Iyr
+        youm = self.grid.track.rail.E
+        shearm = self.grid.track.rail.Iyr
         mr = self.grid.track.rail.mr
         dt = self.grid.dt
         dx = self.grid.dx
@@ -46,7 +45,7 @@ class PMLStampka(HasTraits):
         l_bound = self.grid.l_bound
         # Rail stiffness
 
-        r = (E * Iyr) / mr *  dt ** 2 / dx ** 4
+        r = (youm * shearm) / mr *  dt ** 2 / dx ** 4
 
         # Rail damping coefficient in boundary domain
         drbc = r / 2 * mr / dt

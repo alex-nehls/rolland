@@ -15,7 +15,6 @@ from scipy.sparse import SparseEfficiencyWarning, csc_matrix, diags, eye
 from traitlets import HasTraits, Instance
 
 from rolland.boundary import PMLStampka
-from rolland.grid import Grid
 from rolland.track import (
     ArrangedBallastedSingleRailTrack,
     ArrangedSlabSingleRailTrack,
@@ -23,7 +22,6 @@ from rolland.track import (
     ContSlabSingleRailTrack,
     SimplePeriodicBallastedSingleRailTrack,
     SimplePeriodicSlabSingleRailTrack,
-    SingleRailTrack,
 )
 
 
