@@ -28,15 +28,7 @@ from rolland.track import (
 
 
 class Discretization(HasTraits):
-    r"""Base class for discretization classes.
-
-    Attributes
-    ----------
-    grid : Grid
-        Grid instance.
-    """
-
-    grid = Instance(Grid)
+    r"""Base class for discretization classes."""
 
 
 class DiscretizationFDMStampka(Discretization):
@@ -47,10 +39,6 @@ class DiscretizationFDMStampka(Discretization):
 
     Attributes
     ----------
-    grid : Grid
-        Grid instance.
-    track : SingleRailTrack
-        Track instance.
     bound : PMLStampka
         Boundary instance.
     A : scipy.sparse.csc_matrix
@@ -61,8 +49,13 @@ class DiscretizationFDMStampka(Discretization):
         Coefficient matrix C.
     """
 
-    track = Instance(SingleRailTrack)
     bound = Instance(PMLStampka)
+
+    def __init__(self, bound):
+        self.bound = bound
+        self.grid = self.bound.grid
+        self.track = self.bound.grid.track
+
 
     def build_matrix(self, vec_dr, vec_sp, vec_dp, vec_ms, vec_sb, vec_db):
         """Build matrices A, B, and C according to :cite:t:`stampka2022a`.
@@ -176,10 +169,6 @@ class DiscretizationFDMStampkaConst(DiscretizationFDMStampka):
 
     Attributes
     ----------
-    grid : Grid
-        Grid instance.
-    track : SingleRailTrack
-        Track instance.
     bound : PMLStampka
         Boundary instance.
     A : scipy.sparse.csc_matrix
@@ -334,5 +323,3 @@ class DiscretizationFDMStampkaTimeDepend(DiscretizationFDMStampkaConst):
     .. note:: This class is not implemented yet.
 
     """
-
-    pass

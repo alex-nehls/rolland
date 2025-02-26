@@ -21,20 +21,20 @@ class Deflection(HasTraits):
 
     Attributes
     ----------
-    track : Track
-        Track instance.
-    grid : Grid
-        Grid instance.
-    excit : Excitation
-        Excitation instance.
     discr : Discretization
         Discretization instance.
+    excit : Excitation
+        Excitation instance.
     """
 
-    track = Instance(Track)
-    grid = Instance(Grid)
-    excit = Instance(Excitation)
     discr = Instance(Discretization)
+    excit = Instance(Excitation)
+
+    def __init__(self, discr, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.discr = discr
+        self.grid = self.discr.grid
+        self.track = self.discr.track
 
 
 class DeflectionFDMStampka(Deflection):

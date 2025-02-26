@@ -29,9 +29,6 @@ class PMLStampka(HasTraits):
         Array containing the damping values in the boundary domain :math:`[-]`.
     """
 
-    # Track instance
-    track = Instance(Track)
-
     # Grid instance
     grid = Instance(GridFDMStampka)
 
@@ -39,13 +36,23 @@ class PMLStampka(HasTraits):
         """Calculate boundary properties."""
         super().__init__(*args, **kwargs)
         # Boundary Coefficient
-        r = (self.track.rail.E * self.track.rail.Iyr) / self.track.rail.mr *  self.grid.dt ** 2 / self.grid.dx ** 4
+
+        E = self.grid.track.rail.E
+        Iyr = self.grid.track.rail.Iyr
+        mr = self.grid.track.rail.mr
+        dt = self.grid.dt
+        dx = self.grid.dx
+        n_bound = self.grid.n_bound
+        l_bound = self.grid.l_bound
+        # Rail stiffness
+
+        r = (E * Iyr) / mr *  dt ** 2 / dx ** 4
 
         # Rail damping coefficient in boundary domain
-        drbc = r / 2 * self.track.rail.mr / self.grid.dt
+        drbc = r / 2 * mr / dt
 
         # Grid points in boundary domain
-        xbc = linspace(0, self.grid.l_bound, int(self.grid.n_bound))
+        xbc = linspace(0, l_bound, int(n_bound))
 
         # Function for increasing damping, added to dr
-        self.pml = drbc * xbc ** 7 / (self.grid.dx * self.grid.n_bound) ** 7
+        self.pml = drbc * xbc ** 7 / (dx * n_bound) ** 7

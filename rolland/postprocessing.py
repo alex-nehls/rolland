@@ -32,17 +32,13 @@ def fast_fourier_transform(tsignal, dt):
     return fftfre[0 : samples // 2], FFFt[0 : samples // 2]
 
 
-def response(defl, force, dt, f_min=100, f_max=3000):
+def response(defl, f_min=100, f_max=3000):
     """Calculate point or transfer quantities (Receptance, Mobility, Accelerance).
 
     Parameters
     ----------
     defl : numpy.ndarray
         Deflection array :math:`[m]`.
-    force : numpy.ndarray
-        Force array :math:`[N]`.
-    dt : float
-        Time step between samples :math:`[s]`.
     f_min : float, optional
         Minimum frequency :math:`[Hz]`. Default is 100.
     f_max : float, optional
@@ -53,6 +49,8 @@ def response(defl, force, dt, f_min=100, f_max=3000):
     tuple
         Frequencies, Receptance, Mobility, and Accelerance.
     """
+    force = defl.force
+    dt = defl.dt
     fftfre, FFFT = fast_fourier_transform(force, dt)
     fftfre, wpFFT = fast_fourier_transform(defl, dt)
 
@@ -63,17 +61,13 @@ def response(defl, force, dt, f_min=100, f_max=3000):
     ind_fmax = int(where(fftfre > f_max)[0][0])
     return fftfre[ind_fmin:ind_fmax], rez[ind_fmin:ind_fmax], mob[ind_fmin:ind_fmax], accel[ind_fmin:ind_fmax]
 
-def response_fdm(defl, grid, force, dt, dist = 0, f_min=100, f_max=3000):
+def response_fdm(defl, dist = 0, f_min=100, f_max=3000):
     """Calculate point or transfer quantities (Receptance, Mobility, Accelerance).
 
     Parameters
     ----------
     defl : Deflection
         Deflection instance.
-    force : numpy.ndarray
-        Force array :math:`[N]`.
-    dt : float
-        Time step between samples :math:`[s]`.
     f_min : float, optional
         Minimum frequency :math:`[Hz]`. Default is 100.
     f_max : float, optional
@@ -84,11 +78,13 @@ def response_fdm(defl, grid, force, dt, dist = 0, f_min=100, f_max=3000):
     tuple
         Frequencies, Receptance, Mobility, and Accelerance.
     """
+    grid = defl.discr.grid
+    force = defl.excit.force
     ind_trans = defl.ind_excit + int(dist // grid.dx + 1)
     defl = defl.deflection[ind_trans, 0 : grid.nt]
 
-    fftfre, FFFT = fast_fourier_transform(force, dt)
-    fftfre, wpFFT = fast_fourier_transform(defl, dt)
+    fftfre, FFFT = fast_fourier_transform(force, grid.dt)
+    fftfre, wpFFT = fast_fourier_transform(defl, grid.dt)
 
     rez = wpFFT / FFFT
     mob = 1j * fftfre * 2 * pi * rez
