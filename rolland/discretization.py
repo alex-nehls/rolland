@@ -13,6 +13,7 @@ import warnings
 from numpy import ones, zeros
 from scipy.sparse import SparseEfficiencyWarning, csc_matrix, diags, eye
 from traitlets import HasTraits, Instance
+from decimal import Decimal
 
 from rolland.boundary import PMLStampka
 from rolland.track import (
@@ -281,10 +282,10 @@ class DiscretizationFDMStampkaConst(DiscretizationFDMStampka):
         # Get mounting positions as list
         mount_pos = list(self.track.mount_prop.keys())
         for i in mount_pos:
-            # Mounting positions are rounded to avoid floating point errors
-            self.vec_sp[int(i / self.grid.dx)] = self.track.mount_prop[i][0].sp[0] / self.grid.dx
-            self.vec_dp[int(i / self.grid.dx)] = self.track.mount_prop[i][0].dp[0] / self.grid.dx
-            self.vec_ms[int(i / self.grid.dx)] = self.track.slab.ms / self.grid.dx
+            x_ind = int(i / self.grid.dx)
+            self.vec_sp[x_ind] = self.track.mount_prop[i][0].sp[0] / self.grid.dx
+            self.vec_dp[x_ind] = self.track.mount_prop[i][0].dp[0] / self.grid.dx
+            self.vec_ms[x_ind] = self.track.slab.ms / self.grid.dx
 
     def build_discrete_ballasted_track(self):
         """Build discrete ballasted track.
@@ -302,10 +303,10 @@ class DiscretizationFDMStampkaConst(DiscretizationFDMStampka):
         # Get mounting positions as list
         mount_pos = list(self.track.mount_prop.keys())
         for i in mount_pos:
-            # Mounting positions are rounded to avoid floating point errors
-            self.vec_sp[int(i / self.grid.dx)] = self.track.mount_prop[i][0].sp[0] / self.grid.dx
-            self.vec_dp[int(i / self.grid.dx)] = self.track.mount_prop[i][0].dp[0] / self.grid.dx
-            self.vec_ms[int(i / self.grid.dx)] = self.track.mount_prop[i][1].ms / self.grid.dx
+            x_ind = int(i / self.grid.dx)
+            self.vec_sp[x_ind] = self.track.mount_prop[i][0].sp[0] / self.grid.dx
+            self.vec_dp[x_ind] = self.track.mount_prop[i][0].dp[0] / self.grid.dx
+            self.vec_ms[x_ind] = self.track.mount_prop[i][1].ms / self.grid.dx
         self.vec_sb += self.track.ballast.sb[0] / self.grid.dx
         self.vec_db += self.track.ballast.db[0] / self.grid.dx
 
