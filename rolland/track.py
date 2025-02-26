@@ -17,6 +17,8 @@
     ArrangedBallastedSingleRailTrack
 """
 
+from decimal import Decimal
+
 from traitlets import Dict, Float, HasTraits, Instance, Integer, Tuple
 
 from rolland.arrangement import Arrangement
@@ -198,10 +200,11 @@ class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
     def __init__(self, *args, **kwargs):
         # Set the mounting properties
         super().__init__(*args, **kwargs)
-        x = 0
         for _i in range(self.num_mount):
+            # Calculate the mounting position
+            # Use Decimal to avoid floating-point representation errors
+            x = float(Decimal(str(_i)) * Decimal(str(self.distance)))
             self.mount_prop[x] = (self.pad, None)
-            x += self.distance
 
 class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
     """Single rail slab track with varying periodic support.
@@ -270,12 +273,11 @@ class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
     def __init__(self, *args, **kwargs):
         # Set the mounting properties
         super().__init__(*args, **kwargs)
-        x = 0
+        x = Decimal(str(0))
         for p, d in zip(self.pad.generate(self.num_mount),
                         self.distance.generate(self.num_mount), strict=False):
-            self.mount_prop[x] = (p, None)
-            x += d
-
+            self.mount_prop[float(Decimal(str(x)))] = (p, None)
+            x += Decimal(str(d))
 
 class BallastedSingleRailTrack(SingleRailTrack):
     r"""Base class for ballasted single rail track classes.
@@ -430,11 +432,13 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
     num_mount = Integer()
 
     def __init__(self, *args, **kwargs):
+        # Set the mounting properties
         super().__init__(*args, **kwargs)
-        x = 0
         for _i in range(self.num_mount):
+            # Calculate the mounting position
+            # Use Decimal to avoid floating-point representation errors
+            x = float(Decimal(str(_i)) * Decimal(str(self.distance)))
             self.mount_prop[x] = (self.pad, self.sleeper)
-            x += self.distance
 
 
 class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
@@ -507,11 +511,11 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
     num_mount = Integer()
 
     def __init__(self, *args, **kwargs):
+        # Set the mounting properties
         super().__init__(*args, **kwargs)
-        # factory
-        x = 0
+        x = Decimal(str(0))
         for s, p, d in zip(self.sleeper.generate(self.num_mount),
                            self.pad.generate(self.num_mount),
                            self.distance.generate(self.num_mount), strict=False):
-            self.mount_prop[x] = (p, s)
-            x += d
+            self.mount_prop[float(Decimal(str(x)))] = (p, s)
+            x += Decimal(str(d))
