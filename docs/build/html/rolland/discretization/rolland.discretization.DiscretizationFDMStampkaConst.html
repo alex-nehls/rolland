@@ -128,7 +128,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaConst">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.discretization.</span></span><span class="sig-name descname"><span class="pre">DiscretizationFDMStampkaConst</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaConst"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaConst" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaConst'"><span>¶</span></a></dt>
-<dd><p>Discretization with non-time-dependent parameters according to <span id="id1">Stampka and Sarradj [<a class="reference internal" href="../../literature/index.html#id3" title="Katja Stampka and Ennes Sarradj. A Time-Domain Finite-Difference Method for Bending Waves on Infinite Beams on an Elastic Foundation. Acoustics, January 2022. Num Pages: 18. doi:10.3390/acoustics4040052.">2</a>]</span>.</p>
+<dd><p>Bases: <a class="reference internal" href="rolland.discretization.DiscretizationFDMStampka.html#rolland.discretization.DiscretizationFDMStampka" title="rolland.discretization.DiscretizationFDMStampka"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiscretizationFDMStampka</span></code></a></p>
+<p>Discretization with non-time-dependent parameters according to <span id="id1">Stampka and Sarradj [<a class="reference internal" href="../../literature/index.html#id3" title="Katja Stampka and Ennes Sarradj. A Time-Domain Finite-Difference Method for Bending Waves on Infinite Beams on an Elastic Foundation. Acoustics, January 2022. Num Pages: 18. doi:10.3390/acoustics4040052.">2</a>]</span>.</p>
 <p>The parameters are constant over time. Only applicable for non-moving sound sources
 and linear superstructure properties.</p>
 <dl class="py attribute">
@@ -232,39 +233,16 @@ and linear superstructure properties.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaConst.initialize_vectors">
+<span class="sig-name descname"><span class="pre">initialize_vectors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaConst.initialize_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaConst.initialize_vectors" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaConst.initialize_vectors'"><span>¶</span></a></dt>
+<dd><p>Initialize the vectors.</p>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaConst.add_boundary_conditions">
 <span class="sig-name descname"><span class="pre">add_boundary_conditions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaConst.add_boundary_conditions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaConst.add_boundary_conditions" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaConst.add_boundary_conditions'"><span>¶</span></a></dt>
 <dd><p>Add boundary conditions to the rail damping vector.</p>
 <p>This method modifies the rail damping vector (<cite>vec_dr</cite>) by adding the boundary conditions
 from the Perfectly Matched Layer (PML) at both ends of the grid.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong></p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_ballasted_track">
-<span class="sig-name descname"><span class="pre">build_discrete_ballasted_track</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaConst.build_discrete_ballasted_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_ballasted_track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_ballasted_track'"><span>¶</span></a></dt>
-<dd><p>Build discrete ballasted track.</p>
-<p>Properties are assigned to the corresponding mounting positions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong></p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_slab_track">
-<span class="sig-name descname"><span class="pre">build_discrete_slab_track</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaConst.build_discrete_slab_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_slab_track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_slab_track'"><span>¶</span></a></dt>
-<dd><p>Build discrete slab track.</p>
-<p>Properties are assigned to the corresponding mounting positions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -289,9 +267,32 @@ from the Perfectly Matched Layer (PML) at both ends of the grid.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaConst.initialize_vectors">
-<span class="sig-name descname"><span class="pre">initialize_vectors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaConst.initialize_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaConst.initialize_vectors" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaConst.initialize_vectors'"><span>¶</span></a></dt>
-<dd><p>Initialize the vectors.</p>
+<dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_slab_track">
+<span class="sig-name descname"><span class="pre">build_discrete_slab_track</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaConst.build_discrete_slab_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_slab_track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_slab_track'"><span>¶</span></a></dt>
+<dd><p>Build discrete slab track.</p>
+<p>Properties are assigned to the corresponding mounting positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_ballasted_track">
+<span class="sig-name descname"><span class="pre">build_discrete_ballasted_track</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaConst.build_discrete_ballasted_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_ballasted_track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_ballasted_track'"><span>¶</span></a></dt>
+<dd><p>Build discrete ballasted track.</p>
+<p>Properties are assigned to the corresponding mounting positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 </dd></dl>
 </section>
@@ -309,11 +310,11 @@ from the Perfectly Matched Layer (PML) at both ends of the grid.</p>
 <li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.vec_ms'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.vec_ms"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.vec_ms</span></code></a></li>
 <li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.vec_sb'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.vec_sb"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.vec_sb</span></code></a></li>
 <li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.vec_db'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.vec_db"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.vec_db</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.add_boundary_conditions'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.add_boundary_conditions"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.add_boundary_conditions()</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_ballasted_track'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_ballasted_track"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.build_discrete_ballasted_track()</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_slab_track'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_slab_track"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.build_discrete_slab_track()</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.build_superstructure_vectors'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.build_superstructure_vectors"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.build_superstructure_vectors()</span></code></a></li>
 <li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.initialize_vectors'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.initialize_vectors"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.initialize_vectors()</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.add_boundary_conditions'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.add_boundary_conditions"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.add_boundary_conditions()</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.build_superstructure_vectors'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.build_superstructure_vectors"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.build_superstructure_vectors()</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_slab_track'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_slab_track"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.build_discrete_slab_track()</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_ballasted_track'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaConst.build_discrete_ballasted_track"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst.build_discrete_ballasted_track()</span></code></a></li>
 </ul>
 </li>
 </ul>

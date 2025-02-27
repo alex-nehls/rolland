@@ -128,7 +128,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="rolland.deflection.DeflectionFDMStampka">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.deflection.</span></span><span class="sig-name descname"><span class="pre">DeflectionFDMStampka</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/deflection.html#DeflectionFDMStampka"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.deflection.DeflectionFDMStampka" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.deflection.DeflectionFDMStampka'"><span>¶</span></a></dt>
-<dd><p>Calculate deflection according to <span id="id1">Stampka and Sarradj [<a class="reference internal" href="../../literature/index.html#id3" title="Katja Stampka and Ennes Sarradj. A Time-Domain Finite-Difference Method for Bending Waves on Infinite Beams on an Elastic Foundation. Acoustics, January 2022. Num Pages: 18. doi:10.3390/acoustics4040052.">2</a>]</span>.</p>
+<dd><p>Bases: <a class="reference internal" href="rolland.deflection.Deflection.html#rolland.deflection.Deflection" title="rolland.deflection.Deflection"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deflection</span></code></a></p>
+<p>Calculate deflection according to <span id="id1">Stampka and Sarradj [<a class="reference internal" href="../../literature/index.html#id3" title="Katja Stampka and Ennes Sarradj. A Time-Domain Finite-Difference Method for Bending Waves on Infinite Beams on an Elastic Foundation. Acoustics, January 2022. Num Pages: 18. doi:10.3390/acoustics4040052.">2</a>]</span>.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="rolland.deflection.DeflectionFDMStampka.track">
 <span class="sig-name descname"><span class="pre">track</span></span><a class="headerlink" href="#rolland.deflection.DeflectionFDMStampka.track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.deflection.DeflectionFDMStampka.track'"><span>¶</span></a></dt>
@@ -200,18 +201,15 @@
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="rolland.deflection.DeflectionFDMStampka.calc_deflection">
-<span class="sig-name descname"><span class="pre">calc_deflection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">defl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/deflection.html#DeflectionFDMStampka.calc_deflection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.deflection.DeflectionFDMStampka.calc_deflection" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.deflection.DeflectionFDMStampka.calc_deflection'"><span>¶</span></a></dt>
-<dd><p>Calculate deflection.</p>
+<dt class="sig sig-object py" id="rolland.deflection.DeflectionFDMStampka.initialize_start_values">
+<span class="sig-name descname"><span class="pre">initialize_start_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/deflection.html#DeflectionFDMStampka.initialize_start_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.deflection.DeflectionFDMStampka.initialize_start_values" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.deflection.DeflectionFDMStampka.initialize_start_values'"><span>¶</span></a></dt>
+<dd><p>Set starting values of deflections to zero.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>defl</strong> (<em>numpy.ndarray</em>) – Array of deflections initialized to zero with shape (2 * nx, nt + 1).</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>defl</strong> – Array of deflections initialized to zero with shape (2 * nx, nt + 1).</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>defl</strong> – Array of calculated deflections with shape (2 * nx, nt + 1).</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -237,15 +235,18 @@
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="rolland.deflection.DeflectionFDMStampka.initialize_start_values">
-<span class="sig-name descname"><span class="pre">initialize_start_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/deflection.html#DeflectionFDMStampka.initialize_start_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.deflection.DeflectionFDMStampka.initialize_start_values" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.deflection.DeflectionFDMStampka.initialize_start_values'"><span>¶</span></a></dt>
-<dd><p>Set starting values of deflections to zero.</p>
+<dt class="sig sig-object py" id="rolland.deflection.DeflectionFDMStampka.calc_deflection">
+<span class="sig-name descname"><span class="pre">calc_deflection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">defl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/deflection.html#DeflectionFDMStampka.calc_deflection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.deflection.DeflectionFDMStampka.calc_deflection" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.deflection.DeflectionFDMStampka.calc_deflection'"><span>¶</span></a></dt>
+<dd><p>Calculate deflection.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>defl</strong> – Array of deflections initialized to zero with shape (2 * nx, nt + 1).</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>defl</strong> (<em>numpy.ndarray</em>) – Array of deflections initialized to zero with shape (2 * nx, nt + 1).</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>numpy.ndarray</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>defl</strong> – Array of calculated deflections with shape (2 * nx, nt + 1).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -262,9 +263,9 @@
 <li><a :data-current="activeSection === '#rolland.deflection.DeflectionFDMStampka.x_excit'" class="reference internal" href="#rolland.deflection.DeflectionFDMStampka.x_excit"><code class="docutils literal notranslate"><span class="pre">DeflectionFDMStampka.x_excit</span></code></a></li>
 <li><a :data-current="activeSection === '#rolland.deflection.DeflectionFDMStampka.deflection'" class="reference internal" href="#rolland.deflection.DeflectionFDMStampka.deflection"><code class="docutils literal notranslate"><span class="pre">DeflectionFDMStampka.deflection</span></code></a></li>
 <li><a :data-current="activeSection === '#rolland.deflection.DeflectionFDMStampka.ind_excit'" class="reference internal" href="#rolland.deflection.DeflectionFDMStampka.ind_excit"><code class="docutils literal notranslate"><span class="pre">DeflectionFDMStampka.ind_excit</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.deflection.DeflectionFDMStampka.calc_deflection'" class="reference internal" href="#rolland.deflection.DeflectionFDMStampka.calc_deflection"><code class="docutils literal notranslate"><span class="pre">DeflectionFDMStampka.calc_deflection()</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.deflection.DeflectionFDMStampka.calc_rightside_crank_nicolson'" class="reference internal" href="#rolland.deflection.DeflectionFDMStampka.calc_rightside_crank_nicolson"><code class="docutils literal notranslate"><span class="pre">DeflectionFDMStampka.calc_rightside_crank_nicolson()</span></code></a></li>
 <li><a :data-current="activeSection === '#rolland.deflection.DeflectionFDMStampka.initialize_start_values'" class="reference internal" href="#rolland.deflection.DeflectionFDMStampka.initialize_start_values"><code class="docutils literal notranslate"><span class="pre">DeflectionFDMStampka.initialize_start_values()</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.deflection.DeflectionFDMStampka.calc_rightside_crank_nicolson'" class="reference internal" href="#rolland.deflection.DeflectionFDMStampka.calc_rightside_crank_nicolson"><code class="docutils literal notranslate"><span class="pre">DeflectionFDMStampka.calc_rightside_crank_nicolson()</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.deflection.DeflectionFDMStampka.calc_deflection'" class="reference internal" href="#rolland.deflection.DeflectionFDMStampka.calc_deflection"><code class="docutils literal notranslate"><span class="pre">DeflectionFDMStampka.calc_deflection()</span></code></a></li>
 </ul>
 </li>
 </ul>

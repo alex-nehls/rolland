@@ -43,7 +43,8 @@ exclude_patterns = []
 # autodoc_member_order = 'bysource'
 autodoc_default_options = {
     'members': True,
-    'member-order': 'groupwise',
+    'member-order': 'bysource',
+    'show-inheritance': True,
 }
 
 autodoc_typehints = "description"       # Include type hints in the description

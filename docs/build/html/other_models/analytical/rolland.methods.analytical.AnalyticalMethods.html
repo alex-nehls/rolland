@@ -128,7 +128,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.methods.analytical.</span></span><span class="sig-name descname"><span class="pre">AnalyticalMethods</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#AnalyticalMethods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods'"><span>¶</span></a></dt>
-<dd><p>Base class for analytical methods.</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">HasTraits</span></code></p>
+<p>Base class for analytical methods.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.f">
 <span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.f" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.f'"><span>¶</span></a></dt>
@@ -170,6 +171,31 @@
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.initialize_attributes">
+<span class="sig-name descname"><span class="pre">initialize_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#AnalyticalMethods.initialize_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.initialize_attributes" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.initialize_attributes'"><span>¶</span></a></dt>
+<dd><p>Initialize computed attributes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.omega">
+<span class="sig-name descname"><span class="pre">omega</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.omega" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.omega'"><span>¶</span></a></dt>
+<dd><p>Angular frequencies [rad/s].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.mobility">
+<span class="sig-name descname"><span class="pre">mobility</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.mobility" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.mobility'"><span>¶</span></a></dt>
+<dd><p>Mobility matrix initialized to zeros.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.compute_mobility">
 <span class="sig-name descname"><span class="pre">compute_mobility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#AnalyticalMethods.compute_mobility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.compute_mobility" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.compute_mobility'"><span>¶</span></a></dt>
 <dd><p>Compute the mobility of the track.</p>
@@ -204,31 +230,6 @@
 </dl>
 </dd></dl>
 </dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.initialize_attributes">
-<span class="sig-name descname"><span class="pre">initialize_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#AnalyticalMethods.initialize_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.initialize_attributes" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.initialize_attributes'"><span>¶</span></a></dt>
-<dd><p>Initialize computed attributes.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.omega">
-<span class="sig-name descname"><span class="pre">omega</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.omega" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.omega'"><span>¶</span></a></dt>
-<dd><p>Angular frequencies [rad/s].</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.mobility">
-<span class="sig-name descname"><span class="pre">mobility</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.mobility" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.mobility'"><span>¶</span></a></dt>
-<dd><p>Mobility matrix initialized to zeros.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
 </dd></dl>
 </section>
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
@@ -239,15 +240,15 @@
 <li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.force'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.force"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.force</span></code></a></li>
 <li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.x'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.x"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.x</span></code></a></li>
 <li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.x_excit'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.x_excit"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.x_excit</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.initialize_attributes'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.initialize_attributes"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.initialize_attributes()</span></code></a><ul>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.omega'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.omega"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.omega</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.mobility'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.mobility"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.mobility</span></code></a></li>
+</ul>
+</li>
 <li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.compute_mobility'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.compute_mobility"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.compute_mobility()</span></code></a></li>
 <li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.compute_vibration'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.compute_vibration"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.compute_vibration()</span></code></a><ul>
 <li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.vb'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.vb"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.vb</span></code></a></li>
 <li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.ub'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.ub"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.ub</span></code></a></li>
-</ul>
-</li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.initialize_attributes'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.initialize_attributes"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.initialize_attributes()</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.omega'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.omega"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.omega</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.mobility'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.mobility"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.mobility</span></code></a></li>
 </ul>
 </li>
 </ul>
