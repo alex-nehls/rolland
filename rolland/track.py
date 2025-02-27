@@ -16,21 +16,25 @@
     SimplePeriodicBallastedSingleRailTrack
     ArrangedBallastedSingleRailTrack
 """
-
+import abc
 from decimal import Decimal
 
-from traitlets import Dict, Float, HasTraits, Instance, Integer, Tuple
+from traitlets import Dict, Float, Instance, Integer, Tuple
 
+from rolland.abstract_traits import ABCHasTraits
 from rolland.arrangement import Arrangement
 from rolland.components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
 
 
-class Track(HasTraits):
-    r"""Base class for track classes."""
+class Track(ABCHasTraits):
+    r"""Abstract base class for track classes."""
 
+    @abc.abstractmethod
+    def validate_track(self):
+        """Validate the track configuration."""
 
 class SingleRailTrack(Track):
-    r"""Base class for single rail track classes.
+    r"""Abstract base class for single rail track classes.
 
     Attributes
     ----------
@@ -40,9 +44,12 @@ class SingleRailTrack(Track):
 
     rail = Instance(Rail)
 
+    @abc.abstractmethod
+    def validate_single_rail_track(self):
+        """Validate the single rail configuration."""
 
 class SlabSingleRailTrack(SingleRailTrack):
-    r"""Base class for slab single rail track classes.
+    r"""Abstract base class for slab single rail track classes.
 
     Slab mass is set to a very large number to avoid displacement in order to avoid
     displacement and simulate a rigid slab.
@@ -61,6 +68,10 @@ class SlabSingleRailTrack(SingleRailTrack):
         # Set the mass of the slab to a very large number to avoid displacement
         super().__init__(*args, **kwargs)
         self.slab.ms = 1e20
+
+    @abc.abstractmethod
+    def validate_slab_single_rail_track(self):
+        """Validate the slab single rail configuration."""
 
 
 class ContSlabSingleRailTrack(SlabSingleRailTrack):
@@ -107,9 +118,18 @@ class ContSlabSingleRailTrack(SlabSingleRailTrack):
 
     pad = Instance(ContPad)
 
+    def validate_track(self):
+        """Validate the track configuration."""
+
+    def validate_single_rail_track(self):
+        """Validate the single rail configuration."""
+
+    def validate_slab_single_rail_track(self):
+        """Validate the slab single rail configuration."""
+
 
 class DiscrSlabSingleRailTrack(SlabSingleRailTrack):
-    r"""Base class for discrete slab single rail track classes.
+    r"""Abstract base class for discrete slab single rail track classes.
 
     The pad and sleeper properties are discrete and the slab is assumed to be rigid.
 
@@ -138,6 +158,10 @@ class DiscrSlabSingleRailTrack(SlabSingleRailTrack):
             p, s = self.mount_prop[x]
             st += f'{x}, {p.sp}, {s.ms} \n'
         return st
+
+    @abc.abstractmethod
+    def validate_discr_slab_single_rail_track(self):
+        """Validate the discrete slab single rail configuration."""
 
 
 class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
@@ -205,6 +229,19 @@ class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
             # Use Decimal to avoid floating-point representation errors
             x = float(Decimal(str(_i)) * Decimal(str(self.distance)))
             self.mount_prop[x] = (self.pad, None)
+
+    def validate_track(self):
+        """Validate the track configuration."""
+
+    def validate_single_rail_track(self):
+        """Validate the single rail configuration."""
+
+    def validate_slab_single_rail_track(self):
+        """Validate the slab single rail configuration."""
+
+    def validate_discr_slab_single_rail_track(self):
+        """Validate the discrete slab single rail configuration."""
+
 
 class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
     """Single rail slab track with varying periodic support.
@@ -279,8 +316,21 @@ class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
             self.mount_prop[float(Decimal(str(x)))] = (p, None)
             x += Decimal(str(d))
 
+    def validate_track(self):
+        """Validate the track configuration."""
+
+    def validate_single_rail_track(self):
+        """Validate the single rail configuration."""
+
+    def validate_slab_single_rail_track(self):
+        """Validate the slab single rail configuration."""
+
+    def validate_discr_slab_single_rail_track(self):
+        """Validate the discrete slab single rail configuration."""
+
+
 class BallastedSingleRailTrack(SingleRailTrack):
-    r"""Base class for ballasted single rail track classes.
+    r"""Abstract base class for ballasted single rail track classes.
 
     Attributes
     ----------
@@ -291,6 +341,10 @@ class BallastedSingleRailTrack(SingleRailTrack):
     """
 
     ballast = Instance(Ballast)
+
+    @abc.abstractmethod
+    def validate_ballasted_single_rail_track(self):
+        """Validate the ballasted single rail configuration."""
 
 
 class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
@@ -341,9 +395,18 @@ class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
     pad = Instance(ContPad)
     slab = Instance(Slab)
 
+    def validate_track(self):
+        """Validate the track configuration."""
+
+    def validate_single_rail_track(self):
+        """Validate the single rail configuration."""
+
+    def validate_ballasted_single_rail_track(self):
+        """Validate the ballasted single rail configuration."""
+
 
 class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
-    """Base class for discrete ballasted single rail track classes.
+    """Abstract base class for discrete ballasted single rail track classes.
 
     The pad and sleeper properties are discrete.
 
@@ -367,6 +430,10 @@ class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
             p, s = self.mount_prop[x]
             st += f'{x}, {p.sp}, {s.ms} \n'
         return st
+
+    @abc.abstractmethod
+    def validate_discr_ballasted_single_rail_track(self):
+        """Validate the discrete ballasted single rail configuration."""
 
 
 class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
@@ -439,6 +506,18 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
             # Use Decimal to avoid floating-point representation errors
             x = float(Decimal(str(_i)) * Decimal(str(self.distance)))
             self.mount_prop[x] = (self.pad, self.sleeper)
+
+    def validate_track(self):
+        """Validate the track configuration."""
+
+    def validate_single_rail_track(self):
+        """Validate the single rail configuration."""
+
+    def validate_ballasted_single_rail_track(self):
+        """Validate the ballasted single rail configuration."""
+
+    def validate_discr_ballasted_single_rail_track(self):
+        """Validate the discrete ballasted single rail configuration."""
 
 
 class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
@@ -519,3 +598,15 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
                            self.distance.generate(self.num_mount), strict=False):
             self.mount_prop[float(Decimal(str(x)))] = (p, s)
             x += Decimal(str(d))
+
+    def validate_track(self):
+        """Validate the track configuration."""
+
+    def validate_single_rail_track(self):
+        """Validate the single rail configuration."""
+
+    def validate_ballasted_single_rail_track(self):
+        """Validate the ballasted single rail configuration."""
+
+    def validate_discr_ballasted_single_rail_track(self):
+        """Validate the discrete ballasted single rail configuration."""
