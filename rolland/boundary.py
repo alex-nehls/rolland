@@ -9,7 +9,7 @@
 from numpy import linspace
 from traitlets import HasTraits, Instance
 
-from rolland.grid import GridFDMStampka
+from rolland import GridFDMStampka
 
 
 class PMLStampka(HasTraits):

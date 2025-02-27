@@ -21,9 +21,7 @@ from decimal import Decimal
 
 from traitlets import Dict, Float, Instance, Integer, Tuple
 
-from rolland.abstract_traits import ABCHasTraits
-from rolland.arrangement import Arrangement
-from rolland.components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
+from rolland import ABCHasTraits, Arrangement, Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
 
 
 class Track(ABCHasTraits):

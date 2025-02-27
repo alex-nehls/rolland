@@ -14,12 +14,12 @@ from numpy import ones, zeros
 from scipy.sparse import SparseEfficiencyWarning, csc_matrix, diags, eye
 from traitlets import HasTraits, Instance
 
-from rolland.boundary import PMLStampka
-from rolland.track import (
+from rolland import (
     ArrangedBallastedSingleRailTrack,
     ArrangedSlabSingleRailTrack,
     ContBallastedSingleRailTrack,
     ContSlabSingleRailTrack,
+    PMLStampka,
     SimplePeriodicBallastedSingleRailTrack,
     SimplePeriodicSlabSingleRailTrack,
 )

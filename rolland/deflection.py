@@ -10,8 +10,7 @@ from numpy import empty, zeros
 from scipy.sparse.linalg import splu
 from traitlets import Float, HasTraits, Instance
 
-from rolland.discretization import Discretization
-from rolland.excitation import Excitation
+from rolland import Discretization, Excitation
 
 
 class Deflection(HasTraits):

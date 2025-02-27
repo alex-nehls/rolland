@@ -8,9 +8,12 @@
     StochasticArrangement
 """
 
+import abc
 import random
 
 from traitlets import Any, HasTraits
+
+from rolland import ABCHasTraits
 
 
 class Arrangement(HasTraits):
