@@ -13,7 +13,6 @@ import warnings
 from numpy import ones, zeros
 from scipy.sparse import SparseEfficiencyWarning, csc_matrix, diags, eye
 from traitlets import HasTraits, Instance
-from decimal import Decimal
 
 from rolland.boundary import PMLStampka
 from rolland.track import (
