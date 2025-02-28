@@ -13,9 +13,6 @@ import random
 
 from traitlets import Any, HasTraits
 
-from rolland import ABCHasTraits
-
-
 class Arrangement(HasTraits):
     """Base class for the definition of non-uniform mounting properties.
 

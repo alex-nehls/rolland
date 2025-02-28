@@ -13,7 +13,7 @@
 from numpy import exp, linspace
 from traitlets import Float, HasTraits, Instance
 
-from rolland import GridFDMStampka
+from grid import GridFDMStampka
 
 
 class Excitation(HasTraits):

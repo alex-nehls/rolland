@@ -6,11 +6,11 @@
     Deflection
     DeflectionFDMStampka
 """
+from discretization import Discretization
+from excitation import Excitation
 from numpy import empty, zeros
 from scipy.sparse.linalg import splu
 from traitlets import Float, HasTraits, Instance
-
-from rolland import Discretization, Excitation
 
 
 class Deflection(HasTraits):

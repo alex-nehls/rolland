@@ -19,9 +19,10 @@
 import abc
 from decimal import Decimal
 
+from abstract_traits import ABCHasTraits
+from arrangement import Arrangement
+from components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
 from traitlets import Dict, Float, Instance, Integer, Tuple
-
-from rolland import ABCHasTraits, Arrangement, Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper
 
 
 class Track(ABCHasTraits):

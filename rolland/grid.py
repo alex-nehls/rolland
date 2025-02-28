@@ -9,9 +9,8 @@
 
 
 
+from track import Track
 from traitlets import Float, HasTraits, Instance, Integer
-
-from rolland import Track
 
 
 class Grid(HasTraits):

@@ -10,19 +10,18 @@
 """
 import warnings
 
+from boundary import PMLStampka
 from numpy import ones, zeros
 from scipy.sparse import SparseEfficiencyWarning, csc_matrix, diags, eye
-from traitlets import HasTraits, Instance
-
-from rolland import (
+from track import (
     ArrangedBallastedSingleRailTrack,
     ArrangedSlabSingleRailTrack,
     ContBallastedSingleRailTrack,
     ContSlabSingleRailTrack,
-    PMLStampka,
     SimplePeriodicBallastedSingleRailTrack,
     SimplePeriodicSlabSingleRailTrack,
 )
+from traitlets import HasTraits, Instance
 
 
 class Discretization(HasTraits):
