@@ -1,3 +1,4 @@
 sphinxawesome_theme
 sphinxcontrib-bibtex
 autodoc_traits
+sphinx_design
