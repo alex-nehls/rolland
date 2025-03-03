@@ -1,4 +1,4 @@
-sphinxawesome_theme >= 6.0.0
+sphinxawesome_theme >= 6.0.0b1
 sphinxcontrib-bibtex
 autodoc_traits
 sphinx_design
