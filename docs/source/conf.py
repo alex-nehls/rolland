@@ -29,6 +29,7 @@ extensions = [
     'autodoc_traits',                 # Support for traitlets
     'sphinx_design',                  # Design extension
     'myst_parser',                    # Markdown support
+    "sphinx.ext.githubpages",         # GitHub Pages support
 ]
 
 # sphinxcontrib-bibtex extension settings
