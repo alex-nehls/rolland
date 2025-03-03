@@ -1,4 +1,4 @@
-sphinxawesome_theme
+sphinxawesome_theme==latest
 sphinxcontrib-bibtex
 autodoc_traits
 sphinx_design
