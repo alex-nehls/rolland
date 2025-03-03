@@ -17,6 +17,8 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../literature/index.html" rel="next" title="Literature"/>
+<link href="rolland.methods.analytical.ThompsonTSDiscr1LSupp.html" rel="prev" title="rolland.methods.analytical.ThompsonTSDiscr1LSupp"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -93,8 +95,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../analyticalmethods.html">Analytical Models</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../analyticalmethods.html">Analytical Models</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Literature</span></p>
 <ul>
@@ -118,13 +120,150 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../analyticalmethods.html">Analytical Models</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.methods.analytical.ThompsonTSDiscr2LSupp</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-methods-analytical-thompsontsdiscr2lsupp">
 <h1>rolland.methods.analytical.ThompsonTSDiscr2LSupp<a class="headerlink" href="#rolland-methods-analytical-thompsontsdiscr2lsupp" title="Link to this heading"><span>¶</span></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.methods.analytical.</span></span><span class="sig-name descname"><span class="pre">ThompsonTSDiscr2LSupp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#ThompsonTSDiscr2LSupp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp'"><span>¶</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="rolland.methods.analytical.ThompsonTBDiscr.html#rolland.methods.analytical.ThompsonTBDiscr" title="rolland.methods.analytical.ThompsonTBDiscr"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThompsonTBDiscr</span></code></a></p>
+<p>Method for discrete ballasted track according to <span id="id1">Thompson [<a class="reference internal" href="../../literature/index.html#id4" title="David Thompson. 3 - Track vibration. In David Thompson, editor, Railway Noise and Vibration (Second Edition), pages 33–118. Elsevier, January 2024. doi:10.1016/B978-0-12-804439-1.00002-0.">3</a>]</span>.</p>
+<p>Utilizes a double-layer support with discrete track properties, applying Timoshenko beam
+theory. The excitation is stationary, and the corresponding method calculates the track’s
+mobility for the postions specified.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>This method is an implementation of <span id="id2">Thompson [<a class="reference internal" href="../../literature/index.html#id4" title="David Thompson. 3 - Track vibration. In David Thompson, editor, Railway Noise and Vibration (Second Edition), pages 33–118. Elsevier, January 2024. doi:10.1016/B978-0-12-804439-1.00002-0.">3</a>]</span> which is a modified version of
+<span id="id3">Heckl [<a class="reference internal" href="../../literature/index.html#id2" title="Maria A. Heckl. Railway noise‐Can random sleeper spacings help? Acta Acustica United with Acustica, January 1995. Publisher: S. Hirzel Verlag.">4</a>]</span>. Theoretically, the results should be identical, but Heckl’s work
+contains the following mistakes, which lead to incorrect results:</p>
+<ol class="arabic simple">
+<li><p>Missing negativ sign in the definition of the decaying wave number (Eq. 2b).</p></li>
+<li><p>Shear modulus <span class="math notranslate nohighlight">\(G\)</span> needs to be substituted by <span class="math notranslate nohighlight">\(G * \kappa\)</span></p></li>
+</ol>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp.f">
+<span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.f" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.f'"><span>¶</span></a></dt>
+<dd><p>Excitation frequencies <span class="math notranslate nohighlight">\([Hz]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp.force">
+<span class="sig-name descname"><span class="pre">force</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.force" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.force'"><span>¶</span></a></dt>
+<dd><p>Force amplitude corresponding to the excitation frequencies <span class="math notranslate nohighlight">\([N]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.x" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.x'"><span>¶</span></a></dt>
+<dd><p>Distances to the excitation point <span class="math notranslate nohighlight">\([m]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp.x_excit">
+<span class="sig-name descname"><span class="pre">x_excit</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.x_excit" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.x_excit'"><span>¶</span></a></dt>
+<dd><p>Excitation point <span class="math notranslate nohighlight">\([m]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp.track">
+<span class="sig-name descname"><span class="pre">track</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.track'"><span>¶</span></a></dt>
+<dd><p>Track instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../buildtrack/track/rolland.track.DiscrSlabSingleRailTrack.html#rolland.track.DiscrSlabSingleRailTrack" title="rolland.track.DiscrSlabSingleRailTrack">DiscrSlabSingleRailTrack</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_0">
+<span class="sig-name descname"><span class="pre">omega_0</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_0" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_0'"><span>¶</span></a></dt>
+<dd><p>Resonance frequency rail &lt;–&gt; foundation <span class="math notranslate nohighlight">\([Hz]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_1">
+<span class="sig-name descname"><span class="pre">omega_1</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_1" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_1'"><span>¶</span></a></dt>
+<dd><p>Resonance frequency ballast &lt;–&gt; slab <span class="math notranslate nohighlight">\([Hz]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_2">
+<span class="sig-name descname"><span class="pre">omega_2</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_2" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_2'"><span>¶</span></a></dt>
+<dd><p>Resonance frequency rail &lt;–&gt; slab <span class="math notranslate nohighlight">\([Hz]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp.compute_mobility">
+<span class="sig-name descname"><span class="pre">compute_mobility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#ThompsonTSDiscr2LSupp.compute_mobility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.compute_mobility" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.compute_mobility'"><span>¶</span></a></dt>
+<dd><p>Compute the mobility of the track.</p>
+<p>This method calculates the mobility of the track using the given parameters
+and the analytical solution for a discrete ballasted track.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTSDiscr2LSupp.mobility">
+<span class="sig-name descname"><span class="pre">mobility</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.mobility" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.mobility'"><span>¶</span></a></dt>
+<dd><p>Calculated mobility of the track <span class="math notranslate nohighlight">\([m/N]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
 </section>
-</div></div>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp</span></code></a><ul>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.f'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.f"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp.f</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.force'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.force"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp.force</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.x'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.x"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp.x</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.x_excit'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.x_excit"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp.x_excit</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.track'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.track"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp.track</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_0'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_0"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp.omega_0</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_1'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_1"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp.omega_1</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_2'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.omega_2"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp.omega_2</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.compute_mobility'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.compute_mobility"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp.compute_mobility()</span></code></a><ul>
+<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTSDiscr2LSupp.mobility'" class="reference internal" href="#rolland.methods.analytical.ThompsonTSDiscr2LSupp.mobility"><code class="docutils literal notranslate"><span class="pre">ThompsonTSDiscr2LSupp.mobility</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
@@ -145,5 +284,6 @@
 <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../../_static/theme.js?v=073f68d9"></script>
 <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

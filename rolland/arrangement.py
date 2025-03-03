@@ -11,8 +11,9 @@
 import abc
 import random
 
-from abstract_traits import ABCHasTraits
 from traitlets import Any
+
+from .abstract_traits import ABCHasTraits
 
 
 class Arrangement(ABCHasTraits):

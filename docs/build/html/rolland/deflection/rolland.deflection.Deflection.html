@@ -17,6 +17,8 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
+<link href="rolland.deflection.DeflectionFDMStampka.html" rel="next" title="rolland.deflection.DeflectionFDMStampka"/>
+<link href="../deflection.html" rel="prev" title="Deflection"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -84,12 +86,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../buildtrack/arrangement.html">Arrangement</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Rolland</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../grid.html">Grid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../boundary.html">Boundary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../excitation.html">Excitation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../discretization.html">Discretization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../deflection.html">Deflection</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../deflection.html">Deflection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
@@ -118,13 +120,56 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../deflection.html">Deflection</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.deflection.Deflection</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-deflection-deflection">
 <h1>rolland.deflection.Deflection<a class="headerlink" href="#rolland-deflection-deflection" title="Link to this heading"><span>¶</span></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="rolland.deflection.Deflection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.deflection.</span></span><span class="sig-name descname"><span class="pre">Deflection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/deflection.html#Deflection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.deflection.Deflection" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.deflection.Deflection'"><span>¶</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../abstract%20traits/rolland.abstract_traits.ABCHasTraits.html#rolland.abstract_traits.ABCHasTraits" title="rolland.abstract_traits.ABCHasTraits"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABCHasTraits</span></code></a></p>
+<p>Abstract base class for grid classes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.deflection.Deflection.discr">
+<span class="sig-name descname"><span class="pre">discr</span></span><a class="headerlink" href="#rolland.deflection.Deflection.discr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.deflection.Deflection.discr'"><span>¶</span></a></dt>
+<dd><p>Discretization instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../discretization/rolland.discretization.Discretization.html#rolland.discretization.Discretization" title="rolland.discretization.Discretization">Discretization</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.deflection.Deflection.excit">
+<span class="sig-name descname"><span class="pre">excit</span></span><a class="headerlink" href="#rolland.deflection.Deflection.excit" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.deflection.Deflection.excit'"><span>¶</span></a></dt>
+<dd><p>Excitation instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../excitation/rolland.excitation.Excitation.html#rolland.excitation.Excitation" title="rolland.excitation.Excitation">Excitation</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rolland.deflection.Deflection.validate_deflection">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_deflection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/deflection.html#Deflection.validate_deflection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.deflection.Deflection.validate_deflection" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.deflection.Deflection.validate_deflection'"><span>¶</span></a></dt>
+<dd><p>Validate deflection.</p>
+</dd></dl>
+</dd></dl>
 </section>
-</div></div>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#rolland.deflection.Deflection'" class="reference internal" href="#rolland.deflection.Deflection"><code class="docutils literal notranslate"><span class="pre">Deflection</span></code></a><ul>
+<li><a :data-current="activeSection === '#rolland.deflection.Deflection.discr'" class="reference internal" href="#rolland.deflection.Deflection.discr"><code class="docutils literal notranslate"><span class="pre">Deflection.discr</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.deflection.Deflection.excit'" class="reference internal" href="#rolland.deflection.Deflection.excit"><code class="docutils literal notranslate"><span class="pre">Deflection.excit</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.deflection.Deflection.validate_deflection'" class="reference internal" href="#rolland.deflection.Deflection.validate_deflection"><code class="docutils literal notranslate"><span class="pre">Deflection.validate_deflection()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">

@@ -6,9 +6,10 @@
     PMLStampka
 """
 
-from grid import GridFDMStampka
 from numpy import linspace
 from traitlets import HasTraits, Instance
+
+from .grid import GridFDMStampka
 
 
 class PMLStampka(HasTraits):

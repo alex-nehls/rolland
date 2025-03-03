@@ -5,6 +5,6 @@ Discretization
 
 .. note:: This class is still under development and may change in the future.
 
-.. automodule:: discretization
+.. automodule:: rolland.discretization
    :no-members:
    :no-index:

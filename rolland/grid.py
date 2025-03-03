@@ -8,9 +8,10 @@
 """
 import abc
 
-from abstract_traits import ABCHasTraits
-from track import Track
 from traitlets import Float, Instance, Integer
+
+from .abstract_traits import ABCHasTraits
+from .track import Track
 
 
 class Grid(ABCHasTraits):

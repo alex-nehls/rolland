@@ -17,6 +17,8 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
+<link href="rolland.components.Slab.html" rel="next" title="rolland.components.Slab"/>
+<link href="rolland.components.ContPad.html" rel="prev" title="rolland.components.ContPad"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -78,8 +80,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Build Track</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../components.html">Components</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../components.html">Components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
 </ul>
@@ -118,13 +120,81 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../components.html">Components</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.components.Sleeper</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-components-sleeper">
 <h1>rolland.components.Sleeper<a class="headerlink" href="#rolland-components-sleeper" title="Link to this heading"><span>¶</span></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="rolland.components.Sleeper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.components.</span></span><span class="sig-name descname"><span class="pre">Sleeper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/components.html#Sleeper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.components.Sleeper" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Sleeper'"><span>¶</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">HasTraits</span></code></p>
+<p>Sleeper Class.</p>
+<p>Contains the properties of a sleeper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>t.Any</em>)</p></li>
+<li><p><strong>kwargs</strong> (<em>t.Any</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.components.Sleeper.ms">
+<span class="sig-name descname"><span class="pre">ms</span></span><a class="headerlink" href="#rolland.components.Sleeper.ms" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Sleeper.ms'"><span>¶</span></a></dt>
+<dd><p>Sleeper mass <span class="math notranslate nohighlight">\([kg]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.components.Sleeper.Bs">
+<span class="sig-name descname"><span class="pre">Bs</span></span><a class="headerlink" href="#rolland.components.Sleeper.Bs" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Sleeper.Bs'"><span>¶</span></a></dt>
+<dd><p>Sleeper bending stiffness <span class="math notranslate nohighlight">\([Nm^2]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.components.Sleeper.ls">
+<span class="sig-name descname"><span class="pre">ls</span></span><a class="headerlink" href="#rolland.components.Sleeper.ls" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Sleeper.ls'"><span>¶</span></a></dt>
+<dd><p>Sleeper length in y-direction <span class="math notranslate nohighlight">\([m]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.components.Sleeper.wdths">
+<span class="sig-name descname"><span class="pre">wdths</span></span><a class="headerlink" href="#rolland.components.Sleeper.wdths" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Sleeper.wdths'"><span>¶</span></a></dt>
+<dd><p>Sleeper width in x-direction <span class="math notranslate nohighlight">\([m]\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
 </section>
-</div></div>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#rolland.components.Sleeper'" class="reference internal" href="#rolland.components.Sleeper"><code class="docutils literal notranslate"><span class="pre">Sleeper</span></code></a><ul>
+<li><a :data-current="activeSection === '#rolland.components.Sleeper.ms'" class="reference internal" href="#rolland.components.Sleeper.ms"><code class="docutils literal notranslate"><span class="pre">Sleeper.ms</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.components.Sleeper.Bs'" class="reference internal" href="#rolland.components.Sleeper.Bs"><code class="docutils literal notranslate"><span class="pre">Sleeper.Bs</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.components.Sleeper.ls'" class="reference internal" href="#rolland.components.Sleeper.ls"><code class="docutils literal notranslate"><span class="pre">Sleeper.ls</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.components.Sleeper.wdths'" class="reference internal" href="#rolland.components.Sleeper.wdths"><code class="docutils literal notranslate"><span class="pre">Sleeper.wdths</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
@@ -145,5 +215,6 @@
 <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../../_static/theme.js?v=073f68d9"></script>
 <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

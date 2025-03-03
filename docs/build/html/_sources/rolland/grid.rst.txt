@@ -5,6 +5,6 @@ Grid
 
 .. note:: This class is still under development and may change in the future.
 
-.. automodule:: grid
+.. automodule:: rolland.grid
    :no-members:
    :no-index:

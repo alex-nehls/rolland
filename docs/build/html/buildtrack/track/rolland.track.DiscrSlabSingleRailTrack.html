@@ -17,6 +17,8 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
+<link href="rolland.track.SimplePeriodicSlabSingleRailTrack.html" rel="next" title="rolland.track.SimplePeriodicSlabSingleRailTrack"/>
+<link href="rolland.track.ContSlabSingleRailTrack.html" rel="prev" title="rolland.track.ContSlabSingleRailTrack"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -78,9 +80,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Build Track</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../components.html">Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../track.html">Track</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Rolland</span></p>
@@ -118,13 +120,79 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../track.html">Track</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.track.DiscrSlabSingleRailTrack</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-track-discrslabsinglerailtrack">
 <h1>rolland.track.DiscrSlabSingleRailTrack<a class="headerlink" href="#rolland-track-discrslabsinglerailtrack" title="Link to this heading"><span>¶</span></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="rolland.track.DiscrSlabSingleRailTrack">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.track.</span></span><span class="sig-name descname"><span class="pre">DiscrSlabSingleRailTrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/track.html#DiscrSlabSingleRailTrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.track.DiscrSlabSingleRailTrack" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.DiscrSlabSingleRailTrack'"><span>¶</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="rolland.track.SlabSingleRailTrack.html#rolland.track.SlabSingleRailTrack" title="rolland.track.SlabSingleRailTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlabSingleRailTrack</span></code></a></p>
+<p>Abstract base class for discrete slab single rail track classes.</p>
+<p>The pad and sleeper properties are discrete and the slab is assumed to be rigid.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.track.DiscrSlabSingleRailTrack.rail">
+<span class="sig-name descname"><span class="pre">rail</span></span><a class="headerlink" href="#rolland.track.DiscrSlabSingleRailTrack.rail" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.DiscrSlabSingleRailTrack.rail'"><span>¶</span></a></dt>
+<dd><p>Rail instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../components/rolland.components.Rail.html#rolland.components.Rail" title="rolland.components.Rail">Rail</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.track.DiscrSlabSingleRailTrack.slab">
+<span class="sig-name descname"><span class="pre">slab</span></span><a class="headerlink" href="#rolland.track.DiscrSlabSingleRailTrack.slab" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.DiscrSlabSingleRailTrack.slab'"><span>¶</span></a></dt>
+<dd><p>Slab instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../components/rolland.components.Slab.html#rolland.components.Slab" title="rolland.components.Slab">Slab</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.track.DiscrSlabSingleRailTrack.pad">
+<span class="sig-name descname"><span class="pre">pad</span></span><a class="headerlink" href="#rolland.track.DiscrSlabSingleRailTrack.pad" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.DiscrSlabSingleRailTrack.pad'"><span>¶</span></a></dt>
+<dd><p>Discrete pad instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../components/rolland.components.DiscrPad.html#rolland.components.DiscrPad" title="rolland.components.DiscrPad">DiscrPad</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.track.DiscrSlabSingleRailTrack.mount_prop">
+<span class="sig-name descname"><span class="pre">mount_prop</span></span><a class="headerlink" href="#rolland.track.DiscrSlabSingleRailTrack.mount_prop" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.DiscrSlabSingleRailTrack.mount_prop'"><span>¶</span></a></dt>
+<dd><p>Dictionary for discrete mounting positions (x-&gt; (Pad, None)).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rolland.track.DiscrSlabSingleRailTrack.validate_discr_slab_single_rail_track">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_discr_slab_single_rail_track</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/track.html#DiscrSlabSingleRailTrack.validate_discr_slab_single_rail_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.track.DiscrSlabSingleRailTrack.validate_discr_slab_single_rail_track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.DiscrSlabSingleRailTrack.validate_discr_slab_single_rail_track'"><span>¶</span></a></dt>
+<dd><p>Validate the discrete slab single rail configuration.</p>
+</dd></dl>
+</dd></dl>
 </section>
-</div></div>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#rolland.track.DiscrSlabSingleRailTrack'" class="reference internal" href="#rolland.track.DiscrSlabSingleRailTrack"><code class="docutils literal notranslate"><span class="pre">DiscrSlabSingleRailTrack</span></code></a><ul>
+<li><a :data-current="activeSection === '#rolland.track.DiscrSlabSingleRailTrack.rail'" class="reference internal" href="#rolland.track.DiscrSlabSingleRailTrack.rail"><code class="docutils literal notranslate"><span class="pre">DiscrSlabSingleRailTrack.rail</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.track.DiscrSlabSingleRailTrack.slab'" class="reference internal" href="#rolland.track.DiscrSlabSingleRailTrack.slab"><code class="docutils literal notranslate"><span class="pre">DiscrSlabSingleRailTrack.slab</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.track.DiscrSlabSingleRailTrack.pad'" class="reference internal" href="#rolland.track.DiscrSlabSingleRailTrack.pad"><code class="docutils literal notranslate"><span class="pre">DiscrSlabSingleRailTrack.pad</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.track.DiscrSlabSingleRailTrack.mount_prop'" class="reference internal" href="#rolland.track.DiscrSlabSingleRailTrack.mount_prop"><code class="docutils literal notranslate"><span class="pre">DiscrSlabSingleRailTrack.mount_prop</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.track.DiscrSlabSingleRailTrack.validate_discr_slab_single_rail_track'" class="reference internal" href="#rolland.track.DiscrSlabSingleRailTrack.validate_discr_slab_single_rail_track"><code class="docutils literal notranslate"><span class="pre">DiscrSlabSingleRailTrack.validate_discr_slab_single_rail_track()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">

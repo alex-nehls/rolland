@@ -17,6 +17,8 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
+<link href="rolland.track.ContBallastedSingleRailTrack.html" rel="next" title="rolland.track.ContBallastedSingleRailTrack"/>
+<link href="rolland.track.ArrangedSlabSingleRailTrack.html" rel="prev" title="rolland.track.ArrangedSlabSingleRailTrack"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -78,9 +80,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Build Track</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../components.html">Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../track.html">Track</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Rolland</span></p>
@@ -118,13 +120,64 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../track.html">Track</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.track.BallastedSingleRailTrack</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-track-ballastedsinglerailtrack">
 <h1>rolland.track.BallastedSingleRailTrack<a class="headerlink" href="#rolland-track-ballastedsinglerailtrack" title="Link to this heading"><span>¶</span></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="rolland.track.BallastedSingleRailTrack">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.track.</span></span><span class="sig-name descname"><span class="pre">BallastedSingleRailTrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/track.html#BallastedSingleRailTrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.track.BallastedSingleRailTrack" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.BallastedSingleRailTrack'"><span>¶</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="rolland.track.SingleRailTrack.html#rolland.track.SingleRailTrack" title="rolland.track.SingleRailTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleRailTrack</span></code></a></p>
+<p>Abstract base class for ballasted single rail track classes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>t.Any</em>)</p></li>
+<li><p><strong>kwargs</strong> (<em>t.Any</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.track.BallastedSingleRailTrack.rail">
+<span class="sig-name descname"><span class="pre">rail</span></span><a class="headerlink" href="#rolland.track.BallastedSingleRailTrack.rail" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.BallastedSingleRailTrack.rail'"><span>¶</span></a></dt>
+<dd><p>Rail instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../components/rolland.components.Rail.html#rolland.components.Rail" title="rolland.components.Rail">Rail</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rolland.track.BallastedSingleRailTrack.ballast">
+<span class="sig-name descname"><span class="pre">ballast</span></span><a class="headerlink" href="#rolland.track.BallastedSingleRailTrack.ballast" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.BallastedSingleRailTrack.ballast'"><span>¶</span></a></dt>
+<dd><p>Ballast instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../components/rolland.components.Ballast.html#rolland.components.Ballast" title="rolland.components.Ballast">Ballast</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rolland.track.BallastedSingleRailTrack.validate_ballasted_single_rail_track">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_ballasted_single_rail_track</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/track.html#BallastedSingleRailTrack.validate_ballasted_single_rail_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.track.BallastedSingleRailTrack.validate_ballasted_single_rail_track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.BallastedSingleRailTrack.validate_ballasted_single_rail_track'"><span>¶</span></a></dt>
+<dd><p>Validate the ballasted single rail configuration.</p>
+</dd></dl>
+</dd></dl>
 </section>
-</div></div>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#rolland.track.BallastedSingleRailTrack'" class="reference internal" href="#rolland.track.BallastedSingleRailTrack"><code class="docutils literal notranslate"><span class="pre">BallastedSingleRailTrack</span></code></a><ul>
+<li><a :data-current="activeSection === '#rolland.track.BallastedSingleRailTrack.rail'" class="reference internal" href="#rolland.track.BallastedSingleRailTrack.rail"><code class="docutils literal notranslate"><span class="pre">BallastedSingleRailTrack.rail</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.track.BallastedSingleRailTrack.ballast'" class="reference internal" href="#rolland.track.BallastedSingleRailTrack.ballast"><code class="docutils literal notranslate"><span class="pre">BallastedSingleRailTrack.ballast</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.track.BallastedSingleRailTrack.validate_ballasted_single_rail_track'" class="reference internal" href="#rolland.track.BallastedSingleRailTrack.validate_ballasted_single_rail_track"><code class="docutils literal notranslate"><span class="pre">BallastedSingleRailTrack.validate_ballasted_single_rail_track()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">

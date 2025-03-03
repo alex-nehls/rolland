@@ -26,7 +26,7 @@ Attributes
 
 import os
 
-from components import Rail
+from rolland.components import Rail
 
 
 def load_rail_geo(file_path):

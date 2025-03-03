@@ -10,10 +10,11 @@
 """
 import abc
 
-from abstract_traits import ABCHasTraits
-from grid import GridFDMStampka
 from numpy import exp, linspace
 from traitlets import Float, Instance
+
+from .abstract_traits import ABCHasTraits
+from .grid import GridFDMStampka
 
 
 class Excitation(ABCHasTraits):

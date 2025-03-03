@@ -8,12 +8,13 @@
 """
 import abc
 
-from abstract_traits import ABCHasTraits
-from discretization import Discretization
-from excitation import Excitation
 from numpy import empty, zeros
 from scipy.sparse.linalg import splu
 from traitlets import Float, Instance
+
+from .abstract_traits import ABCHasTraits
+from .discretization import Discretization
+from .excitation import Excitation
 
 
 class Deflection(ABCHasTraits):

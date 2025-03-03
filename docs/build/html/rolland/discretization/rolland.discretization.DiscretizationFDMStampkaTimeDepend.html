@@ -17,6 +17,8 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../deflection.html" rel="next" title="Deflection"/>
+<link href="rolland.discretization.DiscretizationFDMStampkaConst.html" rel="prev" title="rolland.discretization.DiscretizationFDMStampkaConst"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -84,11 +86,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../buildtrack/arrangement.html">Arrangement</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Rolland</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../grid.html">Grid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../boundary.html">Boundary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../excitation.html">Excitation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../discretization.html">Discretization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../discretization.html">Discretization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../deflection.html">Deflection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../abc_traitlets.html">Abstract Classes</a></li>
 </ul>
@@ -118,13 +120,47 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../discretization.html">Discretization</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.discretization.DiscretizationFDMStampkaTimeDepend</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-discretization-discretizationfdmstampkatimedepend">
 <h1>rolland.discretization.DiscretizationFDMStampkaTimeDepend<a class="headerlink" href="#rolland-discretization-discretizationfdmstampkatimedepend" title="Link to this heading"><span>¶</span></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaTimeDepend">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.discretization.</span></span><span class="sig-name descname"><span class="pre">DiscretizationFDMStampkaTimeDepend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaTimeDepend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaTimeDepend" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaTimeDepend'"><span>¶</span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="rolland.discretization.DiscretizationFDMStampkaConst.html#rolland.discretization.DiscretizationFDMStampkaConst" title="rolland.discretization.DiscretizationFDMStampkaConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst</span></code></a></p>
+<p>Discretization with time-dependent parameters based on <span id="id1">Stampka and Sarradj [<a class="reference internal" href="../../literature/index.html#id3" title="Katja Stampka and Ennes Sarradj. A Time-Domain Finite-Difference Method for Bending Waves on Infinite Beams on an Elastic Foundation. Acoustics, January 2022. Num Pages: 18. doi:10.3390/acoustics4040052.">2</a>]</span>.</p>
+<p>This class extends <a class="reference internal" href="rolland.discretization.DiscretizationFDMStampkaConst.html#rolland.discretization.DiscretizationFDMStampkaConst" title="rolland.discretization.DiscretizationFDMStampkaConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaConst</span></code></a> to handle cases where the parameters
+vary over time, such as with a moving sound source or non-linear superstructure properties.
+This approach is a extended version of the discretization described in <span id="id2">Stampka and Sarradj [<a class="reference internal" href="../../literature/index.html#id3" title="Katja Stampka and Ennes Sarradj. A Time-Domain Finite-Difference Method for Bending Waves on Infinite Beams on an Elastic Foundation. Acoustics, January 2022. Num Pages: 18. doi:10.3390/acoustics4040052.">2</a>]</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class is not implemented yet.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaTimeDepend.validate_discretization">
+<span class="sig-name descname"><span class="pre">validate_discretization</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaTimeDepend.validate_discretization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaTimeDepend.validate_discretization" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaTimeDepend.validate_discretization'"><span>¶</span></a></dt>
+<dd><p>Validate the discretization.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="rolland.discretization.DiscretizationFDMStampkaTimeDepend.validate_discretization_stampka">
+<span class="sig-name descname"><span class="pre">validate_discretization_stampka</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/discretization.html#DiscretizationFDMStampkaTimeDepend.validate_discretization_stampka"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.discretization.DiscretizationFDMStampkaTimeDepend.validate_discretization_stampka" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.discretization.DiscretizationFDMStampkaTimeDepend.validate_discretization_stampka'"><span>¶</span></a></dt>
+<dd><p>Validate the discretization according to Stampka.</p>
+</dd></dl>
+</dd></dl>
 </section>
-</div></div>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaTimeDepend'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaTimeDepend"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaTimeDepend</span></code></a><ul>
+<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaTimeDepend.validate_discretization'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaTimeDepend.validate_discretization"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaTimeDepend.validate_discretization()</span></code></a></li>
+<li><a :data-current="activeSection === '#rolland.discretization.DiscretizationFDMStampkaTimeDepend.validate_discretization_stampka'" class="reference internal" href="#rolland.discretization.DiscretizationFDMStampkaTimeDepend.validate_discretization_stampka"><code class="docutils literal notranslate"><span class="pre">DiscretizationFDMStampkaTimeDepend.validate_discretization_stampka()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">

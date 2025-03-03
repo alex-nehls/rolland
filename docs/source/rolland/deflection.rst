@@ -5,6 +5,6 @@ Deflection
 
 .. note:: This class is still under development and may change in the future.
 
-.. automodule:: deflection
+.. automodule:: rolland.deflection
    :no-members:
    :no-index:

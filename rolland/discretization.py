@@ -11,11 +11,13 @@
 import abc
 import warnings
 
-from abstract_traits import ABCHasTraits
-from boundary import PMLStampka
 from numpy import ones, zeros
 from scipy.sparse import SparseEfficiencyWarning, csc_matrix, diags, eye
-from track import (
+from traitlets import Instance
+
+from .abstract_traits import ABCHasTraits
+from .boundary import PMLStampka
+from .track import (
     ArrangedBallastedSingleRailTrack,
     ArrangedSlabSingleRailTrack,
     ContBallastedSingleRailTrack,
@@ -23,7 +25,6 @@ from track import (
     SimplePeriodicBallastedSingleRailTrack,
     SimplePeriodicSlabSingleRailTrack,
 )
-from traitlets import Instance
 
 
 class Discretization(ABCHasTraits):
