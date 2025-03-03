@@ -4,23 +4,13 @@
 
 """The Rolland library: several classes for the implementation of rolling noise calculation."""
 
-from .abstract_traits import *
-from .arrangement import *
-from .boundary import *
-from .components import *
-from .deflection import *
-from .discretization import *
-from .excitation import *
-from .grid import *
-from .track import *
-
-"""from .abstract_traits import ABCHasStrictTraits, ABCHasTraits
+from .abstract_traits import ABCHasStrictTraits, ABCHasTraits
 from .arrangement import Arrangement, PeriodicArrangement, StochasticArrangement
 from .boundary import PMLStampka
 from .components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper, Wheel, WheelGreensfunc
 from .deflection import Deflection, DeflectionFDMStampka
 from .discretization import Discretization, DiscretizationFDMStampkaConst
-from .excitation import Excitation
+from .excitation import Excitation, GaussianImpulse
 from .grid import GridFDMStampka
 from .track import (
                     ArrangedBallastedSingleRailTrack,
@@ -59,4 +49,5 @@ __all__ = ["Arrangement",
            "Deflection",
            "DeflectionFDMStampka",
            "Discretization",
-           ]"""
+           "GaussianImpulse"
+           ]
