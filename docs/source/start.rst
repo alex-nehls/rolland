@@ -23,19 +23,35 @@ Use Rolland
   :caption: Define several tracks
   :linenos:
 
-    from rolland.database.rail.db_rail import UIC60
-    from rolland.deflection import DeflectionFDMStampka
-    from rolland.discretization import DiscretizationFDMStampkaConst
-    from rolland.excitation import GaussianImpulse
-    from rolland.grid import GridFDMStampka
-    from rolland.track import (
-        ContBallastedSingleRailTrack,
-        ContSlabSingleRailTrack,
-        SimplePeriodicBallastedSingleRailTrack,
-        SimplePeriodicSlabSingleRailTrack,
-        SlabSingleRailTrack)
+    # Import components
+    from rolland import DiscrPad, Sleeper, Ballast, ContPad, Slab
 
+    # Import rail
+    from rolland.database.rail.db_rail import UIC60
+
+    # Import tracks
+    from rolland import (
+        ContSlabSingleRailTrack,
+        ContBallastedSingleRailTrack,
+        SimplePeriodicSlabSingleRailTrack,
+        SimplePeriodicBallastedSingleRailTrack
+    )
+
+    # Import necessary classes for calculation
+    from rolland import (
+        DeflectionFDMStampka,
+        DiscretizationFDMStampkaConst,
+        GaussianImpulse,
+        GridFDMStampka,
+        PMLStampka
+    )
+
+    # Import functions for postprocessing
     from demo.postporcessing_fdm import *
+
+.. code-block:: python
+  :caption: Define different tracks
+  :linenos:
 
     # Continuous slab track
     track1 = ContSlabSingleRailTrack(
@@ -65,7 +81,6 @@ Use Rolland
         num_mount=243,
         distance=0.6)
 
-
 .. code-block:: python
   :caption: Define grid for each track
   :linenos:
@@ -79,10 +94,10 @@ Use Rolland
   :caption: Define boundary conditions
   :linenos:
 
-    bound1 = PMLStampka(track=track1, grid=grid1)
-    bound2 = PMLStampka(track=track2, grid=grid2)
-    bound3 = PMLStampka(track=track3, grid=grid3)
-    bound4 = PMLStampka(track=track4, grid=grid4)
+    bound1 = PMLStampka(grid=grid1)
+    bound2 = PMLStampka(grid=grid2)
+    bound3 = PMLStampka(grid=grid3)
+    bound4 = PMLStampka(grid=grid4)
 
 .. code-block:: python
   :caption: Define excitation
@@ -97,46 +112,36 @@ Use Rolland
   :caption: Descretization
   :linenos:
 
-    discr1 = DiscretizationFDMStampkaConst(track=track1, grid=grid1, bound=bound1)
-    discr2 = DiscretizationFDMStampkaConst(track=track2, grid=grid2, bound=bound2)
-    discr3 = DiscretizationFDMStampkaConst(track=track3, grid=grid3, bound=bound3)
-    discr4 = DiscretizationFDMStampkaConst(track=track4, grid=grid4, bound=bound4)
+    discr1 = DiscretizationFDMStampkaConst(bound=bound1)
+    discr2 = DiscretizationFDMStampkaConst(bound=bound2)
+    discr3 = DiscretizationFDMStampkaConst(bound=bound3)
+    discr4 = DiscretizationFDMStampkaConst(bound=bound4)
 
 .. code-block:: python
   :caption: Calculate deflection
   :linenos:
 
-    defl1 = DeflectionFDMStampka(track=track1, grid=grid1, excit=force1, discr=discr1, x_excit=grid1.dx * 1337)
-    defl2 = DeflectionFDMStampka(track=track2, grid=grid2, excit=force2, discr=discr2, x_excit=grid2.dx * 1337)
-    defl3 = DeflectionFDMStampka(track=track3, grid=grid3, excit=force3, discr=discr3, x_excit=grid3.dx * 1337)
-    defl4 = DeflectionFDMStampka(track=track4, grid=grid4, excit=force4, discr=discr4, x_excit=grid4.dx * 1337)
+    defl1 = DeflectionFDMStampka(discr=discr1, excit=force1, x_excit=71.7)
+    defl2 = DeflectionFDMStampka(discr=discr2, excit=force2, x_excit=71.7)
+    defl3 = DeflectionFDMStampka(discr=discr3, excit=force3, x_excit=71.7)
+    defl4 = DeflectionFDMStampka(discr=discr4, excit=force4, x_excit=71.7)
 
 .. code-block:: python
   :caption: Postprocessing
   :linenos:
 
-    #   Postprocessing parameters
-    f_min = 100                             # Minimum frequency [Hz].
-    f_max = 3000                            # Maximum frequency [Hz].
+    # Calculate the frequency response (receptance, mobility, accelerance)
+    fftfre1, rez1, mob1, accel1 = response_fdm(defl1)
+    fftfre2, rez2, mob2, accel2 = response_fdm(defl2)
+    fftfre3, rez3, mob3, accel3 = response_fdm(defl3)
+    fftfre4, rez4, mob4, accel4 = response_fdm(defl4)
 
-    #   Postprocessing for deflection
-    fftfre1, M1 = mobility(defl1, force1.force, grid1, dist=0, f_min=f_min, f_max=f_max)
-    fftfre2, M2 = mobility(defl2, force2.force, grid2, dist=0, f_min=f_min, f_max=f_max)
-    fftfre3, M3 = mobility(defl3, force3.force, grid3, dist=0, f_min=f_min, f_max=f_max)
-    fftfre4, M4 = mobility(defl4, force4.force, grid4, dist=0, f_min=f_min, f_max=f_max)
-
-    # Plot Mobility over Frequency
-    plt.figure(figsize=(10, 6))
-    plt.loglog(fftfre1, abs(M1), label='Mobility 1')
-    plt.loglog(fftfre2, abs(M2), label='Mobility 2')
-    plt.loglog(fftfre3, abs(M3), label='Mobility 3')
-    plt.loglog(fftfre4, abs(M4), label='Mobility 4')
-    plt.xlabel('Frequency (Hz)')
-    plt.ylabel('Mobility')
-    plt.title('Mobility vs Frequency')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-
+    # Plot the results
+    plot([(fftfre1, mob1), (fftfre2, mob2), (fftfre3, mob3), (fftfre4, mob4)],
+         ['ContSlabSingleRailTrack',
+          'ContBallastedSingleRailTrack',
+          'SimplePeriodicSlabSingleRailTrack',
+          'SimplePeriodicBallastedSingleRailTrack'],
+          'Frequency Response', 'f [Hz]', 'Mobility [m/Ns]')
 
 
