@@ -565,7 +565,7 @@ const Search = {
     // now check if the files don't contain excluded terms
     const results = [];
     for (const [file, wordList] of fileMap) {
-      // check if all requirements are matched
+      // check if all requirements.txt are matched
 
       // as search terms with length < 3 are discarded
       const filteredTermCount = [...searchTerms].filter(

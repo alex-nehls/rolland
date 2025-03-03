@@ -18,4 +18,4 @@ sphinx:
 
 python:
   install:
-    - requirements: sphinxawesome_theme
+    - requirements: docs/requirements.txt
