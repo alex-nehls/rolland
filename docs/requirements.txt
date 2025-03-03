@@ -1,1 +1,2 @@
 sphinxawesome_theme
+sphinxcontrib-bibtex
