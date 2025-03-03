@@ -17,8 +17,6 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
-<link href="rolland.components.RailRoughness.html" rel="next" title="rolland.components.RailRoughness"/>
-<link href="../components.html" rel="prev" title="Components"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -80,8 +78,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Build Track</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../components.html">Components</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../components.html">Components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
 </ul>
@@ -92,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/excitation.html">Excitation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/discretization.html">Discretization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/deflection.html">Deflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rolland/abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
 <ul>
@@ -119,239 +118,13 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
-<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../components.html">Components</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.components.Rail</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-components-rail">
 <h1>rolland.components.Rail<a class="headerlink" href="#rolland-components-rail" title="Link to this heading"><span>¶</span></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="rolland.components.Rail">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.components.</span></span><span class="sig-name descname"><span class="pre">Rail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/components.html#Rail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.components.Rail" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail'"><span>¶</span></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">HasTraits</span></code></p>
-<p>Rail Class.</p>
-<p>Defines a rail with certain properties. UIC 60 rail is usually used as default rail.</p>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>A set of predefined rail instances is available in the <cite>database</cite> module.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>t.Any</em>)</p></li>
-<li><p><strong>kwargs</strong> (<em>t.Any</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.rl_geo">
-<span class="sig-name descname"><span class="pre">rl_geo</span></span><a class="headerlink" href="#rolland.components.Rail.rl_geo" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.rl_geo'"><span>¶</span></a></dt>
-<dd><p>Rail outline coordinates <span class="math notranslate nohighlight">\([m]\)</span>. TODO: Define coordinate system!</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of tuple of float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.E">
-<span class="sig-name descname"><span class="pre">E</span></span><a class="headerlink" href="#rolland.components.Rail.E" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.E'"><span>¶</span></a></dt>
-<dd><p>Young’s modulus of rail <span class="math notranslate nohighlight">\([Pa]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.G">
-<span class="sig-name descname"><span class="pre">G</span></span><a class="headerlink" href="#rolland.components.Rail.G" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.G'"><span>¶</span></a></dt>
-<dd><p>Shear modulus of rail <span class="math notranslate nohighlight">\([Pa]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.nu">
-<span class="sig-name descname"><span class="pre">nu</span></span><a class="headerlink" href="#rolland.components.Rail.nu" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.nu'"><span>¶</span></a></dt>
-<dd><p>Poisson’s ratio of rail <span class="math notranslate nohighlight">\([-]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.kap">
-<span class="sig-name descname"><span class="pre">kap</span></span><a class="headerlink" href="#rolland.components.Rail.kap" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.kap'"><span>¶</span></a></dt>
-<dd><p>Timoshenko shear correction factor <span class="math notranslate nohighlight">\([-]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.mr">
-<span class="sig-name descname"><span class="pre">mr</span></span><a class="headerlink" href="#rolland.components.Rail.mr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.mr'"><span>¶</span></a></dt>
-<dd><p>Rail mass per unit length <span class="math notranslate nohighlight">\([kg/m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.rho">
-<span class="sig-name descname"><span class="pre">rho</span></span><a class="headerlink" href="#rolland.components.Rail.rho" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.rho'"><span>¶</span></a></dt>
-<dd><p>Density of rail <span class="math notranslate nohighlight">\([kg/m^3]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.etar">
-<span class="sig-name descname"><span class="pre">etar</span></span><a class="headerlink" href="#rolland.components.Rail.etar" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.etar'"><span>¶</span></a></dt>
-<dd><p>Rail loss factor <span class="math notranslate nohighlight">\([-]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.fresr">
-<span class="sig-name descname"><span class="pre">fresr</span></span><a class="headerlink" href="#rolland.components.Rail.fresr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.fresr'"><span>¶</span></a></dt>
-<dd><p>Rail resonance frequency <span class="math notranslate nohighlight">\([Hz]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.dr">
-<span class="sig-name descname"><span class="pre">dr</span></span><a class="headerlink" href="#rolland.components.Rail.dr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.dr'"><span>¶</span></a></dt>
-<dd><p>Rail damping coefficient (viscous) <span class="math notranslate nohighlight">\([Ns/m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.gamr">
-<span class="sig-name descname"><span class="pre">gamr</span></span><a class="headerlink" href="#rolland.components.Rail.gamr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.gamr'"><span>¶</span></a></dt>
-<dd><p>Coordinates of rail shear center <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.epsr">
-<span class="sig-name descname"><span class="pre">epsr</span></span><a class="headerlink" href="#rolland.components.Rail.epsr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.epsr'"><span>¶</span></a></dt>
-<dd><p>Coordinates of center of gravity <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.Iyr">
-<span class="sig-name descname"><span class="pre">Iyr</span></span><a class="headerlink" href="#rolland.components.Rail.Iyr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.Iyr'"><span>¶</span></a></dt>
-<dd><p>Area moment of inertia of rail around y-axis <span class="math notranslate nohighlight">\([m^4]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.Izr">
-<span class="sig-name descname"><span class="pre">Izr</span></span><a class="headerlink" href="#rolland.components.Rail.Izr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.Izr'"><span>¶</span></a></dt>
-<dd><p>Area moment of inertia of rail around z-axis <span class="math notranslate nohighlight">\([m^4]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.Itr">
-<span class="sig-name descname"><span class="pre">Itr</span></span><a class="headerlink" href="#rolland.components.Rail.Itr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.Itr'"><span>¶</span></a></dt>
-<dd><p>Torsional constant of rail <span class="math notranslate nohighlight">\([m^4]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.Ar">
-<span class="sig-name descname"><span class="pre">Ar</span></span><a class="headerlink" href="#rolland.components.Rail.Ar" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.Ar'"><span>¶</span></a></dt>
-<dd><p>Cross-sectional area of rail <span class="math notranslate nohighlight">\([m^2]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.Asr">
-<span class="sig-name descname"><span class="pre">Asr</span></span><a class="headerlink" href="#rolland.components.Rail.Asr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.Asr'"><span>¶</span></a></dt>
-<dd><p>Surface area per unit length of rail <span class="math notranslate nohighlight">\([m^2/m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Rail.Vr">
-<span class="sig-name descname"><span class="pre">Vr</span></span><a class="headerlink" href="#rolland.components.Rail.Vr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Rail.Vr'"><span>¶</span></a></dt>
-<dd><p>Volume per unit length of rail <span class="math notranslate nohighlight">\([m^3/m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#rolland.components.Rail'" class="reference internal" href="#rolland.components.Rail"><code class="docutils literal notranslate"><span class="pre">Rail</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.components.Rail.rl_geo'" class="reference internal" href="#rolland.components.Rail.rl_geo"><code class="docutils literal notranslate"><span class="pre">Rail.rl_geo</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.E'" class="reference internal" href="#rolland.components.Rail.E"><code class="docutils literal notranslate"><span class="pre">Rail.E</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.G'" class="reference internal" href="#rolland.components.Rail.G"><code class="docutils literal notranslate"><span class="pre">Rail.G</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.nu'" class="reference internal" href="#rolland.components.Rail.nu"><code class="docutils literal notranslate"><span class="pre">Rail.nu</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.kap'" class="reference internal" href="#rolland.components.Rail.kap"><code class="docutils literal notranslate"><span class="pre">Rail.kap</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.mr'" class="reference internal" href="#rolland.components.Rail.mr"><code class="docutils literal notranslate"><span class="pre">Rail.mr</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.rho'" class="reference internal" href="#rolland.components.Rail.rho"><code class="docutils literal notranslate"><span class="pre">Rail.rho</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.etar'" class="reference internal" href="#rolland.components.Rail.etar"><code class="docutils literal notranslate"><span class="pre">Rail.etar</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.fresr'" class="reference internal" href="#rolland.components.Rail.fresr"><code class="docutils literal notranslate"><span class="pre">Rail.fresr</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.dr'" class="reference internal" href="#rolland.components.Rail.dr"><code class="docutils literal notranslate"><span class="pre">Rail.dr</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.gamr'" class="reference internal" href="#rolland.components.Rail.gamr"><code class="docutils literal notranslate"><span class="pre">Rail.gamr</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.epsr'" class="reference internal" href="#rolland.components.Rail.epsr"><code class="docutils literal notranslate"><span class="pre">Rail.epsr</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.Iyr'" class="reference internal" href="#rolland.components.Rail.Iyr"><code class="docutils literal notranslate"><span class="pre">Rail.Iyr</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.Izr'" class="reference internal" href="#rolland.components.Rail.Izr"><code class="docutils literal notranslate"><span class="pre">Rail.Izr</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.Itr'" class="reference internal" href="#rolland.components.Rail.Itr"><code class="docutils literal notranslate"><span class="pre">Rail.Itr</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.Ar'" class="reference internal" href="#rolland.components.Rail.Ar"><code class="docutils literal notranslate"><span class="pre">Rail.Ar</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.Asr'" class="reference internal" href="#rolland.components.Rail.Asr"><code class="docutils literal notranslate"><span class="pre">Rail.Asr</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Rail.Vr'" class="reference internal" href="#rolland.components.Rail.Vr"><code class="docutils literal notranslate"><span class="pre">Rail.Vr</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</aside>
+</div></div>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
@@ -372,6 +145,5 @@
 <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../../_static/theme.js?v=073f68d9"></script>
 <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

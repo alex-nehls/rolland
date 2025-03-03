@@ -17,8 +17,6 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
-<link href="../boundary.html" rel="next" title="Boundary"/>
-<link href="rolland.grid.Grid.html" rel="prev" title="rolland.grid.Grid"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -86,12 +84,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../buildtrack/arrangement.html">Arrangement</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Rolland</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../grid.html">Grid</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../grid.html">Grid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../boundary.html">Boundary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../excitation.html">Excitation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../discretization.html">Discretization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../deflection.html">Deflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
 <ul>
@@ -119,175 +118,13 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
-<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../grid.html">Grid</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.grid.GridFDMStampka</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-grid-gridfdmstampka">
 <h1>rolland.grid.GridFDMStampka<a class="headerlink" href="#rolland-grid-gridfdmstampka" title="Link to this heading"><span>¶</span></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.grid.</span></span><span class="sig-name descname"><span class="pre">GridFDMStampka</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/grid.html#GridFDMStampka"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.grid.GridFDMStampka" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka'"><span>¶</span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="rolland.grid.Grid.html#rolland.grid.Grid" title="rolland.grid.Grid"><code class="xref py py-class docutils literal notranslate"><span class="pre">Grid</span></code></a></p>
-<p>Calculate grid parameters for FDM simulation according to <span id="id1">Stampka and Sarradj [<a class="reference internal" href="../../literature/index.html#id3" title="Katja Stampka and Ennes Sarradj. A Time-Domain Finite-Difference Method for Bending Waves on Infinite Beams on an Elastic Foundation. Acoustics, January 2022. Num Pages: 18. doi:10.3390/acoustics4040052.">2</a>]</span>.</p>
-<p>The spatial step size <span class="math notranslate nohighlight">\(\Delta x\)</span> is adjusted to ensure that the default sleeper spacing
-of <span class="math notranslate nohighlight">\(0.6 \, \text{m}\)</span> is a multiple of <span class="math notranslate nohighlight">\(\Delta x\)</span>. Since a sleeper spacing of
-<span class="math notranslate nohighlight">\(0.6 \, \text{m}\)</span> commonly used in practice, this ensures that the grid is aligned with
-the sleeper positions.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.track">
-<span class="sig-name descname"><span class="pre">track</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.track'"><span>¶</span></a></dt>
-<dd><p>Track instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../../buildtrack/track/rolland.track.Track.html#rolland.track.Track" title="rolland.track.Track">Track</a></p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.dt">
-<span class="sig-name descname"><span class="pre">dt</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.dt" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.dt'"><span>¶</span></a></dt>
-<dd><p>Step size in time <span class="math notranslate nohighlight">\([s]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.req_l">
-<span class="sig-name descname"><span class="pre">req_l</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.req_l" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.req_l'"><span>¶</span></a></dt>
-<dd><p>Requested beam length <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.req_simt">
-<span class="sig-name descname"><span class="pre">req_simt</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.req_simt" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.req_simt'"><span>¶</span></a></dt>
-<dd><p>Requested simulation time <span class="math notranslate nohighlight">\([s]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.bx">
-<span class="sig-name descname"><span class="pre">bx</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.bx" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.bx'"><span>¶</span></a></dt>
-<dd><p>Stability coefficient for dx calculation (must be <span class="math notranslate nohighlight">\(b_x \geq 1\)</span>) <span class="math notranslate nohighlight">\([-]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.n_bound">
-<span class="sig-name descname"><span class="pre">n_bound</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.n_bound" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.n_bound'"><span>¶</span></a></dt>
-<dd><p>Number of spatial steps in single sided boundary domain <span class="math notranslate nohighlight">\([-]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.nt">
-<span class="sig-name descname"><span class="pre">nt</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.nt" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.nt'"><span>¶</span></a></dt>
-<dd><p>Number of time steps <span class="math notranslate nohighlight">\([-]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.sim_t">
-<span class="sig-name descname"><span class="pre">sim_t</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.sim_t" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.sim_t'"><span>¶</span></a></dt>
-<dd><p>Actual simulation time <span class="math notranslate nohighlight">\([s]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.dx">
-<span class="sig-name descname"><span class="pre">dx</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.dx" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.dx'"><span>¶</span></a></dt>
-<dd><p>Step size in space <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.bx_upd">
-<span class="sig-name descname"><span class="pre">bx_upd</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.bx_upd" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.bx_upd'"><span>¶</span></a></dt>
-<dd><p>Updated stability coefficient <span class="math notranslate nohighlight">\([-]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.nx">
-<span class="sig-name descname"><span class="pre">nx</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.nx" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.nx'"><span>¶</span></a></dt>
-<dd><p>Number of spatial steps <span class="math notranslate nohighlight">\([-]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.l_domain">
-<span class="sig-name descname"><span class="pre">l_domain</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.l_domain" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.l_domain'"><span>¶</span></a></dt>
-<dd><p>Actual beam length <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.grid.GridFDMStampka.l_bound">
-<span class="sig-name descname"><span class="pre">l_bound</span></span><a class="headerlink" href="#rolland.grid.GridFDMStampka.l_bound" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.grid.GridFDMStampka.l_bound'"><span>¶</span></a></dt>
-<dd><p>Length of boundary area <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka'" class="reference internal" href="#rolland.grid.GridFDMStampka"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.track'" class="reference internal" href="#rolland.grid.GridFDMStampka.track"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.track</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.dt'" class="reference internal" href="#rolland.grid.GridFDMStampka.dt"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.dt</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.req_l'" class="reference internal" href="#rolland.grid.GridFDMStampka.req_l"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.req_l</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.req_simt'" class="reference internal" href="#rolland.grid.GridFDMStampka.req_simt"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.req_simt</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.bx'" class="reference internal" href="#rolland.grid.GridFDMStampka.bx"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.bx</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.n_bound'" class="reference internal" href="#rolland.grid.GridFDMStampka.n_bound"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.n_bound</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.nt'" class="reference internal" href="#rolland.grid.GridFDMStampka.nt"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.nt</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.sim_t'" class="reference internal" href="#rolland.grid.GridFDMStampka.sim_t"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.sim_t</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.dx'" class="reference internal" href="#rolland.grid.GridFDMStampka.dx"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.dx</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.bx_upd'" class="reference internal" href="#rolland.grid.GridFDMStampka.bx_upd"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.bx_upd</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.nx'" class="reference internal" href="#rolland.grid.GridFDMStampka.nx"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.nx</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.l_domain'" class="reference internal" href="#rolland.grid.GridFDMStampka.l_domain"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.l_domain</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.grid.GridFDMStampka.l_bound'" class="reference internal" href="#rolland.grid.GridFDMStampka.l_bound"><code class="docutils literal notranslate"><span class="pre">GridFDMStampka.l_bound</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</aside>
+</div></div>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
@@ -308,6 +145,5 @@ the sleeper positions.</p>
 <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../../_static/theme.js?v=073f68d9"></script>
 <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

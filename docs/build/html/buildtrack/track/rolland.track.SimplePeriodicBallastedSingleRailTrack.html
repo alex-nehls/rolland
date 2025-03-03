@@ -17,8 +17,6 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
-<link href="rolland.track.ArrangedBallastedSingleRailTrack.html" rel="next" title="rolland.track.ArrangedBallastedSingleRailTrack"/>
-<link href="rolland.track.DiscrBallastedSingleRailTrack.html" rel="prev" title="rolland.track.DiscrBallastedSingleRailTrack"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -80,9 +78,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Build Track</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../components.html">Components</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../track.html">Track</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Rolland</span></p>
@@ -92,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/excitation.html">Excitation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/discretization.html">Discretization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/deflection.html">Deflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rolland/abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
 <ul>
@@ -119,184 +118,13 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
-<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../track.html">Track</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.track.SimplePeriodicBallastedSingleRailTrack</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-track-simpleperiodicballastedsinglerailtrack">
 <h1>rolland.track.SimplePeriodicBallastedSingleRailTrack<a class="headerlink" href="#rolland-track-simpleperiodicballastedsinglerailtrack" title="Link to this heading"><span>¶</span></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.track.</span></span><span class="sig-name descname"><span class="pre">SimplePeriodicBallastedSingleRailTrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/track.html#SimplePeriodicBallastedSingleRailTrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack'"><span>¶</span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="rolland.track.DiscrBallastedSingleRailTrack.html#rolland.track.DiscrBallastedSingleRailTrack" title="rolland.track.DiscrBallastedSingleRailTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">DiscrBallastedSingleRailTrack</span></code></a></p>
-<p>Single rail ballasted track with simple periodic support.</p>
-<p>All mounting properties are uniform and no variation is allowed.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Properties of ballast need to be defined as discrete values.</p>
-</div>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Layer</p></th>
-<th class="head"><p>Component</p></th>
-<th class="head"><p>Condition</p></th>
-<th class="head"><p>Variability</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>/</p></td>
-<td><p>rail</p></td>
-<td><p>continuous</p></td>
-<td><p>no</p></td>
-</tr>
-<tr class="row-odd"><td><p>1st</p></td>
-<td><p>pads</p></td>
-<td><p>discrete</p></td>
-<td><p>no</p></td>
-</tr>
-<tr class="row-even"><td><p>1st/2nd</p></td>
-<td><p>sleeper</p></td>
-<td><p>discrete</p></td>
-<td><p>no</p></td>
-</tr>
-<tr class="row-odd"><td><p>2nd</p></td>
-<td><p>ballast</p></td>
-<td><p>discrete</p></td>
-<td><p>no</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.rail">
-<span class="sig-name descname"><span class="pre">rail</span></span><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.rail" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.rail'"><span>¶</span></a></dt>
-<dd><p>Rail instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../components/rolland.components.Rail.html#rolland.components.Rail" title="rolland.components.Rail">Rail</a></p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.ballast">
-<span class="sig-name descname"><span class="pre">ballast</span></span><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.ballast" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.ballast'"><span>¶</span></a></dt>
-<dd><p>Ballast instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../components/rolland.components.Ballast.html#rolland.components.Ballast" title="rolland.components.Ballast">Ballast</a></p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.pad">
-<span class="sig-name descname"><span class="pre">pad</span></span><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.pad" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.pad'"><span>¶</span></a></dt>
-<dd><p>Continuous pad instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../components/rolland.components.ContPad.html#rolland.components.ContPad" title="rolland.components.ContPad">ContPad</a></p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.sleeper">
-<span class="sig-name descname"><span class="pre">sleeper</span></span><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.sleeper" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.sleeper'"><span>¶</span></a></dt>
-<dd><p>Sleeper instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">sleeper</span></code> class</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.distance">
-<span class="sig-name descname"><span class="pre">distance</span></span><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.distance" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.distance'"><span>¶</span></a></dt>
-<dd><p>Distance between mounting positions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.num_mount">
-<span class="sig-name descname"><span class="pre">num_mount</span></span><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.num_mount" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.num_mount'"><span>¶</span></a></dt>
-<dd><p>Number of mounting positions.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.mount_prop">
-<span class="sig-name descname"><span class="pre">mount_prop</span></span><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.mount_prop" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.mount_prop'"><span>¶</span></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.database.rail.db_rail</span><span class="w"> </span><span class="kn">import</span> <span class="n">UIC60</span>
-</span><span id="line-2"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.components</span><span class="w"> </span><span class="kn">import</span> <span class="n">DiscrPad</span><span class="p">,</span> <span class="n">Sleeper</span>
-</span><span id="line-3"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.track</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimplePeriodicBallastedSingleRailTrack</span>
-</span></code></pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="gp">&gt;&gt;&gt; </span><span class="n">thepad</span> <span class="o">=</span> <span class="n">DiscrPad</span><span class="p">(</span><span class="n">sp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">300</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30000</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-</span><span id="line-2"><span class="gp">&gt;&gt;&gt; </span><span class="n">thesleeper</span> <span class="o">=</span> <span class="n">Sleeper</span><span class="p">(</span><span class="n">ms</span> <span class="o">=</span> <span class="mi">150</span><span class="p">)</span>
-</span><span id="line-3"><span class="gp">&gt;&gt;&gt; </span><span class="n">distance</span> <span class="o">=</span> <span class="mf">0.6</span>
-</span><span id="line-4"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">SimplePeriodicBallastedSingleRailTrack</span><span class="p">(</span>
-</span><span id="line-5"><span class="gp">... </span>    <span class="n">rail</span><span class="o">=</span><span class="n">UIC60</span><span class="p">,</span>
-</span><span id="line-6"><span class="gp">... </span>    <span class="n">pad</span><span class="o">=</span><span class="n">thepad</span><span class="p">,</span>
-</span><span id="line-7"><span class="gp">... </span>    <span class="n">sleeper</span><span class="o">=</span><span class="n">thesleeper</span><span class="p">,</span>
-</span><span id="line-8"><span class="gp">... </span>    <span class="n">distance</span><span class="o">=</span><span class="n">distance</span><span class="p">,</span>
-</span><span id="line-9"><span class="gp">... </span>    <span class="n">num_mount</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</span><span id="line-10"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">thepad</span><span class="p">,</span> <span class="n">thesleeper</span><span class="p">)</span>
-</span><span id="line-11"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="mf">0.6</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">thepad</span><span class="p">,</span> <span class="n">thesleeper</span><span class="p">)</span>
-</span><span id="line-12"><span class="gp">...</span>
-</span></code></pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_track">
-<span class="sig-name descname"><span class="pre">validate_track</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/track.html#SimplePeriodicBallastedSingleRailTrack.validate_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_track'"><span>¶</span></a></dt>
-<dd><p>Validate the track configuration.</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_single_rail_track">
-<span class="sig-name descname"><span class="pre">validate_single_rail_track</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/track.html#SimplePeriodicBallastedSingleRailTrack.validate_single_rail_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_single_rail_track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_single_rail_track'"><span>¶</span></a></dt>
-<dd><p>Validate the single rail configuration.</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_ballasted_single_rail_track">
-<span class="sig-name descname"><span class="pre">validate_ballasted_single_rail_track</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/track.html#SimplePeriodicBallastedSingleRailTrack.validate_ballasted_single_rail_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_ballasted_single_rail_track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_ballasted_single_rail_track'"><span>¶</span></a></dt>
-<dd><p>Validate the ballasted single rail configuration.</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_discr_ballasted_single_rail_track">
-<span class="sig-name descname"><span class="pre">validate_discr_ballasted_single_rail_track</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/track.html#SimplePeriodicBallastedSingleRailTrack.validate_discr_ballasted_single_rail_track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_discr_ballasted_single_rail_track" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_discr_ballasted_single_rail_track'"><span>¶</span></a></dt>
-<dd><p>Validate the discrete ballasted single rail configuration.</p>
-</dd></dl>
-</dd></dl>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.rail'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.rail"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.rail</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.ballast'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.ballast"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.ballast</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.pad'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.pad"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.pad</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.sleeper'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.sleeper"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.sleeper</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.distance'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.distance"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.distance</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.num_mount'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.num_mount"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.num_mount</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.mount_prop'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.mount_prop"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.mount_prop</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_track'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_track"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.validate_track()</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_single_rail_track'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_single_rail_track"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.validate_single_rail_track()</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_ballasted_single_rail_track'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_ballasted_single_rail_track"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.validate_ballasted_single_rail_track()</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_discr_ballasted_single_rail_track'" class="reference internal" href="#rolland.track.SimplePeriodicBallastedSingleRailTrack.validate_discr_ballasted_single_rail_track"><code class="docutils literal notranslate"><span class="pre">SimplePeriodicBallastedSingleRailTrack.validate_discr_ballasted_single_rail_track()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</aside>
+</div></div>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">

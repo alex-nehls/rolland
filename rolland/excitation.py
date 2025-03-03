@@ -8,20 +8,29 @@
     GaussianImpulse
     MovingExcitation
 """
+import abc
 
-
-from numpy import exp, linspace
-from traitlets import Float, HasTraits, Instance
-
+from abstract_traits import ABCHasTraits
 from grid import GridFDMStampka
+from numpy import exp, linspace
+from traitlets import Float, Instance
 
 
-class Excitation(HasTraits):
-    """Base class for excitation."""
+class Excitation(ABCHasTraits):
+    """Abstract base class for excitation."""
+
+    @abc.abstractmethod
+    def validate_excitation(self):
+        """Validate excitation parameters."""
 
 
 class StationaryExcitation(Excitation):
-    """Stationary excitation class."""
+    """Abstract base class for stationary excitation."""
+
+    @abc.abstractmethod
+    def validate_stationary_excitation(self):
+        """Validate stationary excitation parameters."""
+
 
 class GaussianImpulse(StationaryExcitation):
     """Gaussian impulse excitation class.
@@ -38,6 +47,11 @@ class GaussianImpulse(StationaryExcitation):
     # Pulse parameter (regulates amplitude) [s]
     a = Float(default_value=0.5e2)
 
+    def validate_excitation(self):
+        """Validate excitation parameters."""
+
+    def validate_stationary_excitation(self):
+        """Validate stationary excitation parameters."""
 
     def __init__(self, *args, **kwargs):
         """Compute force array."""

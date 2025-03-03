@@ -67,6 +67,7 @@ html_title = "Rolland Documentation"
 
 
 from dataclasses import asdict
+
 from sphinxawesome_theme import ThemeOptions
 
 theme_options = ThemeOptions(

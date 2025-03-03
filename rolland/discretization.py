@@ -8,8 +8,10 @@
     DiscretizationFDMStampkaConst
     DiscretizationFDMStampkaTimeDepend
 """
+import abc
 import warnings
 
+from abstract_traits import ABCHasTraits
 from boundary import PMLStampka
 from numpy import ones, zeros
 from scipy.sparse import SparseEfficiencyWarning, csc_matrix, diags, eye
@@ -21,15 +23,19 @@ from track import (
     SimplePeriodicBallastedSingleRailTrack,
     SimplePeriodicSlabSingleRailTrack,
 )
-from traitlets import HasTraits, Instance
+from traitlets import Instance
 
 
-class Discretization(HasTraits):
-    r"""Base class for discretization classes."""
+class Discretization(ABCHasTraits):
+    r"""Abstract base class for discretization classes."""
+
+    @abc.abstractmethod
+    def validate_discretization(self):
+        """Validate the discretization."""
 
 
 class DiscretizationFDMStampka(Discretization):
-    r"""Base class for FDM discretization according to :cite:t:`stampka2022a`.
+    r"""Abstract base class for FDM discretization according to :cite:t:`stampka2022a`.
 
     Discretizes the differential equation and can be applied either with constant or time-dependent
     parameters, which is the case, for example, with a moving sound source.
@@ -157,6 +163,10 @@ class DiscretizationFDMStampka(Discretization):
         self.C[self.grid.nx:2 * self.grid.nx, 0:self.grid.nx] = C21
         self.C[self.grid.nx:2 * self.grid.nx, self.grid.nx:2 * self.grid.nx] = C22
 
+    @abc.abstractmethod
+    def validate_discretization_stampka(self):
+        """Validate the discretization according to Stampka."""
+
 
 class DiscretizationFDMStampkaConst(DiscretizationFDMStampka):
     r"""Discretization with non-time-dependent parameters according to :cite:t:`stampka2022a`.
@@ -187,6 +197,12 @@ class DiscretizationFDMStampkaConst(DiscretizationFDMStampka):
     vec_db : numpy.ndarray
         Ballast damping vector.
     """
+
+    def validate_discretization(self):
+        """Validate the discretization."""
+
+    def validate_discretization_stampka(self):
+        """Validate the discretization according to Stampka."""
 
     def __init__(self, *args, **kwargs):
         """Calculate superstructure property vectors."""
@@ -320,3 +336,9 @@ class DiscretizationFDMStampkaTimeDepend(DiscretizationFDMStampkaConst):
     .. note:: This class is not implemented yet.
 
     """
+
+    def validate_discretization(self):
+        """Validate the discretization."""
+
+    def validate_discretization_stampka(self):
+        """Validate the discretization according to Stampka."""

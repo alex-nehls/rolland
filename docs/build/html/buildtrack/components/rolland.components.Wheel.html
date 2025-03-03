@@ -17,8 +17,6 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
-<link href="rolland.components.WheelRoughness.html" rel="next" title="rolland.components.WheelRoughness"/>
-<link href="rolland.components.Ballast.html" rel="prev" title="rolland.components.Ballast"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -80,8 +78,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Build Track</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../components.html">Components</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../components.html">Components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
 </ul>
@@ -92,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/excitation.html">Excitation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/discretization.html">Discretization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/deflection.html">Deflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rolland/abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
 <ul>
@@ -119,106 +118,13 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
-<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../components.html">Components</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.components.Wheel</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-components-wheel">
 <h1>rolland.components.Wheel<a class="headerlink" href="#rolland-components-wheel" title="Link to this heading"><span>¶</span></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="rolland.components.Wheel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.components.</span></span><span class="sig-name descname"><span class="pre">Wheel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/components.html#Wheel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.components.Wheel" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Wheel'"><span>¶</span></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">HasTraits</span></code></p>
-<p>Wheel Class.</p>
-<p>Contains the properties of a wheel.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>t.Any</em>)</p></li>
-<li><p><strong>kwargs</strong> (<em>t.Any</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Wheel.w_geo_cross_sec">
-<span class="sig-name descname"><span class="pre">w_geo_cross_sec</span></span><a class="headerlink" href="#rolland.components.Wheel.w_geo_cross_sec" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Wheel.w_geo_cross_sec'"><span>¶</span></a></dt>
-<dd><p>Wheel cross-sectional geometry coordinates (y-z plane) <span class="math notranslate nohighlight">\([m]\)</span>.
-TODO: Define coordinate system</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of tuple of float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Wheel.w_prof">
-<span class="sig-name descname"><span class="pre">w_prof</span></span><a class="headerlink" href="#rolland.components.Wheel.w_prof" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Wheel.w_prof'"><span>¶</span></a></dt>
-<dd><p>Wheel running surface profile.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Wheel.w_geo">
-<span class="sig-name descname"><span class="pre">w_geo</span></span><a class="headerlink" href="#rolland.components.Wheel.w_geo" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Wheel.w_geo'"><span>¶</span></a></dt>
-<dd><p>Wheel geometry coordinates (x-y plane) <span class="math notranslate nohighlight">\([m]\)</span>.
-TODO: Define coordinate system</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of tuple of float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Wheel.mw">
-<span class="sig-name descname"><span class="pre">mw</span></span><a class="headerlink" href="#rolland.components.Wheel.mw" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Wheel.mw'"><span>¶</span></a></dt>
-<dd><p>Wheel mass <span class="math notranslate nohighlight">\([kg]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Wheel.mw_red">
-<span class="sig-name descname"><span class="pre">mw_red</span></span><a class="headerlink" href="#rolland.components.Wheel.mw_red" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Wheel.mw_red'"><span>¶</span></a></dt>
-<dd><p>Reduced wheel mass <span class="math notranslate nohighlight">\([kg]\)</span>. Needed in order to calculate the lateral dynamics
-according to <span id="id1">Wu and Thompson [<a class="reference internal" href="../../literature/index.html#id5" title="T.X. Wu and D.J. Thompson. Wheel/Rail Non-linear Interactions With Coupling Between Vertical and Lateral Directions. Vehicle System Dynamics, 41(1):27–49, January 2004. doi:10.1076/vesd.41.1.27.23407.">1</a>]</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Wheel.rw">
-<span class="sig-name descname"><span class="pre">rw</span></span><a class="headerlink" href="#rolland.components.Wheel.rw" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Wheel.rw'"><span>¶</span></a></dt>
-<dd><p>Wheel radius from the axis of rotation to the contact point <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#rolland.components.Wheel'" class="reference internal" href="#rolland.components.Wheel"><code class="docutils literal notranslate"><span class="pre">Wheel</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.components.Wheel.w_geo_cross_sec'" class="reference internal" href="#rolland.components.Wheel.w_geo_cross_sec"><code class="docutils literal notranslate"><span class="pre">Wheel.w_geo_cross_sec</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Wheel.w_prof'" class="reference internal" href="#rolland.components.Wheel.w_prof"><code class="docutils literal notranslate"><span class="pre">Wheel.w_prof</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Wheel.w_geo'" class="reference internal" href="#rolland.components.Wheel.w_geo"><code class="docutils literal notranslate"><span class="pre">Wheel.w_geo</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Wheel.mw'" class="reference internal" href="#rolland.components.Wheel.mw"><code class="docutils literal notranslate"><span class="pre">Wheel.mw</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Wheel.mw_red'" class="reference internal" href="#rolland.components.Wheel.mw_red"><code class="docutils literal notranslate"><span class="pre">Wheel.mw_red</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Wheel.rw'" class="reference internal" href="#rolland.components.Wheel.rw"><code class="docutils literal notranslate"><span class="pre">Wheel.rw</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</aside>
+</div></div>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
@@ -239,6 +145,5 @@ according to <span id="id1">Wu and Thompson [<a class="reference internal" href=
 <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../../_static/theme.js?v=073f68d9"></script>
 <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

@@ -17,8 +17,6 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
-<link href="rolland.arrangement.StochasticArrangement.html" rel="next" title="rolland.arrangement.StochasticArrangement"/>
-<link href="rolland.arrangement.Arrangement.html" rel="prev" title="rolland.arrangement.Arrangement"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -80,10 +78,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Build Track</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../components.html">Components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../track.html">Track</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Rolland</span></p>
 <ul>
@@ -92,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/excitation.html">Excitation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/discretization.html">Discretization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/deflection.html">Deflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rolland/abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
 <ul>
@@ -119,84 +118,13 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
-<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../arrangement.html">Arrangement</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.arrangement.PeriodicArrangement</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-arrangement-periodicarrangement">
 <h1>rolland.arrangement.PeriodicArrangement<a class="headerlink" href="#rolland-arrangement-periodicarrangement" title="Link to this heading"><span>¶</span></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="rolland.arrangement.PeriodicArrangement">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.arrangement.</span></span><span class="sig-name descname"><span class="pre">PeriodicArrangement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/arrangement.html#PeriodicArrangement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.arrangement.PeriodicArrangement" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.arrangement.PeriodicArrangement'"><span>¶</span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="rolland.arrangement.Arrangement.html#rolland.arrangement.Arrangement" title="rolland.arrangement.Arrangement"><code class="xref py py-class docutils literal notranslate"><span class="pre">Arrangement</span></code></a></p>
-<p>Periodic arrangement of given objects.</p>
-<p>Given sequence of objects is repeated periodically when building track using
-<a class="reference internal" href="../track/rolland.track.ArrangedSlabSingleRailTrack.html#rolland.track.ArrangedSlabSingleRailTrack" title="rolland.track.ArrangedSlabSingleRailTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrangedSlabSingleRailTrack</span></code></a> or
-<a class="reference internal" href="../track/rolland.track.ArrangedBallastedSingleRailTrack.html#rolland.track.ArrangedBallastedSingleRailTrack" title="rolland.track.ArrangedBallastedSingleRailTrack"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrangedBallastedSingleRailTrack</span></code></a> class. Mounting positions start at
-<span class="math notranslate nohighlight">\(x=0\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>t.Any</em>)</p></li>
-<li><p><strong>kwargs</strong> (<em>t.Any</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.arrangement.PeriodicArrangement.item">
-<span class="sig-name descname"><span class="pre">item</span></span><a class="headerlink" href="#rolland.arrangement.PeriodicArrangement.item" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.arrangement.PeriodicArrangement.item'"><span>¶</span></a></dt>
-<dd><p>Characteristic object or objects to repeat.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>any</p>
-</dd>
-</dl>
-</dd></dl>
-<p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.database.rail.db_rail</span><span class="w"> </span><span class="kn">import</span> <span class="n">UIC60</span>
-</span><span id="line-2"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.components</span><span class="w"> </span><span class="kn">import</span> <span class="n">DiscrPad</span><span class="p">,</span> <span class="n">Sleeper</span>
-</span><span id="line-3"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">rolland.arrangement</span><span class="w"> </span><span class="kn">import</span> <span class="n">PeriodicArrangement</span>
-</span><span id="line-4"><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">track</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrangedBallastedSingleRailTrack</span>
-</span></code></pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="gp">&gt;&gt;&gt; </span><span class="n">thepadA</span> <span class="o">=</span> <span class="n">DiscrPad</span><span class="p">(</span><span class="n">sp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">300</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30000</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-</span><span id="line-2"><span class="gp">&gt;&gt;&gt; </span><span class="n">thepadB</span> <span class="o">=</span> <span class="n">DiscrPad</span><span class="p">(</span><span class="n">sp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">400</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">40000</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-</span><span id="line-3"><span class="gp">&gt;&gt;&gt; </span><span class="n">thesleeperA</span> <span class="o">=</span> <span class="n">Sleeper</span><span class="p">(</span><span class="n">ms</span> <span class="o">=</span> <span class="mi">150</span><span class="p">)</span>
-</span><span id="line-4"><span class="gp">&gt;&gt;&gt; </span><span class="n">thesleeperB</span> <span class="o">=</span> <span class="n">Sleeper</span><span class="p">(</span><span class="n">ms</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span>
-</span><span id="line-5"><span class="gp">&gt;&gt;&gt; </span><span class="n">pad</span> <span class="o">=</span> <span class="n">PeriodicArrangement</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="p">[</span><span class="n">thepadA</span><span class="p">,</span> <span class="n">thepadB</span><span class="p">])</span>
-</span><span id="line-6"><span class="gp">&gt;&gt;&gt; </span><span class="n">distance</span> <span class="o">=</span> <span class="n">PeriodicArrangement</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="p">[</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
-</span><span id="line-7"><span class="gp">&gt;&gt;&gt; </span><span class="n">sleeper</span> <span class="o">=</span> <span class="n">PeriodicArrangement</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="p">[</span><span class="n">thesleeperA</span><span class="p">,</span> <span class="n">thesleeperB</span><span class="p">])</span>
-</span><span id="line-8"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span> <span class="o">=</span> <span class="n">ArrangedBallastedSingleRailTrack</span><span class="p">(</span>
-</span><span id="line-9"><span class="gp">... </span>    <span class="n">rail</span><span class="o">=</span><span class="n">UIC60</span><span class="p">,</span>
-</span><span id="line-10"><span class="gp">... </span>    <span class="n">pad</span><span class="o">=</span><span class="n">pad</span><span class="p">,</span>
-</span><span id="line-11"><span class="gp">... </span>    <span class="n">sleeper</span><span class="o">=</span><span class="n">sleeper</span><span class="p">,</span>
-</span><span id="line-12"><span class="gp">... </span>    <span class="n">distance</span><span class="o">=</span><span class="n">distance</span><span class="p">,</span>
-</span><span id="line-13"><span class="gp">... </span>    <span class="n">num_mount</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</span><span id="line-14"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">thepadA</span><span class="p">,</span> <span class="n">thesleeperA</span><span class="p">)</span>
-</span><span id="line-15"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="mf">0.65</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">thepadB</span><span class="p">,</span> <span class="n">thesleeperB</span><span class="p">)</span>
-</span><span id="line-16"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="mf">1.15</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">thepadA</span><span class="p">,</span> <span class="n">thesleeperA</span><span class="p">)</span>
-</span><span id="line-17"><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="o">.</span><span class="n">mount_prop</span><span class="p">[</span><span class="mf">1.8</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">thepadB</span><span class="p">,</span> <span class="n">thesleeperB</span><span class="p">)</span>
-</span><span id="line-18"><span class="gp">...</span>
-</span></code></pre></div>
-</div>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.arrangement.PeriodicArrangement.generate">
-<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_mount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/arrangement.html#PeriodicArrangement.generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.arrangement.PeriodicArrangement.generate" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.arrangement.PeriodicArrangement.generate'"><span>¶</span></a></dt>
-<dd><p>Generate count repetitions of objects.</p>
-</dd></dl>
-</dd></dl>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#rolland.arrangement.PeriodicArrangement'" class="reference internal" href="#rolland.arrangement.PeriodicArrangement"><code class="docutils literal notranslate"><span class="pre">PeriodicArrangement</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.arrangement.PeriodicArrangement.item'" class="reference internal" href="#rolland.arrangement.PeriodicArrangement.item"><code class="docutils literal notranslate"><span class="pre">PeriodicArrangement.item</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.arrangement.PeriodicArrangement.generate'" class="reference internal" href="#rolland.arrangement.PeriodicArrangement.generate"><code class="docutils literal notranslate"><span class="pre">PeriodicArrangement.generate()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</aside>
+</div></div>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
@@ -217,6 +145,5 @@
 <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../../_static/theme.js?v=073f68d9"></script>
 <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

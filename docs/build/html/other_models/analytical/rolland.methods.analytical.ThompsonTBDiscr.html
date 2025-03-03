@@ -17,8 +17,6 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
-<link href="rolland.methods.analytical.ThompsonTSDiscr1LSupp.html" rel="next" title="rolland.methods.analytical.ThompsonTSDiscr1LSupp"/>
-<link href="rolland.methods.analytical.ThompsonEBBCont2LSupp.html" rel="prev" title="rolland.methods.analytical.ThompsonEBBCont2LSupp"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -92,10 +90,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/excitation.html">Excitation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/discretization.html">Discretization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/deflection.html">Deflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rolland/abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../analyticalmethods.html">Analytical Models</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../analyticalmethods.html">Analytical Models</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Literature</span></p>
 <ul>
@@ -119,158 +118,13 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
-<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../analyticalmethods.html">Analytical Models</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.methods.analytical.ThompsonTBDiscr</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-methods-analytical-thompsontbdiscr">
 <h1>rolland.methods.analytical.ThompsonTBDiscr<a class="headerlink" href="#rolland-methods-analytical-thompsontbdiscr" title="Link to this heading"><span>¶</span></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.methods.analytical.</span></span><span class="sig-name descname"><span class="pre">ThompsonTBDiscr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#ThompsonTBDiscr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr'"><span>¶</span></a></dt>
-<dd><p>Bases: <a class="reference internal" href="rolland.methods.analytical.AnalyticalMethods.html#rolland.methods.analytical.AnalyticalMethods" title="rolland.methods.analytical.AnalyticalMethods"><code class="xref py py-class docutils literal notranslate"><span class="pre">AnalyticalMethods</span></code></a></p>
-<p>Base class for analytical solutions of a discrete single rail track.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr.f">
-<span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr.f" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr.f'"><span>¶</span></a></dt>
-<dd><p>Excitation frequencies <span class="math notranslate nohighlight">\([Hz]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr.force">
-<span class="sig-name descname"><span class="pre">force</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr.force" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr.force'"><span>¶</span></a></dt>
-<dd><p>Force amplitude corresponding to the excitation frequencies <span class="math notranslate nohighlight">\([N]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr.x" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr.x'"><span>¶</span></a></dt>
-<dd><p>Distances to the excitation point <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr.x_excit">
-<span class="sig-name descname"><span class="pre">x_excit</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr.x_excit" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr.x_excit'"><span>¶</span></a></dt>
-<dd><p>Excitation point <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr.calc_greens_func">
-<span class="sig-name descname"><span class="pre">calc_greens_func</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#ThompsonTBDiscr.calc_greens_func"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr.calc_greens_func" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr.calc_greens_func'"><span>¶</span></a></dt>
-<dd><p>Calculate Greens function of free Timoshenko Beam (eq. 3.69).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>xm</strong> (<em>numpy.ndarray</em>) – Positions of the first set of points <span class="math notranslate nohighlight">\([m]\)</span>.</p></li>
-<li><p><strong>xn</strong> (<em>numpy.ndarray</em>) – Positions of the second set of points <span class="math notranslate nohighlight">\([m]\)</span>.</p></li>
-<li><p><strong>k_p</strong> (<em>numpy.ndarray</em>) – Wave number of propagating wave <span class="math notranslate nohighlight">\([1/m]\)</span>.</p></li>
-<li><p><strong>k_d</strong> (<em>numpy.ndarray</em>) – Wave number of decaying wave <span class="math notranslate nohighlight">\([1/m]\)</span>.</p></li>
-<li><p><strong>f_p</strong> (<em>numpy.ndarray</em>) – Factor for propagating wave <span class="math notranslate nohighlight">\([-]\)</span>.</p></li>
-<li><p><strong>f_d</strong> (<em>numpy.ndarray</em>) – Factor for decaying wave <span class="math notranslate nohighlight">\([-]\)</span>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Calculated Greens function.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr.compute_mobility_common">
-<span class="sig-name descname"><span class="pre">compute_mobility_common</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">etab</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#ThompsonTBDiscr.compute_mobility_common"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr.compute_mobility_common" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr.compute_mobility_common'"><span>¶</span></a></dt>
-<dd><p>Compute common mobility for 1-layer and 2-layer support.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>track</strong> (<em>object</em>) – Track instance containing rail and pad properties.</p></li>
-<li><p><strong>ms</strong> (<em>float</em>) – Mass per unit length of the sleeper or slab [kg/m].</p></li>
-<li><p><strong>sb</strong> (<em>float</em>) – Stiffness of the ballast [N/m^2].</p></li>
-<li><p><strong>etab</strong> (<em>float</em>) – Damping coefficient of the ballast.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr.f_0">
-<span class="sig-name descname"><span class="pre">f_0</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr.f_0" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr.f_0'"><span>¶</span></a></dt>
-<dd><p>Resonance frequency rail &lt;–&gt; pads [Hz].</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr.f_1">
-<span class="sig-name descname"><span class="pre">f_1</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr.f_1" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr.f_1'"><span>¶</span></a></dt>
-<dd><p>Resonance frequency ballast &lt;–&gt; sleepers [Hz].</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr.f_2">
-<span class="sig-name descname"><span class="pre">f_2</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr.f_2" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr.f_2'"><span>¶</span></a></dt>
-<dd><p>Resonance frequency rail &lt;–&gt; sleepers [Hz].</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.ThompsonTBDiscr.mobility">
-<span class="sig-name descname"><span class="pre">mobility</span></span><a class="headerlink" href="#rolland.methods.analytical.ThompsonTBDiscr.mobility" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.ThompsonTBDiscr.mobility'"><span>¶</span></a></dt>
-<dd><p>Calculated mobility of the track [m/N].</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
-</dd></dl>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr.f'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr.f"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr.f</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr.force'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr.force"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr.force</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr.x'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr.x"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr.x</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr.x_excit'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr.x_excit"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr.x_excit</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr.calc_greens_func'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr.calc_greens_func"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr.calc_greens_func()</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr.compute_mobility_common'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr.compute_mobility_common"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr.compute_mobility_common()</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr.f_0'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr.f_0"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr.f_0</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr.f_1'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr.f_1"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr.f_1</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr.f_2'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr.f_2"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr.f_2</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.ThompsonTBDiscr.mobility'" class="reference internal" href="#rolland.methods.analytical.ThompsonTBDiscr.mobility"><code class="docutils literal notranslate"><span class="pre">ThompsonTBDiscr.mobility</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</aside>
+</div></div>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
@@ -291,6 +145,5 @@
 <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../../_static/theme.js?v=073f68d9"></script>
 <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

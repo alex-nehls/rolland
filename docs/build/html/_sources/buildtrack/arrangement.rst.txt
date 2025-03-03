@@ -5,6 +5,6 @@ Arrangement
 
 .. note:: This class is still under development and may change in the future.
 
-.. automodule:: rolland.arrangement
+.. automodule:: arrangement
    :no-members:
    :no-index:

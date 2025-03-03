@@ -17,8 +17,6 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
-<link href="rolland.components.Wheel.html" rel="next" title="rolland.components.Wheel"/>
-<link href="rolland.components.Slab.html" rel="prev" title="rolland.components.Slab"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -80,8 +78,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Build Track</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../components.html">Components</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../components.html">Components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
 </ul>
@@ -92,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/excitation.html">Excitation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/discretization.html">Discretization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/deflection.html">Deflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rolland/abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
 <ul>
@@ -119,91 +118,13 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
-<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../components.html">Components</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.components.Ballast</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-components-ballast">
 <h1>rolland.components.Ballast<a class="headerlink" href="#rolland-components-ballast" title="Link to this heading"><span>¶</span></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="rolland.components.Ballast">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.components.</span></span><span class="sig-name descname"><span class="pre">Ballast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/components.html#Ballast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.components.Ballast" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Ballast'"><span>¶</span></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">HasTraits</span></code></p>
-<p>Ballast Class.</p>
-<p>Contains the properties of the ballast.</p>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>Properties of the ballast can either be defined as discrete values acting at the
-mounting positions or as continuous values acting per meter depending. The values need to be
-chosen accordingly to the track type.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>t.Any</em>)</p></li>
-<li><p><strong>kwargs</strong> (<em>t.Any</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Ballast.sb">
-<span class="sig-name descname"><span class="pre">sb</span></span><a class="headerlink" href="#rolland.components.Ballast.sb" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Ballast.sb'"><span>¶</span></a></dt>
-<dd><p>Vertical/lateral ballast stiffness (total value <span class="math notranslate nohighlight">\([N/m]\)</span> or per meter <span class="math notranslate nohighlight">\([N/m^2]\)</span>).
-Lateral value can be set to zero when lateral rail deflections are omitted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Ballast.etab">
-<span class="sig-name descname"><span class="pre">etab</span></span><a class="headerlink" href="#rolland.components.Ballast.etab" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Ballast.etab'"><span>¶</span></a></dt>
-<dd><p>Ballast loss factor <span class="math notranslate nohighlight">\([-]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Ballast.fresb">
-<span class="sig-name descname"><span class="pre">fresb</span></span><a class="headerlink" href="#rolland.components.Ballast.fresb" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Ballast.fresb'"><span>¶</span></a></dt>
-<dd><p>Vertical/lateral ballast resonance frequencies <span class="math notranslate nohighlight">\([Hz]\)</span>. These frequencies are needed
-for calculating the viscous damping coefficients if they are not provided. Lateral value can
-be set to zero when lateral rail deflections are omitted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.Ballast.db">
-<span class="sig-name descname"><span class="pre">db</span></span><a class="headerlink" href="#rolland.components.Ballast.db" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.Ballast.db'"><span>¶</span></a></dt>
-<dd><p>Vertical/lateral viscous damping coefficient (per meter) <span class="math notranslate nohighlight">\([Ns/m]\)</span>. Lateral value can
-be set to zero when lateral rail deflections are omitted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of float</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#rolland.components.Ballast'" class="reference internal" href="#rolland.components.Ballast"><code class="docutils literal notranslate"><span class="pre">Ballast</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.components.Ballast.sb'" class="reference internal" href="#rolland.components.Ballast.sb"><code class="docutils literal notranslate"><span class="pre">Ballast.sb</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Ballast.etab'" class="reference internal" href="#rolland.components.Ballast.etab"><code class="docutils literal notranslate"><span class="pre">Ballast.etab</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Ballast.fresb'" class="reference internal" href="#rolland.components.Ballast.fresb"><code class="docutils literal notranslate"><span class="pre">Ballast.fresb</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.Ballast.db'" class="reference internal" href="#rolland.components.Ballast.db"><code class="docutils literal notranslate"><span class="pre">Ballast.db</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</aside>
+</div></div>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
@@ -224,6 +145,5 @@ be set to zero when lateral rail deflections are omitted.</p>
 <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../../_static/theme.js?v=073f68d9"></script>
 <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

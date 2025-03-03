@@ -6,15 +6,18 @@
     Deflection
     DeflectionFDMStampka
 """
+import abc
+
+from abstract_traits import ABCHasTraits
 from discretization import Discretization
 from excitation import Excitation
 from numpy import empty, zeros
 from scipy.sparse.linalg import splu
-from traitlets import Float, HasTraits, Instance
+from traitlets import Float, Instance
 
 
-class Deflection(HasTraits):
-    r"""Base class for grid classes.
+class Deflection(ABCHasTraits):
+    r"""Abstract base class for grid classes.
 
     Attributes
     ----------
@@ -32,6 +35,10 @@ class Deflection(HasTraits):
         self.discr = discr
         self.grid = self.discr.grid
         self.track = self.discr.track
+
+    @abc.abstractmethod
+    def validate_deflection(self):
+        """Validate deflection."""
 
 
 class DeflectionFDMStampka(Deflection):
@@ -58,6 +65,8 @@ class DeflectionFDMStampka(Deflection):
     # Excitation point
     x_excit = Float()
 
+    def validate_deflection(self):
+        """Validate deflection."""
 
     def initialize_start_values(self):
         """Set starting values of deflections to zero.

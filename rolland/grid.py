@@ -6,15 +6,15 @@
     Grid
     GridFDMStampka
 """
+import abc
 
-
-
+from abstract_traits import ABCHasTraits
 from track import Track
-from traitlets import Float, HasTraits, Instance, Integer
+from traitlets import Float, Instance, Integer
 
 
-class Grid(HasTraits):
-    r"""Base class for grid classes.
+class Grid(ABCHasTraits):
+    r"""Abstract base class for grid classes.
 
     Attributes
     ----------
@@ -24,6 +24,10 @@ class Grid(HasTraits):
 
     # Track instance
     track = Instance(Track)
+
+    @abc.abstractmethod
+    def validate_grid(self):
+        """Validate grid parameters."""
 
 class GridFDMStampka(Grid):
     r"""Calculate grid parameters for FDM simulation according to :cite:t:`stampka2022a`.
@@ -69,6 +73,8 @@ class GridFDMStampka(Grid):
     bx = Float()
     n_bound = Integer()
 
+    def validate_grid(self):
+        """Validate grid parameters."""
 
     def __init__(self, *args, **kwargs):
         """Compute grid parameters."""

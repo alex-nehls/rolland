@@ -17,8 +17,6 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
-<link href="rolland.components.ContPad.html" rel="next" title="rolland.components.ContPad"/>
-<link href="rolland.components.RailRoughness.html" rel="prev" title="rolland.components.RailRoughness"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -80,8 +78,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../start.html">Start using Rolland</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Build Track</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../components.html">Components</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../components.html">Components</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../track.html">Track</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arrangement.html">Arrangement</a></li>
 </ul>
@@ -92,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/excitation.html">Excitation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/discretization.html">Discretization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/deflection.html">Deflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rolland/abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
 <ul>
@@ -119,96 +118,13 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
-<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../components.html">Components</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.components.DiscrPad</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-components-discrpad">
 <h1>rolland.components.DiscrPad<a class="headerlink" href="#rolland-components-discrpad" title="Link to this heading"><span>¶</span></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="rolland.components.DiscrPad">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.components.</span></span><span class="sig-name descname"><span class="pre">DiscrPad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/components.html#DiscrPad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.components.DiscrPad" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.DiscrPad'"><span>¶</span></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">HasTraits</span></code></p>
-<p>Discrete Pad Class.</p>
-<p>Contains the properties of a discrete pad.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<em>t.Any</em>)</p></li>
-<li><p><strong>kwargs</strong> (<em>t.Any</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.DiscrPad.sp">
-<span class="sig-name descname"><span class="pre">sp</span></span><a class="headerlink" href="#rolland.components.DiscrPad.sp" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.DiscrPad.sp'"><span>¶</span></a></dt>
-<dd><p>Vertical/lateral pad stiffness (total value) <span class="math notranslate nohighlight">\([N/m]\)</span>. Lateral value can be set to zero
-when lateral rail deflections are omitted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.DiscrPad.wdthp">
-<span class="sig-name descname"><span class="pre">wdthp</span></span><a class="headerlink" href="#rolland.components.DiscrPad.wdthp" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.DiscrPad.wdthp'"><span>¶</span></a></dt>
-<dd><p>Pad width in x-direction <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.DiscrPad.etap">
-<span class="sig-name descname"><span class="pre">etap</span></span><a class="headerlink" href="#rolland.components.DiscrPad.etap" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.DiscrPad.etap'"><span>¶</span></a></dt>
-<dd><p>Pad loss factor <span class="math notranslate nohighlight">\([-]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.DiscrPad.fresp">
-<span class="sig-name descname"><span class="pre">fresp</span></span><a class="headerlink" href="#rolland.components.DiscrPad.fresp" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.DiscrPad.fresp'"><span>¶</span></a></dt>
-<dd><p>Vertical/lateral pad resonance frequencies [Hz]. This frequency is needed for calculating
-the viscous damping coefficient if it is not provided. Lateral value can be set to zero when
-lateral rail deflections are omitted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of float</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.components.DiscrPad.dp">
-<span class="sig-name descname"><span class="pre">dp</span></span><a class="headerlink" href="#rolland.components.DiscrPad.dp" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.components.DiscrPad.dp'"><span>¶</span></a></dt>
-<dd><p>Vertical/lateral pad damping coefficient (viscous) <span class="math notranslate nohighlight">\([Ns/m]\)</span>. Lateral value can be set
-to zero when lateral rail deflections are omitted.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of float</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#rolland.components.DiscrPad'" class="reference internal" href="#rolland.components.DiscrPad"><code class="docutils literal notranslate"><span class="pre">DiscrPad</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.components.DiscrPad.sp'" class="reference internal" href="#rolland.components.DiscrPad.sp"><code class="docutils literal notranslate"><span class="pre">DiscrPad.sp</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.DiscrPad.wdthp'" class="reference internal" href="#rolland.components.DiscrPad.wdthp"><code class="docutils literal notranslate"><span class="pre">DiscrPad.wdthp</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.DiscrPad.etap'" class="reference internal" href="#rolland.components.DiscrPad.etap"><code class="docutils literal notranslate"><span class="pre">DiscrPad.etap</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.DiscrPad.fresp'" class="reference internal" href="#rolland.components.DiscrPad.fresp"><code class="docutils literal notranslate"><span class="pre">DiscrPad.fresp</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.components.DiscrPad.dp'" class="reference internal" href="#rolland.components.DiscrPad.dp"><code class="docutils literal notranslate"><span class="pre">DiscrPad.dp</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</aside>
+</div></div>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
@@ -229,6 +145,5 @@ to zero when lateral rail deflections are omitted.</p>
 <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../../_static/theme.js?v=073f68d9"></script>
 <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

@@ -11,10 +11,12 @@
 import abc
 import random
 
-from traitlets import Any, HasTraits
+from abstract_traits import ABCHasTraits
+from traitlets import Any
 
-class Arrangement(HasTraits):
-    """Base class for the definition of non-uniform mounting properties.
+
+class Arrangement(ABCHasTraits):
+    r"""Abstract base class for the definition of non-uniform mounting properties.
 
     Attributes
     ----------
@@ -24,12 +26,13 @@ class Arrangement(HasTraits):
 
     item = Any()
 
+    @abc.abstractmethod
     def generate(self, num_mount):
         """Generate count repetitions of objects."""
 
 
 class PeriodicArrangement(Arrangement):
-    """Periodic arrangement of given objects.
+    r"""Periodic arrangement of given objects.
 
     Given sequence of objects is repeated periodically when building track using
     :class:`~rolland.track.ArrangedSlabSingleRailTrack` or
@@ -82,7 +85,7 @@ class PeriodicArrangement(Arrangement):
 
 
 class StochasticArrangement(Arrangement):
-    """Stochastic arrangement of given objects.
+    r"""Stochastic arrangement of given objects.
 
     Given sequence of objects is repeated randomly when building track using
     :class:`~rolland.track.ArrangedSlabSingleRailTrack` or

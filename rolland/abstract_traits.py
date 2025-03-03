@@ -1,4 +1,14 @@
-"""A module for creating abstract classes with traitlets."""
+"""Module for creating abstract classes with traitlets.
+
+.. autosummary::
+    :toctree: abstract traits
+
+    ABCMetaHasTraits
+    ABCHasTraits
+    ABCHasStrictTraits
+"""
+
+
 import abc
 
 from traitlets import Any, HasTraits, MetaHasTraits

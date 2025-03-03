@@ -17,8 +17,6 @@
 <link href="../../_static/awesome-sphinx-design.css?v=15e0fffa" rel="stylesheet" type="text/css"/>
 <link href="../../search.html" rel="search" title="Search"/>
 <link href="../../genindex.html" rel="index" title="Index"/>
-<link href="rolland.methods.analytical.ThompsonEBBCont1LSupp.html" rel="next" title="rolland.methods.analytical.ThompsonEBBCont1LSupp"/>
-<link href="../analyticalmethods.html" rel="prev" title="Analytical Models"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -92,10 +90,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/excitation.html">Excitation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/discretization.html">Discretization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../rolland/deflection.html">Deflection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../rolland/abc_traitlets.html">Abstract Classes</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Other Models</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../analyticalmethods.html">Analytical Models</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../analyticalmethods.html">Analytical Models</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Literature</span></p>
 <ul>
@@ -119,143 +118,13 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
-<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../analyticalmethods.html">Analytical Models</a>
 <div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rolland.methods.analytical.AnalyticalMethods</span>
 </nav>
 <div id="content" role="main">
 <section id="rolland-methods-analytical-analyticalmethods">
 <h1>rolland.methods.analytical.AnalyticalMethods<a class="headerlink" href="#rolland-methods-analytical-analyticalmethods" title="Link to this heading"><span>¶</span></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rolland.methods.analytical.</span></span><span class="sig-name descname"><span class="pre">AnalyticalMethods</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#AnalyticalMethods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods'"><span>¶</span></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">HasTraits</span></code></p>
-<p>Base class for analytical methods.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.f">
-<span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.f" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.f'"><span>¶</span></a></dt>
-<dd><p>Excitation frequencies <span class="math notranslate nohighlight">\([Hz]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.force">
-<span class="sig-name descname"><span class="pre">force</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.force" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.force'"><span>¶</span></a></dt>
-<dd><p>Force amplitude corresponding to the excitation frequencies <span class="math notranslate nohighlight">\([N]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.x" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.x'"><span>¶</span></a></dt>
-<dd><p>Distances to the excitation point <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.x_excit">
-<span class="sig-name descname"><span class="pre">x_excit</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.x_excit" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.x_excit'"><span>¶</span></a></dt>
-<dd><p>Excitation point <span class="math notranslate nohighlight">\([m]\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.initialize_attributes">
-<span class="sig-name descname"><span class="pre">initialize_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#AnalyticalMethods.initialize_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.initialize_attributes" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.initialize_attributes'"><span>¶</span></a></dt>
-<dd><p>Initialize computed attributes.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.omega">
-<span class="sig-name descname"><span class="pre">omega</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.omega" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.omega'"><span>¶</span></a></dt>
-<dd><p>Angular frequencies [rad/s].</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.mobility">
-<span class="sig-name descname"><span class="pre">mobility</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.mobility" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.mobility'"><span>¶</span></a></dt>
-<dd><p>Mobility matrix initialized to zeros.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.compute_mobility">
-<span class="sig-name descname"><span class="pre">compute_mobility</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#AnalyticalMethods.compute_mobility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.compute_mobility" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.compute_mobility'"><span>¶</span></a></dt>
-<dd><p>Compute the mobility of the track.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>NotImplementedError</strong> – If the method is not implemented in a subclass.</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.compute_vibration">
-<span class="sig-name descname"><span class="pre">compute_vibration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/rolland/methods/analytical.html#AnalyticalMethods.compute_vibration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.compute_vibration" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.compute_vibration'"><span>¶</span></a></dt>
-<dd><p>Calculate the frequency response of the track.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.vb">
-<span class="sig-name descname"><span class="pre">vb</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.vb" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.vb'"><span>¶</span></a></dt>
-<dd><p>Vibration velocity matrix.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="rolland.methods.analytical.AnalyticalMethods.ub">
-<span class="sig-name descname"><span class="pre">ub</span></span><a class="headerlink" href="#rolland.methods.analytical.AnalyticalMethods.ub" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#rolland.methods.analytical.AnalyticalMethods.ub'"><span>¶</span></a></dt>
-<dd><p>Vibration displacement matrix.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
-</dd></dl>
 </section>
-</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
-<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
-<ul>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.f'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.f"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.f</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.force'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.force"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.force</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.x'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.x"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.x</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.x_excit'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.x_excit"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.x_excit</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.initialize_attributes'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.initialize_attributes"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.initialize_attributes()</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.omega'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.omega"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.omega</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.mobility'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.mobility"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.mobility</span></code></a></li>
-</ul>
-</li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.compute_mobility'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.compute_mobility"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.compute_mobility()</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.compute_vibration'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.compute_vibration"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.compute_vibration()</span></code></a><ul>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.vb'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.vb"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.vb</span></code></a></li>
-<li><a :data-current="activeSection === '#rolland.methods.analytical.AnalyticalMethods.ub'" class="reference internal" href="#rolland.methods.analytical.AnalyticalMethods.ub"><code class="docutils literal notranslate"><span class="pre">AnalyticalMethods.ub</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</aside>
+</div></div>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
@@ -276,6 +145,5 @@
 <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
 <script defer="defer" src="../../_static/theme.js?v=073f68d9"></script>
 <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-<script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </body>
 </html>

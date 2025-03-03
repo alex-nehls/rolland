@@ -32,6 +32,7 @@ class Track(ABCHasTraits):
     def validate_track(self):
         """Validate the track configuration."""
 
+
 class SingleRailTrack(Track):
     r"""Abstract base class for single rail track classes.
 
@@ -46,6 +47,7 @@ class SingleRailTrack(Track):
     @abc.abstractmethod
     def validate_single_rail_track(self):
         """Validate the single rail configuration."""
+
 
 class SlabSingleRailTrack(SingleRailTrack):
     r"""Abstract base class for slab single rail track classes.
