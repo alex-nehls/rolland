@@ -6,9 +6,16 @@
 
 
 from .analytical import (
-    AnalyticalMethods,
+    ThompsonEBBCont1LSupp,
+    ThompsonEBBCont2LSupp,
+    ThompsonTSDiscr1LSupp,
+    ThompsonTSDiscr2LSupp,
 )
 
-__all__ = ["AnalyticalMethods"]
+__all__ = ["ThompsonEBBCont1LSupp",
+           "ThompsonTSDiscr2LSupp",
+           "ThompsonTSDiscr1LSupp",
+           "ThompsonEBBCont2LSupp"]
+
 
 

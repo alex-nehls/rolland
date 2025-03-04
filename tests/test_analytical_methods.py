@@ -1,107 +1,115 @@
 """Tests for analytical methods in rolland package."""
 
+import csv
+
 import numpy as np
 import pytest
-from traitlets import TraitError
+from numpy import array, linspace
 
-from rolland.methods.analytical import (
+from rolland import (
+    Ballast,
+    ContBallastedSingleRailTrack,
+    ContPad,
+    ContSlabSingleRailTrack,
+    DiscrPad,
+    SimplePeriodicBallastedSingleRailTrack,
+    SimplePeriodicSlabSingleRailTrack,
+    Slab,
+    Sleeper,
+)
+from rolland.database.rail.db_rail import UIC60
+from rolland.methods import (
     ThompsonEBBCont1LSupp,
     ThompsonEBBCont2LSupp,
     ThompsonTSDiscr1LSupp,
     ThompsonTSDiscr2LSupp,
 )
-from rolland.track import (
-    ContBallastedSingleRailTrack,
-    ContSlabSingleRailTrack,
-    DiscrBallastedSingleRailTrack,
-    DiscrSlabSingleRailTrack,
-)
 
-
-@pytest.fixture
-def track_instance_cont_slab():
-    """Fixture to create an instance of ContSlabSingleRailTrack."""
-    return ContSlabSingleRailTrack()
+# Constants
+CSV_FILE_PATH = 'tests/data/data_analytical_methods.csv'
+FREQUENCY_RANGE = linspace(20, 3000, 1500)
+FORCE = 1
+X_POSITION = array([0])
+X_EXCIT = 240 * 0.3
+RELATIVE_TOLERANCE = 1e-5
 
 @pytest.fixture
-def track_instance_cont_ballasted():
-    """Fixture to create an instance of ContBallastedSingleRailTrack."""
-    return ContBallastedSingleRailTrack()
+def load_csv_data():
+    """Load test data from a CSV file."""
+    data = {}
+    try:
+        with open(CSV_FILE_PATH) as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                freq = float(row['Frequency'])
+                data[freq] = {key: float(row[key]) for key in reader.fieldnames if key != 'Frequency'}
+    except FileNotFoundError:
+        pytest.fail(f"Test data file not found: {CSV_FILE_PATH}")
+    except csv.Error as e:
+        pytest.fail(f"CSV parsing error: {e}")
+    except ValueError as e:
+        pytest.fail(f"Data format error in CSV: {e}")
+    return data
 
-@pytest.fixture
-def track_instance_discr_slab():
-    """Fixture to create an instance of DiscrSlabSingleRailTrack."""
-    return DiscrSlabSingleRailTrack()
+def create_tracks():
+    """Create different types of tracks for testing."""
+    return {
+        'track_cont_slab': ContSlabSingleRailTrack(
+            rail=UIC60,
+            pad=ContPad(sp=[300e6, 0], dp=[30000, 0]),
+        ),
+        'track_cont_ball': ContBallastedSingleRailTrack(
+            rail=UIC60,
+            pad=ContPad(sp=[300e6, 0], dp=[30000, 0]),
+            slab=Slab(ms=250),
+            ballast=Ballast(sb=[100e6, 0], db=[80000, 0]),
+        ),
+        'track_discr_slab': SimplePeriodicSlabSingleRailTrack(
+            rail=UIC60,
+            pad=DiscrPad(sp=[300e6, 0], etap=0.25),
+            slab=Slab(ms=162),
+            num_mount=241,
+            distance=0.6,
+        ),
+        'track_discr_ball': SimplePeriodicBallastedSingleRailTrack(
+            rail=UIC60,
+            pad=DiscrPad(sp=[300e6, 0], etap=0.25),
+            sleeper=Sleeper(ms=162),
+            ballast=Ballast(sb=[50e6, 0], etab=1),
+            num_mount=241,
+            distance=0.6,
+        ),
+    }
 
-@pytest.fixture
-def track_instance_discr_ballasted():
-    """Fixture to create an instance of DiscrBallastedSingleRailTrack."""
-    return DiscrBallastedSingleRailTrack()
+def create_methods(tracks):
+    """Create analytical methods for testing."""
+    return [
+        ThompsonEBBCont1LSupp(track=tracks['track_cont_slab'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
+        ThompsonEBBCont2LSupp(track=tracks['track_cont_ball'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
+        ThompsonTSDiscr2LSupp(track=tracks['track_discr_ball'], f=FREQUENCY_RANGE, force=FORCE, x=array([X_EXCIT]),
+                              x_excit=X_EXCIT),
+        ThompsonTSDiscr1LSupp(track=tracks['track_discr_slab'], f=FREQUENCY_RANGE, force=FORCE, x=array([X_EXCIT]),
+                              x_excit=X_EXCIT),
+    ]
 
-@pytest.fixture
-def analytical_method_instance_cont_slab(track_instance_cont_slab):
-    """Fixture to create an instance of ThompsonEBBCont1LSupp with sample data."""
-    return ThompsonEBBCont1LSupp(track=track_instance_cont_slab, f=np.array([10, 20]),
-                                 F=np.array([100, 200]), x=np.array([1, 2]))
-
-@pytest.fixture
-def analytical_method_instance_cont_ballasted(track_instance_cont_ballasted):
-    """Fixture to create an instance of ThompsonEBBCont2LSupp with sample data."""
-    return ThompsonEBBCont2LSupp(track=track_instance_cont_ballasted, f=np.array([10, 20]),
-                                 F=np.array([100, 200]), x=np.array([1, 2]))
-
-@pytest.fixture
-def analytical_method_instance_discr_slab(track_instance_discr_slab):
-    """Fixture to create an instance of ThompsonTSDiscr1LSupp with sample data."""
-    return ThompsonTSDiscr1LSupp(track=track_instance_discr_slab, f=np.array([10, 20]),
-                                 F=np.array([100, 200]), x=np.array([1, 2]))
-
-@pytest.fixture
-def analytical_method_instance_discr_ballasted(track_instance_discr_ballasted):
-    """Fixture to create an instance of ThompsonTSDiscr2LSupp with sample data."""
-    return ThompsonTSDiscr2LSupp(track=track_instance_discr_ballasted, f=np.array([10, 20]),
-                                 F=np.array([100, 200]), x=np.array([1, 2]))
-
-@pytest.mark.parametrize(("f", "F", "x"), [
-    (np.array([10, 20]), np.array([100, 200]), np.array([1, 2])),
-    (np.array([0]), np.array([0]), np.array([0])),
-    (np.array([1e-10]), np.array([1e-10]), np.array([1e-10])),
+@pytest.mark.parametrize("method_name", [
+    'ThompsonEBBCont1LSupp',
+    'ThompsonEBBCont2LSupp',
+    'ThompsonTSDiscr2LSupp',
+    'ThompsonTSDiscr1LSupp',
 ])
-def class_initialization_cont_slab(f, force, x, track_instance_cont_slab):
-    """Test initialization of ThompsonEBBCont1LSupp with different parameters."""
-    instance = ThompsonEBBCont1LSupp(track=track_instance_cont_slab, f=f, force=force, x=x)
-    assert isinstance(instance, ThompsonEBBCont1LSupp)
+def test_analytical_methods(load_csv_data, method_name):
+    """Test analytical methods against precomputed data."""
+    tracks = create_tracks()
+    methods = create_methods(tracks)
+    method = next((m for m in methods if m.__class__.__name__ == method_name), None)
 
-@pytest.mark.parametrize(("f", "F", "x"), [
-    (np.array([10, 20]), np.array([100, 200]), np.array([1, 2])),
-    (np.array([0]), np.array([0]), np.array([0])),
-    (np.array([1e-10]), np.array([1e-10]), np.array([1e-10])),
-])
-def class_initialization_cont_ballasted(f, force, x, track_instance_cont_ballasted):
-    """Test initialization of ThompsonEBBCont2LSupp with different parameters."""
-    instance = ThompsonEBBCont2LSupp(track=track_instance_cont_ballasted, f=f, force=force, x=x)
-    assert isinstance(instance, ThompsonEBBCont2LSupp)
+    if method is None:
+        pytest.fail(f"Method {method_name} not found in the created methods.")
 
-def compute_mobility_cont_slab(analytical_method_instance_cont_slab):
-    """Test the compute_mobility method of ThompsonEBBCont1LSupp."""
-    mobility, omega_0 = analytical_method_instance_cont_slab.compute_mobility()
-    assert mobility is not None
-    assert omega_0 is not None
-
-def compute_mobility_cont_ballasted(analytical_method_instance_cont_ballasted):
-    """Test the compute_mobility method of ThompsonEBBCont2LSupp."""
-    mobility, omega_0, omega_1, omega_2 = analytical_method_instance_cont_ballasted.compute_mobility()
-    assert mobility is not None
-    assert omega_0 is not None
-    assert omega_1 is not None
-    assert omega_2 is not None
-
-def invalid_initialization_cont_slab(track_instance_cont_slab):
-    """Test initialization of ThompsonEBBCont1LSupp with invalid parameters."""
-    with pytest.raises(TraitError):
-        ThompsonEBBCont1LSupp(track=track_instance_cont_slab, f="invalid", F="invalid", x="invalid")
-
-def invalid_initialization_cont_ballasted(track_instance_cont_ballasted):
-    """Test initialization of ThompsonEBBCont2LSupp with invalid parameters."""
-    with pytest.raises(TraitError):
-        ThompsonEBBCont2LSupp(track=track_instance_cont_ballasted, f="invalid", F="invalid", x="invalid")
+    method.compute_mobility()
+    for i, freq in enumerate(method.f):
+        expected_value = load_csv_data[freq][method_name]
+        actual_value = abs(method.mobility[0, i])
+        assert np.isclose(actual_value, expected_value, rtol=RELATIVE_TOLERANCE), \
+            f"Mismatch in {method_name} at frequency {freq}: expected {expected_value}, got {actual_value}"
