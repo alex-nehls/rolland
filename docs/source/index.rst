@@ -1,13 +1,14 @@
 Rolland
 ========================
 
+.. note:: This repository is still under development!
+
 Rolling Noise and Dynamics (**Rolland**) is an advanced simulation and calculation model designed to analyze, predict, and optimize the acoustic properties of railway tracks, with a focus on realistic, efficient, and fast computations.
 
 .. image:: images/mwi_dark.png
    :width: 700px
    :align: center
 
-.. note:: This repository is still under development!
 
 Explore
 -------
