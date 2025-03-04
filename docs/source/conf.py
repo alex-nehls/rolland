@@ -39,7 +39,7 @@ bibtex_default_style = 'unsrt'
 templates_path = ['_templates']
 exclude_patterns = []
 
-# autosummary_generate = True
+autosummary_generate = True
 # autodoc_member_order = 'bysource'
 autodoc_default_options = {
     'members': True,

@@ -47,7 +47,7 @@ Use Rolland
     )
 
     # Import functions for postprocessing
-    from demo.postporcessing_fdm import *
+    from rolland.postprocessing import response_fdm, plot
 
 .. code-block:: python
   :caption: Define different tracks
