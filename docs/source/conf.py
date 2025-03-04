@@ -65,6 +65,8 @@ html_css_files = ["custom.css"]
 
 html_title = "Rolland Documentation"
 
+html_logo = "images/logo_rolland_dark.svg"
+html_favicon = "images/logo_rolland_light.svg"
 
 from dataclasses import asdict
 
