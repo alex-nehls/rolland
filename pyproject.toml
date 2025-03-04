@@ -7,6 +7,7 @@ dependencies = [
     "traitlets>=5.0",
     "traittypes",
     "ruff==0.8.1",
+    "pytest",
 ]
 
 [tool.hatch.envs.hatch-static-analysis]
@@ -18,6 +19,7 @@ dependencies = [
     "traittypes",
     "ruff==0.8.1",
     "matplotlib",
+    "pytest",
 ]
 
 [build-system]
