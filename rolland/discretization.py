@@ -8,6 +8,7 @@
     DiscretizationFDMStampkaConst
     DiscretizationFDMStampkaTimeDepend
 """
+
 import abc
 import warnings
 

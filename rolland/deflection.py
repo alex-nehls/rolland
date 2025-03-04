@@ -6,6 +6,7 @@
     Deflection
     DeflectionFDMStampka
 """
+
 import abc
 
 from numpy import empty, zeros

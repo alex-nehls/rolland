@@ -8,6 +8,7 @@
     GaussianImpulse
     MovingExcitation
 """
+
 import abc
 
 from numpy import exp, linspace

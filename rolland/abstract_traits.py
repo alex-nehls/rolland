@@ -8,7 +8,6 @@
     ABCHasStrictTraits
 """
 
-
 import abc
 
 from traitlets import Any, HasTraits, MetaHasTraits
