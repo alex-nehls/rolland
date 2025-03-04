@@ -34,7 +34,6 @@ CSV_KEY_MAPPING = {
     'SimplePeriodicBallastedSingleRailTrack': 'mob_discr_ball',
 }
 
-
 @pytest.fixture(scope="module")
 def tracks():
     """Create track instances for testing."""
@@ -64,7 +63,6 @@ def tracks():
             distance=0.6,
         ),
     }
-
 
 @pytest.fixture(scope="module")
 def deflections(tracks):
@@ -134,7 +132,6 @@ def deflections(tracks):
         ),
     }
 
-
 @pytest.fixture(scope="module")
 def mobility_results(deflections):
     """Compute mobility results for testing."""
@@ -144,7 +141,6 @@ def mobility_results(deflections):
         fftfre, _, mob, _ = response_fdm(deflection)
         results[key] = (fftfre, mob)
     return results
-
 
 @pytest.fixture(scope="module")
 def csv_data():
@@ -162,7 +158,6 @@ def csv_data():
             }
             data[freq] = mapped_row
     return data
-
 
 @pytest.mark.parametrize("mobility_name", [
     'mob_cont_slab',

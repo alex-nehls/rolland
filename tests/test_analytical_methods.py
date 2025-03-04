@@ -33,7 +33,7 @@ X_POSITION = array([0])
 X_EXCIT = 240 * 0.3
 RELATIVE_TOLERANCE = 1e-5
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def load_csv_data():
     """Load test data from a CSV file."""
     data = {}
@@ -51,7 +51,8 @@ def load_csv_data():
         pytest.fail(f"Data format error in CSV: {e}")
     return data
 
-def create_tracks():
+@pytest.fixture(scope="module")
+def tracks():
     """Create different types of tracks for testing."""
     return {
         'track_cont_slab': ContSlabSingleRailTrack(
@@ -81,7 +82,8 @@ def create_tracks():
         ),
     }
 
-def create_methods(tracks):
+@pytest.fixture(scope="module")
+def methods(tracks):
     """Create analytical methods for testing."""
     return [
         ThompsonEBBCont1LSupp(track=tracks['track_cont_slab'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
@@ -98,10 +100,8 @@ def create_methods(tracks):
     'ThompsonTSDiscr2LSupp',
     'ThompsonTSDiscr1LSupp',
 ])
-def test_analytical_methods(load_csv_data, method_name):
+def test_analytical_methods(method_name, methods, load_csv_data):
     """Test analytical methods against precomputed data."""
-    tracks = create_tracks()
-    methods = create_methods(tracks)
     method = next((m for m in methods if m.__class__.__name__ == method_name), None)
 
     if method is None:
