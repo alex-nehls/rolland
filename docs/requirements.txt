@@ -6,3 +6,6 @@ autodoc_traits
 sphinx_design
 myst_parser
 numpy
+scipy
+traitlets
+traittypes
