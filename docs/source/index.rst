@@ -7,7 +7,7 @@ Rolling Noise and Dynamics (**Rolland**) is an advanced simulation and calculati
    :width: 700px
    :align: center
 
-.. note:: This repository is still under development.
+.. note:: This repository is still under development!
 
 Explore
 -------
