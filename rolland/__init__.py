@@ -49,5 +49,5 @@ __all__ = ["Arrangement",
            "Deflection",
            "DeflectionFDMStampka",
            "Discretization",
-           "GaussianImpulse"
+           "GaussianImpulse",
            ]

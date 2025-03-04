@@ -3,3 +3,9 @@ sphinxcontrib-bibtex
 autodoc_traits
 sphinx_design
 myst_parser
+sphinx
+sphinx-autodoc
+sphinx-napoleon
+sphinx-viewcode
+sphinx-mathjax
+sphinx-autosummary
