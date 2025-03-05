@@ -31,6 +31,9 @@ Documentation is available [here](https://rolland-rolling-noise-and-dynamics.rea
 how to section and examples.
 
 # Example
+This example calculates the track response of a double layer track with discrete mounting positions.
+The track is excited between two sleepers with a Gaussian impulse.
+
 ```python
 # Import components
 from rolland import DiscrPad, Sleeper, Ballast
