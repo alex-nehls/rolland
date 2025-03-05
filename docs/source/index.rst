@@ -3,26 +3,26 @@ Rolland
 
 .. note:: This repository is still under development!
 
-Rolling Noise and Dynamics (**Rolland**) is an advanced simulation and calculation model designed to analyze, predict, and optimize the acoustic properties of railway tracks, with a focus on realistic, efficient, and fast computations.
+Rolling Noise and Dynamics (**Rolland**) is an advanced simulation and calculation model designed to analyze, predict,
+and optimize the acoustic properties of railway tracks, with a focus on realistic, efficient, and fast computations.
 
 
 Features
 --------
-**Current Features:**
 
-* Applies Finite Difference Method in time domain
-* Allows the definition of arbitrary track structures
-    * Enables periodic or stochastic variations of the track properties (e.g. stochastically varying sleeper distances)
-    * Enables the representation of track property deviations that occur in practise
-* Includes several analytical models for comparison and validation
+**Current Features**
+    #. Applies Finite Difference Method in time domain
+    #. Allows the definition of arbitrary track structures
 
-**Planned Features:**
+       * Enables periodic or stochastic variations of the track properties (e.g. stochastically varying sleeper distances)
+       * Enables the representation of track property deviations that occur in practise
+    #. Includes several analytical models for comparison and validation
 
-- Full rail dynamics
-- Consideration of rail radiation
-- Consideration of non-linear effects
-- Excitation by multiple moving wheels
-
+**Planned Features**
+    #. Full rail dynamics
+    #. Consideration of rail radiation
+    #. Consideration of non-linear effects
+    #. Excitation by multiple moving wheels
 
 .. image:: images/mwi_dark.png
    :width: 700px
@@ -43,7 +43,8 @@ Explore
          :maxdepth: 1
          :titlesonly:
 
-         start
+         how_to/quick_start
+         how_to/different_tracks
 
    .. tab-item:: Build Track
 
