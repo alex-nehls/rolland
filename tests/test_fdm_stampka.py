@@ -146,7 +146,7 @@ def mobility_results(deflections):
 def csv_data():
     """Load precomputed mobility data from CSV."""
     data = {}
-    with open('tests/data/data_fdm_stampka.csv') as csvfile:
+    with open('data/data_fdm_stampka.csv') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             freq = float(row['Frequency'])

@@ -26,7 +26,7 @@ from rolland.methods import (
 )
 
 # Constants
-CSV_FILE_PATH = './data/data_analytical_methods.csv'
+CSV_FILE_PATH = 'data/data_analytical_methods.csv'
 FREQUENCY_RANGE = linspace(20, 3000, 1500)
 FORCE = 1
 X_POSITION = array([0])
