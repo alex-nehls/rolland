@@ -49,8 +49,8 @@ autodoc_typehints = "description"       # Include type hints in the description
 napoleon_google_docstring = False       # Use NumPy-style docstrings
 napoleon_numpy_docstring = True
 
-pygments_style = "default"  # Replace with a valid Pygments style for light mode
-pygments_style_dark = "native"  # Replace with a valid Pygments style for dark mode
+pygments_style = "github-dark"  # Replace with a valid Pygments style for light mode
+pygments_style_dark = "github-dark"  # Replace with a valid Pygments style for dark mode
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
