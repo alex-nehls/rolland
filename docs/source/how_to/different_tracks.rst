@@ -1,77 +1,47 @@
-.. _start:
+.. _different_tracks:
 
-Start using Rolland
-=======================
+Compare Different Tracks
+=========================
+This example demonstrates how to set up and run a basic simulation using the Rolland library to calculate the
+frequency response of different railway tracks.
 
-
-This section explains how to set up Rolland and get started with your first simulation.
-
-Installation
-------------
-
-To install Rolland, follow these steps:
-
-1. **Clone the repository**: Clone the Rolland repository from GitHub to your local machine.
-2. **Create a virtual environment**: Set up a virtual environment to manage dependencies.
-3. **Install dependencies**: Install the required dependencies using `pip`.
-
-
-Use Rolland
---------------
 
 .. code-block:: python
-  :caption: Define several tracks
+  :caption: Python Code
   :linenos:
 
     # Import components
     from rolland import DiscrPad, Sleeper, Ballast, ContPad, Slab
-
     # Import rail
     from rolland.database.rail.db_rail import UIC60
-
-    # Import tracks
+    # Import different tracks
     from rolland import (
         ContSlabSingleRailTrack,
         ContBallastedSingleRailTrack,
         SimplePeriodicSlabSingleRailTrack,
-        SimplePeriodicBallastedSingleRailTrack
-    )
-
-    # Import necessary classes for calculation
-    from rolland import (
-        DeflectionFDMStampka,
-        DiscretizationFDMStampkaConst,
-        GaussianImpulse,
-        GridFDMStampka,
-        PMLStampka
-    )
-
-    # Import functions for postprocessing
+        SimplePeriodicBallastedSingleRailTrack)
+    # Import classes required for numerical simulation
+    from rolland import GridFDMStampka, PMLStampka, GaussianImpulse, DiscretizationFDMStampkaConst, DeflectionFDMStampka
+    # Import postprocessing functions
     from rolland.postprocessing import response_fdm, plot
 
-.. code-block:: python
-  :caption: Define different tracks
-  :linenos:
-
+    # Define tracks
     # Continuous slab track
     track1 = ContSlabSingleRailTrack(
         rail=UIC60,
         pad=ContPad(sp=[300*10**6, 0], dp=[30000, 0]))
-
     # Continuous ballasted track
     track2 = ContBallastedSingleRailTrack(
         rail=UIC60,
         pad=ContPad(sp=[300*10**6, 0], dp=[30000, 0]),
         slab=Slab(ms=250),
         ballast=Ballast(sb=[100*10**6, 0], db=[80000, 0]))
-
     # Discrete slab track
     track3 = SimplePeriodicSlabSingleRailTrack(
         rail=UIC60,
         pad=DiscrPad(sp=[180*10**6, 0], dp=[30000, 0]),
         num_mount=243,
         distance=0.6)
-
     # Discrete ballasted track
     track4 = SimplePeriodicBallastedSingleRailTrack(
         rail=UIC60,
@@ -81,56 +51,37 @@ Use Rolland
         num_mount=243,
         distance=0.6)
 
-.. code-block:: python
-  :caption: Define grid for each track
-  :linenos:
-
+    # Define grids
     grid1 = GridFDMStampka(track = track1, dt=2e-5, req_l=80, req_simt=0.4, bx=1, n_bound=600)
     grid2 = GridFDMStampka(track = track2, dt=2e-5, req_l=80, req_simt=0.4, bx=1, n_bound=600)
     grid3 = GridFDMStampka(track = track3, dt=2e-5, req_l=80, req_simt=0.4, bx=1, n_bound=600)
     grid4 = GridFDMStampka(track = track4, dt=2e-5, req_l=80, req_simt=0.4, bx=1, n_bound=600)
 
-.. code-block:: python
-  :caption: Define boundary conditions
-  :linenos:
-
+    # Define boundary domains (Perfectly Matched Layer)
     bound1 = PMLStampka(grid=grid1)
     bound2 = PMLStampka(grid=grid2)
     bound3 = PMLStampka(grid=grid3)
     bound4 = PMLStampka(grid=grid4)
 
-.. code-block:: python
-  :caption: Define excitation
-  :linenos:
-
+    # Define excitation (Gaussian Impulse)
     force1 = GaussianImpulse(grid=grid1)
     force2 = GaussianImpulse(grid=grid2)
     force3 = GaussianImpulse(grid=grid3)
     force4 = GaussianImpulse(grid=grid4)
 
-.. code-block:: python
-  :caption: Descretization
-  :linenos:
-
+    # Discretize
     discr1 = DiscretizationFDMStampkaConst(bound=bound1)
     discr2 = DiscretizationFDMStampkaConst(bound=bound2)
     discr3 = DiscretizationFDMStampkaConst(bound=bound3)
     discr4 = DiscretizationFDMStampkaConst(bound=bound4)
 
-.. code-block:: python
-  :caption: Calculate deflection
-  :linenos:
-
+    # Run simulations and calculate deflection over time (excitation at 71.7m)
     defl1 = DeflectionFDMStampka(discr=discr1, excit=force1, x_excit=71.7)
     defl2 = DeflectionFDMStampka(discr=discr2, excit=force2, x_excit=71.7)
     defl3 = DeflectionFDMStampka(discr=discr3, excit=force3, x_excit=71.7)
     defl4 = DeflectionFDMStampka(discr=discr4, excit=force4, x_excit=71.7)
 
-.. code-block:: python
-  :caption: Postprocessing
-  :linenos:
-
-    # Calculate the frequency response (receptance, mobility, accelerance)
+    # Postprocessing: Calculate frequency response at x = x_excit (receptance, mobility, accelerance)
     fftfre1, rez1, mob1, accel1 = response_fdm(defl1)
     fftfre2, rez2, mob2, accel2 = response_fdm(defl2)
     fftfre3, rez3, mob3, accel3 = response_fdm(defl3)
@@ -142,6 +93,10 @@ Use Rolland
           'ContBallastedSingleRailTrack',
           'SimplePeriodicSlabSingleRailTrack',
           'SimplePeriodicBallastedSingleRailTrack'],
-          'Frequency Response', 'f [Hz]', 'Mobility [m/Ns]')
+          'Frequency Resonse', 'f [Hz]', 'Mobility [m/Ns]')
 
 
+
+.. image:: ../images/example_different_tracks.png
+   :width: 700px
+   :align: center
