@@ -420,8 +420,8 @@ class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
     r"""Method for discrete slab track according to :cite:t:`thompson2024j` and :cite:t:`heckl1995`.
 
     Utilizes a single-layer support with discrete track properties, applying Timoshenko beam
-    theory. The excitation is stationary, and the corresponding method calculates the track's
-    mobility for the postions specified.
+    theory. The excitation is a non-moving sound source. The corresponding method calculates the
+    track's mobility for the postions specified.
 
     .. caution::
         This method is an implementation of :cite:t:`thompson2024j` which is a modified version of
@@ -471,8 +471,8 @@ class ThompsonTSDiscr2LSupp(ThompsonTBDiscr):
     r"""Method for discrete ballasted track according to :cite:t:`thompson2024j`.
 
     Utilizes a double-layer support with discrete track properties, applying Timoshenko beam
-    theory. The excitation is stationary, and the corresponding method calculates the track's
-    mobility for the postions specified.
+    theory. The excitation is a non-moving sound source. The corresponding method calculates the
+    track's mobility for the postions specified.
 
     .. caution::
         This method is an implementation of :cite:t:`thompson2024j` which is a modified version of
