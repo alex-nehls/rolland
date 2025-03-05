@@ -13,7 +13,7 @@
 import abc
 
 from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros
-from traitlets import Float, HasTraits, Instance
+from traitlets import Float, Instance
 from traittypes import Array
 
 from rolland.track import (

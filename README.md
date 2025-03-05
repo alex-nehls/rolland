@@ -1,4 +1,4 @@
-<img src="docs/source/images/logo_rolland_light.svg" alt="Logo" width="200"/>
+<img src="docs/source/images/logo_rolland_light.svg" alt="Logo" width="100"/>
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/mantelmax/rolland)
 [![Documentation Status](https://readthedocs.org/projects/rolland-rolling-noise-and-dynamics/badge/?version=latest)](https://rolland-rolling-noise-and-dynamics.readthedocs.io/en/latest/?badge=latest)
