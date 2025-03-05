@@ -10,12 +10,14 @@
     ThompsonTSDiscr1LSupp
     ThompsonTSDiscr2LSupp
 """
+import abc
 
 from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros
 from traitlets import Float, HasTraits, Instance
 from traittypes import Array
 
 from rolland.track import (
+    ABCHasTraits,
     ContBallastedSingleRailTrack,
     ContSlabSingleRailTrack,
     DiscrBallastedSingleRailTrack,
@@ -23,8 +25,8 @@ from rolland.track import (
 )
 
 
-class AnalyticalMethods(HasTraits):
-    r"""Base class for analytical methods.
+class AnalyticalMethods(ABCHasTraits):
+    r"""Abstract base class for analytical methods.
 
     Attributes
     ----------
@@ -44,7 +46,7 @@ class AnalyticalMethods(HasTraits):
     x_excit = Float(default_value=0.0)
 
     def __init__(self, **kwargs):
-        r"""
+        """
         Initialize the AnalyticalMethods class.
 
         Parameters
@@ -58,7 +60,7 @@ class AnalyticalMethods(HasTraits):
         self.compute_vibration()
 
     def initialize_attributes(self):
-        r"""
+        """
         Initialize computed attributes.
 
         Attributes
@@ -71,8 +73,9 @@ class AnalyticalMethods(HasTraits):
         self.omega = 2 * pi * self.f
         self.mobility = zeros((len(self.x), len(self.f)), dtype=complex)
 
+    @abc.abstractmethod
     def compute_mobility(self):
-        r"""
+        """
         Compute the mobility of the track.
 
         Raises
@@ -278,6 +281,10 @@ class ThompsonTBDiscr(AnalyticalMethods):
         Excitation point :math:`[m]`.
     """
 
+    @abc.abstractmethod
+    def validate_method(self):
+        """Validate method."""
+
     def calc_greens_func(self, xm, xn, k_p, k_d, f_p, f_d):
         """
         Calculate Greens function of free Timoshenko Beam (eq. 3.69).
@@ -442,6 +449,9 @@ class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
 
     track = Instance(DiscrSlabSingleRailTrack)
 
+    def validate_method(self):
+        """Validate method."""
+
     def compute_mobility(self):
         """
         Compute the mobility of the track.
@@ -493,6 +503,9 @@ class ThompsonTSDiscr2LSupp(ThompsonTBDiscr):
     """
 
     track = Instance(DiscrBallastedSingleRailTrack)
+
+    def validate_method(self):
+        """Validate method."""
 
     def compute_mobility(self):
         """
