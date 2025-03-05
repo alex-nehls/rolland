@@ -23,7 +23,7 @@ and optimize the acoustic properties of railway tracks, with a focus on realisti
 - Consideration of non-linear effects
 - Excitation by multiple moving wheels
 
-<img src="docs/source/images/mwi_dark.png" alt="Logo">
+<img src="docs/source/images/mwi_github.png" alt="Logo">
 
 
 # Documentation
