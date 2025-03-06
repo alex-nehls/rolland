@@ -3,7 +3,8 @@
 Compare Different Tracks
 =========================
 This example demonstrates how to set up and run a basic simulation using the Rolland library to calculate the
-frequency response of different railway tracks.
+frequency response of different railway tracks. The example includes continuous and discrete tracks with different
+with a single or double layer. See :cite:`thompson2024j` for more information.
 
 
 .. code-block:: python
