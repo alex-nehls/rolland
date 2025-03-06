@@ -45,8 +45,6 @@ class GridFDMStampka(Grid):
         Track instance.
     dt : float
         Step size in time :math:`[s]`.
-    req_l : float
-        Requested beam length :math:`[m]`.
     req_simt : float
         Requested simulation time :math:`[s]`.
     bx : float
@@ -70,7 +68,6 @@ class GridFDMStampka(Grid):
     """
 
     dt = Float()
-    req_l = Float()
     req_simt = Float()
     bx = Float()
     n_bound = Integer()
@@ -89,7 +86,7 @@ class GridFDMStampka(Grid):
 
         self.bx_upd = self.dx / (((self.track.rail.E * self.track.rail.Iyr) / (6 * self.track.rail.mr)) ** (1 / 4)
                        * self.dt ** (1 / 2))
-        self.nx = int(self.req_l / self.dx + (2 * self.n_bound)) + 1
+        self.nx = int(self.track.l_track / self.dx + (2 * self.n_bound)) + 1
 
         self.l_domain = (self.nx - 1) * self.dx
         self.l_bound = self.n_bound * self.dx
