@@ -202,6 +202,9 @@ class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
         Number of mounting positions.
     mount_prop : dict
         Dictionary for discrete mounting positions (x-> (Pad, None)).
+    l_track : float
+        Track length :math:`[m]`. (May change slightly after discretization.
+        Results from the number of mounting positions and the mounting distances).
 
 
     Example
@@ -236,6 +239,7 @@ class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
             # Use Decimal to avoid floating-point representation errors
             x = float(Decimal(str(_i)) * Decimal(str(self.distance)))
             self.mount_prop[x] = (self.pad, None)
+        self.l_track = max(self.mount_prop.keys())
 
     def validate_track(self):
         """Validate the track configuration."""
@@ -277,12 +281,14 @@ class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
     pad : Arrangement
         Arrangement instance containing multiple pads.
     distance : Arrangement
-
         Arrangement instance containing multiple distances.
     num_mount : int
         Number of mounting positions.
     mount_prop : dict
         Dictionary for discrete mounting positions (x-> (Pad, None)).
+    l_track : float
+        Track length :math:`[m]`. (May change slightly after discretization.
+        Results from the number of mounting positions and the mounting distances).
 
 
     Example
@@ -322,6 +328,7 @@ class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
                         self.distance.generate(self.num_mount), strict=False):
             self.mount_prop[float(Decimal(str(x)))] = (p, None)
             x += Decimal(str(d))
+        self.l_track = max(self.mount_prop.keys())
 
     def validate_track(self):
         """Validate the track configuration."""
@@ -480,6 +487,10 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
     num_mount : int
         Number of mounting positions.
     mount_prop : dict
+        Dictionary for discrete mounting positions (x-> (Pad, Sleeper)).
+    l_track : float
+        Track length :math:`[m]`. (May change slightly after discretization.
+        Results from the number of mounting positions and the mounting distances).
 
 
     Example
@@ -515,6 +526,7 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
             # Use Decimal to avoid floating-point representation errors
             x = float(Decimal(str(_i)) * Decimal(str(self.distance)))
             self.mount_prop[x] = (self.pad, self.sleeper)
+        self.l_track = max(self.mount_prop.keys())
 
     def validate_track(self):
         """Validate the track configuration."""
@@ -564,6 +576,9 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
         Number of mounting positions.
     mount_prop : dict
         Dictionary for discrete mounting positions (x-> (Pad, Sleeper)).
+    l_track : float
+        Track length :math:`[m]`. (May change slightly after discretization.
+        Results from the number of mounting positions and the mounting distances).
 
 
     Example
@@ -607,6 +622,7 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
                            self.distance.generate(self.num_mount), strict=False):
             self.mount_prop[float(Decimal(str(x)))] = (p, s)
             x += Decimal(str(d))
+        self.l_track = max(self.mount_prop.keys())
 
     def validate_track(self):
         """Validate the track configuration."""
