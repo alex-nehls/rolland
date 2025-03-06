@@ -64,7 +64,7 @@ class GridFDMStampka(Grid):
     l_domain : float
         Actual track length (calculation + boundary domain) :math:`[m]`.
     l_bound : float
-        Length of boundary area :math:`[m]`.
+        Length of boundary domain :math:`[m]`.
     """
 
     dt = Float()
