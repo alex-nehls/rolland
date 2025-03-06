@@ -23,7 +23,7 @@ Attributes
     Asr (float): Surface area per unit length of rail [m^2/m].
     Vr (float): Volume per unit length of rail [m^3/m].
 """
-
+import csv
 import os
 
 from rolland.components import Rail
@@ -31,13 +31,14 @@ from rolland.components import Rail
 
 def load_rail_geo(file_path):
     """Load rail geometry from pts file."""
-    with open(file_path) as file:
-        return [(float(parts[0]), float(parts[2])) for line in file if
-                (parts := line.split()) and len(parts) == 3 and not line.startswith(':!') and line.strip()]
+    with open(file_path, newline='') as csvfile:
+        csvreader = csv.reader(csvfile)
+        next(csvreader)  # Skip header
+        return [(float(row[0]), float(row[1])) for row in csvreader]
 
 
 UIC60 = Rail(
-    rl_geo=load_rail_geo(os.path.join(os.path.dirname(__file__), 'UIC60')),
+    rl_geo=load_rail_geo(os.path.join(os.path.dirname(__file__), 'UIC60.csv')),
     E=210e9,
     G=81e9,
     nu=0.3,
