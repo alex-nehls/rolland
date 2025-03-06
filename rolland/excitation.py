@@ -37,7 +37,19 @@ class StationaryExcitation(Excitation):
 class GaussianImpulse(StationaryExcitation):
     """Gaussian impulse excitation class.
 
-    Approach according to Stampka.
+    Gaussian impulse according to :cite:t:`stampka2022a`. This excitation type is used for
+    non-moving sources.
+
+    Attributes
+    ----------
+    grid : GridFDMStampka
+        Grid instance.
+    sigma : float
+        Pulse parameter (regulates pulse-time) :math:`[-]`.
+    a : float
+        Pulse parameter (regulates amplitude) :math:`[s]`.
+    force : array
+        Force array (contains force over time) :math:`[N]`.
     """
 
     # Grid instance
