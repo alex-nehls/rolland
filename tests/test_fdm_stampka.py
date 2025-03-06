@@ -41,17 +41,19 @@ def tracks():
         'track_cont_slab': ContSlabSingleRailTrack(
             rail=UIC60,
             pad=ContPad(sp=[300 * 10**6, 0], dp=[30000, 0]),
+            l_track = 90,
         ),
         'track_cont_ball': ContBallastedSingleRailTrack(
             rail=UIC60,
             pad=ContPad(sp=[300 * 10**6, 0], dp=[30000, 0]),
             slab=Slab(ms=250),
             ballast=Ballast(sb=[100 * 10**6, 0], db=[80000, 0]),
+            l_track=90,
         ),
         'track_discr_slab': SimplePeriodicSlabSingleRailTrack(
             rail=UIC60,
             pad=DiscrPad(sp=[180 * 10**6, 0], dp=[30000, 0]),
-            num_mount=243,
+            num_mount=int(90/0.6),
             distance=0.6,
         ),
         'track_discr_ball': SimplePeriodicBallastedSingleRailTrack(
@@ -59,7 +61,7 @@ def tracks():
             pad=DiscrPad(sp=[180 * 10**6, 0], dp=[18000, 0]),
             sleeper=Sleeper(ms=150),
             ballast=Ballast(sb=[105 * 10**6, 0], db=[48000, 0]),
-            num_mount=243,
+            num_mount=int(90/0.6),
             distance=0.6,
         ),
     }
@@ -71,7 +73,6 @@ def deflections(tracks):
         'grid_cont_slab': GridFDMStampka(
             track=tracks['track_cont_slab'],
             dt=2e-5,
-            req_l=80,
             req_simt=0.4,
             bx=1,
             n_bound=600,
@@ -79,7 +80,6 @@ def deflections(tracks):
         'grid_cont_ball': GridFDMStampka(
             track=tracks['track_cont_ball'],
             dt=2e-5,
-            req_l=80,
             req_simt=0.4,
             bx=1,
             n_bound=600,
@@ -87,7 +87,6 @@ def deflections(tracks):
         'grid_discr_slab': GridFDMStampka(
             track=tracks['track_discr_slab'],
             dt=2e-5,
-            req_l=80,
             req_simt=0.4,
             bx=1,
             n_bound=600,
@@ -95,7 +94,6 @@ def deflections(tracks):
         'grid_discr_ball': GridFDMStampka(
             track=tracks['track_discr_ball'],
             dt=2e-5,
-            req_l=80,
             req_simt=0.4,
             bx=1,
             n_bound=600,
@@ -113,22 +111,22 @@ def deflections(tracks):
         'mob_cont_slab': DeflectionFDMStampka(
             discr=discretizations['grid_cont_slab'],
             excit=forces['grid_cont_slab'],
-            x_excit=71.7,
+            x_excit=45.3,
         ),
         'mob_cont_ball': DeflectionFDMStampka(
             discr=discretizations['grid_cont_ball'],
             excit=forces['grid_cont_ball'],
-            x_excit=71.7,
+            x_excit=45.3,
         ),
         'mob_discr_slab': DeflectionFDMStampka(
             discr=discretizations['grid_discr_slab'],
             excit=forces['grid_discr_slab'],
-            x_excit=71.7,
+            x_excit=45.3,
         ),
         'mob_discr_ball': DeflectionFDMStampka(
             discr=discretizations['grid_discr_ball'],
             excit=forces['grid_discr_ball'],
-            x_excit=71.7,
+            x_excit=45.3,
         ),
     }
 
