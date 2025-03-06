@@ -410,6 +410,7 @@ class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
 
     pad = Instance(ContPad)
     slab = Instance(Slab)
+    l_track = Float()
 
     def validate_track(self):
         """Validate the track configuration."""
