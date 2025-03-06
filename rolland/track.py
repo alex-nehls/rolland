@@ -103,6 +103,9 @@ class ContSlabSingleRailTrack(SlabSingleRailTrack):
         Slab instance.
     pad : ContPad
         Continuous pad instance.
+    l_track : float
+        Track length :math:`[m]`. (May change slightly after discretization.
+        The inclusion of boundary and calculation domain is required).
 
 
     Example
@@ -120,6 +123,7 @@ class ContSlabSingleRailTrack(SlabSingleRailTrack):
     """
 
     pad = Instance(ContPad)
+    l_track = Float()
 
     def validate_track(self):
         """Validate the track configuration."""
@@ -379,7 +383,9 @@ class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
         Slab instance.
     ballast : Ballast
         Ballast instance.
-
+    l_track : float
+        Track length :math:`[m]`. (May change slightly after discretization.
+        The inclusion of boundary and calculation domain is required).
 
     Example
     --------
