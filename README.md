@@ -56,7 +56,7 @@ track = SimplePeriodicBallastedSingleRailTrack(
       distance=0.6)
 
 # Define grid
-grid = GridFDMStampka(track = track, dt=2e-5, req_l=80, req_simt=0.4, bx=1, n_bound=600)
+grid = GridFDMStampka(track = track, dt=2e-5, req_simt=0.4, bx=1, n_bound=600)
 
 # Define boundary domain (Perfectly Matched Layer)
 bound = PMLStampka(grid=grid)
@@ -67,7 +67,7 @@ excit = GaussianImpulse(grid=grid)
 # Discretize
 discr = DiscretizationFDMStampkaConst(bound=bound)
 
-# Run simulation and calculate deflection over time (excitation at 71.7m)
+# Run simulation and calculate deflection over time (excitation at 71.7m between two sleepers)
 defl = DeflectionFDMStampka(discr=discr, excit=excit, x_excit=71.7)
 
 # Postprocessing: Calculate frequency response at x = x_excit (receptance, mobility, accelerance)
