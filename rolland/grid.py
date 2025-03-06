@@ -62,7 +62,7 @@ class GridFDMStampka(Grid):
     nx : int
         Number of spatial steps :math:`[-]`.
     l_domain : float
-        Actual beam length :math:`[m]`.
+        Actual track length (calculation + boundary domain) :math:`[m]`.
     l_bound : float
         Length of boundary area :math:`[m]`.
     """
@@ -86,7 +86,7 @@ class GridFDMStampka(Grid):
 
         self.bx_upd = self.dx / (((self.track.rail.E * self.track.rail.Iyr) / (6 * self.track.rail.mr)) ** (1 / 4)
                        * self.dt ** (1 / 2))
-        self.nx = int(self.track.l_track / self.dx + (2 * self.n_bound)) + 1
+        self.nx = int(self.track.l_track / self.dx) + 1
 
         self.l_domain = (self.nx - 1) * self.dx
         self.l_bound = self.n_bound * self.dx
