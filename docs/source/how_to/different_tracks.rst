@@ -29,13 +29,15 @@ frequency response of different railway tracks.
     # Continuous slab track
     track1 = ContSlabSingleRailTrack(
         rail=UIC60,
-        pad=ContPad(sp=[300*10**6, 0], dp=[30000, 0]))
+        pad=ContPad(sp=[300*10**6, 0], dp=[30000, 0])),
+        l_track = 145.2
     # Continuous ballasted track
     track2 = ContBallastedSingleRailTrack(
         rail=UIC60,
         pad=ContPad(sp=[300*10**6, 0], dp=[30000, 0]),
         slab=Slab(ms=250),
-        ballast=Ballast(sb=[100*10**6, 0], db=[80000, 0]))
+        ballast=Ballast(sb=[100*10**6, 0], db=[80000, 0])),
+        l_track = 145.2
     # Discrete slab track
     track3 = SimplePeriodicSlabSingleRailTrack(
         rail=UIC60,
@@ -52,10 +54,10 @@ frequency response of different railway tracks.
         distance=0.6)
 
     # Define grids
-    grid1 = GridFDMStampka(track = track1, dt=2e-5, req_l=80, req_simt=0.4, bx=1, n_bound=600)
-    grid2 = GridFDMStampka(track = track2, dt=2e-5, req_l=80, req_simt=0.4, bx=1, n_bound=600)
-    grid3 = GridFDMStampka(track = track3, dt=2e-5, req_l=80, req_simt=0.4, bx=1, n_bound=600)
-    grid4 = GridFDMStampka(track = track4, dt=2e-5, req_l=80, req_simt=0.4, bx=1, n_bound=600)
+    grid1 = GridFDMStampka(track = track1, dt=2e-5, req_simt=0.4, bx=1, n_bound=600)
+    grid2 = GridFDMStampka(track = track2, dt=2e-5, req_simt=0.4, bx=1, n_bound=600)
+    grid3 = GridFDMStampka(track = track3, dt=2e-5, req_simt=0.4, bx=1, n_bound=600)
+    grid4 = GridFDMStampka(track = track4, dt=2e-5, req_simt=0.4, bx=1, n_bound=600)
 
     # Define boundary domains (Perfectly Matched Layer)
     bound1 = PMLStampka(grid=grid1)
