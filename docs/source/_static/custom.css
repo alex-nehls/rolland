@@ -1,0 +1,19 @@
+/* Default to light mode image */
+.light-mode-image {
+    display: block;
+}
+
+.dark-mode-image {
+    display: none;
+}
+
+/* Override for dark mode */
+@media (prefers-color-scheme: dark) {
+    .light-mode-image {
+        display: none;
+    }
+
+    .dark-mode-image {
+        display: block;
+    }
+}
