@@ -57,12 +57,10 @@ pygments_style_dark = "github-dark"  # Replace with a valid Pygments style for d
 
 html_theme = 'sphinxawesome_theme'
 html_permalinks_icon = "<span>¶</span>"
-
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
-
 html_title = "Rolland Documentation"
-
+html_last_updated_fmt = ""
 html_logo = "images/logo_rolland_dark.svg"
 html_favicon = "images/logo_rolland_light.svg"
 
