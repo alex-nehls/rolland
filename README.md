@@ -29,7 +29,7 @@ and optimize the acoustic properties of railway tracks, with a focus on realisti
 
 <picture>
   <source srcset="docs/source/images/mwi_github_dark.png" media="(prefers-color-scheme: dark)">
-  <img src="docs/source/images/mwi_github_light.png">
+  <img src="docs/source/images/mwi_light.png">
 </picture>
 
 # Documentation

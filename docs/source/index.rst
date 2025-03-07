@@ -24,9 +24,13 @@ Features
     #. Consideration of non-linear effects
     #. Excitation by multiple moving wheels
 
-.. image:: images/mwi_dark.png
-   :width: 700px
-   :align: center
+
+.. raw:: html
+
+   <picture>
+      <source srcset="_static/images/mwi_dark.png" media="(prefers-color-scheme: dark)">
+      <img src="_static/images/mwi_light.png" alt="MWI Image" style="width: 700px; display: block; margin: 0 auto;">
+   </picture>
 
 
 Explore
