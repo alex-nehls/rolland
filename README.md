@@ -1,4 +1,8 @@
-<img src="docs/source/images/logo_rolland_light.svg" alt="Logo" width="100"/>
+<picture>
+  <source srcset="docs/source/images/logo_rolland_light.svg" media="(prefers-color-scheme: dark)">
+  <img src="docs/source/images/logo_rolland_dark.svg" alt="Logo" width="100">
+</picture>
+
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/mantelmax/rolland)
 [![Documentation Status](https://readthedocs.org/projects/rolland-rolling-noise-and-dynamics/badge/?version=latest)](https://rolland-rolling-noise-and-dynamics.readthedocs.io/en/latest/?badge=latest)
@@ -23,8 +27,10 @@ and optimize the acoustic properties of railway tracks, with a focus on realisti
 - Consideration of non-linear effects
 - Excitation by multiple moving wheels
 
-<img src="docs/source/images/mwi_github.png" alt="Logo">
-
+<picture>
+  <source srcset="docs/source/images/mwi_github_dark.png" media="(prefers-color-scheme: dark)">
+  <img src="docs/source/images/mwi_github_light.png">
+</picture>
 
 # Documentation
 Documentation is available [here](https://rolland-rolling-noise-and-dynamics.readthedocs.io) with a 
