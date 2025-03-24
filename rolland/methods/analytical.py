@@ -4,11 +4,11 @@
     :toctree: analytical/
 
     AnalyticalMethods
-    ThompsonEBBCont1LSupp
-    ThompsonEBBCont2LSupp
-    ThompsonTBDiscr
-    ThompsonTSDiscr1LSupp
-    ThompsonTSDiscr2LSupp
+    EBBCont1LSupp
+    EBBCont2LSupp
+    TBDiscr
+    TSDiscr1LSupp
+    TSDiscr2LSupp
 """
 import abc
 
