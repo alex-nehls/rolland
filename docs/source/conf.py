@@ -29,6 +29,7 @@ extensions = [
     'autodoc_traits',                 # Support for traitlets
     'sphinx_design',                  # Design extension
     'myst_parser',                    # Markdown support
+    'sphinx_docsearch'                # Docsearch extension
 ]
 
 # sphinxcontrib-bibtex extension settings
@@ -53,6 +54,11 @@ napoleon_numpy_docstring = True
 pygments_style = "default"
 # Select a different color scheme for dark mode
 pygments_style_dark = "github-dark"
+
+# docsearch settings
+docsearch_app_id = "TFRLLVQ6L2"
+docsearch_api_key = "90b2f507bfc964d75264981bad0472a1"
+docsearch_index_name = "1d38ca92dd74f9e2a3cd0c83e5a5412d"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
