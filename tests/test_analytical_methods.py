@@ -95,10 +95,10 @@ def methods(tracks):
     ]
 
 @pytest.mark.parametrize("method_name", [
-    'ThompsonEBBCont1LSupp',
-    'ThompsonEBBCont2LSupp',
-    'ThompsonTSDiscr2LSupp',
-    'ThompsonTSDiscr1LSupp',
+    'EBBCont1LSupp',
+    'EBBCont2LSupp',
+    'TSDiscr2LSupp',
+    'TSDiscr1LSupp',
 ])
 def test_analytical_methods(method_name, methods, load_csv_data):
     """Test analytical methods against precomputed data."""

@@ -4,9 +4,9 @@
     :toctree: discretization
 
     Discretization
-    DiscretizationFDMStampka
-    DiscretizationFDMStampkaConst
-    DiscretizationFDMStampkaTimeDepend
+    DiscretizationEBBVertic
+    DiscretizationEBBVerticConst
+    DiscretizationEBBVerticTimeDepend
 """
 
 import abc
@@ -17,7 +17,7 @@ from scipy.sparse import SparseEfficiencyWarning, csc_matrix, diags, eye
 from traitlets import Instance
 
 from .abstract_traits import ABCHasTraits
-from .boundary import PMLStampka
+from .boundary import PMLRailDampVertic
 from .track import (
     ArrangedBallastedSingleRailTrack,
     ArrangedSlabSingleRailTrack,
@@ -36,7 +36,7 @@ class Discretization(ABCHasTraits):
         """Validate the discretization."""
 
 
-class DiscretizationFDMStampka(Discretization):
+class DiscretizationEBBVertic(Discretization):
     r"""Abstract base class for FDM discretization according to :cite:t:`stampka2022a`.
 
     Discretizes the differential equation and can be applied either with constant or time-dependent
@@ -44,7 +44,7 @@ class DiscretizationFDMStampka(Discretization):
 
     Attributes
     ----------
-    bound : PMLStampka
+    bound : PMLRailDampVertic
         Boundary instance.
     A : scipy.sparse.csc_matrix
         Coefficient matrix A.
@@ -54,7 +54,7 @@ class DiscretizationFDMStampka(Discretization):
         Coefficient matrix C.
     """
 
-    bound = Instance(PMLStampka)
+    bound = Instance(PMLRailDampVertic)
 
     def __init__(self, bound):
         self.bound = bound
@@ -170,7 +170,7 @@ class DiscretizationFDMStampka(Discretization):
         """Validate the discretization according to Stampka."""
 
 
-class DiscretizationFDMStampkaConst(DiscretizationFDMStampka):
+class DiscretizationEBBVerticConst(DiscretizationEBBVertic):
     r"""Discretization with non-time-dependent parameters according to :cite:t:`stampka2022a`.
 
     The parameters are constant over time. Only applicable for non-moving sound sources
@@ -178,7 +178,7 @@ class DiscretizationFDMStampkaConst(DiscretizationFDMStampka):
 
     Attributes
     ----------
-    bound : PMLStampka
+    bound : PMLRailDampVertic
         Boundary instance.
     A : scipy.sparse.csc_matrix
         Coefficient matrix A.
@@ -327,7 +327,7 @@ class DiscretizationFDMStampkaConst(DiscretizationFDMStampka):
         self.vec_db += self.track.ballast.db[0] / self.grid.dx
 
 
-class DiscretizationFDMStampkaTimeDepend(DiscretizationFDMStampkaConst):
+class DiscretizationEBBVerticTimeDepend(DiscretizationEBBVerticConst):
     """
     Discretization with time-dependent parameters based on :cite:t:`stampka2022a`.
 

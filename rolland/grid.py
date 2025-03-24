@@ -4,7 +4,7 @@
     :toctree: grid
 
     Grid
-    GridFDMStampka
+    GridEBBVertic
 """
 
 import abc
@@ -31,7 +31,7 @@ class Grid(ABCHasTraits):
     def validate_grid(self):
         """Validate grid parameters."""
 
-class GridFDMStampka(Grid):
+class GridEBBVertic(Grid):
     r"""Calculate grid parameters for FDM simulation according to :cite:t:`stampka2022a`.
 
     The spatial step size :math:`\Delta x` is adjusted to ensure that the default sleeper spacing

@@ -15,7 +15,7 @@ from numpy import exp, linspace
 from traitlets import Float, Instance
 
 from .abstract_traits import ABCHasTraits
-from .grid import GridFDMStampka
+from .grid import GridEBBVertic
 
 
 class Excitation(ABCHasTraits):
@@ -42,7 +42,7 @@ class GaussianImpulse(StationaryExcitation):
 
     Attributes
     ----------
-    grid : GridFDMStampka
+    grid : GridEBBVertic
         Grid instance.
     sigma : float
         Pulse parameter (regulates pulse-time) :math:`[-]`.
@@ -53,7 +53,7 @@ class GaussianImpulse(StationaryExcitation):
     """
 
     # Grid instance
-    grid = Instance(GridFDMStampka)
+    grid = Instance(GridEBBVertic)
 
     # Pulse parameter (regulates pulse-time) [-]
     sigma = Float(default_value=0.7e-4)

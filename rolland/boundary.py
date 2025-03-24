@@ -3,33 +3,33 @@
 .. autosummary::
     :toctree: boundary
 
-    PMLStampka
+    PMLRailDampVertic
 """
 
 from numpy import linspace
 from traitlets import HasTraits, Instance
 
-from .grid import GridFDMStampka
+from .grid import GridEBBVertic
 
 
-class PMLStampka(HasTraits):
+class PMLRailDampVertic(HasTraits):
     r"""Calculate the boundary domain properties according to :cite:t:`stampka2022a`.
 
     A perfectly matched layer (PML) method is used which increases the rail damping
-    coefficient in the boundary domain.
+    coefficient in the boundary domain for the vertical rail deflection.
 
     Attributes
     ----------
     track : Track
         Track instance.
-    grid : GridFDMStampka
+    grid : GridEBBVertic
         Grid instance.
     pml : numpy.ndarray
         Array containing the damping values in the boundary domain :math:`[-]`.
     """
 
     # Grid instance
-    grid = Instance(GridFDMStampka)
+    grid = Instance(GridEBBVertic)
 
     def __init__(self, *args, **kwargs):
         """Calculate boundary properties."""

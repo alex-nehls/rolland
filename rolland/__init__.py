@@ -6,12 +6,12 @@
 
 from .abstract_traits import ABCHasStrictTraits, ABCHasTraits
 from .arrangement import Arrangement, PeriodicArrangement, StochasticArrangement
-from .boundary import PMLStampka
+from .boundary import PMLRailDampVertic
 from .components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper, Wheel, WheelGreensfunc
-from .deflection import Deflection, DeflectionFDMStampka
-from .discretization import Discretization, DiscretizationFDMStampkaConst
+from .deflection import Deflection, DeflectionEBBVertic
+from .discretization import Discretization, DiscretizationEBBVerticConst
 from .excitation import Excitation, GaussianImpulse
-from .grid import GridFDMStampka
+from .grid import GridEBBVertic
 from .track import (
                     ArrangedBallastedSingleRailTrack,
                     ArrangedSlabSingleRailTrack,
@@ -35,7 +35,7 @@ __all__ = ["Arrangement",
            "WheelGreensfunc",
            "ABCHasTraits",
            "ABCHasStrictTraits",
-           "DiscretizationFDMStampkaConst",
+           "DiscretizationEBBVerticConst",
            "Excitation",
            "ArrangedBallastedSingleRailTrack",
            "ArrangedSlabSingleRailTrack",
@@ -43,11 +43,11 @@ __all__ = ["Arrangement",
            "ContSlabSingleRailTrack",
            "SimplePeriodicBallastedSingleRailTrack",
            "SimplePeriodicSlabSingleRailTrack",
-           "GridFDMStampka",
+           "GridEBBVertic",
            "Track",
-           "PMLStampka",
+           "PMLRailDampVertic",
            "Deflection",
-           "DeflectionFDMStampka",
+           "DeflectionEBBVertic",
            "Discretization",
            "GaussianImpulse",
            ]

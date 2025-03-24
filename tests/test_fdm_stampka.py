@@ -10,12 +10,12 @@ from rolland import (
     ContBallastedSingleRailTrack,
     ContPad,
     ContSlabSingleRailTrack,
-    DeflectionFDMStampka,
-    DiscretizationFDMStampkaConst,
+    DeflectionEBBVertic,
+    DiscretizationEBBVerticConst,
     DiscrPad,
     GaussianImpulse,
-    GridFDMStampka,
-    PMLStampka,
+    GridEBBVertic,
+    PMLRailDampVertic,
     SimplePeriodicBallastedSingleRailTrack,
     SimplePeriodicSlabSingleRailTrack,
     Slab,
@@ -70,28 +70,28 @@ def tracks():
 def deflections(tracks):
     """Create deflection instances for testing."""
     grids = {
-        'grid_cont_slab': GridFDMStampka(
+        'grid_cont_slab': GridEBBVertic(
             track=tracks['track_cont_slab'],
             dt=2e-5,
             req_simt=0.4,
             bx=1,
             n_bound=600,
         ),
-        'grid_cont_ball': GridFDMStampka(
+        'grid_cont_ball': GridEBBVertic(
             track=tracks['track_cont_ball'],
             dt=2e-5,
             req_simt=0.4,
             bx=1,
             n_bound=600,
         ),
-        'grid_discr_slab': GridFDMStampka(
+        'grid_discr_slab': GridEBBVertic(
             track=tracks['track_discr_slab'],
             dt=2e-5,
             req_simt=0.4,
             bx=1,
             n_bound=600,
         ),
-        'grid_discr_ball': GridFDMStampka(
+        'grid_discr_ball': GridEBBVertic(
             track=tracks['track_discr_ball'],
             dt=2e-5,
             req_simt=0.4,
@@ -100,30 +100,30 @@ def deflections(tracks):
         ),
     }
 
-    bounds = {key: PMLStampka(grid=grid) for key, grid in grids.items()}
+    bounds = {key: PMLRailDampVertic(grid=grid) for key, grid in grids.items()}
     forces = {key: GaussianImpulse(grid=grid) for key, grid in grids.items()}
     discretizations = {
-        key: DiscretizationFDMStampkaConst(bound=bounds[key])
+        key: DiscretizationEBBVerticConst(bound=bounds[key])
         for key in bounds
     }
 
     return {
-        'mob_cont_slab': DeflectionFDMStampka(
+        'mob_cont_slab': DeflectionEBBVertic(
             discr=discretizations['grid_cont_slab'],
             excit=forces['grid_cont_slab'],
             x_excit=45.3,
         ),
-        'mob_cont_ball': DeflectionFDMStampka(
+        'mob_cont_ball': DeflectionEBBVertic(
             discr=discretizations['grid_cont_ball'],
             excit=forces['grid_cont_ball'],
             x_excit=45.3,
         ),
-        'mob_discr_slab': DeflectionFDMStampka(
+        'mob_discr_slab': DeflectionEBBVertic(
             discr=discretizations['grid_discr_slab'],
             excit=forces['grid_discr_slab'],
             x_excit=45.3,
         ),
-        'mob_discr_ball': DeflectionFDMStampka(
+        'mob_discr_ball': DeflectionEBBVertic(
             discr=discretizations['grid_discr_ball'],
             excit=forces['grid_discr_ball'],
             x_excit=45.3,

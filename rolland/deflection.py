@@ -4,7 +4,7 @@
     :toctree: deflection
 
     Deflection
-    DeflectionFDMStampka
+    DeflectionEBBVertic
 """
 
 import abc
@@ -43,7 +43,7 @@ class Deflection(ABCHasTraits):
         """Validate deflection."""
 
 
-class DeflectionFDMStampka(Deflection):
+class DeflectionEBBVertic(Deflection):
     r"""Calculate deflection according to :cite:t:`stampka2022a`.
 
     Attributes
