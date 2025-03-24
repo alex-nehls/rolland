@@ -57,8 +57,8 @@ pygments_style_dark = "github-dark"
 
 # docsearch settings
 docsearch_app_id = "TFRLLVQ6L2"
-docsearch_api_key = "90b2f507bfc964d75264981bad0472a1"
-docsearch_index_name = "1d38ca92dd74f9e2a3cd0c83e5a5412d"
+docsearch_api_key = "94b06103f2d9222f8335aad9da275035"
+docsearch_index_name = "rolland-rolling-noise-and-dynamics"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
