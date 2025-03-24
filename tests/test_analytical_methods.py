@@ -19,10 +19,10 @@ from rolland import (
 )
 from rolland.database.rail.db_rail import UIC60
 from rolland.methods import (
-    ThompsonEBBCont1LSupp,
-    ThompsonEBBCont2LSupp,
-    ThompsonTSDiscr1LSupp,
-    ThompsonTSDiscr2LSupp,
+    EBBCont1LSupp,
+    EBBCont2LSupp,
+    TSDiscr1LSupp,
+    TSDiscr2LSupp,
 )
 
 # Constants
@@ -86,12 +86,12 @@ def tracks():
 def methods(tracks):
     """Create analytical methods for testing."""
     return [
-        ThompsonEBBCont1LSupp(track=tracks['track_cont_slab'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
-        ThompsonEBBCont2LSupp(track=tracks['track_cont_ball'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
-        ThompsonTSDiscr2LSupp(track=tracks['track_discr_ball'], f=FREQUENCY_RANGE, force=FORCE, x=array([X_EXCIT]),
-                              x_excit=X_EXCIT),
-        ThompsonTSDiscr1LSupp(track=tracks['track_discr_slab'], f=FREQUENCY_RANGE, force=FORCE, x=array([X_EXCIT]),
-                              x_excit=X_EXCIT),
+        EBBCont1LSupp(track=tracks['track_cont_slab'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
+        EBBCont2LSupp(track=tracks['track_cont_ball'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
+        TSDiscr2LSupp(track=tracks['track_discr_ball'], f=FREQUENCY_RANGE, force=FORCE, x=array([X_EXCIT]),
+                      x_excit=X_EXCIT),
+        TSDiscr1LSupp(track=tracks['track_discr_slab'], f=FREQUENCY_RANGE, force=FORCE, x=array([X_EXCIT]),
+                      x_excit=X_EXCIT),
     ]
 
 @pytest.mark.parametrize("method_name", [

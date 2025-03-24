@@ -101,7 +101,7 @@ class AnalyticalMethods(ABCHasTraits):
         self.ub = self.vb / (self.omega * 1j)
 
 
-class ThompsonEBBCont1LSupp(AnalyticalMethods):
+class EBBCont1LSupp(AnalyticalMethods):
     r"""Method for continuous slab single rail track according to :cite:t:`thompson2024j`.
 
     Utilizes a single-layer support with continuous track properties, applying Euler-Bernoulli beam
@@ -176,7 +176,7 @@ class ThompsonEBBCont1LSupp(AnalyticalMethods):
         return self.mobility, self.omega_0
 
 
-class ThompsonEBBCont2LSupp(AnalyticalMethods):
+class EBBCont2LSupp(AnalyticalMethods):
     r"""Method for continuous ballasted single rail track according to :cite:t:`thompson2024j`.
 
     Utilizes a double-layer support with continuous track properties, applying Euler-Bernoulli beam
@@ -266,7 +266,7 @@ class ThompsonEBBCont2LSupp(AnalyticalMethods):
         return self.mobility, self.omega_0, self.omega_1, self.omega_2
 
 
-class ThompsonTBDiscr(AnalyticalMethods):
+class TBDiscr(AnalyticalMethods):
     r"""Base class for analytical solutions of a discrete single rail track.
 
     Attributes
@@ -416,7 +416,7 @@ class ThompsonTBDiscr(AnalyticalMethods):
         self.mobility = (self.ux * self.omega * 1j) / self.force
 
 
-class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
+class TSDiscr1LSupp(TBDiscr):
     r"""Method for discrete slab track according to :cite:t:`thompson2024j` and :cite:t:`heckl1995`.
 
     Utilizes a single-layer support with discrete track properties, applying Timoshenko beam
@@ -467,7 +467,7 @@ class ThompsonTSDiscr1LSupp(ThompsonTBDiscr):
         self.compute_mobility_common(self.track, self.track.slab.ms, 1e20, 0)
 
 
-class ThompsonTSDiscr2LSupp(ThompsonTBDiscr):
+class TSDiscr2LSupp(TBDiscr):
     r"""Method for discrete ballasted track according to :cite:t:`thompson2024j`.
 
     Utilizes a double-layer support with discrete track properties, applying Timoshenko beam
