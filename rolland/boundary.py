@@ -6,10 +6,7 @@
     PMLRailDampVertic
 """
 
-from numpy import linspace
-from traitlets import HasTraits, Instance
-
-from .grid import GridEBBVertic
+from traitlets import Float, HasTraits
 
 
 class PMLRailDampVertic(HasTraits):
@@ -20,38 +17,15 @@ class PMLRailDampVertic(HasTraits):
 
     Attributes
     ----------
-    track : Track
-        Track instance.
-    grid : GridEBBVertic
-        Grid instance.
-    pml : numpy.ndarray
-        Array containing the damping values in the boundary domain :math:`[-]`.
+    alpha : float
+        Damping exponent :math:`[-]`.
+    l_bound : float
+        Length of the boundary domain (single sided) :math:`[m]`.
     """
 
-    # Grid instance
-    grid = Instance(GridEBBVertic)
+    alpha = Float(default_value=7)
+    l_bound = Float(default_value=33.0)
 
-    def __init__(self, *args, **kwargs):
-        """Calculate boundary properties."""
-        super().__init__(*args, **kwargs)
-        # Boundary Coefficient
-
-        youm = self.grid.track.rail.E
-        shearm = self.grid.track.rail.Iyr
-        mr = self.grid.track.rail.mr
-        dt = self.grid.dt
-        dx = self.grid.dx
-        n_bound = self.grid.n_bound
-        l_bound = self.grid.l_bound
-        # Rail stiffness
-
-        r = (youm * shearm) / mr *  dt ** 2 / dx ** 4
-
-        # Rail damping coefficient in boundary domain
-        drbc = r / 2 * mr / dt
-
-        # Grid points in boundary domain
-        xbc = linspace(0, l_bound, int(n_bound))
-
-        # Function for increasing damping, added to dr
-        self.pml = drbc * xbc ** 7 / (dx * n_bound) ** 7
+    def pml(self, drbc, xbc):
+        """Exponential increasing rail damping, added to dr."""
+        return drbc * xbc ** self.alpha / self.l_bound ** self.alpha
