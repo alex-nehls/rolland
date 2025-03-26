@@ -48,7 +48,7 @@ from rolland.database.rail.db_rail import UIC60
 # Import double layer track with descrete mounting positions
 from rolland import SimplePeriodicBallastedSingleRailTrack
 # Import classes required for numerical simulation
-from rolland import GridEBBVertic, PMLRailDampVertic, GaussianImpulse, DiscretizationEBBVerticConst, DeflectionFDMStampka
+from rolland import PMLRailDampVertic, GaussianImpulse, DiscretizationEBBVerticConst, DeflectionEBBVertic
 # import postprocessing functions
 from rolland.postprocessing import response_fdm, plot
 
@@ -61,20 +61,17 @@ track = SimplePeriodicBallastedSingleRailTrack(
     num_mount=243,
     distance=0.6)
 
-# Define grid
-grid = GridEBBVertic(track=track, dt=2e-5, req_simt=0.4, bx=1, n_bound=600)
+# Define boundary domain (Perfectly Matched Layer) --> 33.0m on each side
+bound = PMLRailDampVertic(l_bound=33.0)
 
-# Define boundary domain (Perfectly Matched Layer)
-bound = PMLRailDampVertic(grid=grid)
-
-# Define excitation (Gaussian Impulse)
-excit = GaussianImpulse(grid=grid)
+# Define excitation (Gaussian Impulse) --> Excitation between sleepers at 71.7m
+excit = GaussianImpulse(x_excit=71.7)
 
 # Discretize
-discr = DiscretizationEBBVerticConst(bound=bound)
+discr = DiscretizationEBBVerticConst(track = track, bound=bound, dt=2e-5, req_simt=0.4)
 
-# Run simulation and calculate deflection over time (excitation at 71.7m between two sleepers)
-defl = DeflectionFDMStampka(discr=discr, excit=excit, x_excit=71.7)
+# Run simulation and calculate deflection over time
+defl = DeflectionEBBVertic(discr=discr, excit=excit)
 
 # Postprocessing: Calculate frequency response at x = x_excit (receptance, mobility, accelerance)
 fftfre, rez, mob, accel = response_fdm(defl)

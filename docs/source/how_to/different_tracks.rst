@@ -54,35 +54,29 @@ with a single or double layer. See :cite:`thompson2024j` for more information.
         num_mount=243,
         distance=0.6)
 
-    # Define grids
-    grid1 = GridFDMStampka(track = track1, dt=2e-5, req_simt=0.4, bx=1, n_bound=600)
-    grid2 = GridFDMStampka(track = track2, dt=2e-5, req_simt=0.4, bx=1, n_bound=600)
-    grid3 = GridFDMStampka(track = track3, dt=2e-5, req_simt=0.4, bx=1, n_bound=600)
-    grid4 = GridFDMStampka(track = track4, dt=2e-5, req_simt=0.4, bx=1, n_bound=600)
+    # Define boundary domains (Perfectly Matched Layer) --> 33.0m on each side
+    bound1 = PMLStampka(l_bound=33.00)
+    bound2 = PMLStampka(l_bound=33.00)
+    bound3 = PMLStampka(l_bound=33.00)
+    bound4 = PMLStampka(l_bound=33.00)
 
-    # Define boundary domains (Perfectly Matched Layer)
-    bound1 = PMLStampka(grid=grid1)
-    bound2 = PMLStampka(grid=grid2)
-    bound3 = PMLStampka(grid=grid3)
-    bound4 = PMLStampka(grid=grid4)
-
-    # Define excitation (Gaussian Impulse)
-    force1 = GaussianImpulse(grid=grid1)
-    force2 = GaussianImpulse(grid=grid2)
-    force3 = GaussianImpulse(grid=grid3)
-    force4 = GaussianImpulse(grid=grid4)
+    # Define excitation (Gaussian Impulse) --> Excitation between sleepers at 71.7m
+    force1 = GaussianImpulse(x_excit=71.7)
+    force2 = GaussianImpulse(x_excit=71.7)
+    force3 = GaussianImpulse(x_excit=71.7)
+    force4 = GaussianImpulse(x_excit=71.7)
 
     # Discretize
-    discr1 = DiscretizationFDMStampkaConst(bound=bound1)
-    discr2 = DiscretizationFDMStampkaConst(bound=bound2)
-    discr3 = DiscretizationFDMStampkaConst(bound=bound3)
-    discr4 = DiscretizationFDMStampkaConst(bound=bound4)
+    discr1 = DiscretizationEBBVerticConst(track = track1, bound=bound1, dt=2e-5, req_simt=0.4)
+    discr2 = DiscretizationEBBVerticConst(track = track2, bound=bound2, dt=2e-5, req_simt=0.4)
+    discr3 = DiscretizationEBBVerticConst(track = track3, bound=bound3, dt=2e-5, req_simt=0.4)
+    discr4 = DiscretizationEBBVerticConst(track = track4, bound=bound4, dt=2e-5, req_simt=0.4)
 
-    # Run simulations and calculate deflection over time (excitation at 71.7m)
-    defl1 = DeflectionFDMStampka(discr=discr1, excit=force1, x_excit=71.7)
-    defl2 = DeflectionFDMStampka(discr=discr2, excit=force2, x_excit=71.7)
-    defl3 = DeflectionFDMStampka(discr=discr3, excit=force3, x_excit=71.7)
-    defl4 = DeflectionFDMStampka(discr=discr4, excit=force4, x_excit=71.7)
+    # Run simulations and calculate deflection over time
+    defl1 = DeflectionEBBVertic(discr=discr1, excit=force1)
+    defl2 = DeflectionEBBVertic(discr=discr2, excit=force2)
+    defl3 = DeflectionEBBVertic(discr=discr3, excit=force3)
+    defl4 = DeflectionEBBVertic(discr=discr4, excit=force4)
 
     # Postprocessing: Calculate frequency response at x = x_excit (receptance, mobility, accelerance)
     fftfre1, rez1, mob1, accel1 = response_fdm(defl1)
