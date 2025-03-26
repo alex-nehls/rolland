@@ -14,7 +14,6 @@ from rolland import (
     DiscretizationEBBVerticConst,
     DiscrPad,
     GaussianImpulse,
-    GridEBBVertic,
     PMLRailDampVertic,
     SimplePeriodicBallastedSingleRailTrack,
     SimplePeriodicSlabSingleRailTrack,
@@ -41,7 +40,7 @@ def tracks():
         'track_cont_slab': ContSlabSingleRailTrack(
             rail=UIC60,
             pad=ContPad(sp=[300 * 10**6, 0], dp=[30000, 0]),
-            l_track = 90,
+            l_track=90,
         ),
         'track_cont_ball': ContBallastedSingleRailTrack(
             rail=UIC60,
@@ -69,64 +68,67 @@ def tracks():
 @pytest.fixture(scope="module")
 def deflections(tracks):
     """Create deflection instances for testing."""
-    grids = {
-        'grid_cont_slab': GridEBBVertic(
-            track=tracks['track_cont_slab'],
-            dt=2e-5,
-            req_simt=0.4,
-            bx=1,
-            n_bound=600,
-        ),
-        'grid_cont_ball': GridEBBVertic(
-            track=tracks['track_cont_ball'],
-            dt=2e-5,
-            req_simt=0.4,
-            bx=1,
-            n_bound=600,
-        ),
-        'grid_discr_slab': GridEBBVertic(
-            track=tracks['track_discr_slab'],
-            dt=2e-5,
-            req_simt=0.4,
-            bx=1,
-            n_bound=600,
-        ),
-        'grid_discr_ball': GridEBBVertic(
-            track=tracks['track_discr_ball'],
-            dt=2e-5,
-            req_simt=0.4,
-            bx=1,
-            n_bound=600,
-        ),
+    bounds = {
+        'bound1': PMLRailDampVertic(l_bound=32.73),
+        'bound2': PMLRailDampVertic(l_bound=32.73),
+        'bound3': PMLRailDampVertic(l_bound=32.73),
+        'bound4': PMLRailDampVertic(l_bound=32.73),
     }
 
-    bounds = {key: PMLRailDampVertic(grid=grid) for key, grid in grids.items()}
-    forces = {key: GaussianImpulse(grid=grid) for key, grid in grids.items()}
+    forces = {
+        'force1': GaussianImpulse(x_excit=45.3),
+        'force2': GaussianImpulse(x_excit=45.3),
+        'force3': GaussianImpulse(x_excit=45.3),
+        'force4': GaussianImpulse(x_excit=45.3),
+    }
+
     discretizations = {
-        key: DiscretizationEBBVerticConst(bound=bounds[key])
-        for key in bounds
+        'discr1': DiscretizationEBBVerticConst(
+            track=tracks['track_cont_slab'],
+            bound=bounds['bound1'],
+            dt=2e-5,
+            req_simt=0.4,
+            bx=1,
+        ),
+        'discr2': DiscretizationEBBVerticConst(
+            track=tracks['track_cont_ball'],
+            bound=bounds['bound2'],
+            dt=2e-5,
+            req_simt=0.4,
+            bx=1,
+        ),
+        'discr3': DiscretizationEBBVerticConst(
+            track=tracks['track_discr_slab'],
+            bound=bounds['bound3'],
+            dt=2e-5,
+            req_simt=0.4,
+            bx=1,
+        ),
+        'discr4': DiscretizationEBBVerticConst(
+            track=tracks['track_discr_ball'],
+            bound=bounds['bound4'],
+            dt=2e-5,
+            req_simt=0.4,
+            bx=1,
+        ),
     }
 
     return {
         'mob_cont_slab': DeflectionEBBVertic(
-            discr=discretizations['grid_cont_slab'],
-            excit=forces['grid_cont_slab'],
-            x_excit=45.3,
+            discr=discretizations['discr1'],
+            excit=forces['force1'],
         ),
         'mob_cont_ball': DeflectionEBBVertic(
-            discr=discretizations['grid_cont_ball'],
-            excit=forces['grid_cont_ball'],
-            x_excit=45.3,
+            discr=discretizations['discr2'],
+            excit=forces['force2'],
         ),
         'mob_discr_slab': DeflectionEBBVertic(
-            discr=discretizations['grid_discr_slab'],
-            excit=forces['grid_discr_slab'],
-            x_excit=45.3,
+            discr=discretizations['discr3'],
+            excit=forces['force3'],
         ),
         'mob_discr_ball': DeflectionEBBVertic(
-            discr=discretizations['grid_discr_ball'],
-            excit=forces['grid_discr_ball'],
-            x_excit=45.3,
+            discr=discretizations['discr4'],
+            excit=forces['force4'],
         ),
     }
 
