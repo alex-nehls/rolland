@@ -22,7 +22,7 @@ with a single or double layer. See :cite:`thompson2024j` for more information.
         SimplePeriodicSlabSingleRailTrack,
         SimplePeriodicBallastedSingleRailTrack)
     # Import classes required for numerical simulation
-    from rolland import GridFDMStampka, PMLStampka, GaussianImpulse, DiscretizationFDMStampkaConst, DeflectionFDMStampka
+    from rolland import GaussianImpulse, DiscretizationEBBVerticConst, DeflectionEBBVertic, PMLRailDampVertic
     # Import postprocessing functions
     from rolland.postprocessing import response_fdm, plot
 
@@ -30,15 +30,15 @@ with a single or double layer. See :cite:`thompson2024j` for more information.
     # Continuous slab track
     track1 = ContSlabSingleRailTrack(
         rail=UIC60,
-        pad=ContPad(sp=[300*10**6, 0], dp=[30000, 0])),
-        l_track = 145.2
+        pad=ContPad(sp=[300*10**6, 0], dp=[30000, 0]),
+        l_track = 145.2)
     # Continuous ballasted track
     track2 = ContBallastedSingleRailTrack(
         rail=UIC60,
         pad=ContPad(sp=[300*10**6, 0], dp=[30000, 0]),
         slab=Slab(ms=250),
-        ballast=Ballast(sb=[100*10**6, 0], db=[80000, 0])),
-        l_track = 145.2
+        ballast=Ballast(sb=[100*10**6, 0], db=[80000, 0]),
+        l_track = 145.2)
     # Discrete slab track
     track3 = SimplePeriodicSlabSingleRailTrack(
         rail=UIC60,
@@ -55,10 +55,10 @@ with a single or double layer. See :cite:`thompson2024j` for more information.
         distance=0.6)
 
     # Define boundary domains (Perfectly Matched Layer) --> 33.0m on each side
-    bound1 = PMLStampka(l_bound=33.00)
-    bound2 = PMLStampka(l_bound=33.00)
-    bound3 = PMLStampka(l_bound=33.00)
-    bound4 = PMLStampka(l_bound=33.00)
+    bound1 = PMLRailDampVertic(l_bound=33.00)
+    bound2 = PMLRailDampVertic(l_bound=33.00)
+    bound3 = PMLRailDampVertic(l_bound=33.00)
+    bound4 = PMLRailDampVertic(l_bound=33.00)
 
     # Define excitation (Gaussian Impulse) --> Excitation between sleepers at 71.7m
     force1 = GaussianImpulse(x_excit=71.7)
@@ -90,7 +90,7 @@ with a single or double layer. See :cite:`thompson2024j` for more information.
           'ContBallastedSingleRailTrack',
           'SimplePeriodicSlabSingleRailTrack',
           'SimplePeriodicBallastedSingleRailTrack'],
-          'Frequency Resonse', 'f [Hz]', 'Mobility [m/Ns]')
+         'Frequency Resonse', 'f [Hz]', 'Mobility [m/Ns]')
 
 
 
