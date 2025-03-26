@@ -11,11 +11,11 @@
 
 import abc
 
-from numpy import exp, linspace
-from traitlets import Float, Instance
+from numpy import exp
+from traitlets import Float, List, Union
+from traittypes import Array
 
 from .abstract_traits import ABCHasTraits
-from .grid import GridEBBVertic
 
 
 class Excitation(ABCHasTraits):
@@ -42,24 +42,17 @@ class GaussianImpulse(StationaryExcitation):
 
     Attributes
     ----------
-    grid : GridEBBVertic
-        Grid instance.
     sigma : float
         Pulse parameter (regulates pulse-time) :math:`[-]`.
     a : float
         Pulse parameter (regulates amplitude) :math:`[s]`.
-    force : array
-        Force array (contains force over time) :math:`[N]`.
+    x_excit : float
+        Excitation position :math:`[m]`.
     """
 
-    # Grid instance
-    grid = Instance(GridEBBVertic)
-
-    # Pulse parameter (regulates pulse-time) [-]
     sigma = Float(default_value=0.7e-4)
-
-    # Pulse parameter (regulates amplitude) [s]
     a = Float(default_value=0.5e2)
+    x_excit = Union([List(), Float(default_value=50.0)])
 
     def validate_excitation(self):
         """Validate excitation parameters."""
@@ -67,15 +60,10 @@ class GaussianImpulse(StationaryExcitation):
     def validate_stationary_excitation(self):
         """Validate stationary excitation parameters."""
 
-    def __init__(self, *args, **kwargs):
-        """Compute force array."""
-        super().__init__(*args, **kwargs)
-        # Time array
-        t = linspace(0, self.grid.sim_t, self.grid.nt)
-
-        # Compute force array (contains force over time)
+    def force(self, t):
+        """Compute force array (contains force over time)."""
         tg = t - 4 * self.sigma
-        self.force = self.a * tg / self.sigma ** 2 * exp(-tg ** 2 / self.sigma ** 2)
+        return self.a * tg / self.sigma ** 2 * exp(-tg ** 2 / self.sigma ** 2)
 
 
 class MovingExcitation(Excitation):

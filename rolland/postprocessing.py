@@ -49,10 +49,8 @@ def response(defl, f_min=100, f_max=3000):
     tuple
         Frequencies, Receptance, Mobility, and Accelerance.
     """
-    force = defl.force
-    dt = defl.dt
-    fftfre, ffft = fast_fourier_transform(force, dt)
-    fftfre, ufft = fast_fourier_transform(defl, dt)
+    fftfre, ffft = fast_fourier_transform(defl.force, defl.dt)
+    fftfre, ufft = fast_fourier_transform(defl, defl.dt)
 
     rez = ufft / ffft
     mob = 1j * fftfre * 2 * pi * rez
@@ -78,13 +76,13 @@ def response_fdm(defl, dist = 0, f_min=100, f_max=3000):
     tuple
         Frequencies, Receptance, Mobility, and Accelerance.
     """
-    grid = defl.discr.grid
-    force = defl.excit.force
-    ind_trans = defl.ind_excit + int(dist // grid.dx + 1)
-    defl = defl.deflection[ind_trans, 0 : grid.nt]
+    discr = defl.discr
+    force = defl.force
+    ind_trans = defl.ind_excit + int(dist // discr.dx + 1)
+    defl = defl.deflection[ind_trans, 0 : discr.nt]
 
-    fftfre, ffft = fast_fourier_transform(force, grid.dt)
-    fftfre, ufft = fast_fourier_transform(defl, grid.dt)
+    fftfre, ffft = fast_fourier_transform(force, discr.dt)
+    fftfre, ufft = fast_fourier_transform(defl, discr.dt)
 
     rez = ufft / ffft
     mob = 1j * fftfre * 2 * pi * rez

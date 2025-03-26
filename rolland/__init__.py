@@ -11,7 +11,6 @@ from .components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper, Wheel, 
 from .deflection import Deflection, DeflectionEBBVertic
 from .discretization import Discretization, DiscretizationEBBVerticConst
 from .excitation import Excitation, GaussianImpulse
-from .grid import GridEBBVertic
 from .track import (
                     ArrangedBallastedSingleRailTrack,
                     ArrangedSlabSingleRailTrack,
@@ -43,7 +42,6 @@ __all__ = ["Arrangement",
            "ContSlabSingleRailTrack",
            "SimplePeriodicBallastedSingleRailTrack",
            "SimplePeriodicSlabSingleRailTrack",
-           "GridEBBVertic",
            "Track",
            "PMLRailDampVertic",
            "Deflection",
