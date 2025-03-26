@@ -81,7 +81,7 @@ class DiscretizationEBBVertic(Discretization):
     bound = Instance(PMLRailDampVertic)
     dt = Float()
     req_simt = Float()
-    bx = Float()
+    bx = Float(default_value=1.0)
 
     def calc_grid(self):
         """Calculate grid parameters."""
