@@ -13,7 +13,6 @@ import abc
 
 from numpy import exp
 from traitlets import Float, List, Union
-from traittypes import Array
 
 from .abstract_traits import ABCHasTraits
 
