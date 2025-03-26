@@ -75,7 +75,6 @@ Explore
          :maxdepth: 1
          :titlesonly:
 
-         rolland/grid
          rolland/boundary
          rolland/excitation
          rolland/discretization
