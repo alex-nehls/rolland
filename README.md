@@ -15,6 +15,7 @@ and optimize the acoustic properties of railway tracks, with a focus on realisti
 
 # Features
 **Current Features:**
+- Calculates the track response for a non-moving gaussian impulse at a certain position
 - Applies Finite Difference Method in time domain
 - Allows the definition of arbitrary track structures
   - Enables periodic or stochastic variations of the track properties (e.g. stochastically varying sleeper distances)
