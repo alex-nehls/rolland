@@ -15,6 +15,10 @@ select = [
         "C901" # others
         ]
 
+ignore = [
+    "F811", # redefinition of unused '...'
+]
+
 # Allow fix for all enabled rules (when `--fix`) is provided.
 fixable = ["ALL"]
 unfixable = []
