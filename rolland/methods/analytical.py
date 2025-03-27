@@ -32,19 +32,23 @@ class AnalyticalMethods(ABCHasTraits):
     ----------
     f : numpy.ndarray
         Excitation frequencies :math:`[Hz]`.
+    omega : numpy.ndarray
+        Angular frequency :math:`[rad/s]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
     x : list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
+    mobility : numpy.ndarray
+        Calculated mobility of the track :math:`[m/N]`.
     """
 
     f = Array()
+    omega = Float()
     force = Array(default_value=1.0)
     x_excit = Float(default_value=0.0)
     x = List(default_value=[0.0])
-    omega = Float(default_value=1.0)
     mobility = Array()
 
     def __init__(self, **kwargs):
@@ -60,8 +64,8 @@ class AnalyticalMethods(ABCHasTraits):
         self.compute_mobility()
         self.compute_vibration()
 
-    @observe('f', 'force', 'x_excit', 'x', 'omega')
-    def _update_on_change(self):
+    @observe('f', 'force', 'x_excit', 'x')
+    def _update_on_change(self, change):
         self.compute_mobility()
         self.compute_vibration()
 
@@ -111,7 +115,7 @@ class EBBCont1LSupp(AnalyticalMethods):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : numpy.ndarray
+    x : list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
@@ -186,7 +190,7 @@ class EBBCont2LSupp(AnalyticalMethods):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : numpy.ndarray
+    x : list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
@@ -272,7 +276,7 @@ class TBDiscr(AnalyticalMethods):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : numpy.ndarray
+    x : list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
@@ -434,7 +438,7 @@ class TSDiscr1LSupp(TBDiscr):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : numpy.ndarray
+    x : list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
@@ -485,7 +489,7 @@ class TSDiscr2LSupp(TBDiscr):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : numpy.ndarray
+    x : list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
