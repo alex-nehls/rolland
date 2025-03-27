@@ -11,7 +11,7 @@ import abc
 
 from numpy import empty, linspace, zeros
 from scipy.sparse.linalg import splu
-from traitlets import Float, Instance
+from traitlets import Instance
 
 from .abstract_traits import ABCHasTraits
 from .discretization import Discretization
