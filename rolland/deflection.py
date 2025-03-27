@@ -58,9 +58,6 @@ class DeflectionEBBVertic(Deflection):
         Index of excitation point :math:`[-]`.
     """
 
-    # Excitation point
-    x_excit = Float()
-
     def validate_deflection(self):
         """Validate deflection."""
 
