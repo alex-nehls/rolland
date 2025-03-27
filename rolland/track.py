@@ -116,9 +116,7 @@ class ContSlabSingleRailTrack(SlabSingleRailTrack):
 
     >>> thepad = ContPad(sp = [300*10**6, 0], dp = [30000, 0])
     >>> theslab = Slab(ms = 250)
-    >>> tr = ContSlabSingleRailTrack(rail = UIC60, pad = thepad, slab = theslab)
-    >>> tr.pad = thepad
-    >>> tr.slab = theslab
+    >>> track = ContSlabSingleRailTrack(rail = UIC60, pad = thepad, slab = theslab, l_track = 145)
     ...
     """
 
@@ -215,21 +213,18 @@ class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
 
     >>> thepad = DiscrPad(sp = [300*10**6, 0], dp = [30000, 0])
     >>> theslab = Slab(ms = 250)
-    >>> tr = SimplePeriodicSlabSingleRailTrack(
+    >>> track = SimplePeriodicSlabSingleRailTrack(
     ...     rail=UIC60,
     ...     pad=thepad,
     ...     slab=theslab,
     ...     distance=0.6,
     ...     num_mount=100)
-    >>> tr.mount_prop[0.0] = (thepad, None)
-    >>> tr.mount_prop[0.6] = (thepad, None)
-    >>> tr.mount_prop[1.2] = (thepad, None)
     ...
     """
 
     pad = Instance(DiscrPad)
-    distance = Float()
-    num_mount = Integer()
+    distance = Float(default_value=0.6)
+    num_mount = Integer(default_value=100)
 
     def __init__(self, *args, **kwargs):
         # Set the mounting properties
@@ -303,22 +298,18 @@ class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
     >>> theslab = Slab(ms = 250)
     >>> pad = PeriodicArrangement(item=[thepadA, thepadB])
     >>> distance = PeriodicArrangement(item=[0.65, 0.5])
-    >>> tr = ArrangedSlabSingleRailTrack(
+    >>> track = ArrangedSlabSingleRailTrack(
     ...     rail=UIC60,
     ...     pad=pad,
     ...     slab=theslab,
     ...     distance=distance,
     ...     num_mount=100)
-    >>> tr.mount_prop[0.0] = (thepadA, None)
-    >>> tr.mount_prop[0.65] = (thepadA, None)
-    >>> tr.mount_prop[1.15] = (thepadB, None)
-    >>> tr.mount_prop[1.8] = (thepadB, None)
     ...
     """
 
     pad = Instance(Arrangement)
     distance = Instance(Arrangement)
-    num_mount = Integer()
+    num_mount = Integer(default_value=100)
 
     def __init__(self, *args, **kwargs):
         # Set the mounting properties
@@ -402,15 +393,13 @@ class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
 
     >>> thepad = ContPad(sp = [300*10**6, 0], dp = [30000, 0])
     >>> theslab = Slab(ms = 250)
-    >>> tr = ContBallastedSingleRailTrack(rail = UIC60, pad = thepad, slab = theslab)
-    >>> tr.pad = thepad
-    >>> tr.slab = theslab
+    >>> track = ContBallastedSingleRailTrack(rail = UIC60, pad = thepad, slab = theslab)
     ...
     """
 
     pad = Instance(ContPad)
     slab = Instance(Slab)
-    l_track = Float()
+    l_track = Float(default_value=100.0)
 
     def validate_track(self):
         """Validate the track configuration."""
@@ -507,17 +496,13 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
     ...     rail=UIC60,
     ...     pad=thepad,
     ...     sleeper=thesleeper,
-    ...     distance=distance,
-    ...     num_mount=100)
-    >>> tr.mount_prop[0.0] = (thepad, thesleeper)
-    >>> tr.mount_prop[0.6] = (thepad, thesleeper)
-    ...
+    ...     distance=distance)
     """
 
     sleeper = Instance(Sleeper)
     pad = Instance(DiscrPad)
-    distance = Float()
-    num_mount = Integer()
+    distance = Float(default_value=0.6)
+    num_mount = Integer(default_value=100)
 
     def __init__(self, *args, **kwargs):
         # Set the mounting properties
@@ -596,23 +581,17 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
     >>> pad = PeriodicArrangement(item=[thepadA, thepadB])
     >>> distance = PeriodicArrangement(item=[0.65, 0.5])
     >>> sleeper = PeriodicArrangement(item=[thesleeperA, thesleeperB])
-    >>> tr = ArrangedBallastedSingleRailTrack(
+    >>> track = ArrangedBallastedSingleRailTrack(
     ...     rail=UIC60,
     ...     pad=pad,
     ...     sleeper=sleeper,
-    ...     distance=distance,
-    ...     num_mount=100)
-    >>> tr.mount_prop[0.0] = (thepadA, thesleeperA)
-    >>> tr.mount_prop[0.65] = (thepadB, thesleeperB)
-    >>> tr.mount_prop[1.15] = (thepadA, thesleeperA)
-    >>> tr.mount_prop[1.8] = (thepadB, thesleeperB)
-    ...
+    ...     distance=distance)
     """
 
     sleeper = Instance(Arrangement)
     pad = Instance(Arrangement)
     distance = Instance(Arrangement)
-    num_mount = Integer()
+    num_mount = Integer(default_value=100)
 
     def __init__(self, *args, **kwargs):
         # Set the mounting properties
