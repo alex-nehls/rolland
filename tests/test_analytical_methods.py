@@ -4,7 +4,7 @@ import csv
 
 import numpy as np
 import pytest
-from numpy import array, linspace
+from numpy import linspace
 
 from rolland import (
     Ballast,
