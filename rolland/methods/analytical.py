@@ -40,7 +40,7 @@ class AnalyticalMethods(ABCHasTraits):
         Excitation point :math:`[m]`.
     """
 
-    f = Array()
+    f = Array(default_value=1.0)
     force = Array()
     x = Array(default_value=0.0)
     x_excit = Float(default_value=0.0)
