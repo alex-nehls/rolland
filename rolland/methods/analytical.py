@@ -13,7 +13,7 @@
 import abc
 
 from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros
-from traitlets import Float, Instance
+from traitlets import Float, Instance, List, observe
 from traittypes import Array
 
 from rolland.track import (
@@ -34,16 +34,18 @@ class AnalyticalMethods(ABCHasTraits):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : numpy.ndarray
+    x : list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
     """
 
-    f = Array(default_value=1.0)
-    force = Array()
-    x = Array(default_value=0.0)
+    f = Array()
+    force = Array(default_value=1.0)
     x_excit = Float(default_value=0.0)
+    x = List(default_value=[0.0])
+    omega = Float(default_value=1.0)
+    mobility = Array()
 
     def __init__(self, **kwargs):
         """
@@ -55,23 +57,18 @@ class AnalyticalMethods(ABCHasTraits):
             Keyword arguments to initialize the class attributes.
         """
         super().__init__(**kwargs)
-        self.initialize_attributes()
         self.compute_mobility()
         self.compute_vibration()
 
-    def initialize_attributes(self):
-        """
-        Initialize computed attributes.
+    @observe('f', 'force', 'x_excit', 'x', 'omega')
+    def _update_on_change(self):
+        self.compute_mobility()
+        self.compute_vibration()
 
-        Attributes
-        ----------
-        omega : numpy.ndarray
-            Angular frequencies [rad/s].
-        mobility : numpy.ndarray
-            Mobility matrix initialized to zeros.
-        """
-        self.omega = 2 * pi * self.f
-        self.mobility = zeros((len(self.x), len(self.f)), dtype=complex)
+    @property
+    def omega(self):
+        """Calculate the angular frequency."""
+        return 2 * pi * self.f
 
     @abc.abstractmethod
     def compute_mobility(self):
@@ -166,7 +163,7 @@ class EBBCont1LSupp(AnalyticalMethods):
         k_p = ((self.omega ** 2 * mr - sp - 1j * self.omega * dp) /
                (self.track.rail.E * self.track.rail.Iyr)) ** (1/4)
 
-        abs_x = abs(self.x[:, None] - self.x_excit)  # Broadcast x over omega
+        abs_x = abs(array(self.x)[:, None] - self.x_excit)  # Broadcast x over omega
         term1 = exp(-1j * k_p * abs_x)
         term2 = -1j * exp(-k_p * abs_x)
 
@@ -256,7 +253,7 @@ class EBBCont2LSupp(AnalyticalMethods):
         k_p = ((self.omega ** 2 * mr - s_tot - 1j * self.omega * dp) /
                 (self.track.rail.E * self.track.rail.Iyr)) ** (1/4)
 
-        abs_x = abs(self.x[:, None] - self.x_excit)  # Broadcast x over omega  # Broadcast x over omega
+        abs_x = abs(array(self.x)[:, None] - self.x_excit)  # Broadcast x over omega  # Broadcast x over omega
         term1 = exp(-1j * k_p * abs_x)
         term2 = -1j * exp(-k_p * abs_x)
 
@@ -388,7 +385,7 @@ class TBDiscr(AnalyticalMethods):
         uxn = zeros((self.f.size, x_n.size), dtype=complex)
 
         # Displacements at requested points
-        self.ux = zeros((self.x.size, self.f.size), dtype=complex)
+        self.ux = zeros((array(self.x).size, self.f.size), dtype=complex)
 
         for f in range(self.f.size):
 
@@ -405,12 +402,12 @@ class TBDiscr(AnalyticalMethods):
             uxn[f, :] = linalg.solve(m, greensm_exc)
 
             # Calculate displacements at requested points (eq. 3.77)
-            for p in range(self.x.size):
+            for p in range(array(self.x).size):
                 # Greens function matrix requested points <--> reaction points
-                greensm_xn = self.calc_greens_func(self.x[p], x_n, k_p[f], k_d[f], f_p[f], f_d[f])
+                greensm_xn = self.calc_greens_func(array(self.x)[p], x_n, k_p[f], k_d[f], f_p[f], f_d[f])
 
                 # Greens function matrix requested points <--> excitation point
-                greensm_xf = self.calc_greens_func(self.x[p], self.x_excit, k_p[f], k_d[f], f_p[f], f_d[f])
+                greensm_xf = self.calc_greens_func(array(self.x)[p], self.x_excit, k_p[f], k_d[f], f_p[f], f_d[f])
                 self.ux[p, f] = - impend[f] * greensm_xn.dot(uxn[f, :]) + greensm_xf
 
         self.mobility = (self.ux * self.omega * 1j) / self.force
