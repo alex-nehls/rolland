@@ -123,7 +123,7 @@ class ContSlabSingleRailTrack(SlabSingleRailTrack):
     """
 
     pad = Instance(ContPad)
-    l_track = Float()
+    l_track = Float(default_value=100.0)
 
     def validate_track(self):
         """Validate the track configuration."""
