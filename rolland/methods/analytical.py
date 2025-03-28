@@ -67,6 +67,11 @@ class AnalyticalMethods(ABCHasTraits):
     def _update_on_change(self, change):
         self.compute_mobility()
 
+    @observe('x_excit')
+    def _set_default_x(self, change):
+        if self.x == 0.0:
+            self.x = self.x_excit
+
     @property
     def omega(self):
         """Calculate the angular frequency."""
