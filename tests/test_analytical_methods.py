@@ -4,7 +4,7 @@ import csv
 
 import numpy as np
 import pytest
-from numpy import array, linspace
+from numpy import linspace
 
 from rolland import (
     Ballast,
@@ -29,7 +29,7 @@ from rolland.methods import (
 CSV_FILE_PATH = 'tests/data/data_analytical_methods.csv'
 FREQUENCY_RANGE = linspace(20, 3000, 1500)
 FORCE = 1
-X_POSITION = array([0])
+X_POSITION = [0]
 X_EXCIT = 240 * 0.3
 RELATIVE_TOLERANCE = 1e-5
 
@@ -88,9 +88,9 @@ def methods(tracks):
     return [
         EBBCont1LSupp(track=tracks['track_cont_slab'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
         EBBCont2LSupp(track=tracks['track_cont_ball'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
-        TSDiscr2LSupp(track=tracks['track_discr_ball'], f=FREQUENCY_RANGE, force=FORCE, x=array([X_EXCIT]),
+        TSDiscr2LSupp(track=tracks['track_discr_ball'], f=FREQUENCY_RANGE, force=FORCE, x=[X_EXCIT],
                       x_excit=X_EXCIT),
-        TSDiscr1LSupp(track=tracks['track_discr_slab'], f=FREQUENCY_RANGE, force=FORCE, x=array([X_EXCIT]),
+        TSDiscr1LSupp(track=tracks['track_discr_slab'], f=FREQUENCY_RANGE, force=FORCE, x=[X_EXCIT],
                       x_excit=X_EXCIT),
     ]
 

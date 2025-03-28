@@ -11,6 +11,7 @@ Features
 --------
 
 **Current Features**
+    #. Calculates the track response for a non-moving gaussian impulse at a certain position
     #. Applies Finite Difference Method in time domain
     #. Allows the definition of arbitrary track structures
 

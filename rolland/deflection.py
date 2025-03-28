@@ -11,7 +11,7 @@ import abc
 
 from numpy import empty, linspace, zeros
 from scipy.sparse.linalg import splu
-from traitlets import Float, Instance
+from traitlets import Instance
 
 from .abstract_traits import ABCHasTraits
 from .discretization import Discretization
@@ -57,9 +57,6 @@ class DeflectionEBBVertic(Deflection):
     ind_excit : int
         Index of excitation point :math:`[-]`.
     """
-
-    # Excitation point
-    x_excit = Float()
 
     def validate_deflection(self):
         """Validate deflection."""
