@@ -12,8 +12,8 @@
 """
 import abc
 
-from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, zeros
-from traitlets import Float, Instance, List, observe
+from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, squeeze, zeros
+from traitlets import Float, Instance, List, Union, observe
 from traittypes import Array
 
 from rolland.track import (
@@ -36,7 +36,7 @@ class AnalyticalMethods(ABCHasTraits):
         Angular frequency :math:`[rad/s]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : list
+    x : float or list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
@@ -48,7 +48,7 @@ class AnalyticalMethods(ABCHasTraits):
     omega = Float()
     force = Array(default_value=1.0)
     x_excit = Float(default_value=0.0)
-    x = List(default_value=[0.0])
+    x = Union([Float(default_value=0.0), List()])
     mobility = Array()
 
     def __init__(self, **kwargs):
@@ -99,7 +99,7 @@ class EBBCont1LSupp(AnalyticalMethods):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : list
+    x : float or list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
@@ -151,14 +151,14 @@ class EBBCont1LSupp(AnalyticalMethods):
         k_p = ((self.omega ** 2 * mr - sp - 1j * self.omega * dp) /
                (self.track.rail.E * self.track.rail.Iyr)) ** (1/4)
 
-        abs_x = abs(array(self.x)[:, None] - self.x_excit)  # Broadcast x over omega
+        abs_x = abs(array(self.x, ndmin=1)[:, None] - self.x_excit)  # Broadcast x over omega
         term1 = exp(-1j * k_p * abs_x)
         term2 = -1j * exp(-k_p * abs_x)
 
         # Eq. 3.17 / 3.18
         self.mobility = (self.omega / (4 * (self.track.rail.E * self.track.rail.Iyr) * k_p ** 3)
                          * (term1 + term2))
-        return self.mobility, self.omega_0
+        self.mobility = squeeze(self.mobility) # Remove axes of length one
 
 
 class EBBCont2LSupp(AnalyticalMethods):
@@ -174,7 +174,7 @@ class EBBCont2LSupp(AnalyticalMethods):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : list
+    x : float or list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
@@ -241,14 +241,14 @@ class EBBCont2LSupp(AnalyticalMethods):
         k_p = ((self.omega ** 2 * mr - s_tot - 1j * self.omega * dp) /
                 (self.track.rail.E * self.track.rail.Iyr)) ** (1/4)
 
-        abs_x = abs(array(self.x)[:, None] - self.x_excit)  # Broadcast x over omega  # Broadcast x over omega
+        abs_x = abs(array(self.x, ndmin=1)[:, None] - self.x_excit)  # Broadcast x over omega  # Broadcast x over omega
         term1 = exp(-1j * k_p * abs_x)
         term2 = -1j * exp(-k_p * abs_x)
 
         # Eq. 3.17 / 3.18
         self.mobility = (self.omega / (4 * (self.track.rail.E * self.track.rail.Iyr) * k_p ** 3)
                          * (term1 + term2))
-        return self.mobility, self.omega_0, self.omega_1, self.omega_2
+        self.mobility = squeeze(self.mobility) # Remove axes of length one
 
 
 class TBDiscr(AnalyticalMethods):
@@ -260,7 +260,7 @@ class TBDiscr(AnalyticalMethods):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : list
+    x : float or list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
@@ -390,15 +390,17 @@ class TBDiscr(AnalyticalMethods):
             uxn[f, :] = linalg.solve(m, greensm_exc)
 
             # Calculate displacements at requested points (eq. 3.77)
-            for p in range(array(self.x).size):
+            for p in range(array(self.x, ndmin=1).size):
                 # Greens function matrix requested points <--> reaction points
-                greensm_xn = self.calc_greens_func(array(self.x)[p], x_n, k_p[f], k_d[f], f_p[f], f_d[f])
+                greensm_xn = self.calc_greens_func(array(self.x, ndmin=1)[p], x_n, k_p[f], k_d[f], f_p[f], f_d[f])
 
                 # Greens function matrix requested points <--> excitation point
-                greensm_xf = self.calc_greens_func(array(self.x)[p], self.x_excit, k_p[f], k_d[f], f_p[f], f_d[f])
+                greensm_xf = self.calc_greens_func(array(self.x, ndmin=1)[p],
+                                                   self.x_excit, k_p[f], k_d[f], f_p[f], f_d[f])
                 self.ux[p, f] = - impend[f] * greensm_xn.dot(uxn[f, :]) + greensm_xf
 
         self.mobility = (self.ux * self.omega * 1j) / self.force
+        self.mobility = squeeze(self.mobility)  # Remove axes of length one
 
 
 class TSDiscr1LSupp(TBDiscr):
@@ -422,7 +424,7 @@ class TSDiscr1LSupp(TBDiscr):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : list
+    x : float or list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
@@ -473,7 +475,7 @@ class TSDiscr2LSupp(TBDiscr):
         Excitation frequencies :math:`[Hz]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
-    x : list
+    x : float or list
         Distances to the excitation point :math:`[m]`.
     x_excit : numpy.ndarray
         Excitation point :math:`[m]`.
