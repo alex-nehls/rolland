@@ -29,7 +29,7 @@ from rolland.methods import (
 CSV_FILE_PATH = 'tests/data/data_analytical_methods.csv'
 FREQUENCY_RANGE = linspace(20, 3000, 1500)
 FORCE = 1
-X_POSITION = [0]
+X_POSITION = 0
 X_EXCIT = 240 * 0.3
 RELATIVE_TOLERANCE = 1e-5
 
@@ -88,9 +88,9 @@ def methods(tracks):
     return [
         EBBCont1LSupp(track=tracks['track_cont_slab'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
         EBBCont2LSupp(track=tracks['track_cont_ball'], f=FREQUENCY_RANGE, force=FORCE, x=X_POSITION),
-        TSDiscr2LSupp(track=tracks['track_discr_ball'], f=FREQUENCY_RANGE, force=FORCE, x=[X_EXCIT],
+        TSDiscr2LSupp(track=tracks['track_discr_ball'], f=FREQUENCY_RANGE, force=FORCE, x=X_EXCIT,
                       x_excit=X_EXCIT),
-        TSDiscr1LSupp(track=tracks['track_discr_slab'], f=FREQUENCY_RANGE, force=FORCE, x=[X_EXCIT],
+        TSDiscr1LSupp(track=tracks['track_discr_slab'], f=FREQUENCY_RANGE, force=FORCE, x=X_EXCIT,
                       x_excit=X_EXCIT),
     ]
 
@@ -110,6 +110,6 @@ def test_analytical_methods(method_name, methods, load_csv_data):
     method.compute_mobility()
     for i, freq in enumerate(method.f):
         expected_value = load_csv_data[freq][method_name]
-        actual_value = abs(method.mobility[0, i])
+        actual_value = abs(method.mobility[i])
         assert np.isclose(actual_value, expected_value, rtol=RELATIVE_TOLERANCE), \
             f"Mismatch in {method_name} at frequency {freq}: expected {expected_value}, got {actual_value}"
