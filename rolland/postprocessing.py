@@ -12,8 +12,10 @@ import abc
 import matplotlib.pyplot as plt
 from numpy import ones, pi, where
 from numpy.fft import fft, fftfreq
+from traitlets import Instance
 
 from rolland import ABCHasTraits
+from rolland.methods import AnalyticalMethods
 
 
 class PostProcessing(ABCHasTraits):
@@ -89,8 +91,27 @@ class PostProcessing(ABCHasTraits):
 class AnalyticPP(PostProcessing):
     r"""Analytic postprocessing class."""
 
+    results = Instance(AnalyticalMethods)
+
     def validate_postprocessing(self):
         """Validate the postprocessing methods."""
+
+    @property
+    def f(self):
+        """Frequency vector."""
+        return self.results.f
+
+    @property
+    def vb(self):
+        """Velocity vector."""
+        return self.results.mobility * self.results.force
+
+    @property
+    def ub(self):
+        """Displacement vector."""
+        return self.vb / (self.results.omega * 1j)
+
+
 
 
 class RollandPP(PostProcessing):
