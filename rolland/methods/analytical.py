@@ -62,12 +62,10 @@ class AnalyticalMethods(ABCHasTraits):
         """
         super().__init__(**kwargs)
         self.compute_mobility()
-        self.compute_vibration()
 
     @observe('f', 'force', 'x_excit', 'x')
     def _update_on_change(self, change):
         self.compute_mobility()
-        self.compute_vibration()
 
     @property
     def omega(self):
@@ -86,20 +84,6 @@ class AnalyticalMethods(ABCHasTraits):
         """
         message = "Subclasses must implement compute_mobility."
         raise NotImplementedError(message)
-
-    def compute_vibration(self):
-        """
-        Calculate the frequency response of the track.
-
-        Attributes
-        ----------
-        vb : numpy.ndarray
-            Vibration velocity matrix.
-        ub : numpy.ndarray
-            Vibration displacement matrix.
-        """
-        self.vb = self.mobility * self.force
-        self.ub = self.vb / (self.omega * 1j)
 
 
 class EBBCont1LSupp(AnalyticalMethods):
