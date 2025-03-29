@@ -11,45 +11,77 @@ frequency response of a simple railway track.
   :caption: Python Code
   :linenos:
 
-    # Import components
+    """
+    Example: Track Vibration Analysis using Rolland API
+
+    This example demonstrates how to:
+    1. Create a railway track model
+    2. Apply excitation and boundary conditions
+    3. Run a vibration simulation
+    4. Analyze and plot the results
+    """
+
+    # Import required components from Rolland library
     from rolland import DiscrPad, Sleeper, Ballast
-    # Import rail
-    from rolland.database.rail.db_rail import UIC60
-    # Import double layer track with descrete mounting positions
+    from rolland.database.rail.db_rail import UIC60  # Standard rail profile
     from rolland import SimplePeriodicBallastedSingleRailTrack
-    # Import classes required for numerical simulation
-    from rolland import PMLRailDampVertic, GaussianImpulse, DiscretizationEBBVerticConst, DeflectionEBBVertic
-    # import postprocessing functions
-    from rolland.postprocessing import response_fdm, plot
+    from rolland import (
+        PMLRailDampVertic,
+        GaussianImpulse,
+        DiscretizationEBBVerticConst,
+        DeflectionEBBVertic
+    )
+    from rolland.postprocessing import Response as resp
 
-    # Define track
+    # 1. TRACK DEFINITION ----------------------------------------------------------
+    # Create a ballasted single rail track model with periodic supports
     track = SimplePeriodicBallastedSingleRailTrack(
-        rail=UIC60,
-        pad=DiscrPad(sp=[180 * 10 ** 6, 0], dp=[18000, 0]),
-        sleeper=Sleeper(ms=150),
-        ballast=Ballast(sb=[105 * 10 ** 6, 0], db=[48000, 0]),
-        num_mount=243,
-        distance=0.6)
+        rail=UIC60,                 # Standard UIC60 rail profile
+        pad=DiscrPad(
+            sp=[180e6, 0],          # Stiffness properties [N/m]
+            dp=[18000, 0]           # Damping properties [Ns/m]
+        ),
+        sleeper=Sleeper(ms=150),    # Sleeper mass [kg]
+        ballast=Ballast(
+            sb=[105e6, 0],          # Ballast stiffness [N/m]
+            db=[48000, 0]           # Ballast damping [Ns/m]
+        ),
+        num_mount=243,              # Number of discrete mounting positions
+        distance=0.6                # Distance between sleepers [m]
+    )
 
-    # Define boundary domain (Perfectly Matched Layer) --> 33.0m on each side
-    bound = PMLRailDampVertic(l_bound=33.0)
+    # 2. SIMULATION SETUP ---------------------------------------------------------
+    # Define boundary conditions (Perfectly Matched Layer absorbing boundary)
+    boundary = PMLRailDampVertic(l_bound=33.0)  # 33.0 m boundary domain
 
-    # Define excitation (Gaussian Impulse) --> Excitation between sleepers at 71.7m
-    excit = GaussianImpulse(x_excit=71.7)
+    # Define excitation (Gaussian impulse between sleepers at 71.7m)
+    excitation = GaussianImpulse(x_excit=71.7)
 
-    # Discretize
-    discr = DiscretizationEBBVerticConst(track = track, bound=bound, dt=2e-5, req_simt=0.4)
+    # 3. DISCRETIZATION & SIMULATION ----------------------------------------------
+    # Set up numerical discretization parameters
+    discretization = DiscretizationEBBVerticConst(
+        track=track,
+        bound=boundary,
+    )
 
-    # Run simulation and calculate deflection over time
-    defl = DeflectionEBBVertic(discr=discr, excit=excit)
+    # Run the simulation and calculate deflection over time
+    deflection_results = DeflectionEBBVertic(
+        discr=discretization,
+        excit=excitation
+    )
 
-    # Postprocessing: Calculate frequency response at x = x_excit (receptance, mobility, accelerance)
-    fftfre, rez, mob, accel = response_fdm(defl)
+    # 4. POSTPROCESSING & VISUALIZATION -------------------------------------------
+    # Calculate frequency response at excitation point
+    response = resp(results=deflection_results)
 
-    # Plot the results
-    plot([(fftfre, mob)],
-         ['SimplePeriodicBallastedSingleRailTrack'],
-         'Frequency Response', 'f [Hz]', 'Mobility [m/Ns]')
+    # Plot mobility frequency response
+    resp.plot(
+        [(response.freq, abs(response.mob))],
+        ['SimplePeriodicBallastedSingleRailTrack'],
+        title='Frequency Response',
+        x_label='Frequency [Hz]',
+        y_label='Mobility [m/Ns]',
+    )
 
 
 

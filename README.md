@@ -83,7 +83,7 @@ track = SimplePeriodicBallastedSingleRailTrack(
 
 # 2. SIMULATION SETUP ---------------------------------------------------------
 # Define boundary conditions (Perfectly Matched Layer absorbing boundary)
-boundary = PMLRailDampVertic(l_bound=33.0)  # 33.0m absorption zone on each side
+boundary = PMLRailDampVertic(l_bound=33.0)  # 33.0 m boundary domain
 
 # Define excitation (Gaussian impulse between sleepers at 71.7m)
 excitation = GaussianImpulse(x_excit=71.7)
