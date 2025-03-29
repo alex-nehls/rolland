@@ -15,10 +15,10 @@ frequency response of a simple railway track.
     Example: Track Vibration Analysis using Rolland API
 
     This example demonstrates how to:
-    1. Create a railway track model
-    2. Apply excitation and boundary conditions
-    3. Run a vibration simulation
-    4. Analyze and plot the results
+        1. Create a railway track model
+        2. Apply excitation and boundary conditions
+        3. Run a vibration simulation
+        4. Analyze and plot the results
     """
 
     # Import required components from Rolland library
