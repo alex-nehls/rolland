@@ -15,10 +15,10 @@ with a single or double layer. See :cite:`thompson2024j` for more information.
     Comparative Track Vibration Analysis using Rolland API
 
     This example demonstrates a comparison of vibration characteristics for:
-    1. Continuous slab track
-    2. Continuous ballasted track
-    3. Discrete slab track
-    4. Discrete ballasted track
+        1. Continuous slab track
+        2. Continuous ballasted track
+        3. Discrete slab track
+        4. Discrete ballasted track
 
     All tracks are excited with the same Gaussian impulse at 71.7m position.
     """
