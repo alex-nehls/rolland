@@ -21,7 +21,7 @@ from rolland import (
     Sleeper,
 )
 from rolland.database.rail.db_rail import UIC60
-from rolland.postprocessing import response_fdm
+from rolland.postprocessing import Response
 
 RELATIVE_TOLERANCE = 1e-5
 
@@ -137,8 +137,9 @@ def mobility_results(deflections):
     """Compute mobility results for testing."""
     results = {}
     for key, deflection in deflections.items():
-        # Compute mobility directly using response_fdm
-        fftfre, _, mob, _ = response_fdm(deflection)
+        # Compute mobility using the Response class from PostProcessing
+        response = Response(results=deflection)
+        fftfre, mob = response.freq, response.mob
         results[key] = (fftfre, mob)
     return results
 
