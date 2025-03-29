@@ -10,11 +10,12 @@
 import abc
 
 import matplotlib.pyplot as plt
-from numpy import ones, pi, where
+from numpy import ones, pi, squeeze, zeros
 from numpy.fft import fft, fftfreq
-from traitlets import Instance
+from traitlets import Float, Instance, List, observe
+from traittypes import Array
 
-from rolland import ABCHasTraits
+from rolland import ABCHasTraits, Deflection
 from rolland.methods import AnalyticalMethods
 
 
@@ -26,7 +27,7 @@ class PostProcessing(ABCHasTraits):
         """Validate the postprocessing methods."""
 
     @staticmethod
-    def fft(tsignal, dt):
+    def fast_fourier_tr(tsignal, dt):
         """Calculate the Fast Fourier Transform (FFT) of a time signal.
 
         Parameters
@@ -89,7 +90,15 @@ class PostProcessing(ABCHasTraits):
 
 
 class AnalyticPP(PostProcessing):
-    r"""Analytic postprocessing class."""
+    r"""Analytic postprocessing class.
+
+    This class is used to perform postprocessing on analytical methods.
+
+    Attributes
+    ----------
+    results : AnalyticalMethods
+        Instance of the AnalyticalMethods class containing the results.
+    """
 
     results = Instance(AnalyticalMethods)
 
@@ -112,43 +121,97 @@ class AnalyticPP(PostProcessing):
         return self.vb / (self.results.omega * 1j)
 
 
-
-
 class RollandPP(PostProcessing):
-    r"""Rolland postprocessing class."""
+    r"""Rolland postprocessing baseclass.
+
+    This class is used to perform postprocessing on Rolland methods.
+
+    Attributes
+    ----------
+    results : Deflection
+        Instance of the Deflection class containing the results.
+    """
+
+    results = Instance(Deflection)
 
     def validate_postprocessing(self):
         """Validate the postprocessing methods."""
 
-    @staticmethod
-    def response(defl, dist = 0, f_min=100, f_max=3000):
-        """Calculate point or transfer quantities (Receptance, Mobility, Accelerance).
 
-        Parameters
-        ----------
-        defl : Deflection
-            Deflection instance.
-        f_min : float, optional
-            Minimum frequency :math:`[Hz]`. Default is 100.
-        f_max : float, optional
-            Maximum frequency :math:`[Hz]`. Default is 3000.
+class Response(RollandPP):
+    r"""Postprocessing class for Rolland response quantities.
 
-        Returns
-        -------
-        tuple
-            Frequencies, Receptance, Mobility, and Accelerance.
-        """
-        discr = defl.discr
-        force = defl.force
-        ind_trans = defl.ind_excit + int(dist // discr.dx + 1)
-        defl = defl.deflection[ind_trans, 0 : discr.nt]
+    This class calculates and stores response quantities such as receptance,
+    mobility, and accelerance based on the results of the Deflection class.
 
-        fftfre, ffft = fft(force, discr.dt)
-        fftfre, ufft = fft(defl, discr.dt)
+    Attributes
+    ----------
+    results : Deflection
+        Instance of the Deflection class containing the results.
+    x_resp : list of float
+        List of response points in meters :math:`[m]` (default value is x_excit).
+    f_min : float
+        Minimum frequency for response calculation :math:`[Hz]`.
+    f_max : float
+        Maximum frequency for response calculation :math:`[Hz]`.
+    freq : numpy.ndarray
+        Frequency vector :math:`[Hz]`.
+    rez : numpy.ndarray
+        Receptance vector :math:`[m/N]`.
+    mob : numpy.ndarray
+        Mobility vector :math:`[m/Ns]`.
+    accel : numpy.ndarray
+        Accelerance vector :math:`[m/Ns^2]`.
+    """
 
-        rez = ufft / ffft
-        mob = 1j * fftfre * 2 * pi * rez
-        accel = -((fftfre * 2 * pi) ** 2) * rez
-        ind_fmin = int(where(fftfre > f_min)[0][0])
-        ind_fmax = int(where(fftfre > f_max)[0][0])
-        return fftfre[ind_fmin:ind_fmax], rez[ind_fmin:ind_fmax], mob[ind_fmin:ind_fmax], accel[ind_fmin:ind_fmax]
+    x_resp = List(default_value=None, allow_none=True)
+    f_min = Float(default_value=100.0, min=0.0)
+    f_max = Float(default_value=3000.0, min=0.0)
+    freq = Array()
+    rez = Array()
+    mob = Array()
+    accel = Array()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.calculate_response()
+        self.observe(self._on_results_change, names='results')
+
+    @observe('results')
+    def _on_results_change(self, change):
+        self.calculate_response()
+
+    def calculate_response(self):
+        """Calculate and store response quantities (Receptance, Mobility, Accelerance)."""
+        if self.x_resp is None:
+            self.x_resp = [self.results.excit.x_excit]
+
+        # Get response indices
+        ind_resp = [int(x / self.results.discr.dx) for x in self.x_resp]
+
+        # Compute force FFT once
+        fftfre, ffft = self.fast_fourier_tr(self.results.force, self.results.discr.dt)
+
+        # Initialize arrays for results
+        n_points = len(ind_resp)
+        n_freq = len(fftfre)
+        ufft = zeros((n_points, n_freq), dtype=complex)
+
+        # Compute deflection FFTs separately for each point
+        for i, ind in enumerate(ind_resp):
+            defl = self.results.deflection[ind, : self.results.discr.nt]
+            _, ufft[i] = self.fast_fourier_tr(defl, self.results.discr.dt)
+
+        # Calculate quantities for all points
+        rez = ufft / ffft  # Receptance
+        mob = 1j * fftfre * 2 * pi * rez  # Mobility
+        accel = -((fftfre * 2 * pi) ** 2) * rez  # Accelerance
+
+        # Frequency range
+        mask = (fftfre > self.f_min) & (fftfre <= self.f_max)
+
+        # Store results as attributes
+        self.freq = fftfre[mask]
+        self.rez = squeeze(rez[:, mask])
+        self.mob = squeeze(mob[:, mask])
+        self.accel = squeeze(accel[:, mask])
