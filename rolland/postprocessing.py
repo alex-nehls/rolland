@@ -6,6 +6,7 @@
     PostProcessing
     AnalyticPP
     RollandPP
+    Response
 """
 import abc
 
@@ -122,7 +123,7 @@ class AnalyticPP(PostProcessing):
 
 
 class RollandPP(PostProcessing):
-    r"""Rolland postprocessing baseclass.
+    r"""Rolland postprocessing base class.
 
     This class is used to perform postprocessing on Rolland methods.
 
