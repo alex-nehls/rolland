@@ -51,9 +51,9 @@ napoleon_google_docstring = False       # Use NumPy-style docstrings
 napoleon_numpy_docstring = True
 
 # Select a color scheme for light mode
-pygments_style = "lightbulb"
+pygments_style = "default"
 # Select a different color scheme for dark mode
-pygments_style_light = "default"
+pygments_style_dark = "github-dark"
 
 # docsearch settings
 docsearch_app_id = "TFRLLVQ6L2"
