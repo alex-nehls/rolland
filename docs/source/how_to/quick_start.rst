@@ -31,7 +31,7 @@ frequency response of a simple railway track.
         DiscretizationEBBVerticConst,
         DeflectionEBBVertic
     )
-    from rolland.postprocessing import Response as resp
+    from rolland.postprocessing import Response as resp, TDR
 
     # 1. TRACK DEFINITION ----------------------------------------------------------
     # Create a ballasted single rail track model with periodic supports
@@ -71,7 +71,7 @@ frequency response of a simple railway track.
     )
 
     # 4. POSTPROCESSING & VISUALIZATION -------------------------------------------
-    # Calculate frequency response at excitation point
+    # 4.1 Calculate frequency response at excitation point
     response = resp(results=deflection_results)
 
     # Plot mobility frequency response
@@ -83,8 +83,23 @@ frequency response of a simple railway track.
         y_label='Mobility [m/Ns]',
     )
 
+    #4.2 Calculate Track Decay Rate (TDR)
+    tdr = TDR(results=deflection_results)
+
+    resp.plot([(tdr.freq, tdr.tdr)],
+         ['SimplePeriodicBallastedSingleRailTrack'],
+        title='Track-Decay-Rate',
+        x_label='f [Hz]',
+        y_label='TDR [dB/m]',
+        plot_type='loglog')
+
 
 
 .. image:: ../images/example_readme.png
    :width: 700px
    :align: center
+
+.. image:: ../images/example_readme_tdr.png
+   :width: 700px
+   :align: center
+

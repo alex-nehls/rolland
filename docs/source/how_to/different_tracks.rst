@@ -25,6 +25,7 @@ with a single or double layer. See :cite:`thompson2024j` for more information.
 
     # Import required components from Rolland library
     from rolland.postprocessing import Response as resp
+    from rolland.postprocessing import TDR
     from rolland import (
         ContSlabSingleRailTrack,
         ContBallastedSingleRailTrack,
@@ -95,13 +96,12 @@ with a single or double layer. See :cite:`thompson2024j` for more information.
     defl4 = DeflectionEBBVertic(discr=discr4, excit=excit)
 
     # 5. POSTPROCESSING & COMPARISON ----------------------------------------------
-    # Calculate frequency responses for each track at the excitation point
+    # 5.1 Calculate frequency responses for each track at the excitation point
     pp1 = resp(results=defl1)  # Continuous slab
     pp2 = resp(results=defl2)  # Continuous ballasted
     pp3 = resp(results=defl3)  # Discrete slab
     pp4 = resp(results=defl4)  # Discrete ballasted
 
-    # Plot all mobility results together
     resp.plot(
         [(pp1.freq, abs(pp1.mob)),
          (pp2.freq, abs(pp2.mob)),
@@ -113,13 +113,30 @@ with a single or double layer. See :cite:`thompson2024j` for more information.
          'SimplePeriodicSlabSingleRailTrack',
          'SimplePeriodicBallastedSingleRailTrack'],
 
-        title='Frequemcy Response',
+        title='Frequency Response',
         x_label='Frequency [Hz]',
         y_label='Mobility [m/Ns]',
     )
 
+    # 5.2 Calculate Track Decay Rate (TDR) for each track
+    tdr1 = TDR(results=defl1)
+    tdr2 = TDR(results=defl2)
+    tdr3 = TDR(results=defl3)
+    tdr4 = TDR(results=defl4)
+
+    TDR.plot([(tdr1.freq, tdr1.tdr), (tdr2.freq, tdr2.tdr), (tdr3.freq, tdr3.tdr), (tdr4.freq, tdr4.tdr)],
+         ['ContSlabSingleRailTrack',
+          'ContBallastedSingleRailTrack',
+          'SimplePeriodicSlabSingleRailTrack',
+          'SimplePeriodicBallastedSingleRailTrack'],
+          'Track-Decay-Rate', 'f [Hz]', 'TDR [dB/m]', plot_type='loglog')
+
 
 
 .. image:: ../images/example_different_tracks.png
+   :width: 700px
+   :align: center
+
+.. image:: ../images/example_different_tracks_tdr.png
    :width: 700px
    :align: center
