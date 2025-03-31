@@ -32,8 +32,6 @@ class AnalyticalMethods(ABCHasTraits):
     ----------
     f : numpy.ndarray
         Excitation frequencies :math:`[Hz]`.
-    omega : numpy.ndarray
-        Angular frequency :math:`[rad/s]`.
     force : numpy.ndarray
         Force amplitude corresponding to the excitation frequencies :math:`[N]`.
     x : float or list
@@ -45,7 +43,6 @@ class AnalyticalMethods(ABCHasTraits):
     """
 
     f = Array()
-    omega = Float()
     force = Array(default_value=1.0)
     x_excit = Float(default_value=0.0)
     x = Union([Float(default_value=0.0), List()])
