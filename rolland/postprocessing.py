@@ -7,6 +7,7 @@
     AnalyticPP
     RollandPP
     Response
+    TDR
 """
 import abc
 
