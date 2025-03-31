@@ -131,9 +131,15 @@ class RollandPP(PostProcessing):
     ----------
     results : Deflection
         Instance of the Deflection class containing the results.
+    f_min : float
+        Minimum frequency for response calculation :math:`[Hz]`.
+    f_max : float
+        Maximum frequency for response calculation :math:`[Hz]`.
     """
 
     results = Instance(Deflection)
+    f_min = Float(default_value=100.0, min=0.0)
+    f_max = Float(default_value=3000.0, min=0.0)
 
     def validate_postprocessing(self):
         """Validate the postprocessing methods."""
@@ -151,10 +157,6 @@ class Response(RollandPP):
         Instance of the Deflection class containing the results.
     x_resp : list of float
         List of response points in meters :math:`[m]` (default value is x_excit).
-    f_min : float
-        Minimum frequency for response calculation :math:`[Hz]`.
-    f_max : float
-        Maximum frequency for response calculation :math:`[Hz]`.
     freq : numpy.ndarray
         Frequency vector :math:`[Hz]`.
     rez : numpy.ndarray
@@ -166,8 +168,6 @@ class Response(RollandPP):
     """
 
     x_resp = List(default_value=None, allow_none=True)
-    f_min = Float(default_value=100.0, min=0.0)
-    f_max = Float(default_value=3000.0, min=0.0)
     freq = Array()
     rez = Array()
     mob = Array()
