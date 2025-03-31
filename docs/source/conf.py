@@ -5,6 +5,7 @@
 
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('../..'))
 
 
@@ -29,7 +30,7 @@ extensions = [
     'autodoc_traits',                 # Support for traitlets
     'sphinx_design',                  # Design extension
     'myst_parser',                    # Markdown support
-    'sphinx_docsearch'                # Docsearch extension
+    'sphinx_docsearch',                # Docsearch extension
 ]
 
 # sphinxcontrib-bibtex extension settings
