@@ -114,11 +114,12 @@ resp.plot(
     y_label='Mobility [m/Ns]',
 )
 
-#4.2 Calculate Track Decay Rate (TDR)
+# 4.2 Calculate Track Decay Rate (TDR)
 tdr = TDR(results=deflection_results)
 
+# Plot TDR
 resp.plot([(tdr.freq, tdr.tdr)],
-     ['SimplePeriodicBallastedSingleRailTrack'],
+    ['SimplePeriodicBallastedSingleRailTrack'],
     title='Track-Decay-Rate',
     x_label='f [Hz]',
     y_label='TDR [dB/m]',
