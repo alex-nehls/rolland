@@ -234,7 +234,7 @@ class Response(RollandPP):
 class TDR(RollandPP):
     r"""Postprocessing class for TDR (Track-Decay-Rate).
 
-    This class calculates and stores the Track-Decay-Rate (TDR) based on :cite:t:`EN15461:2008`.
+    This class calculates and stores the Track-Decay-Rate (TDR) based on :cite:`EN15461:2008`.
 
     Attributes
     ----------
