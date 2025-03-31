@@ -10,3 +10,4 @@ scipy
 traitlets
 traittypes
 sphinx_docsearch
+matplotlib
