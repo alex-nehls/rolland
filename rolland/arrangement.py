@@ -125,8 +125,24 @@ class RandomArrangement(Arrangement):
                 yield self.item
 
     @staticmethod
-    def trunc_norm(mean, sd, minv, max_v):
-        """Calculate truncated normal distribution."""
+    def trunc_norm(mean, sd, minv, max_v) -> float:
+        """Calculate truncated normal distribution.
+
+        Parameters
+        ----------
+        mean : float
+            Mean value.
+        sd : float
+            Standard deviation.
+        minv : float
+            Minimum value.
+        max_v : float
+            Maximum value.
+
+        Returns
+        -------
+        object
+        """
         sd = sd + 1e-6  # Low value added to avoid error.
         minv = minv - 1e-6
         max_v = max_v + 1e-6
