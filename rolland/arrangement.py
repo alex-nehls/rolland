@@ -65,11 +65,6 @@ class PeriodicArrangement(Arrangement):
     ...     sleeper=sleeper,
     ...     distance=distance,
     ...     num_mount=100)
-    >>> tr.mount_prop[0.0] = (thepadA, thesleeperA)
-    >>> tr.mount_prop[0.65] = (thepadB, thesleeperB)
-    >>> tr.mount_prop[1.15] = (thepadA, thesleeperA)
-    >>> tr.mount_prop[1.8] = (thepadB, thesleeperB)
-    ...
     """
 
     def generate(self, num_mount):
@@ -118,11 +113,6 @@ class StochasticArrangement(Arrangement):
     ...     sleeper=sleeper,
     ...     distance=distance,
     ...     num_mount=100)
-    >>> tr.mount_prop[0.0] = (thepadA, thesleeperA)
-    >>> tr.mount_prop[0.65] = (thepadB, thesleeperA)
-    >>> tr.mount_prop[1.3] = (thepadB, thesleeperA)
-    >>> tr.mount_prop[1.8] = (thepadA, thesleeperB)
-    ...
     """
 
     def generate(self, num_mount):
