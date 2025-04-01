@@ -612,6 +612,7 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
         x = Decimal(str(0))
         for s, p, b, d in zip(self.sleeper.generate(self.num_mount),
                            self.pad.generate(self.num_mount),
+                           self.ballast.generate(self.num_mount),
                            self.distance.generate(self.num_mount), strict=False):
             self.mount_prop[float(Decimal(str(x)))] = (p, s, b)
             x += Decimal(str(d))
