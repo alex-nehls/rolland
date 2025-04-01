@@ -12,7 +12,7 @@
 import abc
 
 import matplotlib.pyplot as plt
-from numpy import array, convolve, ones, pi, rint, round, squeeze, where, zeros
+from numpy import array, convolve, ones, pi, rint, round, squeeze, where, zeros  # noqa: A004
 from numpy.fft import fft, fftfreq
 from traitlets import Float, Instance, List, Unicode
 from traittypes import Array
