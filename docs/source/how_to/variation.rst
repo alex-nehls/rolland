@@ -3,10 +3,13 @@
 Apply Structural Disorder
 =========================
 Structural disorder in railway tracks can significantly affect the vibration characteristics of the track
-(see :cite:`mantel2024`). This example demonstrates how to set up and run a basic simulation using the Rolland library
+(see :cite:t:`mantel2024`). This example demonstrates how to set up and run a basic simulation using the Rolland library
 to calculate the frequency response of different railway tracks with varying structural properties.
 
-:note: This example only determines the track response and the TDR (Track Decay Rate) for a single excitation point.
+
+.. note:: This example only determines the track response and the TDR (Track Decay Rate) for a single excitation point!
+            It is recommended to average the results over multiple excitation points to obtain a more accurate
+            representation of the track's response.
 
 .. code-block:: python
   :caption: Python Code
