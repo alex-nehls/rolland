@@ -80,8 +80,8 @@ class PeriodicArrangement(Arrangement):
                 c += 1
 
 
-class StochasticArrangement(Arrangement):
-    r"""Stochastic arrangement of given objects.
+class RandomArrangement(Arrangement):
+    r"""Random arrangement of given objects.
 
     Given sequence of objects is repeated randomly when building track using
     :class:`~rolland.track.ArrangedSlabSingleRailTrack` or
@@ -97,16 +97,16 @@ class StochasticArrangement(Arrangement):
     --------
     >>> from rolland.database.rail.db_rail import UIC60
     >>> from rolland.components import DiscrPad, Sleeper
-    >>> from rolland.arrangement import StochasticArrangement
+    >>> from rolland.arrangement import RandomArrangement
     >>> from rolland.track import ArrangedBallastedSingleRailTrack
 
     >>> thepadA = DiscrPad(sp = [300*10**6, 0], dp = [30000, 0])
     >>> thepadB = DiscrPad(sp = [400*10**6, 0], dp = [40000, 0])
     >>> thesleeperA = Sleeper(ms = 150)
     >>> thesleeperB = Sleeper(ms = 200)
-    >>> pad = StochasticArrangement(item=[thepadA, thepadB])
-    >>> distance = StochasticArrangement(item=[0.65, 0.5])
-    >>> sleeper = StochasticArrangement(item=[thesleeperA, thesleeperB])
+    >>> pad = RandomArrangement(item=[thepadA, thepadB])
+    >>> distance = RandomArrangement(item=[0.65, 0.5])
+    >>> sleeper = RandomArrangement(item=[thesleeperA, thesleeperB])
     >>> tr = ArrangedBallastedSingleRailTrack(
     ...     rail=UIC60,
     ...     pad=pad,

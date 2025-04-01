@@ -5,7 +5,7 @@
 """The Rolland library: several classes for the implementation of rolling noise calculation."""
 
 from .abstract_traits import ABCHasStrictTraits, ABCHasTraits
-from .arrangement import Arrangement, PeriodicArrangement, StochasticArrangement
+from .arrangement import Arrangement, PeriodicArrangement, RandomArrangement
 from .boundary import PMLRailDampVertic
 from .components import Ballast, ContPad, DiscrPad, Rail, Slab, Sleeper, Wheel, WheelGreensfunc
 from .deflection import Deflection, DeflectionEBBVertic
@@ -24,7 +24,7 @@ from .track import (
 
 __all__ = ["Arrangement",
            "PeriodicArrangement",
-           "StochasticArrangement",
+           "RandomArrangement",
            "Ballast",
            "ContPad",
            "DiscrPad",
