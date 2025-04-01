@@ -3,8 +3,8 @@
 First Simulation
 ================
 
-This example demonstrates how to set up and run a basic simulation using the Rolland library to calculate the
-frequency response of a simple railway track.
+This example determines the track response of a double layer track with discrete mounting positions.
+The track is excited between two sleepers by a Gaussian impulse.
 
 
 .. code-block:: python
