@@ -606,7 +606,7 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
         super().__init__(*args, **kwargs)
         self.calc_mount_prop()
 
-    @observe('num_mount', 'distance', 'pad', 'sleeper', 'ballast')
+    #@observe('num_mount', 'distance', 'pad', 'sleeper', 'ballast')
     def calc_mount_prop(self, change=None):
         """Calculate the mounting properties."""
         x = Decimal(str(0))
