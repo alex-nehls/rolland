@@ -598,7 +598,7 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
 
     sleeper = Instance(Arrangement)
     pad = Instance(Arrangement)
-    ballast = Instance(Ballast)
+    ballast = Instance(Arrangement)
     distance = Instance(Arrangement)
     num_mount = Integer(default_value=100)
 
