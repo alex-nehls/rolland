@@ -33,6 +33,12 @@ and optimize the acoustic properties of railway tracks, with a focus on realisti
   <img src="docs/source/images/mwi_light.png">
 </picture>
 
+# Installation
+To install Rolland, you can use pip. It is recommended to create a virtual environment first.
+```bash
+pip install git+https://github.com/mantelmax/rolland.git
+```
+
 # Documentation
 Documentation is available [here](https://rolland-rolling-noise-and-dynamics.readthedocs.io) with a 
 how to section and examples.

@@ -37,6 +37,14 @@ Features
    :class: dark-mode-image
 
 
+Installation
+------------
+To install Rolland, you can use pip. It is recommended to create a virtual environment first.
+.. code-block:: bash
+
+   pip install git+https://github.com/mantelmax/rolland.git
+
+
 Explore
 -------
 
@@ -53,6 +61,7 @@ Explore
 
          how_to/quick_start
          how_to/different_tracks
+         how_to/variation
 
    .. tab-item:: Build Track
 
