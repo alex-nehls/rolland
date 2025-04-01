@@ -388,8 +388,8 @@ class DiscretizationEBBVerticConst(DiscretizationEBBVertic):
             self.vec_sp[x_ind] = self.track.mount_prop[i][0].sp[0] / self.dx
             self.vec_dp[x_ind] = self.track.mount_prop[i][0].dp[0] / self.dx
             self.vec_ms[x_ind] = self.track.mount_prop[i][1].ms / self.dx
-        self.vec_sb += self.track.ballast.sb[0] / self.dx
-        self.vec_db += self.track.ballast.db[0] / self.dx
+            self.vec_sb[x_ind] = self.track.mount_prop[i][2].sb[0] / self.dx
+            self.vec_db[x_ind] = self.track.mount_prop[i][2].db[0] / self.dx
 
 
 class DiscretizationEBBVerticTimeDepend(DiscretizationEBBVerticConst):
