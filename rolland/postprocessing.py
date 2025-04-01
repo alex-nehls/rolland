@@ -12,7 +12,7 @@
 import abc
 
 import matplotlib.pyplot as plt
-from numpy import array, convolve, ones, pi, rint, squeeze, where, zeros
+from numpy import array, convolve, ones, pi, rint, round, squeeze, where, zeros
 from numpy.fft import fft, fftfreq
 from traitlets import Float, Instance, List, Unicode
 from traittypes import Array
@@ -304,7 +304,7 @@ class TDR(RollandPP):
                          10.5, 12.5, 16.5, 20.5, 24.5, 30.5, 36.5, 42.5, 48.5, 54.5, 66.5]) * l_s
 
             self.x_tdr = x_tdr - l_s / 2
-            ind_tdr = rint(x_tdr / self.results.discr.dx) + ind_excit
+            ind_tdr = rint(self.x_tdr / self.results.discr.dx) + ind_excit
             self.ind_tdr = list(ind_tdr.astype(int))
 
 
