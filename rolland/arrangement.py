@@ -5,12 +5,13 @@
 
     Arrangement
     PeriodicArrangement
-    StochasticArrangement
+    RandomArrangement
 """
 
 import abc
 import random
 
+from scipy.stats import truncnorm
 from traitlets import Any
 
 from .abstract_traits import ABCHasTraits
@@ -122,3 +123,11 @@ class RandomArrangement(Arrangement):
                 yield random.choice(self.item)
             else:
                 yield self.item
+
+    @staticmethod
+    def trunc_norm(mean, sd, minv, max_v):
+        """Calculate truncated normal distribution."""
+        sd = sd + 1e-6  # Low value added to avoid error.
+        minv = minv - 1e-6
+        max_v = max_v + 1e-6
+        return float(truncnorm((minv - mean) / sd, (max_v - mean) / sd, loc=mean, scale=sd).rvs(1))
