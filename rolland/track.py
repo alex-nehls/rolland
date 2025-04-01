@@ -154,14 +154,14 @@ class DiscrSlabSingleRailTrack(SlabSingleRailTrack):
 
     # Dictionary for discrete mounting positions (x-> (Pad)).
     # May have nonuniform properties.
-    mount_prop = Dict(value_trait=Float(), key_trait=Tuple(DiscrPad, None))
+    mount_prop = Dict(value_trait=Float(), key_trait=Tuple(DiscrPad, None, None))
 
     def __repr__(self):
         """Represent mounting properties as string."""
         st = ""
         for x in sorted(self.mount_prop.keys()):
-            p, s = self.mount_prop[x]
-            st += f'{x}, {p.sp}, {s.ms} \n'
+            p, s, b= self.mount_prop[x]
+            st += f'{x}, {p.sp}, {s.ms}, {b.sb} \n'
         return st
 
     @abc.abstractmethod
@@ -235,7 +235,7 @@ class SimplePeriodicSlabSingleRailTrack(DiscrSlabSingleRailTrack):
         self.mount_prop = {}
         for _i in range(self.num_mount):
             x = float(Decimal(str(_i)) * Decimal(str(self.distance)))
-            self.mount_prop[x] = (self.pad, None)
+            self.mount_prop[x] = (self.pad, None, None)
         self.l_track = max(self.mount_prop.keys())
 
     def validate_track(self):
@@ -323,7 +323,7 @@ class ArrangedSlabSingleRailTrack(DiscrSlabSingleRailTrack):
         x = Decimal(str(0))
         for p, d in zip(self.pad.generate(self.num_mount),
                         self.distance.generate(self.num_mount), strict=False):
-            self.mount_prop[float(Decimal(str(x)))] = (p, None)
+            self.mount_prop[float(Decimal(str(x)))] = (p, None, None)
             x += Decimal(str(d))
         self.l_track = max(self.mount_prop.keys())
 
@@ -347,11 +347,7 @@ class BallastedSingleRailTrack(SingleRailTrack):
     ----------
     rail : Rail
         Rail instance.
-    ballast : Ballast
-        Ballast instance.
     """
-
-    ballast = Instance(Ballast)
 
     @abc.abstractmethod
     def validate_ballasted_single_rail_track(self):
@@ -405,6 +401,7 @@ class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
 
     pad = Instance(ContPad)
     slab = Instance(Slab)
+    ballast = Instance(Ballast)
     l_track = Float(default_value=100.0)
 
     def validate_track(self):
@@ -420,7 +417,7 @@ class ContBallastedSingleRailTrack(BallastedSingleRailTrack):
 class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
     """Abstract base class for discrete ballasted single rail track classes.
 
-    The pad and sleeper properties are discrete.
+    .. note:: The pad, sleeper and ballast properties are discrete.
 
     Attributes
     ----------
@@ -433,14 +430,14 @@ class DiscrBallastedSingleRailTrack(BallastedSingleRailTrack):
     """
 
     # Pads and sleepers may have nonuniform properties Dictionary (x-> (Pad, Sleeper))
-    mount_prop = Dict(value_trait=Float(), key_trait=Tuple(DiscrPad, Sleeper))
+    mount_prop = Dict(value_trait=Float(), key_trait=Tuple(DiscrPad, Sleeper, Ballast))
 
     def __repr__(self):
         """Represent mounting properties as string."""
         st = ""
         for x in sorted(self.mount_prop.keys()):
-            p, s = self.mount_prop[x]
-            st += f'{x}, {p.sp}, {s.ms} \n'
+            p, s, b = self.mount_prop[x]
+            st += f'{x}, {p.sp}, {s.ms}, {b.sb} \n'
         return st
 
     @abc.abstractmethod
@@ -507,6 +504,7 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
 
     sleeper = Instance(Sleeper)
     pad = Instance(DiscrPad)
+    ballast = Instance(Ballast)
     distance = Float(default_value=0.6)
     num_mount = Integer(default_value=100)
 
@@ -521,7 +519,7 @@ class SimplePeriodicBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
             # Calculate the mounting position
             # Use Decimal to avoid floating-point representation errors
             x = float(Decimal(str(_i)) * Decimal(str(self.distance)))
-            self.mount_prop[x] = (self.pad, self.sleeper)
+            self.mount_prop[x] = (self.pad, self.sleeper, self.ballast)
         self.l_track = max(self.mount_prop.keys())
 
     def validate_track(self):
@@ -600,6 +598,7 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
 
     sleeper = Instance(Arrangement)
     pad = Instance(Arrangement)
+    ballast = Instance(Ballast)
     distance = Instance(Arrangement)
     num_mount = Integer(default_value=100)
 
@@ -611,10 +610,10 @@ class ArrangedBallastedSingleRailTrack(DiscrBallastedSingleRailTrack):
     def calc_mount_prop(self, change=None):
         """Calculate the mounting properties."""
         x = Decimal(str(0))
-        for s, p, d in zip(self.sleeper.generate(self.num_mount),
+        for s, p, b, d in zip(self.sleeper.generate(self.num_mount),
                            self.pad.generate(self.num_mount),
                            self.distance.generate(self.num_mount), strict=False):
-            self.mount_prop[float(Decimal(str(x)))] = (p, s)
+            self.mount_prop[float(Decimal(str(x)))] = (p, s, b)
             x += Decimal(str(d))
         self.l_track = max(self.mount_prop.keys())
 
