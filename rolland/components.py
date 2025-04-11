@@ -58,6 +58,8 @@ class Rail(HasTraits):
         Area moment of inertia of rail around z-axis :math:`[m^4]`.
     Itr : float
         Torsional constant of rail :math:`[m^4]`.
+    Ipr : float
+        Polar moment of inertia of rail :math:`[m^4]`.
     Ar : float
         Cross-sectional area of rail :math:`[m^2]`.
     Asr : float
@@ -81,6 +83,7 @@ class Rail(HasTraits):
     Iyr = Float()
     Izr = Float()
     Itr = Float()
+    Ipr = Float()
     Ar = Float()
     Asr = Float()
     Vr = Float()
