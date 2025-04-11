@@ -331,7 +331,7 @@ class TBDiscr(AnalyticalMethods):
         mr = track.rail.mr
         rho = track.rail.rho
         etap = track.pad.etap
-        kap = track.rail.kap
+        kap = track.rail.kap[0]
         youm = track.rail.E
         shearm = track.rail.G
         ar = track.rail.Ar

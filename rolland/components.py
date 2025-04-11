@@ -36,8 +36,8 @@ class Rail(HasTraits):
         Shear modulus of rail :math:`[Pa]`.
     nu : float
         Poisson's ratio of rail :math:`[-]`.
-    kap : float
-        Timoshenko shear correction factor :math:`[-]`.
+    kap : list of float
+        Timoshenko shear correction factor (vertical, lateral) :math:`[-]`.
     mr : float
         Rail mass per unit length :math:`[kg/m]`.
     rho : float
@@ -70,7 +70,7 @@ class Rail(HasTraits):
     E = Float()
     G = Float()
     nu = Float()
-    kap = Float()
+    kap = List(Float())
     mr = Float()
     rho = Float()
     etar = Float()
