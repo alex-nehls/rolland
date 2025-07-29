@@ -12,7 +12,7 @@
 """
 import abc
 
-from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, squeeze, zeros
+from numpy import array, exp, eye, lib, linalg, newaxis, pi, real, sqrt, squeeze, zeros, ones
 from traitlets import Float, Instance, List, Union, observe
 from traittypes import Array
 
@@ -240,7 +240,7 @@ class EBBCont2LSupp(AnalyticalMethods):
         s_tot = (sp_tot * (sb_tot - ms * self.omega ** 2)) / (sp_tot + sb_tot - ms * self.omega ** 2)
 
         # Eq. 3.6
-        k_p = ((self.omega ** 2 * mr - s_tot - 1j * self.omega * dp) /
+        k_p = ((self.omega ** 2 * mr - s_tot) /
                 (self.track.rail.E * self.track.rail.Iyr)) ** (1/4)
 
         abs_x = abs(array(self.x, ndmin=1)[:, None] - self.x_excit)  # Broadcast x over omega  # Broadcast x over omega
