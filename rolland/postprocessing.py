@@ -12,7 +12,7 @@
 import abc
 
 import matplotlib.pyplot as plt
-from numpy import array, convolve, ones, pi, rint, round, squeeze, where, zeros  # noqa: A004
+from numpy import array, convolve, ones, pi, rint, round, squeeze, where, zeros, transpose  # noqa: A004
 from numpy.fft import fft, fftfreq
 from traitlets import Float, Instance, List, Unicode
 from traittypes import Array
@@ -57,7 +57,12 @@ class PostProcessing(ABCHasTraits):
 
     @staticmethod
     def plot(
-        arrays, labels, title='Universal Plot', x_label='X-axis', y_label='Y-axis', colors=None, plot_type='loglog',
+        arrays,
+        title       = 'Universal Plot',
+        x_label     = 'X-axis',
+        y_label     = 'Y-axis',
+        colors      = None,
+        plot_type   = 'loglog',
     ):
         """Universal plot function for multiple data sets.
 
@@ -82,11 +87,11 @@ class PostProcessing(ABCHasTraits):
         if colors is None:
             colors = ['k', 'r', 'b', 'g', 'c', 'm', 'y']
 
-        for (x, y), label, color in zip(arrays, labels, colors, strict=False):
+        for (x, y), color in zip(arrays, colors, strict=False):  # NOTE: why does this work? Should be grouping the first and second list elements into two respective tuples.
             if plot_type == 'loglog':
-                plt.loglog(x, y, label=label, color=color)
+                plt.loglog(x, y, color=color)
             else:
-                plt.plot(x, y, label=label, color=color)
+                plt.plot(x, y, color=color)
 
         plt.xlabel(x_label)
         plt.ylabel(y_label)
@@ -94,6 +99,50 @@ class PostProcessing(ABCHasTraits):
         plt.legend()
         plt.grid(True)
         plt.show()
+
+    @staticmethod
+    def plotMatrix(
+        deflection, 
+        track,
+        simulation_time,
+    ):
+        # TODO: put parameters in description
+        """Plot function for visualizing the deflection of the track over time in an array.
+        x_axis : represents spatial dimension of track
+        y_axis : represents time dimension of process
+
+        Parameters
+        ----------
+        arrays : list of tuple
+            List of tuples, where each tuple contains two numpy.ndarray (x and y data).
+
+
+        """
+        plt.figure(figsize=(10, 6))
+
+        skip_x      = 1
+        skip_y      = 1
+        deflection  = transpose(deflection.deflection)
+
+        plt.imshow(
+            # deflection[::skip_y, ::skip_x],   # NOTE: 
+            X           = deflection,
+            aspect      ='auto',
+            cmap        ='viridis',
+            extent      =[
+                0, track.l_track,
+                simulation_time, 0
+            ])
+        plt.title('Displacement')
+        plt.ylabel('Time Step [s]')
+        plt.xlabel('Beam Pos. [m]')
+        plt.ylim(0.1, 0)
+        plt.colorbar(label='Displacement [m]')
+        plt.clim(-1e-6, 1e-6)
+
+        plt.tight_layout()
+        plt.show()
+
 
 
 class AnalyticPP(PostProcessing):
