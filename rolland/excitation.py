@@ -28,10 +28,6 @@ class Excitation(ABCHasTraits):
 class StationaryExcitation(Excitation):
     """Abstract base class for stationary excitation."""
 
-    @abc.abstractmethod
-    def validate_stationary_excitation(self):
-        """Validate stationary excitation parameters."""
-
 
 class GaussianImpulse(StationaryExcitation):
     """Gaussian impulse excitation class.
@@ -68,3 +64,26 @@ class GaussianImpulse(StationaryExcitation):
 class MovingExcitation(Excitation):
     """Moving excitation class."""
 
+
+class ConstantForce(MovingExcitation):
+    """Constant force excitation class.
+
+    This excitation type is used for moving sources.
+
+    Attributes
+    ----------
+    x_excit : float
+        Excitation position :math:`[m]`.
+    """
+
+    force_amplitude = Float(default_value=50000.0)
+    # x_excit_start = Union([List(), Float(default_value=50.0)])    # TODO: use this as starting point and move every timestep
+    x_excit = Union([List(), Float(default_value=50.0)])            # NOTE: doesn't work for multiple excitation points
+
+    def validate_excitation(self):
+        """Validate excitation parameters."""
+
+    def force(self, t):
+        """Compute force array (contains force over time)."""
+        force_array = [self.force_amplitude] * len(t)
+        return force_array
