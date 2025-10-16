@@ -88,7 +88,7 @@ class DeflectionEBBVertic(Deflection):
         ----------
         u1 : numpy.ndarray
             Deflection array at the current time step.
-        u0 : numpy.ndarray
+        u0 : numpy.ndarray    
             Deflection array at the previous time step.
         ind_excit : int
             Index of the excitation point.

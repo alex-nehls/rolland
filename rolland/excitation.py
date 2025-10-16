@@ -45,9 +45,9 @@ class GaussianImpulse(StationaryExcitation):
         Excitation position :math:`[m]`.
     """
 
-    sigma = Float(default_value=0.7e-4)
-    a = Float(default_value=0.5e2)
-    x_excit = Union([List(), Float(default_value=50.0)])
+    sigma = Float(default_value = 0.7e-4)
+    a = Float(default_value = 0.5e2)
+    x_excit = Union([List(), Float(default_value = 50.0)])
 
     def validate_excitation(self):
         """Validate excitation parameters."""
@@ -57,8 +57,9 @@ class GaussianImpulse(StationaryExcitation):
 
     def force(self, t):
         """Compute force array (contains force over time)."""
-        tg = t - 4 * self.sigma
-        return self.a * tg / self.sigma ** 2 * exp(-tg ** 2 / self.sigma ** 2)
+        tg          = t - 4 * self.sigma
+        force_array = self.a*tg / self.sigma**2 * exp(-tg**2 / self.sigma**2)
+        return force_array
 
 
 class MovingExcitation(Excitation):
@@ -77,8 +78,8 @@ class ConstantForce(MovingExcitation):
     """
 
     force_amplitude = Float(default_value=50000.0)
-    # x_excit_start = Union([List(), Float(default_value=50.0)])    # TODO: use this as starting point and move every timestep
-    x_excit = Union([List(), Float(default_value=50.0)])            # NOTE: doesn't work for multiple excitation points
+    # x_excit_start = Union([List(), Float(default_value = 50.0)])    # TODO: use this as starting point and move every timestep
+    x_excit = Union([List(), Float(default_value = 50.0)])            # NOTE: doesn't work for multiple excitation points
 
     def validate_excitation(self):
         """Validate excitation parameters."""
