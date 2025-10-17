@@ -243,7 +243,7 @@ class Response(RollandPP):
     def calculate_response(self):
         """Calculate and store response quantities (Receptance, Mobility, Accelerance)."""
         if self.x_resp is None and self.ind_resp is None:
-            self.x_resp = [self.results.discr.dx * self.results.ind_excit]
+            self.x_resp = [self.results.discr.dx * self.results.excitation_index]
             self.ind_resp = [int(x / self.results.discr.dx) for x in self.x_resp]
 
         elif self.x_resp is None and self.ind_resp is not None:
@@ -321,7 +321,7 @@ class TDR(RollandPP):
             x_mp = array(list(self.results.track.mount_prop.keys()))    # Position
             ind_mp = (x_mp / self.results.discr.dx).astype(int)         # Index
             # Left sleeper Index
-            idx_s = int(where(ind_mp < self.results.ind_excit)[0][-1])
+            idx_s = int(where(ind_mp < self.results.excitation_index)[0][-1])
             # Calculate distance from excitation point
             x_s = x_mp[idx_s:] - x_mp[idx_s]  # Sleeper distances from excitation point.
             x_sc = convolve(x_s, ones(2) / 2, mode='valid')  # Sleeper centers from excitation point.
@@ -341,19 +341,19 @@ class TDR(RollandPP):
                          x_sc[36], x_sc[42], x_sc[48], x_sc[54], x_sc[66]]) - x_sc[0]
 
             # Determination of measurement position indices
-            ind_tdr = rint(round(self.x_tdr, 5) / self.results.discr.dx) + self.results.ind_excit
+            ind_tdr = rint(round(self.x_tdr, 5) / self.results.discr.dx) + self.results.excitation_index
             self.ind_tdr = list(ind_tdr.astype(int))
 
         else:
             # TDR for continuous slab and ballasted tracks
             # Identification of TDR positions
-            ind_excit = self.results.ind_excit              # Start index.
+            excitation_index = self.results.excitation_index              # Start index.
             l_s = 0.6                                       # Theoretical Sleeper distance.
             x_tdr = array([0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.5, 4, 4.5, 5.5, 6.5, 7.5, 8.5,
                          10.5, 12.5, 16.5, 20.5, 24.5, 30.5, 36.5, 42.5, 48.5, 54.5, 66.5]) * l_s
 
             self.x_tdr = x_tdr - l_s / 2
-            ind_tdr = rint(self.x_tdr / self.results.discr.dx) + ind_excit
+            ind_tdr = rint(self.x_tdr / self.results.discr.dx) + excitation_index
             self.ind_tdr = list(ind_tdr.astype(int))
 
 

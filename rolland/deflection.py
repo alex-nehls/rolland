@@ -54,7 +54,7 @@ class DeflectionEBBVertic(Deflection):
         Discretization instance.
     deflection : numpy.ndarray
         Deflection array :math:`[m]`.
-    ind_excit : int
+    excitation_index : int
         Index of excitation point :math:`[-]`.
     """
 
@@ -81,7 +81,7 @@ class DeflectionEBBVertic(Deflection):
         self.force = self.excit.force(t)
 
 
-    def calc_rightside_crank_nicolson(self, u1, u0, ind_excit, t):
+    def calc_rightside_crank_nicolson(self, u1, u0, excitation_index, t):
         """Calculate the right-hand side of the equation according to :cite:t:`stampka2022a`.
 
         Parameters
@@ -90,7 +90,7 @@ class DeflectionEBBVertic(Deflection):
             Deflection array at the current time step.
         u0 : numpy.ndarray    
             Deflection array at the previous time step.
-        ind_excit : int
+        excitation_index : int
             Index of the excitation point.
         t : int
             Current time step.
@@ -103,11 +103,11 @@ class DeflectionEBBVertic(Deflection):
         # Write excitation force for time step t into force array
         f = zeros(2 * self.discr.nx)
 
-        if isinstance(ind_excit, list):
-            for idx in ind_excit:
+        if isinstance(excitation_index, list):
+            for idx in excitation_index:
                 f[idx] = self.force[t]
         else:
-            f[ind_excit] = self.force[t]
+            f[excitation_index] = self.force[t]
 
         return (self.discr.B.dot(u1) + self.discr.C.dot(u0) + self.discr.dt ** 2 /
                 (self.track.rail.mr * self.discr.dx) * f)
@@ -129,16 +129,21 @@ class DeflectionEBBVertic(Deflection):
         """
         # Index of excitation point/points
         if isinstance(self.excit.x_excit, list):
-            self.ind_excit = [int(x / self.discr.dx) for x in self.excit.x_excit]
+            self.excitation_index = [int(x / self.discr.dx) for x in self.excit.x_excit]
         else:
-            self.ind_excit = int(self.excit.x_excit / self.discr.dx)
+            self.excitation_index = int(self.excit.x_excit / self.discr.dx)
 
         # Factorization of matrix A (LU decomposition)
         factoriz = splu(self.discr.A)
 
         for t in range(1, self.discr.nt):
+            excitation_now = self.excitation_index + round(t/50)   # Move excitation point over time
             # Calculate right hand side of equation
-            b = self.calc_rightside_crank_nicolson(u1=defl[:, t], u0=defl[:, t - 1], ind_excit=self.ind_excit, t=t)
+            b = self.calc_rightside_crank_nicolson(
+                u1 = defl[:, t],
+                u0 = defl[:, t - 1],
+                excitation_index = excitation_now,
+                t = t)
 
             # Calculate deflection for time step t
             u = factoriz.solve(b)
