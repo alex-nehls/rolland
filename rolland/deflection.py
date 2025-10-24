@@ -78,8 +78,9 @@ class DeflectionEBBVertic(Deflection):
     def calc_force(self):
         """Calculate force array."""
         t = linspace(0, self.discr.sim_t, self.discr.nt)
-        self.force = self.excit.force(t)
-
+        full_force = self.excit.force(t)
+        # Kürze Force-Array auf die relevante Länge (entferne letzten Wert)
+        self.force = full_force[:-1]  
 
     def calc_rightside_crank_nicolson(self, u1, u0, excitation_index, t):
         """Calculate the right-hand side of the equation according to :cite:t:`stampka2022a`.
@@ -114,41 +115,42 @@ class DeflectionEBBVertic(Deflection):
 
 
     def calc_deflection(self, defl):
-        """
-        Calculate deflection.
-
-        Parameters
-        ----------
-        defl : numpy.ndarray
-            Array of deflections initialized to zero with shape (2 * nx, nt + 1).
-
-        Returns
-        -------
-        defl : numpy.ndarray
-            Array of calculated deflections with shape (2 * nx, nt + 1).
-        """
-        # Index of excitation point/points
-        if isinstance(self.excit.x_excit, list):
-            self.excitation_index = [int(x / self.discr.dx) for x in self.excit.x_excit]
-        else:
-            self.excitation_index = int(self.excit.x_excit / self.discr.dx)
-
+        """Calculate deflection."""
+        # Convert single excitation point to list for uniform handling
+        if not isinstance(self.excit.x_excit, list):
+            self.excit.x_excit = [self.excit.x_excit]
+        
+        # Calculate initial indices for all excitation points
+        self.excitation_indices = [int(x / self.discr.dx) for x in self.excit.x_excit]
+        
+        # Array for storing deflection at contact points over time
+        self.contact_point_deflection = [[] for _ in self.excitation_indices]
+        
         # Factorization of matrix A (LU decomposition)
         factoriz = splu(self.discr.A)
 
         for t in range(1, self.discr.nt):
-            excitation_now = self.excitation_index + round(t/50)   # Move excitation point over time
+            # Calculate current positions based on velocity
+            dx = round((self.excit.velocity * t * self.discr.dt) / self.discr.dx)
+            excitation_now = [idx + dx for idx in self.excitation_indices]
+            
             # Calculate right hand side of equation
             b = self.calc_rightside_crank_nicolson(
-                u1 = defl[:, t],
-                u0 = defl[:, t - 1],
-                excitation_index = excitation_now,
-                t = t)
+                u1=defl[:, t],
+                u0=defl[:, t - 1],
+                excitation_index=excitation_now,
+                t=t-1  # Anpassung des Force-Index
+            )
 
             # Calculate deflection for time step t
             u = factoriz.solve(b)
-
             defl[:, t + 1] = u[0:2 * self.discr.nx]
+            
+            # Store deflection at each contact point
+            for i, idx in enumerate(excitation_now):
+                if 0 <= idx < len(defl):  # Only store if point is still within domain
+                    self.contact_point_deflection[i].append(defl[idx, t])
+        
         return defl
 
 

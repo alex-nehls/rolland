@@ -80,7 +80,7 @@ class DiscretizationEBBVertic(Discretization):
     track = Instance(Track)
     bound = Instance(PMLRailDampVertic)
     dt = Float(default_value=2e-5)
-    req_simt = Float(default_value=0.4)
+    req_simt = Float(default_value=0.5)
     bx = Float(default_value=1.0)
 
     def calc_grid(self):
