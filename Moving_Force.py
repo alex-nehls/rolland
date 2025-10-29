@@ -53,7 +53,8 @@ output_dir = Path('mobility_plots')
 output_dir.mkdir(exist_ok=True)
 
 # Velocity loop
-velocities = np.arange(5, 105, 5)  # 5 to 100 m/s in 5 m/s steps
+# velocities = np.arange(5, 105, 5)  # 5 to 100 m/s in 5 m/s steps
+velocities = [10]
 
 for vel in velocities:
     print(f"Calculating for velocity {vel} m/s ({vel*3.6:.0f} km/h)")
@@ -89,26 +90,36 @@ for vel in velocities:
 
     # Create and save plots for each wheel
     for i, contact_defl in enumerate(deflection_results.contact_point_deflection):
-        plt.figure(figsize=(8, 5))
-        
         # Perform FFT of deflection
         deflection_fft  = fft(contact_defl)
         freqs           = fftfreq(len(t), 1/fs)
         omega           = 2 * np.pi * freqs
         mobility        = 1j * omega * deflection_fft / force_fft
+        receptance      = deflection_fft / force_fft
 
         # Filter for frequencies up to 2 kHz
         mask = (freqs >= 0) & (freqs <= 2000)
-        plt.plot(freqs[mask], np.abs(mobility[mask]), 'b-', linewidth=1)
 
+        plt.figure(figsize=(10, 5))
+        plt.subplot(2, 1, 1)
+        plt.plot(freqs[mask], np.abs(mobility[mask]), 'b-', linewidth=1)
         plt.xlabel('Frequency [Hz]')
         plt.ylabel('Mobility [m/Ns]')
         plt.yscale('log')
         plt.grid(True)
-        plt.title(f'Contact Point Mobility - {vel} m/s')
-        
-        # Save plot
-        plt.savefig(output_dir / f'mobility_v{vel:03d}_wheel{i+1}.png', dpi=300, bbox_inches='tight')
+        plt.title(f'Mobility - {vel} m/s')
+
+        plt.subplot(2, 1, 2)
+        plt.plot(freqs[mask], np.abs(receptance[mask]), 'r-', linewidth=1)
+        plt.xlabel('Frequency [Hz]')
+        plt.ylabel('Receptance [m/N]')
+        plt.yscale('log')
+        plt.grid(True)
+        plt.title(f'Receptance - {vel} m/s')
+
+        plt.suptitle(f'Contact Point {i+1} - {vel} m/s')
+        plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+        plt.savefig(str(output_dir / f'mobility_receptance_v{vel:03d}_wheel{i+1}.png'), dpi=300, bbox_inches='tight')
         plt.close()
 
     # Optional: Clear memory
@@ -123,16 +134,21 @@ for vel in velocities:
 #     simulation_time = discretization.req_simt,
 # )
 
+
 # 4.2 Calculate frequency response at excitation point
 response = resp(results = deflection_results)
 
-# 4.3 Plot mobility frequency response
-resp.plot(
-    [(response.freq, abs(response.mob))],
-    ['SimplePeriodicBallastedSingleRailTrack'],
-    title='Frequency Response',
+# 4.3 Plot both mobility and receptance in two subplots
+resp.plot_mobility_receptance(
+    freq=response.freq,
+    mob=response.mob,
+    rez=response.rez,
+    title=f'Frequency Response - {vel} m/s',
     x_label='Frequency [Hz]',
-    y_label='Mobility [m/Ns]',
+    mob_label='Mobility [m/Ns]',
+    rez_label='Receptance [m/N]',
+    colors=['b', 'r'],
+    plot_type='loglog',
 )
 
 # 4.4 Calculate Track Decay Rate (TDR)
@@ -140,7 +156,7 @@ tdr = TDR(results = deflection_results)
 
 # 4.5 Plot Track Decay Rate (TDR)
 resp.plot([(tdr.freq, tdr.tdr)],
-    ['SimplePeriodicBallastedSingleRailTrack'],
+    # ['SimplePeriodicBallastedSingleRailTrack'],
     title='Track-Decay-Rate',
     x_label='f [Hz]',
     y_label='TDR [dB/m]',

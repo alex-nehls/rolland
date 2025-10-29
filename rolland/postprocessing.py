@@ -57,13 +57,13 @@ class PostProcessing(ABCHasTraits):
 
     @staticmethod
     def plot(
-        arrays,
-        title       = 'Universal Plot',
-        x_label     = 'X-axis',
-        y_label     = 'Y-axis',
-        colors      = None,
-        plot_type   = 'loglog',
-    ):
+            arrays,
+            title       = 'Universal Plot',
+            x_label     = 'X-axis',
+            y_label     = 'Y-axis',
+            colors      = None,
+            plot_type   = 'loglog',
+        ):
         """Universal plot function for multiple data sets.
 
         Parameters
@@ -96,8 +96,46 @@ class PostProcessing(ABCHasTraits):
         plt.xlabel(x_label)
         plt.ylabel(y_label)
         plt.title(title)
-        plt.legend()
+        # plt.legend()
         plt.grid(True)
+
+
+    @staticmethod
+    def plot_mobility_receptance(
+        freq,
+        mob,
+        rez,
+        title='Mobility & Receptance',
+        x_label='Frequency [Hz]',
+        mob_label='Mobility [m/Ns]',
+        rez_label='Receptance [m/N]',
+        colors=None,
+        plot_type='loglog',
+    ):
+        # TODO : Docstring
+        import matplotlib.pyplot as plt
+        import numpy as np
+        plt.figure(figsize=(10, 8))
+        ax1 = plt.subplot(211)
+        if plot_type == 'loglog':
+            ax1.loglog(freq, np.abs(mob), color=colors[0] if colors else 'b', label=mob_label)
+        else:
+            ax1.plot(freq, np.abs(mob), color=colors[0] if colors else 'b', label=mob_label)
+        ax1.set_ylabel(mob_label)
+        ax1.set_title(title)
+        ax1.grid(True)
+        ax1.legend()
+
+        ax2 = plt.subplot(212, sharex=ax1)
+        if plot_type == 'loglog':
+            ax2.loglog(freq, np.abs(rez), color=colors[1] if colors else 'r', label=rez_label)
+        else:
+            ax2.plot(freq, np.abs(rez), color=colors[1] if colors else 'r', label=rez_label)
+        ax2.set_xlabel(x_label)
+        ax2.set_ylabel(rez_label)
+        ax2.grid(True)
+        ax2.legend()
+        plt.tight_layout()
         plt.show()
 
     @staticmethod
@@ -242,7 +280,15 @@ class Response(RollandPP):
     def calculate_response(self):
         """Calculate and store response quantities (Receptance, Mobility, Accelerance)."""
         if self.x_resp is None and self.ind_resp is None:
-            self.x_resp = [self.results.discr.dx * self.results.excitation_index]
+            # Handle both excitation_indices (plural, list) and excitation_index (singular)
+            if hasattr(self.results, 'excitation_indices') and self.results.excitation_indices:
+                exc_ind = int(self.results.excitation_indices[0])
+            elif hasattr(self.results, 'excitation_index'):
+                exc_ind = int(self.results.excitation_index)
+            else:
+                raise AttributeError('No excitation index found on results (expected excitation_indices or excitation_index)')
+            
+            self.x_resp = [self.results.discr.dx * exc_ind]
             self.ind_resp = [int(x / self.results.discr.dx) for x in self.x_resp]
 
         elif self.x_resp is None and self.ind_resp is not None:
@@ -312,6 +358,14 @@ class TDR(RollandPP):
 
     def find_tdr_points(self):
         """Find the corresponding measurement points depending on track type."""
+        # Determine excitation index robustly
+        if hasattr(self.results, 'excitation_indices') and self.results.excitation_indices:
+            exc_ind = int(self.results.excitation_indices[0])
+        elif hasattr(self.results, 'excitation_index'):
+            exc_ind = int(self.results.excitation_index)
+        else:
+            raise AttributeError('No excitation index found on results (expected excitation_indices or excitation_index)')
+        
         if isinstance(self.results.track, ArrangedSlabSingleRailTrack | ArrangedBallastedSingleRailTrack):
             # TDR for non-uniform mounting positions
             #   Identification of TDR positions
@@ -320,7 +374,7 @@ class TDR(RollandPP):
             x_mp = array(list(self.results.track.mount_prop.keys()))    # Position
             ind_mp = (x_mp / self.results.discr.dx).astype(int)         # Index
             # Left sleeper Index
-            idx_s = int(where(ind_mp < self.results.excitation_index)[0][-1])
+            idx_s = int(where(ind_mp < exc_ind)[0][-1])
             # Calculate distance from excitation point
             x_s = x_mp[idx_s:] - x_mp[idx_s]  # Sleeper distances from excitation point.
             x_sc = convolve(x_s, ones(2) / 2, mode='valid')  # Sleeper centers from excitation point.
@@ -340,19 +394,19 @@ class TDR(RollandPP):
                          x_sc[36], x_sc[42], x_sc[48], x_sc[54], x_sc[66]]) - x_sc[0]
 
             # Determination of measurement position indices
-            ind_tdr = rint(round(self.x_tdr, 5) / self.results.discr.dx) + self.results.excitation_index
+            ind_tdr = rint(round(self.x_tdr, 5) / self.results.discr.dx) + exc_ind
             self.ind_tdr = list(ind_tdr.astype(int))
 
         else:
             # TDR for continuous slab and ballasted tracks
             # Identification of TDR positions
-            excitation_index = self.results.excitation_index              # Start index.
+            excitation_index = exc_ind              # Start index.
             l_s = 0.6                                       # Theoretical Sleeper distance.
             x_tdr = array([0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.5, 4, 4.5, 5.5, 6.5, 7.5, 8.5,
                          10.5, 12.5, 16.5, 20.5, 24.5, 30.5, 36.5, 42.5, 48.5, 54.5, 66.5]) * l_s
 
             self.x_tdr = x_tdr - l_s / 2
-            ind_tdr = rint(self.x_tdr / self.results.discr.dx) + excitation_indices # NOTE: excitation_indices not defined
+            ind_tdr = rint(self.x_tdr / self.results.discr.dx) + excitation_index # NOTE: excitation_indices not defined
             self.ind_tdr = list(ind_tdr.astype(int))
 
 
