@@ -77,7 +77,7 @@ class ConstantForce(MovingExcitation):
         Force amplitude per wheel :math:`[N]`.
     """
 
-    force_amplitude = Float(default_value=50000.0)
+    force_amplitude = Float(default_value=65000.0)
     x_excit = Union([List(), Float(default_value = 50.0)])
     velocity = Float(default_value=27.78)  # default 100 km/h in m/s
 
@@ -96,14 +96,21 @@ class ConstantForce(MovingExcitation):
             
         # Constant force with random component for remaining 90%
         np.random.seed(42)  # für Reproduzierbarkeit
+        # random_component = np.random.uniform(
+        #     low     = -0.1 * self.force_amplitude,
+        #     high    = 0.1 * self.force_amplitude,
+        #     size    = n - ramp_length
+        # )
         random_component = np.random.uniform(
-            low     = -0.1 * self.force_amplitude,
-            high    = 0.1 * self.force_amplitude,
+            low     = 0,
+            high    = self.force_amplitude,
             size    = n - ramp_length
         )
         constant_part = [self.force_amplitude] * (n - ramp_length)
 
-        # force_array.extend(np.array(constant_part) + random_component)
-        force_array.extend(np.array(constant_part))
+
+        force_array.extend(np.array(constant_part) + random_component)
+        # force_array.extend(np.array(constant_part))
+
 
         return force_array

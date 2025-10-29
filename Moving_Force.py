@@ -53,8 +53,12 @@ output_dir = Path('mobility_plots')
 output_dir.mkdir(exist_ok=True)
 
 # Velocity loop
-# velocities = np.arange(5, 105, 5)  # 5 to 100 m/s in 5 m/s steps
-velocities = [10]
+velocities = np.arange(5, 105, 5)  # 5 to 100 m/s in 5 m/s steps
+# velocities = [10]
+
+# clear mobility plots directory
+for file in output_dir.glob('*.png'):
+    os.remove(file)
 
 for vel in velocities:
     print(f"Calculating for velocity {vel} m/s ({vel*3.6:.0f} km/h)")
@@ -125,7 +129,7 @@ for vel in velocities:
     # Optional: Clear memory
     plt.close('all')
 
-# 4.1 Plot deflection over time
+# # 4.1 Plot deflection over time
 # deflection = np.transpose(deflection_results.deflection)
 # deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
 # resp.plotMatrix(
@@ -135,29 +139,29 @@ for vel in velocities:
 # )
 
 
-# 4.2 Calculate frequency response at excitation point
-response = resp(results = deflection_results)
+# # 4.2 Calculate frequency response at excitation point
+# response = resp(results = deflection_results)
 
-# 4.3 Plot both mobility and receptance in two subplots
-resp.plot_mobility_receptance(
-    freq=response.freq,
-    mob=response.mob,
-    rez=response.rez,
-    title=f'Frequency Response - {vel} m/s',
-    x_label='Frequency [Hz]',
-    mob_label='Mobility [m/Ns]',
-    rez_label='Receptance [m/N]',
-    colors=['b', 'r'],
-    plot_type='loglog',
-)
+# # 4.3 Plot both mobility and receptance in two subplots
+# resp.plot_mobility_receptance(
+#     freq=response.freq,
+#     mob=response.mob,
+#     rez=response.rez,
+#     title=f'Frequency Response - {vel} m/s',
+#     x_label='Frequency [Hz]',
+#     mob_label='Mobility [m/Ns]',
+#     rez_label='Receptance [m/N]',
+#     colors=['b', 'r'],
+#     plot_type='loglog',
+# )
 
-# 4.4 Calculate Track Decay Rate (TDR)
-tdr = TDR(results = deflection_results)
+# # 4.4 Calculate Track Decay Rate (TDR)
+# tdr = TDR(results = deflection_results)
 
-# 4.5 Plot Track Decay Rate (TDR)
-resp.plot([(tdr.freq, tdr.tdr)],
-    # ['SimplePeriodicBallastedSingleRailTrack'],
-    title='Track-Decay-Rate',
-    x_label='f [Hz]',
-    y_label='TDR [dB/m]',
-    plot_type='loglog')
+# # 4.5 Plot Track Decay Rate (TDR)
+# resp.plot([(tdr.freq, tdr.tdr)],
+#     # ['SimplePeriodicBallastedSingleRailTrack'],
+#     title='Track-Decay-Rate',
+#     x_label='f [Hz]',
+#     y_label='TDR [dB/m]',
+#     plot_type='loglog')
