@@ -45,7 +45,7 @@ track = SimplePeriodicBallastedSingleRailTrack(
                 sb = [150e6, 0],    # Ballast stiffness [N/m]
                 db = [48000, 0]     # Ballast damping [Ns/m]
     ),
-    num_mount   = 60,               # Number of discrete mounting positions
+    num_mount   = 100,               # Number of discrete mounting positions
     distance    = 0.6               # Distance between sleepers [m]
 )
 
@@ -53,7 +53,7 @@ track = SimplePeriodicBallastedSingleRailTrack(
 # 2. SIMULATION SETUP
 # =============================================================================
 # Define boundary conditions (Perfectly Matched Layer absorbing boundary)
-boundary    = PMLRailDampVertic(l_bound = 5.0)  # width of boundary domain
+boundary    = PMLRailDampVertic(l_bound = 10.0)  # width of boundary domain
 
 # Output directory
 output_dir = Path('mobility_plots')
@@ -66,8 +66,8 @@ for file in output_dir.glob('*.png'):
 # =============================================================================
 # 3. VELOCITY SWEEP SIMULATION
 # =============================================================================
-# velocities = np.arange(5, 105, 5)  # 5 to 100 m/s in 5 m/s steps
-velocities = [25]
+velocities = np.arange(5, 40, 5)  # 5 to 40 m/s in 5 m/s steps
+# velocities = [60]
 
 for vel in velocities:
     print(f"Computing velocity: {vel} m/s ({vel*3.6:.1f} km/h)")
@@ -75,7 +75,9 @@ for vel in velocities:
     # Define moving load excitation
     starting_position = 15.0
     excitation = ConstantForce(
-        x_excit         = [starting_position],    # Starting positions [m]
+        x_excit         = [starting_position],
+        # x_excit         = [starting_position,
+        #                    starting_position + 2.5],    # Starting positions [m]
         velocity        = float(vel),                   # Velocity [m/s]
         force_amplitude = 65000.0                       # [N]
     )
@@ -137,14 +139,14 @@ for vel in velocities:
     # Optional: Clear memory
     plt.close('all')
 
-# # 4.1 Plot deflection over time
-# deflection = np.transpose(deflection_results.deflection)
-# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
-# resp.plotMatrix(
-#     deflection      = deflection, 
-#     track           = track,
-#     simulation_time = discretization.req_simt,
-# )
+# 4.1 Plot deflection over time
+deflection = np.transpose(deflection_results.deflection)
+deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
+resp.plotMatrix(
+    deflection      = deflection, 
+    track           = track,
+    simulation_time = discretization.req_simt,
+)
 
 
 # # 4.2 Calculate frequency response at excitation point
