@@ -1,12 +1,15 @@
 """
 Track Vibration Analysis using Rolland API.
-Example simulation for quasistatic excitation of rail vibration.
+Moving load simulation for railway track dynamic response.
 
-This simulation is build using the following structure:
-    1. Create a railway track model
-    2. Apply excitation and boundary conditions
-    3. Run a vibration simulation
-    4. Analyze and plot the results
+This script demonstrates velocity-dependent mobility calculation for a
+ballasted railway track under moving wheel loads.
+
+Workflow:
+    1. Define railway track model (rail, pad, sleeper, ballast)
+    2. Set up boundary conditions and excitation
+    3. Run FDM simulation for multiple velocities
+    4. Calculate and save mobility/receptance frequency responses
 """
 
 # Import required components from Rolland library
@@ -27,7 +30,9 @@ from scipy.fft import fft, fftfreq
 import os
 from pathlib import Path
 
-# 1. TRACK DEFINITION ----------------------------------------------------------
+# =============================================================================
+# 1. TRACK DEFINITION
+# =============================================================================
 # Create a ballasted single rail track model with periodic supports
 track = SimplePeriodicBallastedSingleRailTrack(
     rail    = UIC60,                # Standard UIC60 rail profile
@@ -44,64 +49,65 @@ track = SimplePeriodicBallastedSingleRailTrack(
     distance    = 0.6               # Distance between sleepers [m]
 )
 
-# 2. SIMULATION SETUP ---------------------------------------------------------
+# =============================================================================
+# 2. SIMULATION SETUP
+# =============================================================================
 # Define boundary conditions (Perfectly Matched Layer absorbing boundary)
 boundary    = PMLRailDampVertic(l_bound = 5.0)  # width of boundary domain
 
-# Create output directory for plots
+# Output directory
 output_dir = Path('mobility_plots')
 output_dir.mkdir(exist_ok=True)
-
-# Velocity loop
-velocities = np.arange(5, 105, 5)  # 5 to 100 m/s in 5 m/s steps
-# velocities = [10]
 
 # clear mobility plots directory
 for file in output_dir.glob('*.png'):
     os.remove(file)
 
+# =============================================================================
+# 3. VELOCITY SWEEP SIMULATION
+# =============================================================================
+velocities = np.arange(5, 105, 5)  # 5 to 100 m/s in 5 m/s steps
+
 for vel in velocities:
-    print(f"Calculating for velocity {vel} m/s ({vel*3.6:.0f} km/h)")
+    print(f"Computing velocity: {vel} m/s ({vel*3.6:.1f} km/h)")
     
-    # Define excitation with current velocity
+    # Define moving load excitation
     excitation = ConstantForce(
-        x_excit=[15.0],
-        velocity=float(vel),
-        force_amplitude=50000.0
+        x_excit         = [15.0],       # Starting positions [m]
+        velocity        = float(vel),   # Velocity [m/s]
+        force_amplitude = 50000.0       # [N]
     )
 
-    # 3. DISCRETIZATION & SIMULATION ----------------------------------------------
-    # Set up numerical discretization parameters
-    discretization = DiscretizationEBBVerticConst(
-        track = track,
-        bound = boundary,
-    )
+    # Discretize domain
+    discretization = DiscretizationEBBVerticConst(track=track, bound=boundary)
 
-    # Run the simulation and calculate deflection over time
+    # Solve for deflection
     deflection_results = DeflectionEBBVertic(
-        discr = discretization,
-        excit = excitation
+        discr=discretization,
+        excit=excitation
     )
 
-    # 4. POSTPROCESSING & VISUALIZATION -------------------------------------------
-    # 4.0 Calculate and plot mobility spectrum for each contact point
-    t = np.linspace(0, discretization.req_simt, len(deflection_results.contact_point_deflection[0]))
-    fs = 1/(t[1] - t[0])
+    # =============================================================================
+    # 4. POSTPROCESSING - Frequency Response
+    # =============================================================================
+    t = np.linspace(0, discretization.req_simt, 
+                    len(deflection_results.contact_point_deflection[0]))
+    fs = 1 / (t[1] - t[0])
 
-    # Get FFT of force once (same for all wheels)
-    force_time = deflection_results.force
-    force_fft = fft(force_time)
+    # FFT of force (includes ramp and random components)
+    force_fft = fft(deflection_results.force)
 
-    # Create and save plots for each wheel
+    # Process each contact point
     for i, contact_defl in enumerate(deflection_results.contact_point_deflection):
-        # Perform FFT of deflection
-        deflection_fft  = fft(contact_defl)
-        freqs           = fftfreq(len(t), 1/fs)
-        omega           = 2 * np.pi * freqs
-        mobility        = 1j * omega * deflection_fft / force_fft
-        receptance      = deflection_fft / force_fft
+        deflection_fft = fft(contact_defl)
+        freqs = fftfreq(len(t), 1/fs)
+        omega = 2 * np.pi * freqs
+        
+        # Calculate FRFs
+        mobility = 1j * omega * deflection_fft / force_fft  # [m/s/N]
+        receptance = deflection_fft / force_fft  # [m/N]
 
-        # Filter for frequencies up to 2 kHz
+        # Filter to 0-2000 Hz
         mask = (freqs >= 0) & (freqs <= 2000)
 
         plt.figure(figsize=(10, 5))
@@ -129,14 +135,14 @@ for vel in velocities:
     # Optional: Clear memory
     plt.close('all')
 
-# # 4.1 Plot deflection over time
-# deflection = np.transpose(deflection_results.deflection)
-# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
-# resp.plotMatrix(
-#     deflection      = deflection, 
-#     track           = track,
-#     simulation_time = discretization.req_simt,
-# )
+# 4.1 Plot deflection over time
+deflection = np.transpose(deflection_results.deflection)
+deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
+resp.plotMatrix(
+    deflection      = deflection, 
+    track           = track,
+    simulation_time = discretization.req_simt,
+)
 
 
 # # 4.2 Calculate frequency response at excitation point

@@ -101,16 +101,16 @@ class ConstantForce(MovingExcitation):
         #     high    = 0.1 * self.force_amplitude,
         #     size    = n - ramp_length
         # )
-        random_component = np.random.uniform(
-            low     = 0,
-            high    = self.force_amplitude,
-            size    = n - ramp_length
-        )
+        # random_component = np.random.uniform(
+        #     low     = 0,
+        #     high    = self.force_amplitude,
+        #     size    = n - ramp_length
+        # )
         constant_part = [self.force_amplitude] * (n - ramp_length)
 
 
-        force_array.extend(np.array(constant_part) + random_component)
-        # force_array.extend(np.array(constant_part))
+        # force_array.extend(np.array(constant_part) + random_component)
+        force_array.extend(np.array(constant_part))
 
 
         return force_array

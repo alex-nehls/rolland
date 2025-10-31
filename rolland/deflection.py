@@ -115,7 +115,16 @@ class DeflectionEBBVertic(Deflection):
 
 
     def calc_deflection(self, defl):
-        """Calculate deflection."""
+        """Calculate deflection using Crank-Nicolson time-stepping.
+        
+        For moving loads, contact point positions are updated each timestep
+        based on velocity: position(t) = initial_position + velocity * t
+        
+        Returns
+        -------
+        defl : numpy.ndarray
+            Full deflection history (2*nx, nt+1) containing rail and sleeper DOFs
+        """
         # Convert single excitation point to list for uniform handling
         if not isinstance(self.excit.x_excit, list):
             self.excit.x_excit = [self.excit.x_excit]
