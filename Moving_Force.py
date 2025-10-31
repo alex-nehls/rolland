@@ -37,13 +37,13 @@ from pathlib import Path
 track = SimplePeriodicBallastedSingleRailTrack(
     rail    = UIC60,                # Standard UIC60 rail profile
     pad     = DiscrPad(
-                sp = [180e6, 0],      # Stiffness properties [N/m]
-                dp = [18000, 0]       # Damping properties [Ns/m]
+                sp = [300e6, 0],    # Pad Stiffness [N/m]
+                dp = [18000, 0]     # Pad Damping [Ns/m]
     ),
     sleeper = Sleeper(ms=150),      # Sleeper mass [kg]
     ballast = Ballast(
-                sb = [105e6, 0],      # Ballast stiffness [N/m]
-                db = [48000, 0]       # Ballast damping [Ns/m]
+                sb = [150e6, 0],    # Ballast stiffness [N/m]
+                db = [48000, 0]     # Ballast damping [Ns/m]
     ),
     num_mount   = 60,               # Number of discrete mounting positions
     distance    = 0.6               # Distance between sleepers [m]
@@ -73,10 +73,11 @@ for vel in velocities:
     print(f"Computing velocity: {vel} m/s ({vel*3.6:.1f} km/h)")
     
     # Define moving load excitation
+    starting_position = 15.0
     excitation = ConstantForce(
-        x_excit         = [15.0],       # Starting positions [m]
-        velocity        = float(vel),   # Velocity [m/s]
-        force_amplitude = 50000.0       # [N]
+        x_excit         = [starting_position],    # Starting positions [m]
+        velocity        = float(vel),                   # Velocity [m/s]
+        force_amplitude = 65000.0                       # [N]
     )
 
     # Discretize domain
