@@ -113,7 +113,7 @@ for vel in velocities:
 
         plt.figure(figsize=(10, 5))
         plt.subplot(2, 1, 1)
-        plt.plot(freqs[mask], np.abs(mobility[mask]), 'k-', linewidth=1)
+        plt.plot(freqs[mask], np.abs(mobility[mask]), 'b-', linewidth=1)
         plt.xlabel('Frequency [Hz]')
         plt.ylabel('Mobility [m/Ns]')
         plt.yscale('log')
@@ -121,7 +121,7 @@ for vel in velocities:
         plt.title(f'Mobility - {vel} m/s')
 
         plt.subplot(2, 1, 2)
-        plt.plot(freqs[mask], np.abs(receptance[mask]), 'k-', linewidth=1)
+        plt.plot(freqs[mask], np.abs(receptance[mask]), 'r-', linewidth=1)
         plt.xlabel('Frequency [Hz]')
         plt.ylabel('Receptance [m/N]')
         plt.yscale('log')
