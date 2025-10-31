@@ -66,7 +66,8 @@ for file in output_dir.glob('*.png'):
 # =============================================================================
 # 3. VELOCITY SWEEP SIMULATION
 # =============================================================================
-velocities = np.arange(5, 105, 5)  # 5 to 100 m/s in 5 m/s steps
+# velocities = np.arange(5, 105, 5)  # 5 to 100 m/s in 5 m/s steps
+velocities = [25]
 
 for vel in velocities:
     print(f"Computing velocity: {vel} m/s ({vel*3.6:.1f} km/h)")
@@ -95,12 +96,12 @@ for vel in velocities:
     fs = 1 / (t[1] - t[0])
 
     # FFT of force (includes ramp and random components)
-    force_fft = fft(deflection_results.force)
+    force_fft = fft(deflection_results.force[10000:])
 
     # Process each contact point
     for i, contact_defl in enumerate(deflection_results.contact_point_deflection):
-        deflection_fft = fft(contact_defl)
-        freqs = fftfreq(len(t), 1/fs)
+        deflection_fft = fft(contact_defl[10000:])
+        freqs = fftfreq(len(t[10000:]), 1/fs)
         omega = 2 * np.pi * freqs
         
         # Calculate FRFs
@@ -112,7 +113,7 @@ for vel in velocities:
 
         plt.figure(figsize=(10, 5))
         plt.subplot(2, 1, 1)
-        plt.plot(freqs[mask], np.abs(mobility[mask]), 'b-', linewidth=1)
+        plt.plot(freqs[mask], np.abs(mobility[mask]), 'k-', linewidth=1)
         plt.xlabel('Frequency [Hz]')
         plt.ylabel('Mobility [m/Ns]')
         plt.yscale('log')
@@ -120,7 +121,7 @@ for vel in velocities:
         plt.title(f'Mobility - {vel} m/s')
 
         plt.subplot(2, 1, 2)
-        plt.plot(freqs[mask], np.abs(receptance[mask]), 'r-', linewidth=1)
+        plt.plot(freqs[mask], np.abs(receptance[mask]), 'k-', linewidth=1)
         plt.xlabel('Frequency [Hz]')
         plt.ylabel('Receptance [m/N]')
         plt.yscale('log')
@@ -135,14 +136,14 @@ for vel in velocities:
     # Optional: Clear memory
     plt.close('all')
 
-# 4.1 Plot deflection over time
-deflection = np.transpose(deflection_results.deflection)
-deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
-resp.plotMatrix(
-    deflection      = deflection, 
-    track           = track,
-    simulation_time = discretization.req_simt,
-)
+# # 4.1 Plot deflection over time
+# deflection = np.transpose(deflection_results.deflection)
+# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
+# resp.plotMatrix(
+#     deflection      = deflection, 
+#     track           = track,
+#     simulation_time = discretization.req_simt,
+# )
 
 
 # # 4.2 Calculate frequency response at excitation point
