@@ -79,7 +79,10 @@ class DiscretizationEBBVertic(Discretization):
 
     track = Instance(Track)
     bound = Instance(PMLRailDampVertic)
-    dt = Float(default_value=2e-5)
+
+
+    dt = Float(default_value=2e-5)  # NOTE: time step [s]
+
     req_simt = Float(default_value=0.5)
     bx = Float(default_value=1.0)
 
@@ -89,7 +92,9 @@ class DiscretizationEBBVertic(Discretization):
         self.sim_t = self.nt * self.dt
         dx_min = (self.bx * ((self.track.rail.E * self.track.rail.Iyr) /
                              (6 * self.track.rail.mr)) ** (1 / 4) * self.dt ** (1 / 2))
-        self.dx = 0.6 / (0.6 // dx_min)
+        
+        self.dx = 0.6 / (0.6 // dx_min)             # NOTE: space step [m]
+
         self.bx_upd = self.dx / (((self.track.rail.E * self.track.rail.Iyr) /
                                   (6 * self.track.rail.mr)) ** (1 / 4) * self.dt ** (1 / 2))
         self.nx = int(self.track.l_track / self.dx) + 1

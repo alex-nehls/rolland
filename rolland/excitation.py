@@ -87,7 +87,7 @@ class ConstantForce(MovingExcitation):
     def force(self, t):
         """Compute force array (contains force over time)."""
         n = len(t)
-        ramp_length = int(0.05 * n)  # 10% of total length
+        ramp_length = int(0.1 * n)  # 10% of total length
         force_array = []
         
         # Linear ramp up for first 10%

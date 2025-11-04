@@ -66,8 +66,8 @@ for file in output_dir.glob('*.png'):
 # =============================================================================
 # 3. VELOCITY SWEEP SIMULATION
 # =============================================================================
-velocities = np.arange(5, 40, 5)  # 5 to 40 m/s in 5 m/s steps
-# velocities = [60]
+# velocities = np.arange(5, 40, 5)  # 5 to 40 m/s in 5 m/s steps
+velocities = [60]
 
 for vel in velocities:
     print(f"Computing velocity: {vel} m/s ({vel*3.6:.1f} km/h)")
@@ -83,7 +83,9 @@ for vel in velocities:
     )
 
     # Discretize domain
-    discretization = DiscretizationEBBVerticConst(track=track, bound=boundary)
+    discretization = DiscretizationEBBVerticConst(
+        track = track,
+        bound = boundary)
 
     # Solve for deflection
     deflection_results = DeflectionEBBVertic(
