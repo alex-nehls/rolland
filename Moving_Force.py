@@ -45,7 +45,7 @@ track = SimplePeriodicBallastedSingleRailTrack(
                 sb = [150e6, 0],    # Ballast stiffness [N/m]
                 db = [48000, 0]     # Ballast damping [Ns/m]
     ),
-    num_mount   = 200,               # Number of discrete mounting positions
+    num_mount   = 400,               # Number of discrete mounting positions
     distance    = 0.6               # Distance between sleepers [m]
 )
 
@@ -53,7 +53,7 @@ track = SimplePeriodicBallastedSingleRailTrack(
 # 2. SIMULATION SETUP
 # =============================================================================
 # Define boundary conditions (Perfectly Matched Layer absorbing boundary)
-boundary    = PMLRailDampVertic(l_bound = 20.0)  # width of boundary domain
+boundary    = PMLRailDampVertic(l_bound = 40.0)  # width of boundary domain
 
 # Output directory
 output_dir = Path('mobility_plots')
@@ -73,7 +73,7 @@ for vel in velocities:
     print(f"Computing velocity: {vel} m/s ({vel*3.6:.1f} km/h)")
     
     # Define moving load excitation
-    starting_position = 55.0
+    starting_position = 80.0
     excitation = ConstantForce(
         x_excit         = [starting_position],
         # x_excit         = [starting_position,
@@ -84,6 +84,7 @@ for vel in velocities:
 
     # Discretize domain
     discretization = DiscretizationEBBVerticConst(
+        req_simt   = 1,
         track = track,
         bound = boundary)
 

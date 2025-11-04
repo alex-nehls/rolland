@@ -173,7 +173,7 @@ class PostProcessing(ABCHasTraits):
         plt.title('Displacement')
         plt.ylabel('Time Step [s]')
         plt.xlabel('Beam Pos. [m]')
-        plt.ylim(0.1, 0)
+        plt.ylim(simulation_time, 0)
         plt.colorbar(label='Displacement [m]')
         plt.clim(-1e-6, 1e-6)
 
