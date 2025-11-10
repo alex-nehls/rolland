@@ -40,7 +40,8 @@ num_mount           = 400       # Number of discrete mounting positions
 l_bound             = 40.0      # width of boundary domain
 req_simt            = 1         # Required simulation time [s]
 dt                  = 2e-5      # time step [s]
-velocities          = [60]      # Velocities to simulate [m/s]
+# velocities          = [60]      # Velocities to simulate [m/s]
+velocities          = np.arange(5, 101, 5)  # 5 to 100 m/s in 5 m/s steps
 ramp_fraction       = 0.05       # fraction of total time for ramp up
 
 
