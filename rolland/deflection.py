@@ -11,7 +11,7 @@ import abc
 
 from numpy import empty, linspace, zeros
 from scipy.sparse.linalg import splu
-from traitlets import Instance
+from traitlets import Instance, Bool
 
 from .abstract_traits import ABCHasTraits
 from .discretization import Discretization
@@ -54,9 +54,13 @@ class DeflectionEBBVertic(Deflection):
         Discretization instance.
     deflection : numpy.ndarray
         Deflection array :math:`[m]`.
+    store_deflection : bool
+        If True, store the full deflection matrix. If False, only store contact-point deflections.
     excitation_index : int
         Index of excitation point :math:`[-]`.
     """
+
+    store_deflection = Bool(default_value=True)
 
     def validate_deflection(self):
         """Validate deflection."""
@@ -184,5 +188,7 @@ class DeflectionEBBVertic(Deflection):
         self.calc_force()
         defl = self.initialize_start_values()
         # Calculate deflection
-        self.deflection = self.calc_deflection(defl)
+        defl = self.calc_deflection(defl)
+        # Store full deflection matrix only if requested
+        self.deflection = defl
 

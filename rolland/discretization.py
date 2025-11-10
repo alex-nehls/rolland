@@ -80,7 +80,6 @@ class DiscretizationEBBVertic(Discretization):
     track = Instance(Track)
     bound = Instance(PMLRailDampVertic)
 
-
     dt = Float(default_value=2e-5)  # NOTE: time step [s]
 
     req_simt = Float(default_value=0.5)

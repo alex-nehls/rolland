@@ -29,6 +29,20 @@ import matplotlib.pyplot as plt
 from scipy.fft import fft, fftfreq
 import os
 from pathlib import Path
+import scipy
+
+# =============================================================================
+# 0. TESTING PARAMETERS
+# =============================================================================
+store_deflection    = False     # TODO: this is not implemented yet!
+starting_position   = 80.0      # Starting position [m]
+num_mount           = 400       # Number of discrete mounting positions
+l_bound             = 40.0      # width of boundary domain
+req_simt            = 0.5       # Required simulation time [s]
+dt                  = 1e-5      # time step [s]
+velocities          = [60]      # Velocities to simulate [m/s]
+ramp_fraction       = 0.1       # fraction of total time for ramp up
+
 
 # =============================================================================
 # 1. TRACK DEFINITION
@@ -38,22 +52,24 @@ track = SimplePeriodicBallastedSingleRailTrack(
     rail    = UIC60,                # Standard UIC60 rail profile
     pad     = DiscrPad(
                 sp = [300e6, 0],    # Pad Stiffness [N/m]
+                # dp = [18000, 0]     # Pad Damping [Ns/m]
                 dp = [18000, 0]     # Pad Damping [Ns/m]
     ),
     sleeper = Sleeper(ms=150),      # Sleeper mass [kg]
     ballast = Ballast(
                 sb = [150e6, 0],    # Ballast stiffness [N/m]
+                # db = [48000, 0]     # Ballast damping [Ns/m]
                 db = [48000, 0]     # Ballast damping [Ns/m]
     ),
-    num_mount   = 400,               # Number of discrete mounting positions
-    distance    = 0.6               # Distance between sleepers [m]
+    num_mount   = num_mount,               # Number of discrete mounting positions
+    distance    = 0.6                      # Distance between sleepers [m]
 )
 
 # =============================================================================
 # 2. SIMULATION SETUP
 # =============================================================================
 # Define boundary conditions (Perfectly Matched Layer absorbing boundary)
-boundary    = PMLRailDampVertic(l_bound = 40.0)  # width of boundary domain
+boundary    = PMLRailDampVertic(l_bound = l_bound)  # width of boundary domain
 
 # Output directory
 output_dir = Path('mobility_plots')
@@ -67,14 +83,14 @@ for file in output_dir.glob('*.png'):
 # 3. VELOCITY SWEEP SIMULATION
 # =============================================================================
 # velocities = np.arange(5, 40, 5)  # 5 to 40 m/s in 5 m/s steps
-velocities = [60]
+
 
 for vel in velocities:
     print(f"Computing velocity: {vel} m/s ({vel*3.6:.1f} km/h)")
     
     # Define moving load excitation
-    starting_position = 80.0
     excitation = ConstantForce(
+        ramp_fraction     = ramp_fraction,
         x_excit         = [starting_position],
         # x_excit         = [starting_position,
         #                    starting_position + 2.5],    # Starting positions [m]
@@ -84,12 +100,14 @@ for vel in velocities:
 
     # Discretize domain
     discretization = DiscretizationEBBVerticConst(
-        req_simt   = 1,
-        track = track,
-        bound = boundary)
+        dt          = dt,  # time step [s]
+        req_simt    = req_simt,
+        track       = track,
+        bound       = boundary)
 
     # Solve for deflection
     deflection_results = DeflectionEBBVertic(
+        store_deflection = store_deflection,
         discr=discretization,
         excit=excitation
     )
@@ -101,13 +119,17 @@ for vel in velocities:
                     len(deflection_results.contact_point_deflection[0]))
     fs = 1 / (t[1] - t[0])
 
-    # FFT of force (includes ramp and random components)
-    force_fft = fft(deflection_results.force[10000:])
+    # Skip only the ramp
+    ramp_length = excitation.ramp_length
+    
+    # FFT of force (skip ramp transient)
+    force_fft = fft(deflection_results.force[ramp_length:])
 
     # Process each contact point
     for i, contact_defl in enumerate(deflection_results.contact_point_deflection):
-        deflection_fft = fft(contact_defl[10000:])
-        freqs = fftfreq(len(t[10000:]), 1/fs)
+        deflection_fft = fft(contact_defl[ramp_length:] * scipy.signal.windows.tukey(len(contact_defl[ramp_length:]), alpha = 0.1))
+        # deflection_fft = fft(contact_defl[ramp_length:])
+        freqs = fftfreq(len(t[ramp_length:]), 1/fs)
         omega = 2 * np.pi * freqs
         
         # Calculate FRFs

@@ -76,10 +76,11 @@ class ConstantForce(MovingExcitation):
     force_amplitude : float
         Force amplitude per wheel :math:`[N]`.
     """
-
+    ramp_fraction = Float(default_value=0.1)  # fraction of total time for ramp up
     force_amplitude = Float(default_value=65000.0)
     x_excit = Union([List(), Float(default_value = 50.0)])
     velocity = Float(default_value=27.78)  # default 100 km/h in m/s
+    
 
     def validate_excitation(self):
         """Validate excitation parameters."""
@@ -87,26 +88,26 @@ class ConstantForce(MovingExcitation):
     def force(self, t):
         """Compute force array (contains force over time)."""
         n = len(t)
-        ramp_length = int(0.1 * n)  # 10% of total length
         force_array = []
+        self.ramp_length = int(self.ramp_fraction * n)
         
         # Linear ramp up for first 10%
-        for i in range(ramp_length):
-            force_array.append(self.force_amplitude * (i / ramp_length))
+        for i in range(self.ramp_length):
+            force_array.append(self.force_amplitude * (i / self.ramp_length))
             
         # Constant force with random component for remaining 90%
         np.random.seed(42)  # für Reproduzierbarkeit
         # random_component = np.random.uniform(
         #     low     = -0.1 * self.force_amplitude,
         #     high    = 0.1 * self.force_amplitude,
-        #     size    = n - ramp_length
+        #     size    = n - self.ramp_length
         # )
         random_component = np.random.uniform(
             low     = 0,
             high    = self.force_amplitude,
-            size    = n - ramp_length
+            size    = n - self.ramp_length
         )
-        constant_part = [self.force_amplitude] * (n - ramp_length)
+        constant_part = [self.force_amplitude] * (n - self.ramp_length)
 
 
         force_array.extend(np.array(constant_part) + random_component)
