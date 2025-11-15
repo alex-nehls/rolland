@@ -40,7 +40,7 @@ num_mount           = 400       # Number of discrete mounting positions
 l_bound             = 20.0      # width of boundary domain
 req_simt            = 1         # Required simulation time [s]
 dt                  = 2e-5      # time step [s]
-velocities          = [25]      # Velocities to simulate [m/s]
+velocities          = [25, 60, 80]      # Velocities to simulate [m/s]
 # velocities          = np.arange(5, 101, 5)  # 5 to 100 m/s in 5 m/s steps
 ramp_fraction       = 0.05       # fraction of total time for ramp up
 force_amplitude     = 65000.0    # Force amplitude [N]
@@ -145,22 +145,22 @@ for vel in velocities:
         mask = (freqs >= 0) & (freqs <= 2000)
 
         # Einzelplots
-        plt.figure(figsize=(10, 5))
+        # plt.figure(figsize=(10, 5))
         # plt.subplot(2, 1, 1)
-        plt.plot(freqs[mask], np.abs(mobility[mask]), 'b-', linewidth=1)
-        plt.xlabel('Frequency [Hz]')
-        plt.ylabel('Mobility [m/Ns]')
-        plt.yscale('log')
-        plt.grid(True)
-        plt.title(f'Mobility - {vel} m/s')
-
-        # plt.subplot(2, 1, 2)
-        # plt.plot(freqs[mask], np.abs(receptance[mask]), 'r-', linewidth=1)
+        # plt.plot(freqs[mask], np.abs(mobility[mask]), 'b-', linewidth=1)
         # plt.xlabel('Frequency [Hz]')
-        # plt.ylabel('Receptance [m/N]')
+        # plt.ylabel('Mobility [m/Ns]')
         # plt.yscale('log')
         # plt.grid(True)
-        # plt.title(f'Receptance - {vel} m/s')
+        # plt.title(f'Mobility - {vel} m/s')
+
+        # plt.subplot(2, 1, 2)
+        plt.plot(freqs[mask], np.abs(receptance[mask]), 'r-', linewidth=1)
+        plt.xlabel('Frequency [Hz]')
+        plt.ylabel('Receptance [m/N]')
+        plt.yscale('log')
+        plt.grid(True)
+        plt.title(f'Receptance - {vel} m/s')
 
         plt.suptitle(f'Contact Point {i+1} - {vel} m/s')
         plt.tight_layout(rect=[0, 0.03, 1, 0.95])
