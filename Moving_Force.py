@@ -14,7 +14,7 @@ Workflow:
 
 # Import required components from Rolland library
 from rolland                        import DiscrPad, Sleeper, Ballast
-from rolland.database.rail.db_rail  import UIC60  # Standard rail profile
+from rolland.database.rail.db_rail  import UIC60, NORDBORG  # rail profiles
 from rolland                        import SimplePeriodicBallastedSingleRailTrack
 from rolland.excitation             import ConstantForce
 from rolland import(
@@ -37,30 +37,31 @@ import scipy
 store_deflection    = False     # TODO: this is not implemented yet!
 starting_position   = 80.0      # Starting position [m]
 num_mount           = 400       # Number of discrete mounting positions
-l_bound             = 40.0      # width of boundary domain
+l_bound             = 20.0      # width of boundary domain
 req_simt            = 1         # Required simulation time [s]
 dt                  = 2e-5      # time step [s]
-# velocities          = [60]      # Velocities to simulate [m/s]
-velocities          = np.arange(5, 101, 5)  # 5 to 100 m/s in 5 m/s steps
+velocities          = [25]      # Velocities to simulate [m/s]
+# velocities          = np.arange(5, 101, 5)  # 5 to 100 m/s in 5 m/s steps
 ramp_fraction       = 0.05       # fraction of total time for ramp up
-
+force_amplitude     = 65000.0    # Force amplitude [N]
 
 # =============================================================================
 # 1. TRACK DEFINITION
 # =============================================================================
 # Create a ballasted single rail track model with periodic supports
 track = SimplePeriodicBallastedSingleRailTrack(
-    rail    = UIC60,                # Standard UIC60 rail profile
+    # rail    = NORDBORG, # rail profile with parameters according to Nordborg paper
+    rail        = UIC60,   # UIC60 rail profile
     pad     = DiscrPad(
                 sp = [300e6, 0],    # Pad Stiffness [N/m]
-                dp = [18000, 0]     # Pad Damping [Ns/m]
-                # dp = [2*18000, 0]     # Pad Damping [Ns/m]
+                dp = [18000, 0],     # Pad Damping [Ns/m]
+                # eta_p = 0.15         # Pad loss factor [-]
     ),
     sleeper = Sleeper(ms=150),      # Sleeper mass [kg]
     ballast = Ballast(
                 sb = [150e6, 0],    # Ballast stiffness [N/m]
-                db = [48000, 0]     # Ballast damping [Ns/m]
-                # db = [2*48000, 0]     # Ballast damping [Ns/m]
+                db = [48000, 0],     # Ballast damping [Ns/m]
+                # eta_b = 0.4         # Ballast loss factor [-]
     ),
     num_mount   = num_mount,               # Number of discrete mounting positions
     distance    = 0.6                      # Distance between sleepers [m]
@@ -96,7 +97,7 @@ for vel in velocities:
         # x_excit         = [starting_position,
         #                    starting_position + 2.5],    # Starting positions [m]
         velocity        = float(vel),                   # Velocity [m/s]
-        force_amplitude = 65000.0                       # [N]
+        force_amplitude = force_amplitude                       # [N]
     )
 
     # Discretize domain
@@ -143,8 +144,9 @@ for vel in velocities:
         # Filter to 0-2000 Hz
         mask = (freqs >= 0) & (freqs <= 2000)
 
+        # Einzelplots
         plt.figure(figsize=(10, 5))
-        plt.subplot(2, 1, 1)
+        # plt.subplot(2, 1, 1)
         plt.plot(freqs[mask], np.abs(mobility[mask]), 'b-', linewidth=1)
         plt.xlabel('Frequency [Hz]')
         plt.ylabel('Mobility [m/Ns]')
@@ -152,18 +154,41 @@ for vel in velocities:
         plt.grid(True)
         plt.title(f'Mobility - {vel} m/s')
 
-        plt.subplot(2, 1, 2)
-        plt.plot(freqs[mask], np.abs(receptance[mask]), 'r-', linewidth=1)
-        plt.xlabel('Frequency [Hz]')
-        plt.ylabel('Receptance [m/N]')
-        plt.yscale('log')
-        plt.grid(True)
-        plt.title(f'Receptance - {vel} m/s')
+        # plt.subplot(2, 1, 2)
+        # plt.plot(freqs[mask], np.abs(receptance[mask]), 'r-', linewidth=1)
+        # plt.xlabel('Frequency [Hz]')
+        # plt.ylabel('Receptance [m/N]')
+        # plt.yscale('log')
+        # plt.grid(True)
+        # plt.title(f'Receptance - {vel} m/s')
 
         plt.suptitle(f'Contact Point {i+1} - {vel} m/s')
         plt.tight_layout(rect=[0, 0.03, 1, 0.95])
         plt.savefig(str(output_dir / f'mobility_receptance_v{vel:03d}_wheel{i+1}.png'), dpi=300, bbox_inches='tight')
         plt.close()
+
+        # Sammeln der Receptance für einen Gesamtplot (nur erster Kontaktpunkt)
+        try:
+            all_receptance
+        except NameError:
+            all_receptance = []  # Liste von (vel, freq_array, receptance_array)
+
+        if i == 0:
+            all_receptance.append((vel, freqs[mask], np.abs(receptance[mask])))
+
+        # Am Ende der letzten Geschwindigkeit: Gesamtplot aller Receptance-Kurven
+        if vel == velocities[-1] and i == 0:
+            plt.figure(figsize=(10, 5))
+            for v, f_arr, r_arr in all_receptance:
+                plt.plot(f_arr, r_arr, label=f'{v} m/s', linewidth=1)
+                plt.xlabel('Frequency [Hz]')
+                plt.ylabel('Receptance [m/N]')
+                plt.yscale('log')
+                plt.grid(True, which='both')
+                plt.legend()
+                plt.tight_layout()
+                plt.savefig(str(output_dir / 'receptance_all_velocities.png'), dpi=300, bbox_inches='tight')
+                plt.close()
 
     # Optional: Clear memory
     plt.close('all')
