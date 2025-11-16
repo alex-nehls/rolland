@@ -45,6 +45,7 @@ velocities          = [25, 60, 80]      # Velocities to simulate [m/s]
 # velocities          = np.arange(5, 101, 5)  # 5 to 100 m/s in 5 m/s steps
 ramp_fraction       = 0.1       # fraction of total time for ramp up
 force_amplitude     = 65000.0    # Force amplitude [N]
+# compare_nordborg     = False     # Compare with Nordborg results
 
 # =============================================================================
 # 1. TRACK DEFINITION
@@ -189,6 +190,8 @@ for vel in velocities:
                 plt.legend()
                 plt.tight_layout()
             plt.savefig(str(output_dir / 'receptance_all_velocities.png'), dpi=300, bbox_inches='tight')
+
+        
 
     # Optional: Clear memory
     plt.close('all')
