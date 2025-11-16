@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 from scipy.fft import fft, fftfreq
 import os
 from pathlib import Path
-import scipy
+import csv
 
 # =============================================================================
 # 0. TESTING PARAMETERS
@@ -157,10 +157,9 @@ for vel in velocities:
         # plt.title(f'Mobility - {vel} m/s')
 
         # plt.subplot(2, 1, 2)
-        plt.plot(freqs[mask], np.abs(receptance[mask]), linewidth=1)
+        plt.plot(freqs[mask], 20*np.log10(np.abs(receptance[mask])), linewidth=1)
         plt.xlabel('Frequency [Hz]')
-        plt.ylabel('Receptance [m/N]')
-        plt.yscale('log')
+        plt.ylabel('Receptance [dB re 1 m/N]')
         plt.grid(True)
         plt.title(f'Receptance - {vel} m/s')
 
@@ -176,20 +175,46 @@ for vel in velocities:
             all_receptance = []  # Liste von (vel, freq_array, receptance_array)
 
         if i == 0:
-            all_receptance.append((vel, freqs[mask], np.abs(receptance[mask])))
+            all_receptance.append((vel, freqs[mask], 20*np.log10(np.abs(receptance[mask]))))
 
         # Am Ende der letzten Geschwindigkeit: Gesamtplot aller Receptance-Kurven
         if vel == velocities[-1] and i == 0:
             plt.figure(figsize=(10, 5))
-            for v, f_arr, r_arr in all_receptance:
-                plt.plot(f_arr, r_arr, label=f'{v} m/s', linewidth=1)
+            for v, freq, receptance in all_receptance:
+                plt.plot(freq, receptance, label=f'{v} m/s', linewidth=1)
                 plt.xlabel('Frequency [Hz]')
-                plt.ylabel('Receptance [m/N]')
-                plt.yscale('log')
+                plt.ylabel('Receptance [dB re 1 m/N]')
                 plt.grid(True)
                 plt.legend()
                 plt.tight_layout()
             plt.savefig(str(output_dir / 'receptance_all_velocities.png'), dpi=300, bbox_inches='tight')
+
+
+            # Optional:
+            # fetch Nordborg data for comparison
+            with open('C:/Users/Alex/repositories/rolland/nordborg_data_sharp.csv') as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=';')
+                frequencies = []
+                receptances = []
+                for row in csv_reader:
+                    frequencies.append(float(str.replace(row[0], ',', '.')))
+                    receptances.append(float(str.replace(row[1], ',', '.')))
+
+            # Interpolate to equally spaced frequencies
+            freq_interp = np.linspace(0, 2000, 2000)
+            receptance_interp = np.interp(freq_interp, frequencies, receptances)
+
+            plt.figure(figsize=(10, 5))
+            plt.plot(freq_interp, receptance_interp, label='Nordborg Data', linewidth=1)
+            for v, freq, receptance in all_receptance:
+                if v == 60:
+                    plt.plot(freq, receptance, label=f'{v} m/s', linewidth=1)
+            plt.xlabel('Frequency [Hz]')
+            plt.ylabel('Receptance [dB re 1 m/N]')
+            plt.grid(True)
+            plt.legend()
+            plt.tight_layout()
+            plt.savefig(str(output_dir / 'receptance_60_Nordborg.png'), dpi=300, bbox_inches='tight')
 
         
 
