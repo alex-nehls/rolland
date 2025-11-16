@@ -37,7 +37,7 @@ def load_rail_geo(file_path):
         return [(float(row[0]), float(row[1])) for row in csvreader]
 
 NORDBORG = Rail(
-    crl_geo=load_rail_geo(os.path.join(os.path.dirname(__file__), 'UIC60.csv')),
+    rl_geo=load_rail_geo(os.path.join(os.path.dirname(__file__), 'UIC60.csv')),
     E=210e11,
     G=81e9,
     nu=0.3,
@@ -59,7 +59,8 @@ NORDBORG = Rail(
 )
 
 UIC60 = Rail(
-    crl_geo=load_rail_geo(os.path.join(os.path.dirname(__file__), 'UIC60.csv')),
+    
+    rl_geo=load_rail_geo(os.path.join(os.path.dirname(__file__), 'UIC60.csv')),
     E=210e9,
     G=81e9,
     nu=0.3,

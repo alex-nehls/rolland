@@ -37,9 +37,9 @@ import scipy
 store_deflection    = False     # TODO: this is not implemented yet!
 starting_position   = 80.0      # Starting position [m]
 num_mount           = 400       # Number of discrete mounting positions
-l_bound             = 20.0      # width of boundary domain
+l_bound             = 40.0      # width of boundary domain
 req_simt            = 1         # Required simulation time [s]
-dt                  = 2e-5      # time step [s]
+dt                  = 2.2e-5      # time step [s]
 velocities          = [25, 60, 80]      # Velocities to simulate [m/s]
 # velocities          = np.arange(5, 101, 5)  # 5 to 100 m/s in 5 m/s steps
 ramp_fraction       = 0.1       # fraction of total time for ramp up
