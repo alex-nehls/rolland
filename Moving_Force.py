@@ -185,11 +185,10 @@ for vel in velocities:
                 plt.xlabel('Frequency [Hz]')
                 plt.ylabel('Receptance [m/N]')
                 plt.yscale('log')
-                plt.grid(True, which='both')
+                plt.grid(True)
                 plt.legend()
                 plt.tight_layout()
-                plt.savefig(str(output_dir / 'receptance_all_velocities.png'), dpi=300, bbox_inches='tight')
-                plt.close()
+            plt.savefig(str(output_dir / 'receptance_all_velocities.png'), dpi=300, bbox_inches='tight')
 
     # Optional: Clear memory
     plt.close('all')
