@@ -38,24 +38,10 @@ def load_rail_geo(file_path):
 
 NORDBORG = Rail(
     rl_geo=load_rail_geo(os.path.join(os.path.dirname(__file__), 'UIC60.csv')),
-    E=210e11,
-    G=81e9,
-    nu=0.3,
-    kap=[0.4, 0.54],
+    E=840e9,
     mr=60,
-    rho=7850,
     etar=0.004,
-    fresr=1000,
-    dr=1000,
-    gamr=[0.0, 0.0],
-    epsr=[0.0, 34.8 * 10**-3],
-    Iyr=3038.30e-8,
-    Izr=512.30e-8,
-    Itr=209.20e-8,
-    Ipr=3550.60e-8,
-    Ar=76.70e-4,
-    Asr=0.688,
-    Vr=7670.00e-6,
+    Iyr=22.5e-6,
 )
 
 UIC60 = Rail(

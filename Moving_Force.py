@@ -40,6 +40,7 @@ num_mount           = 400       # Number of discrete mounting positions
 l_bound             = 40.0      # width of boundary domain
 req_simt            = 1         # Required simulation time [s]
 dt                  = 2.2e-5      # time step [s]
+# velocities          = [60]      # Velocities to simulate [m/s]
 velocities          = [25, 60, 80]      # Velocities to simulate [m/s]
 # velocities          = np.arange(5, 101, 5)  # 5 to 100 m/s in 5 m/s steps
 ramp_fraction       = 0.1       # fraction of total time for ramp up
@@ -50,8 +51,8 @@ force_amplitude     = 65000.0    # Force amplitude [N]
 # =============================================================================
 # Create a ballasted single rail track model with periodic supports
 track = SimplePeriodicBallastedSingleRailTrack(
-    # rail    = NORDBORG, # rail profile with parameters according to Nordborg paper
-    rail        = UIC60,   # UIC60 rail profile
+    rail    = NORDBORG, # rail profile with parameters according to Nordborg paper
+    # rail        = UIC60,   # UIC60 rail profile
     pad     = DiscrPad(
                 sp = [300e6, 0],    # Pad Stiffness [N/m]
                 dp = [18000, 0],     # Pad Damping [Ns/m]
