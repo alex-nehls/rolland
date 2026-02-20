@@ -192,7 +192,7 @@ for vel in velocities:
 
             # Optional:
             # fetch Nordborg data for comparison
-            with open('nordborg_data_sharp.csv') as csv_file: 
+            with open('nordborg_data_sharp.csv') as csv_file:  
                 csv_reader = csv.reader(csv_file, delimiter=';')
                 frequencies = []
                 receptances = []
