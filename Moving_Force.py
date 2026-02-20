@@ -40,8 +40,8 @@ num_mount           = 400       # Number of discrete mounting positions
 l_bound             = 40.0      # width of boundary domain
 req_simt            = 1         # Required simulation time [s]
 dt                  = 2.2e-5      # time step [s]
-# velocities          = [60]      # Velocities to simulate [m/s]
-velocities          = [25, 60, 80]      # Velocities to simulate [m/s]
+velocities          = [60]      # Velocities to simulate [m/s]
+# velocities          = [25, 60, 80]      # Velocities to simulate [m/s]
 # velocities          = np.arange(5, 101, 5)  # 5 to 100 m/s in 5 m/s steps
 ramp_fraction       = 0.1       # fraction of total time for ramp up
 force_amplitude     = 65000.0    # Force amplitude [N]
@@ -192,7 +192,7 @@ for vel in velocities:
 
             # Optional:
             # fetch Nordborg data for comparison
-            with open('C:/Users/Alex/repositories/rolland/nordborg_data_sharp.csv') as csv_file:
+            with open('nordborg_data_sharp.csv') as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter=';')
                 frequencies = []
                 receptances = []
