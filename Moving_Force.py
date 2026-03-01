@@ -220,14 +220,14 @@ for vel in velocities:
     # Optional: Clear memory
     plt.close('all')
 
-# 4.1 Plot deflection over time
-deflection = np.transpose(deflection_results.deflection)
-deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
-resp.plotMatrix(
-    deflection      = deflection, 
-    track           = track,
-    simulation_time = discretization.req_simt,
-)
+# # 4.1 Plot deflection over time
+# deflection = np.transpose(deflection_results.deflection)
+# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
+# resp.plotMatrix(
+#     deflection      = deflection, 
+#     track           = track,
+#     simulation_time = discretization.req_simt,
+# )
 
 
 # # 4.2 Calculate frequency response at excitation point
