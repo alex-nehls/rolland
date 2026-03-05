@@ -163,9 +163,34 @@ class DeflectionEBBVertic(Deflection):
             
             # Store deflection at each contact point
             for i, idx in enumerate(excitation_now):
-                self.contact_point_deflection[i].append(defl[idx, t+1]) # Store deflection at newly calculated contact point
+                contact_deflection = defl[idx, t+1]
+                self.contact_point_deflection[i].append(contact_deflection) # Store deflection at newly calculated contact point
+
         
         return defl
+##################################################################################################################################
+##################################################################################################################################
+# f = f_old
+# for i in range(max_iter):
+#     y_r = rail_deflection(f)            # Schienenverformung
+#     y_s = roughness(f)                  # Gleisrauheit
+#     y_w = wheel_deflection(f)           # Radverformung
+#     delta_lin = y_r + y_s - y_w         # geometrische Eindringung
+
+#     if delta_lin <= 0:
+#         f = 0
+#         break
+
+#     f_new = (delta_lin / C)**(3/2)      # Hertz-Gesetz
+#     if abs(f_new - f) < eps:            # Fehlerprüfung
+#         f = f_new
+#         break
+#     f = f_new
+##################################################################################################################################
+##################################################################################################################################
+
+
+
 
 
     def __init__(self, *args, **kwargs):
