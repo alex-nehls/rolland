@@ -155,7 +155,12 @@ for vel in velocities:
         # collect data for overall plot (only first contact point)
         all_receptance = [] # [vel, freq, mobility, receptance]
         if i == 0:
-            all_receptance.append((vel, freqs[mask], 20*np.log10(np.abs(mobility[mask])), 20*np.log10(np.abs(receptance[mask]))))
+            with np.errstate(divide='ignore', invalid='ignore'):
+                mobility_db = 20 * np.log10(np.abs(mobility[mask]))
+                receptance_db = 20 * np.log10(np.abs(receptance[mask]))
+                mobility_db[np.isneginf(mobility_db)] = -300        # Replace -inf with a large negative value
+                receptance_db[np.isneginf(receptance_db)] = -300    # Replace -inf with a large negative value
+            all_receptance.append((vel, freqs[mask], mobility_db, receptance_db))
 
         # overall plot for all velocities
         if vel == velocities[-1] and i == 0:
