@@ -105,8 +105,9 @@ class DeflectionEBBVertic(Deflection):
         numpy.ndarray
             Right-hand side of the equation.
         """
-        # Write excitation force for time step t into force array
+        # create empty force array with length equal to number of DOFs (2*nx)
         f = zeros(2 * self.discr.nx)
+
         # Handle multiple excitation points if excitation_index is a list
         if isinstance(excitation_index, list):
             for idx in excitation_index:
@@ -184,11 +185,10 @@ class DeflectionEBBVertic(Deflection):
             Array of calculated deflections with shape (2 * nx, nt + 1).
         """
         super().__init__(*args, **kwargs)
+
         # Initialize starting values
         self.calc_force()
         defl = self.initialize_start_values()
-        # Calculate deflection
-        defl = self.calc_deflection(defl)
-        # Store full deflection matrix only if requested
-        self.deflection = defl
 
+        # Calculate deflection
+        self.deflection = self.calc_deflection(defl)
