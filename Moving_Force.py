@@ -147,7 +147,7 @@ for vel in velocities:
         plt.ylabel('Rezeptanz [m/N]')
         plt.title(f'Rezeptanz - {vel} m/s')
         plt.grid(True)
-        plt.suptitle(f'Contact Point {i+1} - {vel} m/s')
+        plt.suptitle(f'Kontaktpunkt {i+1} - {vel} m/s')
         plt.tight_layout(rect=[0, 0.03, 1, 0.95])
         plt.savefig(str(output_dir / f'mobility_receptance_v{vel:03d}_wheel{i+1}.png'), dpi=300, bbox_inches='tight')
         plt.close()
@@ -185,12 +185,12 @@ for vel in velocities:
             receptance_interp = np.interp(freq_interp, frequencies, receptances)
 
             plt.figure(figsize=(10, 5))
-            plt.plot(freq_interp, receptance_interp, label='Nordborg Data', linewidth=1)
+            plt.plot(freq_interp, receptance_interp, label='Vergleichsdaten (Nordborg)', linewidth=1)
             for v, freq, mobility, receptance in all_receptance:
                 if v == 60:
-                    plt.plot(freq, receptance, label=f'{v} m/s', linewidth=1)
-            plt.xlabel('Frequency [Hz]')
-            plt.ylabel('Receptance [dB re 1 m/N]')
+                    plt.plot(freq, receptance, label=f'Simulation', linewidth=1)
+            plt.xlabel('Frequenz [Hz]')
+            plt.ylabel('Rezeptanz [dB re 1 m/N]')
             plt.grid(True)
             plt.legend()
             plt.tight_layout()
