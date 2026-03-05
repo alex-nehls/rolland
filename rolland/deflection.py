@@ -59,7 +59,6 @@ class DeflectionEBBVertic(Deflection):
     excitation_index : int
         Index of excitation point :math:`[-]`.
     """
-
     store_deflection = Bool(default_value=True)
 
     def validate_deflection(self):
@@ -82,9 +81,7 @@ class DeflectionEBBVertic(Deflection):
     def calc_force(self):
         """Calculate force array."""
         t = linspace(0, self.discr.sim_t, self.discr.nt)
-        full_force = self.excit.force(t)
-        # cut last value from force array to match number of time steps (nt) used in deflection calculation
-        self.force = full_force[:-1]  
+        self.force = self.excit.force(t)
 
     def calc_rightside_crank_nicolson(self, u1, u0, excitation_index, t):
         """Calculate the right-hand side of the equation according to :cite:t:`stampka2022a`.
@@ -143,6 +140,10 @@ class DeflectionEBBVertic(Deflection):
         # Factorization of matrix A (LU decomposition)
         factoriz = splu(self.discr.A)
 
+        for i in range(len(self.excitation_indices)):
+            # Store initial deflection at contact points (should be zero at t=0)
+            self.contact_point_deflection[i].append(0)  # initial deflection at t=0
+
         for t in range(1, self.discr.nt):
             # Calculate current positions based on velocity
             dx = round((self.excit.velocity * t * self.discr.dt) / self.discr.dx)   # Calculate how many grid points the load has moved
@@ -151,19 +152,18 @@ class DeflectionEBBVertic(Deflection):
             # Calculate right hand side of equation
             b = self.calc_rightside_crank_nicolson(
                 u1 = defl[:, t],
-                u0 = defl[:, t - 1],
+                u0 = defl[:, t-1],
                 excitation_index = excitation_now,
-                t = t - 1  # Anpassung des Force-Index
+                t = t
             )
 
             # Calculate deflection for time step t
             u = factoriz.solve(b)
-            defl[:, t + 1] = u[0:2 * self.discr.nx]
+            defl[:, t+1] = u[0:2 * self.discr.nx]
             
             # Store deflection at each contact point
             for i, idx in enumerate(excitation_now):
-                if 0 <= idx < len(defl):  # Only store if point is still within domain
-                    self.contact_point_deflection[i].append(defl[idx, t])
+                self.contact_point_deflection[i].append(defl[idx, t+1]) # Store deflection at newly calculated contact point
         
         return defl
 

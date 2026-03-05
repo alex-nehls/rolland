@@ -28,6 +28,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import csv
+import math
 from scipy.fft  import fft, fftfreq
 from pathlib    import Path
 
@@ -38,6 +39,7 @@ from pathlib    import Path
 store_deflection    = False     # TODO: this is not implemented yet!
 starting_position   = 80.0      # Starting position [m]
 num_mount           = 400       # Number of discrete mounting positions
+distance            = 0.6       # Distance between sleepers [m]
 l_bound             = 40.0      # width of boundary domain
 req_simt            = 1         # Required simulation time [s]
 dt                  = 2.2e-5    # time step [s]
@@ -68,8 +70,10 @@ track = SimplePeriodicBallastedSingleRailTrack(
                 # eta_b = 0.4       # Ballast loss factor [-]
     ),
     num_mount   = num_mount,        # Number of discrete mounting positions
-    distance    = 0.6               # Distance between sleepers [m]
+    distance    = distance          # Distance between sleepers [m]
 )
+
+ppf = math.pi/(2*distance**2) * math.sqrt(track.rail.E*track.rail.Iyr / track.rail.mr) # first pinned-pinned frequency	
 
 # =============================================================================
 # 2. SIMULATION SETUP
@@ -213,7 +217,7 @@ for vel in velocities:
     #     simulation_time = discretization.req_simt,
     # )
 
-    # # 4.2 Calculate frequency response at excitation point
+    # 4.2 Calculate frequency response at excitation point
     # response = resp(results = deflection_results)
 
     # # 4.3 Plot both mobility and receptance in two subplots
