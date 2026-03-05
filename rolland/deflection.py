@@ -83,7 +83,7 @@ class DeflectionEBBVertic(Deflection):
         """Calculate force array."""
         t = linspace(0, self.discr.sim_t, self.discr.nt)
         full_force = self.excit.force(t)
-        # Kürze Force-Array auf die relevante Länge (entferne letzten Wert)
+        # cut last value from force array to match number of time steps (nt) used in deflection calculation
         self.force = full_force[:-1]  
 
     def calc_rightside_crank_nicolson(self, u1, u0, excitation_index, t):
@@ -107,7 +107,7 @@ class DeflectionEBBVertic(Deflection):
         """
         # Write excitation force for time step t into force array
         f = zeros(2 * self.discr.nx)
-
+        # Handle multiple excitation points if excitation_index is a list
         if isinstance(excitation_index, list):
             for idx in excitation_index:
                 f[idx] = self.force[t]
@@ -144,15 +144,15 @@ class DeflectionEBBVertic(Deflection):
 
         for t in range(1, self.discr.nt):
             # Calculate current positions based on velocity
-            dx = round((self.excit.velocity * t * self.discr.dt) / self.discr.dx)
-            excitation_now = [idx + dx for idx in self.excitation_indices]
+            dx = round((self.excit.velocity * t * self.discr.dt) / self.discr.dx)   # Calculate how many grid points the load has moved
+            excitation_now = [idx + dx for idx in self.excitation_indices]          # Update excitation indices for current time step
             
             # Calculate right hand side of equation
             b = self.calc_rightside_crank_nicolson(
-                u1=defl[:, t],
-                u0=defl[:, t - 1],
-                excitation_index=excitation_now,
-                t=t-1  # Anpassung des Force-Index
+                u1 = defl[:, t],
+                u0 = defl[:, t - 1],
+                excitation_index = excitation_now,
+                t = t - 1  # Anpassung des Force-Index
             )
 
             # Calculate deflection for time step t

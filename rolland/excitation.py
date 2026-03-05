@@ -66,8 +66,8 @@ class MovingExcitation(Excitation):
     """Moving excitation class."""
 
 
-class ConstantForce(MovingExcitation):
-    """Constant force excitation class for single or multiple moving loads.
+class RandomForce(MovingExcitation):
+    """Random force excitation class for single or multiple moving loads.
 
     Attributes
     ----------
@@ -75,13 +75,16 @@ class ConstantForce(MovingExcitation):
         Starting position(s) of excitation point(s) :math:`[m]`.
     force_amplitude : float
         Force amplitude per wheel :math:`[N]`.
+    ramp_fraction : float
+        Fraction of the total simulation time used for the force buildup :math:`[-]`.
+    velocity : float
+        Velocity of the moving load (train) :math:`[m/s]`.
     """
-    ramp_fraction = Float(default_value=0.1)  # fraction of total time for ramp up
+    ramp_fraction   = Float(default_value=0.1)  # fraction of total time for ramp up
     force_amplitude = Float(default_value=65000.0)
-    x_excit = Union([List(), Float(default_value = 50.0)])
-    velocity = Float(default_value=27.78)  # default 100 km/h in m/s
+    x_excit         = Union([List(), Float(default_value = 50.0)])
+    velocity        = Float(default_value=27.78)  # default 100 km/h in m/s
     
-
     def validate_excitation(self):
         """Validate excitation parameters."""
 
@@ -91,27 +94,20 @@ class ConstantForce(MovingExcitation):
         force_array = []
         self.ramp_length = int(self.ramp_fraction * n)
         
-        # Linear ramp up for first 10%
+        # Linear ramp up
         for i in range(self.ramp_length):
             force_array.append(self.force_amplitude * (i / self.ramp_length))
             
-        # Constant force with random component for remaining 90%
+        # random force between force_amplitude and 2*force_amplitude
+        constant_part = [self.force_amplitude] * (n - self.ramp_length)
         np.random.seed(42)  # für Reproduzierbarkeit
-        # random_component = np.random.uniform(
-        #     low     = -0.1 * self.force_amplitude,
-        #     high    = 0.1 * self.force_amplitude,
-        #     size    = n - self.ramp_length
-        # )
-        random_component = np.random.uniform(
+        random_part = np.random.uniform(
             low     = 0 * self.force_amplitude,
             high    = 1 * self.force_amplitude,
             size    = n - self.ramp_length
         )
-        constant_part = [self.force_amplitude] * (n - self.ramp_length)
 
-
-        force_array.extend(np.array(constant_part) + random_component)
-        # force_array.extend(np.array(constant_part))
-
+        # concatenating the rampup with the constant and random part
+        force_array.extend(constant_part + random_part)
 
         return force_array
