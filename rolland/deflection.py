@@ -144,6 +144,8 @@ class DeflectionEBBVertic(Deflection):
             # Store initial deflection at contact points (should be zero at t=0)
             self.contact_point_deflection[i].append(0)  # initial deflection at t=0
 
+        # loop for calculating deflection at each time step
+        # NOTE: starts from t=1 because we need defl at t-1 and t-2 for the Crank-Nicolson scheme
         for t in range(1, self.discr.nt):
             # Calculate current positions based on velocity
             dx = round((self.excit.velocity * t * self.discr.dt) / self.discr.dx)   # Calculate how many grid points the load has moved
@@ -151,22 +153,20 @@ class DeflectionEBBVertic(Deflection):
             
             # Calculate right hand side of equation
             b = self.calc_rightside_crank_nicolson(
-                u1 = defl[:, t],
-                u0 = defl[:, t-1],
+                u1 = defl[:, t-1],
+                u0 = defl[:, t-2],
                 excitation_index = excitation_now,
                 t = t
             )
 
             # Calculate deflection for time step t
             u = factoriz.solve(b)
-            defl[:, t+1] = u[0:2 * self.discr.nx]
+            defl[:, t] = u[0:2 * self.discr.nx]
             
             # Store deflection at each contact point
             for i, idx in enumerate(excitation_now):
-                contact_deflection = defl[idx, t+1]
+                contact_deflection = defl[idx, t]
                 self.contact_point_deflection[i].append(contact_deflection) # Store deflection at newly calculated contact point
-
-        
         return defl
 ##################################################################################################################################
 ##################################################################################################################################
