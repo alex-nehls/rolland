@@ -76,7 +76,7 @@ class DeflectionEBBVertic(Deflection):
         Attributes
         ----------
         deflection : numpy.ndarray
-            Array of calculated deflections with shape (2 * nx, nt + 1).
+            Array of calculated deflections with shape (2*nx, nt).
         """
         super().__init__(*args, **kwargs)
 
@@ -97,9 +97,9 @@ class DeflectionEBBVertic(Deflection):
         Returns
         -------
         defl : numpy.ndarray
-            Array of deflections initialized to zero with shape (2 * nx, nt + 1).
+            Array of deflections initialized to zero with shape (2*nx, nt).
         """
-        defl = empty((2 * self.discr.nx, self.discr.nt + 1))
+        defl = empty((2 * self.discr.nx, self.discr.nt))
 
         # Set starting values to zero for two time steps
         defl[:, 0:2] = zeros((2 * self.discr.nx, 2))
@@ -152,7 +152,7 @@ class DeflectionEBBVertic(Deflection):
         Returns
         -------
         defl : numpy.ndarray
-            Full deflection history (2*nx, nt+1) containing rail and sleeper DOFs
+            Full deflection history (2*nx, nt) containing rail and sleeper DOFs
         """
         # Convert single excitation point to list for uniform handling
         if not isinstance(self.excit.x_excit, list):
@@ -186,6 +186,7 @@ class DeflectionEBBVertic(Deflection):
             dx = round((self.excit.velocity * t * self.discr.dt) / self.discr.dx)   # Calculate how many grid points the load has moved
             excitation_pos = [idx + dx for idx in self.excitation_indices]          # Update excitation indices for current time step
             
+            # calculate deflection for current time step using Crank-Nicolson scheme
             self.crank_nicolson_step(defl, t, excitation_pos)
 
             # Store deflection at each contact point
@@ -205,7 +206,6 @@ class DeflectionEBBVertic(Deflection):
         # Calculate deflection for time step t
         u = self.factoriz.solve(b)
         defl[:, t] = u[0:2 * self.discr.nx]
-
         return
 
 ##################################################################################################################################
