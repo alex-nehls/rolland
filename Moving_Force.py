@@ -16,7 +16,7 @@ Workflow:
 from rolland                        import DiscrPad, Sleeper, Ballast
 from rolland.database.rail.db_rail  import UIC60, NORDBORG  # rail profiles
 from rolland                        import SimplePeriodicBallastedSingleRailTrack
-from rolland.excitation             import RandomForce
+from rolland.excitation             import RandomForce, HertzianForce
 from rolland import(
     PMLRailDampVertic,
     DiscretizationEBBVerticConst,
@@ -47,7 +47,7 @@ velocities          = [60]      # Velocities to simulate [m/s]
 # velocities          = [25, 60, 80]      # Velocities to simulate [m/s]
 # velocities          = np.arange(5, 101, 5)  # 5 to 100 m/s in 5 m/s steps
 ramp_fraction       = 0.1       # fraction of total time for ramp up
-force_amplitude     = 65000.0   # Force amplitude [N]
+static_force        = 65000.0   # Force amplitude [N]
 # compare_nordborg     = False     # Compare with Nordborg results
 
 
@@ -102,8 +102,16 @@ for vel in velocities:
         # x_excit         = [starting_position,
         #                    starting_position + 2.5],
         velocity        = float(vel),
-        force_amplitude = force_amplitude
+        force_amplitude = static_force
     )
+
+    # excitation = HertzianForce(
+    #     x_excit         = [starting_position],
+    #     # x_excit         = [starting_position,
+    #     #                    starting_position + 2.5],
+    #     velocity        = float(vel),
+    #     initial_force   = static_force
+    # )
 
     # Discretize domain
     discretization = DiscretizationEBBVerticConst(

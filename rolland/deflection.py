@@ -10,6 +10,7 @@
 import abc
 
 from numpy import empty, linspace, zeros
+import numpy as np
 from scipy.sparse.linalg import splu
 from traitlets import Instance, Bool
 
@@ -61,10 +62,36 @@ class DeflectionEBBVertic(Deflection):
     """
     store_deflection = Bool(default_value=True)
 
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize the DeflectionFDMStampka class.
+
+        Parameters
+        ----------
+        *args : tuple
+            Variable length argument list.
+        **kwargs : dict
+            Arbitrary keyword arguments.
+
+        Attributes
+        ----------
+        deflection : numpy.ndarray
+            Array of calculated deflections with shape (2 * nx, nt + 1).
+        """
+        super().__init__(*args, **kwargs)
+
+        # Initialize starting values
+        self.calc_force()
+        defl = self.initialize_start_values()
+
+        # Calculate deflection
+        self.deflection = self.calc_deflection(defl)
+
     def validate_deflection(self):
         """Validate deflection."""
 
     def initialize_start_values(self):
+        # TODO: add option to initialize with static deflection instead of zeros
         """Set starting values of deflections to zero.
 
         Returns
@@ -138,36 +165,49 @@ class DeflectionEBBVertic(Deflection):
         self.contact_point_deflection = [[] for _ in self.excitation_indices]
         
         # Factorization of matrix A (LU decomposition)
-        factoriz = splu(self.discr.A)
+        self.factoriz = splu(self.discr.A)
+
+        # # static defletion at t=0 (initial condition)
+        # eps = 1e-12  # convergence criterion
+        # diff = np.inf  # initialize difference for convergence check
+        # while diff > eps:  # iterate until convergence
+        #     defl_old = defl.copy()  # create a copy of the current deflection array TODO: drop need to copy
+        #     self.crank_nicolson_step(defl, t=0, excitation_pos=self.excitation_indices)
+        #     diff = np.max(np.abs(defl - defl_old))  # update difference for convergence check
 
         for i in range(len(self.excitation_indices)):
             # Store initial deflection at contact points (should be zero at t=0)
-            self.contact_point_deflection[i].append(0)  # initial deflection at t=0
+            self.contact_point_deflection[i].append(defl[self.excitation_indices[i],0])  # initial deflection at t=0
 
         # loop for calculating deflection at each time step
         # NOTE: starts from t=1 because we need defl at t-1 and t-2 for the Crank-Nicolson scheme
         for t in range(1, self.discr.nt):
             # Calculate current positions based on velocity
             dx = round((self.excit.velocity * t * self.discr.dt) / self.discr.dx)   # Calculate how many grid points the load has moved
-            excitation_now = [idx + dx for idx in self.excitation_indices]          # Update excitation indices for current time step
+            excitation_pos = [idx + dx for idx in self.excitation_indices]          # Update excitation indices for current time step
             
-            # Calculate right hand side of equation
-            b = self.calc_rightside_crank_nicolson(
-                u1 = defl[:, t-1],
-                u0 = defl[:, t-2],
-                excitation_index = excitation_now,
-                t = t
-            )
+            self.crank_nicolson_step(defl, t, excitation_pos)
 
-            # Calculate deflection for time step t
-            u = factoriz.solve(b)
-            defl[:, t] = u[0:2 * self.discr.nx]
-            
             # Store deflection at each contact point
-            for i, idx in enumerate(excitation_now):
+            for i, idx in enumerate(excitation_pos):
                 contact_deflection = defl[idx, t]
                 self.contact_point_deflection[i].append(contact_deflection) # Store deflection at newly calculated contact point
-        return defl
+        return defl # TODO: check why deflection is longer than contact_defl and force
+    
+    def crank_nicolson_step(self, defl, t, excitation_pos):
+        # Calculate right hand side of equation
+        b = self.calc_rightside_crank_nicolson(
+            u1 = defl[:, t-1],
+            u0 = defl[:, t-2],
+            excitation_index = excitation_pos,
+            t = t
+        )
+        # Calculate deflection for time step t
+        u = self.factoriz.solve(b)
+        defl[:, t] = u[0:2 * self.discr.nx]
+
+        return
+
 ##################################################################################################################################
 ##################################################################################################################################
 # f = f_old
@@ -188,32 +228,3 @@ class DeflectionEBBVertic(Deflection):
 #     f = f_new
 ##################################################################################################################################
 ##################################################################################################################################
-
-
-
-
-
-    def __init__(self, *args, **kwargs):
-        """
-        Initialize the DeflectionFDMStampka class.
-
-        Parameters
-        ----------
-        *args : tuple
-            Variable length argument list.
-        **kwargs : dict
-            Arbitrary keyword arguments.
-
-        Attributes
-        ----------
-        deflection : numpy.ndarray
-            Array of calculated deflections with shape (2 * nx, nt + 1).
-        """
-        super().__init__(*args, **kwargs)
-
-        # Initialize starting values
-        self.calc_force()
-        defl = self.initialize_start_values()
-
-        # Calculate deflection
-        self.deflection = self.calc_deflection(defl)
