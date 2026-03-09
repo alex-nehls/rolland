@@ -4,3 +4,4 @@
 demo/
 __pycache__
 mobility_plots/frames
+mobility_plots/deflection_results.pkl
