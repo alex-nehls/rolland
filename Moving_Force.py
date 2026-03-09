@@ -39,14 +39,14 @@ import pickle
 # 0. TESTING PARAMETERS
 # =============================================================================
 use_precalculated_results = False  # Set to True to use pre-calculated results
-store_deflection          = False  # TODO: this is not implemented yet!
+store_deflection          = True   # TODO: this is not implemented yet!
 starting_position         = 80.0   # Starting position [m]
 num_mount                 = 400    # Number of discrete mounting positions
 distance                  = 0.6    # Distance between sleepers [m]
 l_bound                   = 40.0   # Width of boundary domain
 req_simt                  = 1      # Required simulation time [s]
 dt                        = 2.2e-5 # Time step [s]
-velocities                = [60]   # Velocities to simulate [m/s]
+velocities                = [60]   # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
 ramp_fraction             = 0.1    # Fraction of total time for ramp up
 static_force              = 65000.0 # Force amplitude [N]
 
@@ -151,17 +151,17 @@ else:
 t = np.linspace(0, req_simt, len(deflection_results.contact_point_deflection[0]))   # time array
 
 # cut the ramp part from the results to avoid transient effects in the FFT
-ramp_length = 10000
+cut_initial = 10000     # TODO: base this on ramp_fraction and total number of time steps
 
 # FFT of force, cut ramp part
-force_fft = fft(deflection_results.force[ramp_length:])
+force_fft = fft(deflection_results.force[cut_initial:])
 
 # Process each contact point
 for i, deflection in enumerate(deflection_results.contact_point_deflection):
 
     # Fast Fourier Transform of deflection at contact point
-    deflection_fft = fft(deflection[ramp_length:])  # FFT of deflection at contact point, cut ramp part
-    freqs = fftfreq(len(t[ramp_length:]), dt)       # FFT sample frequencies
+    deflection_fft = fft(deflection[cut_initial:])  # FFT of deflection at contact point, cut ramp part
+    freqs = fftfreq(len(t[cut_initial:]), dt)       # FFT sample frequencies
     omega = 2 * np.pi * freqs                       # FFT angular sample frequencies
     
     # Calculate FRFs

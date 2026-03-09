@@ -59,7 +59,7 @@ class DeflectionEBBVertic(Deflection):
         Deflection array :math:`[m]`.
     store_deflection : bool
         If True, store the full deflection matrix. If False, only store contact-point deflections.
-    excitation_index : int
+    excitation_pos : int
         Index of excitation point :math:`[-]`.
     """
     store_deflection = Bool(default_value=True)
@@ -127,7 +127,7 @@ class DeflectionEBBVertic(Deflection):
         t = linspace(0, self.discr.sim_t, self.discr.nt)
         self.force = self.excit.force(t)
 
-    def calc_rightside_crank_nicolson(self, u1, u0, excitation_index, t):
+    def calc_rightside_crank_nicolson(self, u1, u0, excitation_pos, t):
         """Calculate the right-hand side of the equation according to :cite:t:`stampka2022a`.
 
         Parameters
@@ -136,8 +136,8 @@ class DeflectionEBBVertic(Deflection):
             Deflection array at the current time step.
         u0 : numpy.ndarray    
             Deflection array at the previous time step.
-        excitation_index : int
-            Index of the excitation point.
+        excitation_pos : int
+            Index of the excitation point (not rounded).
         t : int
             Current time step.
 
@@ -149,12 +149,14 @@ class DeflectionEBBVertic(Deflection):
         # create empty force array with length equal to number of DOFs (2*nx)
         f = zeros(2 * self.discr.nx)
 
-        # Handle multiple excitation points if excitation_index is a list
-        if isinstance(excitation_index, list):
-            for idx in excitation_index:
-                f[idx] = self.force[t]
-        else:
-            f[excitation_index] = self.force[t]
+        # distribute force to the two nearest grid points using linear interpolation
+        for pos in excitation_pos:
+            lower_idx = int(np.floor(pos))
+            upper_idx = int(np.ceil(pos))
+            weight_upper = pos - lower_idx
+            weight_lower = 1 - weight_upper
+            f[lower_idx] += self.force[t] * weight_lower
+            f[upper_idx] += self.force[t] * weight_upper
 
         return (self.discr.B.dot(u1) + self.discr.C.dot(u0) + self.discr.dt ** 2 /
                 (self.track.rail.mr * self.discr.dx) * f)
@@ -173,9 +175,6 @@ class DeflectionEBBVertic(Deflection):
         defl : numpy.ndarray
             Full deflection history (2*nx, nt) containing rail and sleeper DOFs
         """
-        # Convert single excitation point to list for uniform handling
-        if not isinstance(self.excit.x_excit, list):
-            self.excit.x_excit = [self.excit.x_excit]
         
         # Calculate initial indices for all excitation points
         self.excitation_indices = [int(x / self.discr.dx) for x in self.excit.x_excit]
@@ -251,14 +250,15 @@ class DeflectionEBBVertic(Deflection):
         # NOTE: starts from t=1 because we need defl at t-1 and t-2 for the Crank-Nicolson scheme
         for t in range(1, self.discr.nt):
             # Calculate current positions based on velocity
-            dx = round((self.excit.velocity * t * self.discr.dt) / self.discr.dx)   # Calculate how many grid points the load has moved
+            dx = (self.excit.velocity * t * self.discr.dt) / self.discr.dx          # Calculate how many grid points the load has moved
             excitation_pos = [idx + dx for idx in self.excitation_indices]          # Update excitation indices for current time step
+            excitation_round = [int(pos) for pos in excitation_pos]                 # Round to nearest grid point indices for storing deflection
             
             # calculate deflection for current time step using Crank-Nicolson scheme
             self.crank_nicolson_step(defl, t, excitation_pos)
 
             # Store deflection at each contact point
-            for i, idx in enumerate(excitation_pos):
+            for i, idx in enumerate(excitation_round):
                 contact_deflection = defl[idx, t]
                 self.contact_point_deflection[i].append(contact_deflection) # Store deflection at newly calculated contact point
         return defl # TODO: check why deflection is longer than contact_defl and force
@@ -268,7 +268,7 @@ class DeflectionEBBVertic(Deflection):
         b = self.calc_rightside_crank_nicolson(
             u1 = defl[:, t-1],
             u0 = defl[:, t-2],
-            excitation_index = excitation_pos,
+            excitation_pos = excitation_pos,
             t = t
         )
         # Calculate deflection for time step t
