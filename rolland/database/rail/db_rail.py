@@ -42,6 +42,8 @@ NORDBORG = Rail(
     mr=60,
     etar=0.004,
     Iyr=22.5e-6,
+    nu=0.3,
+    G=81e9,
 )
 
 UIC60 = Rail(

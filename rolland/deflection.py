@@ -119,7 +119,7 @@ class DeflectionEBBVertic(Deflection):
         defl = empty((2 * self.discr.nx, self.discr.nt))
 
         # Set starting values to zero for two time steps
-        defl[:, 0:2] = zeros((2 * self.discr.nx, 2))
+        defl[:, 0:2] = zeros((2 * self.discr.nx, 2))    # NOTE: can this be dropped?
         return defl
 
     def calc_force(self):
@@ -127,7 +127,7 @@ class DeflectionEBBVertic(Deflection):
         t = linspace(0, self.discr.sim_t, self.discr.nt)
         self.force = self.excit.force(t)
 
-    def calc_rightside_crank_nicolson(self, u1, u0, excitation_pos, t):
+    def calc_rightside_crank_nicolson(self, defl, u1, u0, excitation_pos, t):
         """Calculate the right-hand side of the equation according to :cite:t:`stampka2022a`.
 
         Parameters
@@ -147,28 +147,72 @@ class DeflectionEBBVertic(Deflection):
             Right-hand side of the equation.
         """
         # create empty force array with length equal to number of DOFs (2*nx)
-        f = zeros(2 * self.discr.nx)
+        f_vec = zeros(2 * self.discr.nx)
 
-
-
-
-
-
-
-
-
-
-        # distribute force to the two nearest grid points using linear interpolation
         for pos in excitation_pos:
+            if len(self.force) <= t:
+                # Initialize variables for Hertzian contact calculation
+                force = -np.inf  # Initial force
+                max_iter = 100  # Maximum number of iterations
+                eps = 1e-6  # Convergence criterion
+
+
+
+                nu = self.track.rail.nu  # Poisson's ratio of the rail
+                G = self.track.rail.G  # Shear modulus of the rail
+                Ra = 0.35 # NOTE: hardcoded parameter, get from wheel geometry if available
+                alpha = 1 # NOTE: hardcoded parameter, get from wheel geometry if available
+                C = ((2*(1-nu))/(G*np.sqrt(Ra)))**(2/3) * alpha
+
+                static_force = self.excit.force_amplitude  # Static force at t=0, can be adjusted if needed
+                delta_0 = C*static_force**(2/3)  # Initial guess for penetration based on static force, can be adjusted if needed
+
+                # NOTE: needs changes to be multi-wheel compatible
+                for i in range(max_iter):
+                    # Calculate rail deflection, roughness, and wheel deflection
+                    upper_idx = int(np.ceil(pos))
+                    lower_idx = int(np.floor(pos))
+                    upper_weight = pos - lower_idx
+                    lower_weight = upper_idx - pos
+                    y_r = lower_weight*u1[lower_idx] + upper_weight*u1[upper_idx]  # Interpolated rail deflection at excitation point
+                    y_s = lower_weight*self.excit.roughness[lower_idx] + upper_weight*self.excit.roughness[upper_idx]  # Interpolated track roughness
+                    # y_w = wheel_deflection(force)  # Wheel deflection TODO: add wheel deflection calculation
+
+                    # Calculate geometric penetration
+                    ####################### TODO: ADD BACK ROUGHNESS ########################
+                    delta_lin = delta_0 + y_s # NOTE: are the directions of y_r & y_s correct?
+
+                    if delta_lin <= 0:
+                        force = 0
+                        self.force.append(force)  # Store the converged force value for the current time step
+                        break
+
+                    # Update force using Hertzian contact law
+                    force_new = (delta_lin / C) ** (3 / 2)
+
+                    if abs(force_new - force) < eps:
+                        force = force_new
+                        self.force.append(force)  # Store the converged force value for the current time step
+                        break
+
+                    # Update force for the next iteration
+                    force = force_new
+                else:
+                    print("Warning: Hertzian contact calculation did not converge.")
+            else:
+                force = self.force[t]
+
+
+            # distribute force to the two nearest grid points using linear interpolation
             lower_idx = int(np.floor(pos))
             upper_idx = int(np.ceil(pos))
             weight_upper = pos - lower_idx
             weight_lower = 1 - weight_upper
-            f[lower_idx] += self.force[t] * weight_lower
-            f[upper_idx] += self.force[t] * weight_upper
+            f_vec[lower_idx] += force * weight_lower
+            f_vec[upper_idx] += force * weight_upper
 
         return (self.discr.B.dot(u1) + self.discr.C.dot(u0) + self.discr.dt ** 2 /
-                (self.track.rail.mr * self.discr.dx) * f)
+                (self.track.rail.mr * self.discr.dx) * f_vec)
 
 
     def calc_deflection(self, defl):
@@ -251,6 +295,9 @@ class DeflectionEBBVertic(Deflection):
         #         plt.savefig(frames_dir / f'frame_{step:04d}.png', dpi=300, bbox_inches='tight')
         #         plt.close()
 
+        nx = self.discr.nx
+        self.excit.roughness = list(np.fft.ifft(np.fft.fft(np.random.randn(nx))/np.maximum(1,np.arange(nx))).real * 2e-6)
+
         for i in range(len(self.excitation_indices)):
             # Store initial deflection at contact points (should be zero at t=0)
             self.contact_point_deflection[i].append(defl[self.excitation_indices[i],0])  # initial deflection at t=0
@@ -285,6 +332,7 @@ class DeflectionEBBVertic(Deflection):
     def crank_nicolson_step(self, defl, t, excitation_pos):
         # Calculate right hand side of equation
         b = self.calc_rightside_crank_nicolson(
+            defl = defl,
             u1 = defl[:, t-1],
             u0 = defl[:, t-2],
             excitation_pos = excitation_pos,
