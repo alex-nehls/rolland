@@ -167,6 +167,7 @@ class DeflectionEBBVertic(Deflection):
                 static_force = self.excit.force_amplitude  # Static force at t=0, can be adjusted if needed
                 delta_0 = C*static_force**(2/3)  # Initial guess for penetration based on static force, can be adjusted if needed
 
+
                 # NOTE: needs changes to be multi-wheel compatible
                 for i in range(max_iter):
                     # Calculate rail deflection, roughness, and wheel deflection
@@ -174,15 +175,24 @@ class DeflectionEBBVertic(Deflection):
                     lower_idx = int(np.floor(pos))
                     upper_weight = pos - lower_idx
                     lower_weight = upper_idx - pos
+                    # if t == len(self.force):
+                    #     final_upper_idx = int(np.ceil(self.final_pos))
+                    #     final_lower_idx = int(np.floor(self.final_pos))
+                    #     final_upper_weight = final_pos - final_lower_idx
+                    #     final_lower_weight = final_upper_idx - final_pos
+                    #     y_static = final_lower_weight*u1[final_lower_idx] + final_upper_weight*u1[final_upper_idx]
+
                     y_r = lower_weight*u1[lower_idx] + upper_weight*u1[upper_idx]  # Interpolated rail deflection at excitation point
-                    y_s = lower_weight*self.excit.roughness[lower_idx] + upper_weight*self.excit.roughness[upper_idx]  # Interpolated track roughness
+                    # y_s = lower_weight*self.excit.roughness[lower_idx] + upper_weight*self.excit.roughness[upper_idx]  # Interpolated track roughness
                     # y_w = wheel_deflection(force)  # Wheel deflection TODO: add wheel deflection calculation
 
                     # Calculate geometric penetration
-                    ####################### TODO: ADD BACK ROUGHNESS ########################
-                    delta_lin = delta_0 + y_s # NOTE: are the directions of y_r & y_s correct?
+                    # TODO: get this right, check directions of deflection and roughness, and add wheel deflection
+                    # y_r: rail deflection, positive if rail moves downwards
+                    delta_lin = self.y_static - y_r # NOTE: are the directions of y_r & y_s correct?
+                    delta_lin += delta_0
 
-                    if delta_lin <= 0:
+                    if delta_lin <= 0: # NOTE: should we check before adding delta_0?
                         force = 0
                         self.force.append(force)  # Store the converged force value for the current time step
                         break
@@ -201,6 +211,8 @@ class DeflectionEBBVertic(Deflection):
                     print("Warning: Hertzian contact calculation did not converge.")
             else:
                 force = self.force[t]
+                if t == len(self.force)-1:
+                    self.final_pos = pos
 
 
             # distribute force to the two nearest grid points using linear interpolation
@@ -331,6 +343,8 @@ class DeflectionEBBVertic(Deflection):
     
     def crank_nicolson_step(self, defl, t, excitation_pos):
         # Calculate right hand side of equation
+        if t%100 == 0 and t > 4545:
+            debug = True
         b = self.calc_rightside_crank_nicolson(
             defl = defl,
             u1 = defl[:, t-1],
@@ -341,6 +355,18 @@ class DeflectionEBBVertic(Deflection):
         # Calculate deflection for time step t
         u = self.factoriz.solve(b)
         defl[:, t] = u[0:2 * self.discr.nx]
+
+        if t == 4544:   # TODO: this is crazy hardcoded for debugging, needs to be fixed ASAP
+            pos = excitation_pos[0]
+            final_upper_idx = int(np.ceil(pos))
+            final_lower_idx = int(np.floor(pos))
+            final_upper_weight = pos - final_lower_idx
+            final_lower_weight = final_upper_idx - pos
+            self.y_static = final_lower_weight*defl[final_lower_idx, t] + final_upper_weight*defl[final_upper_idx, t]
+
+
+
+
         return
 
 ##################################################################################################################################
