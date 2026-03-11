@@ -149,6 +149,15 @@ class DeflectionEBBVertic(Deflection):
         # create empty force array with length equal to number of DOFs (2*nx)
         f = zeros(2 * self.discr.nx)
 
+
+
+
+
+
+
+
+
+
         # distribute force to the two nearest grid points using linear interpolation
         for pos in excitation_pos:
             lower_idx = int(np.floor(pos))
@@ -249,10 +258,20 @@ class DeflectionEBBVertic(Deflection):
         # loop for calculating deflection at each time step
         # NOTE: starts from t=1 because we need defl at t-1 and t-2 for the Crank-Nicolson scheme
         for t in range(1, self.discr.nt):
-            # Calculate current positions based on velocity
-            dx = (self.excit.velocity * t * self.discr.dt) / self.discr.dx          # Calculate how many grid points the load has moved
-            excitation_pos = [idx + dx for idx in self.excitation_indices]          # Update excitation indices for current time step
-            excitation_round = [int(pos) for pos in excitation_pos]                 # Round to nearest grid point indices for storing deflection
+            # Calculate current positions based on velocity with ramp-up
+            ramp_steps = int(self.excit.ramp_fraction * self.discr.nt)  # number of time steps for velocity ramp-up
+            if t < ramp_steps:
+                current_velocity = self.excit.velocity * (t / ramp_steps)  # Linearly ramp up velocity
+                # print (f"Time step {t}: Ramping velocity - Current velocity: {current_velocity:.2f} m/s")
+            else:
+                current_velocity = self.excit.velocity  # Use full velocity after ramp-up
+                if t == ramp_steps:
+                    print(f"Time step {t}: Velocity ramp-up complete - Current velocity: {current_velocity:.2f} m/s")
+                    # print(f"Time step {t}: Force ramp-up complete - Current force: {self.force[t]:.2f} N") TODO: add correct force print
+
+            dx = (current_velocity * t * self.discr.dt) / self.discr.dx  # Calculate how many grid points the load has moved
+            excitation_pos = [idx + dx for idx in self.excitation_indices]  # Update excitation indices for current time step
+            excitation_round = [int(pos) for pos in excitation_pos]  # Round to nearest grid point indices for storing deflection
             
             # calculate deflection for current time step using Crank-Nicolson scheme
             self.crank_nicolson_step(defl, t, excitation_pos)
@@ -261,7 +280,7 @@ class DeflectionEBBVertic(Deflection):
             for i, idx in enumerate(excitation_round):
                 contact_deflection = defl[idx, t]
                 self.contact_point_deflection[i].append(contact_deflection) # Store deflection at newly calculated contact point
-        return defl # TODO: check why deflection is longer than contact_defl and force
+        return defl
     
     def crank_nicolson_step(self, defl, t, excitation_pos):
         # Calculate right hand side of equation

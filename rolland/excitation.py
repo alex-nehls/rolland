@@ -77,6 +77,7 @@ class HertzianForce(MovingExcitation):
     velocity : float
         Velocity of the moving load (train) :math:`[m/s]`.
     """
+    vel_ramp_fraction   = Float(default_value=0.1)  # fraction of total time for acceleration
     initial_force   = Float(default_value=65000.0)
     x_excit         = Union([List(), Float(default_value = 50.0)])
     velocity        = Float(default_value=27.78)  # default 100 km/h in m/s
@@ -116,6 +117,7 @@ class RandomForce(MovingExcitation):
     velocity : float
         Velocity of the moving load (train) :math:`[m/s]`.
     """
+    vel_ramp_fraction   = Float(default_value=0.1)  # fraction of total time for acceleration
     ramp_fraction   = Float(default_value=0.1)  # fraction of total time for ramp up
     force_amplitude = Float(default_value=65000.0)
     x_excit         = Union([List(), Float(default_value = 50.0)])

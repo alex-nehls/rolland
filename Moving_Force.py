@@ -47,12 +47,14 @@ l_bound                   = 40.0   # Width of boundary domain
 req_simt                  = 1      # Required simulation time [s]
 dt                        = 2.2e-5 # Time step [s]
 velocities                = [60]   # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
-ramp_fraction             = 0.1    # Fraction of total time for ramp up
+ramp_fraction             = 0.1    # Fraction of total time for ramp up (affects velocity and force)
 static_force              = 65000.0 # Force amplitude [N]
 
 # Output directory
 output_dir = Path('mobility_plots')
 output_dir.mkdir(exist_ok=True)
+
+# TODO: add some prints as progress indicators
 
 # =============================================================================
 # 1. TRACK DEFINITION
@@ -272,14 +274,14 @@ plt.close('all')
 #         plt.close()
 
 
-# 4.1 Plot deflection over time
-deflection = np.transpose(deflection_results.deflection)
-deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
-resp.plotMatrix(
-    deflection      = deflection, 
-    track           = track,
-    simulation_time = discretization.req_simt,
-)
+# # 4.1 Plot deflection over time
+# deflection = np.transpose(deflection_results.deflection)
+# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part, drop sleeper part
+# resp.plotMatrix(
+#     deflection      = deflection, 
+#     track           = track,
+#     simulation_time = discretization.req_simt,
+# )
 
 # 4.2 Calculate frequency response at excitation point
 # response = resp(results = deflection_results)
