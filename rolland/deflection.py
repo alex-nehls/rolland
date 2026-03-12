@@ -31,21 +31,27 @@ class Deflection(ABCHasTraits):
     discr : Discretization
         Discretization instance.
     """
-
     discr = Instance(Discretization)
     excit = Instance(Excitation)
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.track = self.discr.track
 
+
     @abc.abstractmethod
     def validate_deflection(self):
-        """Validate deflection."""
+        """
+        Validate deflection.
+        """
+
+
 
 
 class DeflectionEBBVertic(Deflection):
-    r"""Calculate deflection according to :cite:t:`stampka2022a`.
+    r"""
+    Calculate deflection according to :cite:t:`stampka2022a`.
 
     Attributes
     ----------
@@ -62,22 +68,25 @@ class DeflectionEBBVertic(Deflection):
     excitation_pos : int
         Index of excitation point :math:`[-]`.
     """
-    store_deflection = Bool(default_value=True)
+
 
     def __getstate__(self):
-        # Get the object's state as a dictionary
-        state = self.__dict__.copy()
-        # Remove the non-pickleable SuperLU object
+        """
+        Get the state of the object for pickling.
+        The method is needed for saving the state of the object without the non-pickleable LU factorization.
+        """
+        state = self.__dict__.copy()    # Get the object's state as a dictionary
         if 'factoriz' in state:
-            state['factoriz'] = None
+            state['factoriz'] = None    # Remove the non-pickleable SuperLU object
         return state
 
+
     def __setstate__(self, state):
-        # Restore the object's state
-        self.__dict__.update(state)
-        # Reinitialize the SuperLU object if needed (optional)
-        if self.discr and hasattr(self.discr, 'A'):
-            self.factoriz = splu(self.discr.A)
+        """
+        Set the state of the object during unpickling.
+        """
+        self.__dict__.update(state)     # Restore the object's state
+
 
     def __init__(self, *args, **kwargs):
         """
@@ -105,11 +114,13 @@ class DeflectionEBBVertic(Deflection):
         self.deflection = self.calc_deflection(defl)
 
     def validate_deflection(self):
-        """Validate deflection."""
+        """
+        Validate deflection.
+        """
 
     def initialize_start_values(self):
-        # TODO: add option to initialize with static deflection instead of zeros
-        """Set starting values of deflections to zero.
+        """
+        Set starting values of deflections to zero.
 
         Returns
         -------
@@ -122,10 +133,24 @@ class DeflectionEBBVertic(Deflection):
         defl[:, 0:2] = zeros((2 * self.discr.nx, 2))    # NOTE: can this be dropped?
         return defl
 
+
+    def interpolate(self, position, values):
+        """
+        Interpolate value at a given position between two nodes using linear interpolation.
+        """
+        upper_idx       = int(np.ceil(position))
+        lower_idx       = int(np.floor(position))
+        upper_weight    = position - lower_idx
+        lower_weight    = upper_idx - position
+        result          = lower_weight*values[lower_idx] + upper_weight*values[upper_idx]
+        return result
+
+
     def calc_force(self):
         """Calculate force array."""
         t = linspace(0, self.discr.sim_t, self.discr.nt)
         self.force = self.excit.force(t)
+
 
     def calc_rightside_crank_nicolson(self, defl, u1, u0, excitation_pos, t):
         """Calculate the right-hand side of the equation according to :cite:t:`stampka2022a`.
@@ -168,23 +193,15 @@ class DeflectionEBBVertic(Deflection):
                 delta_0 = C*static_force**(2/3)  # Initial guess for penetration based on static force, can be adjusted if needed
 
 
-                # NOTE: needs changes to be multi-wheel compatible
                 for i in range(max_iter):
-                    # Calculate rail deflection, roughness, and wheel deflection
-                    upper_idx = int(np.ceil(pos))
-                    lower_idx = int(np.floor(pos))
-                    upper_weight = pos - lower_idx
-                    lower_weight = upper_idx - pos
-                    # if t == len(self.force):
-                    #     final_upper_idx = int(np.ceil(self.final_pos))
-                    #     final_lower_idx = int(np.floor(self.final_pos))
-                    #     final_upper_weight = final_pos - final_lower_idx
-                    #     final_lower_weight = final_upper_idx - final_pos
-                    #     y_static = final_lower_weight*u1[final_lower_idx] + final_upper_weight*u1[final_upper_idx]
+                    # TODO: function for interpolation --> handle on point
+                    # TODO: function for spreading --> also handle on point
+                    # TODO: fix this whole mess!!!
 
-                    y_r = lower_weight*u1[lower_idx] + upper_weight*u1[upper_idx]  # Interpolated rail deflection at excitation point
-                    # y_s = lower_weight*self.excit.roughness[lower_idx] + upper_weight*self.excit.roughness[upper_idx]  # Interpolated track roughness
-                    # y_w = wheel_deflection(force)  # Wheel deflection TODO: add wheel deflection calculation
+                    # Calculate rail deflection, roughness, and wheel deflection
+                    y_r = self.interpolate(pos, u1)                     # Interpolated rail deflection at excitation point
+                    y_s = self.interpolate(pos, self.excit.roughness)   # Interpolated track roughness at excitation point
+                    # y_w = wheel_deflection                            # Wheel deflection TODO: add wheel deflection calculation
 
                     # Calculate geometric penetration
                     # TODO: get this right, check directions of deflection and roughness, and add wheel deflection
@@ -214,7 +231,7 @@ class DeflectionEBBVertic(Deflection):
                 if t == len(self.force)-1:
                     self.final_pos = pos
 
-
+            
             # distribute force to the two nearest grid points using linear interpolation
             lower_idx = int(np.floor(pos))
             upper_idx = int(np.ceil(pos))
@@ -317,6 +334,8 @@ class DeflectionEBBVertic(Deflection):
         # loop for calculating deflection at each time step
         # NOTE: starts from t=1 because we need defl at t-1 and t-2 for the Crank-Nicolson scheme
         for t in range(1, self.discr.nt):
+            if t == 5000:
+                a = "checkpoint"  # TODO: remove hardcoded checkpoint for debugging
             # Calculate current positions based on velocity with ramp-up
             ramp_steps = int(self.excit.ramp_fraction * self.discr.nt)  # number of time steps for velocity ramp-up
             if t < ramp_steps:
@@ -358,34 +377,9 @@ class DeflectionEBBVertic(Deflection):
 
         if t == 4544:   # TODO: this is crazy hardcoded for debugging, needs to be fixed ASAP
             pos = excitation_pos[0]
-            final_upper_idx = int(np.ceil(pos))
-            final_lower_idx = int(np.floor(pos))
-            final_upper_weight = pos - final_lower_idx
-            final_lower_weight = final_upper_idx - pos
-            self.y_static = final_lower_weight*defl[final_lower_idx, t] + final_upper_weight*defl[final_upper_idx, t]
+            self.y_static = self.interpolate(pos, defl[:, t])  # Store deflection after ramp for Hertzian contact calculation
 
 
 
 
         return
-
-##################################################################################################################################
-##################################################################################################################################
-# f = f_old
-# for i in range(max_iter):
-#     y_r = rail_deflection(f)            # Schienenverformung
-#     y_s = roughness(f)                  # Gleisrauheit
-#     y_w = wheel_deflection(f)           # Radverformung
-#     delta_lin = y_r + y_s - y_w         # geometrische Eindringung
-
-#     if delta_lin <= 0:
-#         f = 0
-#         break
-
-#     f_new = (delta_lin / C)**(3/2)      # Hertz-Gesetz
-#     if abs(f_new - f) < eps:            # Fehlerprüfung
-#         f = f_new
-#         break
-#     f = f_new
-##################################################################################################################################
-##################################################################################################################################

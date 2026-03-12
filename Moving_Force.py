@@ -53,8 +53,8 @@ static_force              = 65000.0 # Force amplitude [N]
 # Output directory
 output_dir = Path('mobility_plots')
 output_dir.mkdir(exist_ok=True)
-
 # TODO: add some prints as progress indicators
+
 
 # =============================================================================
 # 1. TRACK DEFINITION
@@ -77,8 +77,8 @@ track = SimplePeriodicBallastedSingleRailTrack(
     num_mount   = num_mount,        # Number of discrete mounting positions
     distance    = distance          # Distance between sleepers [m]
 )
-
 ppf = math.pi/(2*distance**2) * math.sqrt(track.rail.E*track.rail.Iyr / track.rail.mr) # first pinned-pinned frequency	
+
 
 # =============================================================================
 # 2. SIMULATION SETUP
@@ -89,6 +89,7 @@ boundary = PMLRailDampVertic(l_bound = l_bound)  # width of boundary domain
 # clear mobility plots directory
 for file in output_dir.glob('*.png'):
     os.remove(file)
+
 
 # =============================================================================
 # 3. VELOCITY SWEEP SIMULATION OR LOAD PRE-CALCULATED RESULTS
@@ -233,38 +234,38 @@ plt.close('all')
 
 
 
-# =============================================================================
-# 4.6 Plot deflection as individual frames
-# =============================================================================
-# Create output directory for frames
-frames_dir = output_dir / 'frames'
+# # =============================================================================
+# # 4.6 Plot deflection as individual frames
+# # =============================================================================
+# # Create output directory for frames
+# frames_dir = output_dir / 'frames'
 
-# Clear the frames directory if it already exists
-if frames_dir.exists():
-    for file in frames_dir.glob('*'):
-        file.unlink()  # Delete each file in the directory
-else:
-    frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
+# # Clear the frames directory if it already exists
+# if frames_dir.exists():
+#     for file in frames_dir.glob('*'):
+#         file.unlink()  # Delete each file in the directory
+# else:
+#     frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
 
-# Extract deflection data
-deflection = np.transpose(deflection_results.deflection)
-deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
+# # Extract deflection data
+# deflection = np.transpose(deflection_results.deflection)
+# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
 
-# Loop through each time step and save a frame as a PNG
-for t_idx in range(deflection.shape[0]): # loop through time steps
-    if (t_idx-4545)//40 == 0 or t_idx%200 == 0:  # Save every 20th frame to reduce number of images
-        plt.figure(figsize=(10, 5))
-        plt.plot(deflection[t_idx, :], lw=2, label='Deflection')
-        plt.xlim(0, deflection.shape[1])  # Set x-axis limits to the number of discrete points
-        plt.ylim(np.max(deflection), np.min(deflection))
-        plt.xlabel('Position along the rail')
-        plt.ylabel('Deflection [m]')
-        plt.title(f'Rail Deflection - Time Step {t_idx}')
-        plt.grid(True)
-        plt.legend()  # Add legend to show labels
-        plt.tight_layout()
-        plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
-        plt.close()
+# # Loop through each time step and save a frame as a PNG
+# for t_idx in range(deflection.shape[0]): # loop through time steps
+#     if (t_idx-4545)//40 == 0 or t_idx%200 == 0:  # Save every 20th frame to reduce number of images
+#         plt.figure(figsize=(10, 5))
+#         plt.plot(deflection[t_idx, :], lw=2, label='Deflection')
+#         plt.xlim(0, deflection.shape[1])  # Set x-axis limits to the number of discrete points
+#         plt.ylim(np.max(deflection), np.min(deflection))
+#         plt.xlabel('Position along the rail')
+#         plt.ylabel('Deflection [m]')
+#         plt.title(f'Rail Deflection - Time Step {t_idx}')
+#         plt.grid(True)
+#         plt.legend()  # Add legend to show labels
+#         plt.tight_layout()
+#         plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
+#         plt.close()
 
 
 # # 4.1 Plot deflection over time
