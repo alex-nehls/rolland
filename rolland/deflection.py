@@ -141,7 +141,7 @@ class DeflectionEBBVertic(Deflection):
         upper_idx       = int(np.ceil(position))
         lower_idx       = int(np.floor(position))
         upper_weight    = position - lower_idx
-        lower_weight    = upper_idx - position
+        lower_weight    = 1 - upper_weight
         result          = lower_weight*values[lower_idx] + upper_weight*values[upper_idx]
         return result
 
@@ -192,6 +192,28 @@ class DeflectionEBBVertic(Deflection):
                 static_force = self.excit.force_amplitude  # Static force at t=0, can be adjusted if needed
                 delta_0 = C*static_force**(2/3)  # Initial guess for penetration based on static force, can be adjusted if needed
 
+                n = self.discr.nx
+                dx = self.discr.dx
+
+                k = np.fft.fftfreq(n, dx)
+
+                PSD = 1/(1+(k/50)**2)   # simple k^2 PSD
+
+                phase = np.exp(1j*2*np.pi*np.random.rand(n))
+
+                roughness_fft = np.sqrt(PSD)*phase
+
+                r = np.real(np.fft.ifft(roughness_fft))
+
+                r *= 5e-6/np.std(r)   # RMS ~5 µm
+
+
+                # self.excit.roughness = list(r)
+
+
+                self.excit.roughness = list(8e-6 * np.random.randn(n))   # TODO: move roughness generation to excitation class and make it more realistic (e.g., using a power spectral density)
+
+
 
                 for i in range(max_iter):
                     # TODO: function for interpolation --> handle on point
@@ -206,7 +228,7 @@ class DeflectionEBBVertic(Deflection):
                     # Calculate geometric penetration
                     # TODO: get this right, check directions of deflection and roughness, and add wheel deflection
                     # y_r: rail deflection, positive if rail moves downwards
-                    delta_lin = self.y_static - y_r # NOTE: are the directions of y_r & y_s correct?
+                    delta_lin = self.y_static - y_r + y_s
                     delta_lin += delta_0
 
                     if delta_lin <= 0: # NOTE: should we check before adding delta_0?
@@ -324,8 +346,8 @@ class DeflectionEBBVertic(Deflection):
         #         plt.savefig(frames_dir / f'frame_{step:04d}.png', dpi=300, bbox_inches='tight')
         #         plt.close()
 
-        nx = self.discr.nx
-        self.excit.roughness = list(np.fft.ifft(np.fft.fft(np.random.randn(nx))/np.maximum(1,np.arange(nx))).real * 2e-6)
+        # nx = self.discr.nx
+        # self.excit.roughness = list(np.fft.ifft(np.fft.fft(np.random.randn(nx))/np.maximum(1,np.arange(nx))).real * 2e-6)
 
         for i in range(len(self.excitation_indices)):
             # Store initial deflection at contact points (should be zero at t=0)

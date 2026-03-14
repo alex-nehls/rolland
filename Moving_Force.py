@@ -48,7 +48,7 @@ req_simt                  = 1      # Required simulation time [s]
 dt                        = 2.2e-5 # Time step [s]
 velocities                = [60]   # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
 ramp_fraction             = 0.1    # Fraction of total time for ramp up (affects velocity and force)
-static_force              = 65000.0 # Force amplitude [N]
+static_force              = 65000.0 # Static force amplitude [N]
 
 # Output directory
 output_dir = Path('mobility_plots')
@@ -77,8 +77,8 @@ track = SimplePeriodicBallastedSingleRailTrack(
     num_mount   = num_mount,        # Number of discrete mounting positions
     distance    = distance          # Distance between sleepers [m]
 )
-ppf = math.pi/(2*distance**2) * math.sqrt(track.rail.E*track.rail.Iyr / track.rail.mr) # first pinned-pinned frequency	
-
+ppf = math.pi/(2*distance**2) * math.sqrt(track.rail.E*track.rail.Iyr / track.rail.mr) # first pinned-pinned frequency
+print(f"First pinned-pinned frequency: {ppf:.2f} Hz")
 
 # =============================================================================
 # 2. SIMULATION SETUP
@@ -148,6 +148,7 @@ t = np.linspace(0, req_simt, len(deflection_results.contact_point_deflection[0])
 
 # cut the ramp part from the results to avoid transient effects in the FFT
 cut_initial = 10000     # TODO: base this on ramp_fraction and total number of time steps
+freq_limit = 4000
 
 # FFT of force, cut ramp part
 force_fft = fft(deflection_results.force[cut_initial:])
@@ -165,7 +166,7 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
     receptance = deflection_fft / force_fft             # [m/N]
 
     # Filter to 0-2000 Hz
-    mask = (freqs >= 0) & (freqs <= 2000)
+    mask = (freqs >= 0) & (freqs <= freq_limit)
 
     # plot individual velocity
     plt.plot(freqs[mask], 20*np.log10(np.abs(receptance[mask])), linewidth=1)
@@ -212,7 +213,7 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
                 receptances.append(float(str.replace(row[1], ',', '.')))
 
         # Interpolate to equally spaced frequencies
-        freq_interp = np.linspace(0, 2000, 2000)
+        freq_interp = np.linspace(0, freq_limit, freq_limit)
         receptance_interp = np.interp(freq_interp, frequencies, receptances)
 
         plt.figure(figsize=(10, 5))
@@ -234,38 +235,38 @@ plt.close('all')
 
 
 
-# # =============================================================================
-# # 4.6 Plot deflection as individual frames
-# # =============================================================================
-# # Create output directory for frames
-# frames_dir = output_dir / 'frames'
+# =============================================================================
+# 4.6 Plot deflection as individual frames
+# =============================================================================
+# Create output directory for frames
+frames_dir = output_dir / 'frames'
 
-# # Clear the frames directory if it already exists
-# if frames_dir.exists():
-#     for file in frames_dir.glob('*'):
-#         file.unlink()  # Delete each file in the directory
-# else:
-#     frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
+# Clear the frames directory if it already exists
+if frames_dir.exists():
+    for file in frames_dir.glob('*'):
+        file.unlink()  # Delete each file in the directory
+else:
+    frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
 
-# # Extract deflection data
-# deflection = np.transpose(deflection_results.deflection)
-# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
+# Extract deflection data
+deflection = np.transpose(deflection_results.deflection)
+deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
 
-# # Loop through each time step and save a frame as a PNG
-# for t_idx in range(deflection.shape[0]): # loop through time steps
-#     if (t_idx-4545)//40 == 0 or t_idx%200 == 0:  # Save every 20th frame to reduce number of images
-#         plt.figure(figsize=(10, 5))
-#         plt.plot(deflection[t_idx, :], lw=2, label='Deflection')
-#         plt.xlim(0, deflection.shape[1])  # Set x-axis limits to the number of discrete points
-#         plt.ylim(np.max(deflection), np.min(deflection))
-#         plt.xlabel('Position along the rail')
-#         plt.ylabel('Deflection [m]')
-#         plt.title(f'Rail Deflection - Time Step {t_idx}')
-#         plt.grid(True)
-#         plt.legend()  # Add legend to show labels
-#         plt.tight_layout()
-#         plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
-#         plt.close()
+# Loop through each time step and save a frame as a PNG
+for t_idx in range(deflection.shape[0]): # loop through time steps
+    if (t_idx-4545)//40 == 0 or t_idx%200 == 0:  # Save every 20th frame to reduce number of images
+        plt.figure(figsize=(10, 5))
+        plt.plot(deflection[t_idx, :], lw=2, label='Deflection')
+        plt.xlim(0, deflection.shape[1])  # Set x-axis limits to the number of discrete points
+        plt.ylim(np.max(deflection), np.min(deflection))
+        plt.xlabel('Position along the rail')
+        plt.ylabel('Deflection [m]')
+        plt.title(f'Rail Deflection - Time Step {t_idx}')
+        plt.grid(True)
+        plt.legend()  # Add legend to show labels
+        plt.tight_layout()
+        plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
+        plt.close()
 
 
 # # 4.1 Plot deflection over time
