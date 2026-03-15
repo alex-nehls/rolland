@@ -30,6 +30,8 @@ import os
 import csv
 import math
 from scipy.fft  import fft, fftfreq
+from scipy.signal import welch
+from scipy.signal import csd
 from pathlib    import Path
 import matplotlib.animation as animation
 import pickle
@@ -38,7 +40,7 @@ import pickle
 # =============================================================================
 # 0. TESTING PARAMETERS
 # =============================================================================
-use_precalculated_results = False  # Set to True to use pre-calculated results
+use_precalculated_results = True  # Set to True to use pre-calculated results
 store_deflection          = True   # TODO: this is not implemented yet!
 starting_position         = 80.0   # Starting position [m]
 num_mount                 = 400    # Number of discrete mounting positions
@@ -148,22 +150,60 @@ t = np.linspace(0, req_simt, len(deflection_results.contact_point_deflection[0])
 
 # cut the ramp part from the results to avoid transient effects in the FFT
 cut_initial = 10000     # TODO: base this on ramp_fraction and total number of time steps
-freq_limit = 4000
+freq_limit = 2000
 
-# FFT of force, cut ramp part
-force_fft = fft(deflection_results.force[cut_initial:])
+
+
+
+force = deflection_results.force[cut_initial:]
+fs = 1/dt
+
+
+freqs, Pff = welch(force,
+               fs=fs,
+               window="hann",
+               nperseg=8192,
+               noverlap=4096)
+
+
+# # FFT of force, cut ramp part
+# force_fft = fft(force)
+
+
+
+
 
 # Process each contact point
 for i, deflection in enumerate(deflection_results.contact_point_deflection):
+    deflection = deflection[cut_initial:]  # cut ramp part
+    
+    freqs, Pyy = welch(deflection,
+                fs=fs,
+                window="hann",
+                nperseg=8192,
+                noverlap=4096)
+    
+    f, Pyf = csd(deflection, force,
+             fs=fs,
+             window="hann",
+             nperseg=8192,
+             noverlap=4096)
+
+
 
     # Fast Fourier Transform of deflection at contact point
-    deflection_fft = fft(deflection[cut_initial:])  # FFT of deflection at contact point, cut ramp part
-    freqs = fftfreq(len(t[cut_initial:]), dt)       # FFT sample frequencies
+    # deflection_fft = fft(deflection[cut_initial:])  # FFT of deflection at contact point, cut ramp part
+    # freqs = fftfreq(len(t[cut_initial:]), dt)       # FFT sample frequencies
     omega = 2 * np.pi * freqs                       # FFT angular sample frequencies
     
     # Calculate FRFs
-    mobility = 1j * omega * deflection_fft / force_fft  # [m/s/N]
-    receptance = deflection_fft / force_fft             # [m/N]
+    # mobility = 1j * omega * deflection_fft / force_fft  # [m/s/N]
+    # receptance = deflection_fft / force_fft             # [m/N]
+
+    receptance = Pyf / Pff
+    mobility = 1j * omega * receptance
+
+    plt.plot(f, 20*np.log10(abs(Pff)))
 
     # Filter to 0-2000 Hz
     mask = (freqs >= 0) & (freqs <= freq_limit)
@@ -235,38 +275,38 @@ plt.close('all')
 
 
 
-# =============================================================================
-# 4.6 Plot deflection as individual frames
-# =============================================================================
-# Create output directory for frames
-frames_dir = output_dir / 'frames'
+# # =============================================================================
+# # 4.6 Plot deflection as individual frames
+# # =============================================================================
+# # Create output directory for frames
+# frames_dir = output_dir / 'frames'
 
-# Clear the frames directory if it already exists
-if frames_dir.exists():
-    for file in frames_dir.glob('*'):
-        file.unlink()  # Delete each file in the directory
-else:
-    frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
+# # Clear the frames directory if it already exists
+# if frames_dir.exists():
+#     for file in frames_dir.glob('*'):
+#         file.unlink()  # Delete each file in the directory
+# else:
+#     frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
 
-# Extract deflection data
-deflection = np.transpose(deflection_results.deflection)
-deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
+# # Extract deflection data
+# deflection = np.transpose(deflection_results.deflection)
+# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
 
-# Loop through each time step and save a frame as a PNG
-for t_idx in range(deflection.shape[0]): # loop through time steps
-    if (t_idx-4545)//40 == 0 or t_idx%200 == 0:  # Save every 20th frame to reduce number of images
-        plt.figure(figsize=(10, 5))
-        plt.plot(deflection[t_idx, :], lw=2, label='Deflection')
-        plt.xlim(0, deflection.shape[1])  # Set x-axis limits to the number of discrete points
-        plt.ylim(np.max(deflection), np.min(deflection))
-        plt.xlabel('Position along the rail')
-        plt.ylabel('Deflection [m]')
-        plt.title(f'Rail Deflection - Time Step {t_idx}')
-        plt.grid(True)
-        plt.legend()  # Add legend to show labels
-        plt.tight_layout()
-        plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
-        plt.close()
+# # Loop through each time step and save a frame as a PNG
+# for t_idx in range(deflection.shape[0]): # loop through time steps
+#     if (t_idx-4545)//40 == 0 or t_idx%200 == 0:  # Save every 20th frame to reduce number of images
+#         plt.figure(figsize=(10, 5))
+#         plt.plot(deflection[t_idx, :], lw=2, label='Deflection')
+#         plt.xlim(0, deflection.shape[1])  # Set x-axis limits to the number of discrete points
+#         plt.ylim(np.max(deflection), np.min(deflection))
+#         plt.xlabel('Position along the rail')
+#         plt.ylabel('Deflection [m]')
+#         plt.title(f'Rail Deflection - Time Step {t_idx}')
+#         plt.grid(True)
+#         plt.legend()  # Add legend to show labels
+#         plt.tight_layout()
+#         plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
+#         plt.close()
 
 
 # # 4.1 Plot deflection over time
@@ -294,13 +334,15 @@ for t_idx in range(deflection.shape[0]): # loop through time steps
 #     plot_type='loglog',
 # )
 
-# # 4.4 Calculate Track Decay Rate (TDR)
-# tdr = TDR(results = deflection_results)
+# 4.4 Calculate Track Decay Rate (TDR)
+tdr = TDR(results = deflection_results)
 
-# # 4.5 Plot Track Decay Rate (TDR)
-# resp.plot([(tdr.freq, tdr.tdr)],
-#     # ['SimplePeriodicBallastedSingleRailTrack'],
-#     title='Track-Decay-Rate',
-#     x_label='f [Hz]',
-#     y_label='TDR [dB/m]',
-#     plot_type='loglog')
+# 4.5 Plot Track Decay Rate (TDR)
+plt.figure()
+resp.plot([(tdr.freq, tdr.tdr)],
+    title='Track-Decay-Rate',
+    x_label='f [Hz]',
+    y_label='TDR [dB/m]',
+    plot_type='loglog')
+plt.savefig(str(output_dir / 'track_decay_rate.png'), dpi=300, bbox_inches='tight')
+plt.close()

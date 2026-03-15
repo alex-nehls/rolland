@@ -205,13 +205,13 @@ class DeflectionEBBVertic(Deflection):
 
                 r = np.real(np.fft.ifft(roughness_fft))
 
-                r *= 5e-6/np.std(r)   # RMS ~5 µm
+                r *= 12e-6/np.std(r)   # RMS ~5 µm
 
 
-                # self.excit.roughness = list(r)
+                self.excit.roughness = list(r)
 
 
-                self.excit.roughness = list(8e-6 * np.random.randn(n))   # TODO: move roughness generation to excitation class and make it more realistic (e.g., using a power spectral density)
+                # self.excit.roughness = list(8e-6 * np.random.randn(n))   # TODO: move roughness generation to excitation class and make it more realistic (e.g., using a power spectral density)
 
 
 
@@ -228,7 +228,7 @@ class DeflectionEBBVertic(Deflection):
                     # Calculate geometric penetration
                     # TODO: get this right, check directions of deflection and roughness, and add wheel deflection
                     # y_r: rail deflection, positive if rail moves downwards
-                    delta_lin = self.y_static - y_r + y_s
+                    delta_lin = self.y_static - y_r + y_s + y_w
                     delta_lin += delta_0
 
                     if delta_lin <= 0: # NOTE: should we check before adding delta_0?
