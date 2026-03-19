@@ -174,6 +174,7 @@ class DeflectionEBBVertic(Deflection):
         # create empty force array with length equal to number of DOFs (2*nx)
         f_vec = zeros(2 * self.discr.nx)
 
+        wheel_ID = 0
         for pos in excitation_pos:
             if len(self.force) <= t:
                 # Initialize variables for Hertzian contact calculation
@@ -223,12 +224,12 @@ class DeflectionEBBVertic(Deflection):
                     # Calculate rail deflection, roughness, and wheel deflection
                     y_r = self.interpolate(pos, u1)                     # Interpolated rail deflection at excitation point
                     y_s = self.interpolate(pos, self.excit.roughness)   # Interpolated track roughness at excitation point
-                    # y_w = wheel_deflection                            # Wheel deflection TODO: add wheel deflection calculation
+                    y_w = self.wheel_deflection[wheel_ID][t-1]                            # Wheel deflection TODO: add wheel deflection calculation
 
                     # Calculate geometric penetration
                     # TODO: get this right, check directions of deflection and roughness, and add wheel deflection
                     # y_r: rail deflection, positive if rail moves downwards
-                    delta_lin = self.y_static - y_r + y_s + y_w
+                    delta_lin = self.y_static - y_r + y_s - y_w
                     delta_lin += delta_0
 
                     if delta_lin <= 0: # NOTE: should we check before adding delta_0?
@@ -262,6 +263,20 @@ class DeflectionEBBVertic(Deflection):
             f_vec[lower_idx] += force * weight_lower
             f_vec[upper_idx] += force * weight_upper
 
+
+            M_w = 600  # Mass of the wheel, NOTE: can be adjusted based on actual wheel mass
+            d_w = 2e4  # Wheel damping, NOTE: can be adjusted based on actual wheel damping
+            k_w = 1e8   # Wheel stiffness, NOTE: can be adjusted based on actual wheel stiffness
+            # update wheel deflection, velocity, and acceleration
+            self.wheel_acceleration[wheel_ID][t] = (force - k_w*self.wheel_deflection[wheel_ID][t-1] - d_w*self.wheel_velocity[wheel_ID][t-1]) / M_w
+            self.wheel_velocity[wheel_ID][t] = self.wheel_velocity[wheel_ID][t-1] + self.wheel_acceleration[wheel_ID][t] * self.discr.dt
+            self.wheel_deflection[wheel_ID][t] = self.wheel_deflection[wheel_ID][t-1] + self.wheel_velocity[wheel_ID][t] * self.discr.dt
+
+
+
+
+
+
         return (self.discr.B.dot(u1) + self.discr.C.dot(u0) + self.discr.dt ** 2 /
                 (self.track.rail.mr * self.discr.dx) * f_vec)
 
@@ -279,12 +294,16 @@ class DeflectionEBBVertic(Deflection):
         defl : numpy.ndarray
             Full deflection history (2*nx, nt) containing rail and sleeper DOFs
         """
-        
+        nt = self.discr.nt
+
         # Calculate initial indices for all excitation points
         self.excitation_indices = [int(x / self.discr.dx) for x in self.excit.x_excit]
         
         # Array for storing deflection at contact points over time
-        self.contact_point_deflection = [[] for _ in self.excitation_indices]
+        self.contact_point_deflection   = [[] for _ in self.excitation_indices]
+        self.wheel_deflection           = [zeros(nt) for _ in self.excitation_indices]
+        self.wheel_velocity             = [zeros(nt) for _ in self.excitation_indices]
+        self.wheel_acceleration         = [zeros(nt) for _ in self.excitation_indices]
         
         # Factorization of matrix A (LU decomposition)
         self.factoriz = splu(self.discr.A)
@@ -356,8 +375,6 @@ class DeflectionEBBVertic(Deflection):
         # loop for calculating deflection at each time step
         # NOTE: starts from t=1 because we need defl at t-1 and t-2 for the Crank-Nicolson scheme
         for t in range(1, self.discr.nt):
-            if t == 5000:
-                a = "checkpoint"  # TODO: remove hardcoded checkpoint for debugging
             # Calculate current positions based on velocity with ramp-up
             ramp_steps = int(self.excit.ramp_fraction * self.discr.nt)  # number of time steps for velocity ramp-up
             if t < ramp_steps:
