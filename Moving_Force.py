@@ -51,7 +51,7 @@ dt                        = 2.2e-5 # Time step [s]
 velocities                = [60]   # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
 ramp_fraction             = 0.1    # Fraction of total time for ramp up (affects velocity and force)
 static_force              = 65000.0 # Static force amplitude [N]
-#use_contact_model           = False   # TODO: not implemented yet, currently only point load excitation possible
+use_contact_model           = True
 
 # Output directory
 output_dir = Path('mobility_plots')
@@ -121,7 +121,7 @@ else:
             x_excit         = [starting_position],
             velocity        = float(vel),
             force_amplitude = static_force,
-            random_fill     = False
+            use_contact_model       = use_contact_model
         )
 
         # Discretize domain

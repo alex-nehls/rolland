@@ -12,7 +12,7 @@
 import abc
 import numpy as np
 
-from traitlets import Float, List, Union
+from traitlets import Float, List, Union, Bool
 
 from .abstract_traits import ABCHasTraits
 
@@ -86,7 +86,7 @@ class MovingForce(MovingExcitation):
     x_excit         = Union([List(), Float(default_value = 50.0)])
     velocity        = Float(default_value=27.78)  # default 100 km/h in m/s
     roughness        = List(default_value=[])  # list of roughness values for each load
-    random_fill       = False  # whether to fill the force with random values after ramp up
+    use_contact_model       = Bool(default_value = False) # whether to fill the force with random values after ramp up
     
     def validate_excitation(self):
         """Validate excitation parameters."""
@@ -101,7 +101,7 @@ class MovingForce(MovingExcitation):
         for i in range(self.ramp_length):
             force_array.append(self.force_amplitude * (i / self.ramp_length))
         
-        if self.random_fill:
+        if not self.use_contact_model:
             # random force between force_amplitude and 2*force_amplitude
             constant_part = [self.force_amplitude] * (n - self.ramp_length)
             np.random.seed(42)  # für Reproduzierbarkeit

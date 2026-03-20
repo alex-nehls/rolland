@@ -176,7 +176,7 @@ class DeflectionEBBVertic(Deflection):
 
         wheel_ID = 0
         for pos in excitation_pos:
-            if len(self.force) <= t:
+            if len(self.force) <= t and self.excit.use_contact_model:  # if force for current time step is not yet calculated and contact model is enabled, calculate force using Hertzian contact model
                 # Initialize variables for Hertzian contact calculation
                 force = -np.inf  # Initial force
                 max_iter = 100  # Maximum number of iterations
