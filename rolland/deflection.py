@@ -300,7 +300,7 @@ class DeflectionEBBVertic(Deflection):
         # step = 0  # initialize time step for static deflection calculation
         # diff = np.inf  # initialize difference for convergence check
         # while diff > eps:  # iterate until convergence is met
-        #     pos = step % 3  # position in the static deflection array (0, 1, or 2)  TODO: put back in use
+        #     # pos = step % 3  # position in the static deflection array (0, 1, or 2)  TODO: put back in use
         #     self.crank_nicolson_step(defl_static, t=step, excitation_pos=self.excitation_indices)
         #     if step > 1:
         #         diff = np.max(np.abs( defl_static[:,step] - defl_static[:,step-1] ))  # update difference for convergence check
@@ -309,18 +309,17 @@ class DeflectionEBBVertic(Deflection):
         #         break
         #     # if step % 100 == 0:
         #     #     print(f"Static deflection calculation - Step {step}, Max difference: {diff:.2e}")
+        # # TODO: line this up with the start of dynamic calculation
         # defl[:, 0] = defl_static[:, step-1]  # set initial deflection to converged static deflection
         # defl[:, -1] = defl_static[:, step-1]  # set deflection to be used for t-2 in first dynamic step to converged static deflection
 
         
 
-        # # plot static deflection for debugging
+        # # plot static deflection
         # # =============================================================================
         # # Create output directory for frames
-        # output_dir = Path('mobility_plots')
-        # output_dir.mkdir(exist_ok=True)
-
-        # frames_dir = output_dir / 'frames'
+        # frames_dir = Path('frames')
+        # frames_dir.mkdir(exist_ok=True)
 
         # # Clear the frames directory if it already exists
         # if frames_dir.exists():
@@ -331,23 +330,24 @@ class DeflectionEBBVertic(Deflection):
 
         # # Extract deflection data
         # deflection_static = np.transpose(defl_static)
+        # deflection_static = -1 * deflection_static
         # deflection_static = deflection_static[:, :deflection_static.shape[1] // 2]  # Take only the rail deflection_static part
 
         # # Loop through each time step and save a frame as a PNG
-        # for step in range(deflection_static.shape[0]): # loop through time steps
-        #     if step//60==0 or step%100==0 or step==deflection_static.shape[0]-1:  # Save every 20th frame to reduce number of images
-        #         plt.figure(figsize=(10, 5))
-        #         plt.plot(deflection_static[step, :], lw=2, label='statische Auslenkung')
-        #         # plt.xlim(0, deflection_static.shape[1])  # Set x-axis limits to the number of discrete points
-        #         plt.ylim(np.max(deflection_static), np.min(deflection_static))
-        #         plt.xlabel('Position [m]')
-        #         plt.ylabel('Auslenkung [m]')
-        #         # plt.title(f'statische Auslenkung bei unbewegter Last')
-        #         plt.grid(True)
-        #         plt.legend()  # Add legend to show labels
-        #         plt.tight_layout()
-        #         plt.savefig(frames_dir / f'frame_{step:04d}_static_deflection.png', dpi=300, bbox_inches='tight')
-        #         plt.close()
+        # # for step in range(deflection_static.shape[0]): # loop through time steps
+        # #     if step//60==0 or step%100==0 or step==deflection_static.shape[0]-1:  # Save every 20th frame to reduce number of images
+        # plt.figure(figsize=(10, 5))
+        # plt.plot(deflection_static[-1, :], lw=2, label='statische Auslenkung')
+        # plt.xlim(0, deflection_static.shape[1])  # Set x-axis limits to the number of discrete points
+        # plt.ylim(np.min(deflection_static), np.max(deflection_static))
+        # plt.xlabel('Position [m]')
+        # plt.ylabel('Auslenkung [m]')
+        # # plt.title(f'statische Auslenkung bei unbewegter Last')
+        # plt.grid(True)
+        # plt.legend()  # Add legend to show labels
+        # plt.tight_layout()
+        # plt.savefig(frames_dir / f'final_static_deflection.png', dpi=300, bbox_inches='tight')
+        # plt.close()
 
 
         # nx = self.discr.nx

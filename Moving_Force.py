@@ -54,11 +54,22 @@ static_force              = 65000.0 # Static force amplitude [N]
 use_precalculated_results   = False
 use_contact_model           = False
 
+
+
 # Output directory
 output_dir = Path('mobility_plots')
 output_dir.mkdir(exist_ok=True)
 # TODO: add some prints as progress indicators
 
+# Create output directory for frames
+frames_dir = output_dir / 'frames'
+
+# Clear the frames directory if it already exists
+if frames_dir.exists():
+    for file in frames_dir.glob('*'):
+        file.unlink()  # Delete each file in the directory
+else:
+    frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
 
 # =============================================================================
 # 1. TRACK DEFINITION
@@ -282,18 +293,9 @@ plt.close('all')
 # =============================================================================
 # 4.6 Plot deflection as individual frames
 # =============================================================================
-# Create output directory for frames
-frames_dir = output_dir / 'frames'
-
-# Clear the frames directory if it already exists
-if frames_dir.exists():
-    for file in frames_dir.glob('*'):
-        file.unlink()  # Delete each file in the directory
-else:
-    frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
-
 # Extract deflection data
 deflection = np.transpose(deflection_results.deflection)
+deflection = -1 * deflection
 deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
 
 # Loop through each time step and save a frame as a PNG
@@ -304,19 +306,19 @@ for t_idx in range(deflection.shape[0]): # loop through time steps
         # Set y-axis limits based on deflection range, with some padding
         # lower_y =np.max(deflection)
         # upper_y = np.min(deflection)
-        # lower_y =np.max(deflection)
-        # upper_y = np.min(deflection)
-        upper_y_zoom = -2e-5
-        lower_y_zoom= 1e-5
+        lower_y = -6e-4
+        upper_y = 1e-4
+        upper_y_zoom = 2e-5
+        lower_y_zoom = -1e-5
 
 
         # Set x-axis limits to focus on the region around the excitation point, with some padding
         if t_idx == 1000:
             lower_x = 1400
-            upper_x = 1650
+            upper_x = 1700
         if t_idx == 4545:
             lower_x = 1400
-            upper_x = 1650
+            upper_x = 1700
         if t_idx == 37000:
             lower_x = 1450
             upper_x = 3100
@@ -324,10 +326,10 @@ for t_idx in range(deflection.shape[0]): # loop through time steps
         plt.figure(figsize=(10, 5))
         plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
         if t_idx == 4545:
-            max_deflection = np.min(deflection[t_idx, :])
+            max_deflection = np.max(deflection[t_idx, :])
             plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
         plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
-        plt.ylim(np.max(deflection), np.min(deflection))
+        plt.ylim(lower_y, upper_y)
         plt.xlabel('Position [m]')
         plt.ylabel('Auslenkung [m]')
         # plt.title(f'Rail Deflection - Time Step {t_idx}')
