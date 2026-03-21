@@ -193,24 +193,6 @@ class DeflectionEBBVertic(Deflection):
                 static_force = self.excit.force_amplitude  # Static force at t=0, can be adjusted if needed
                 delta_0 = C*static_force**(2/3)  # Initial guess for penetration based on static force, can be adjusted if needed
 
-                n = self.discr.nx
-                dx = self.discr.dx
-
-                k = np.fft.fftfreq(n, dx)
-
-                PSD = 1/(1+(k/50)**2)   # simple k^2 PSD
-
-                phase = np.exp(1j*2*np.pi*np.random.rand(n))
-
-                roughness_fft = np.sqrt(PSD)*phase
-
-                r = np.real(np.fft.ifft(roughness_fft))
-
-                r *= 12e-6/np.std(r)   # RMS ~5 µm
-
-
-                self.excit.roughness = list(r)
-
 
                 # self.excit.roughness = list(8e-6 * np.random.randn(n))   # TODO: move roughness generation to excitation class and make it more realistic (e.g., using a power spectral density)
 
@@ -267,6 +249,8 @@ class DeflectionEBBVertic(Deflection):
             M_w = 600  # Mass of the wheel, NOTE: can be adjusted based on actual wheel mass
             d_w = 2e4  # Wheel damping, NOTE: can be adjusted based on actual wheel damping
             k_w = 1e8   # Wheel stiffness, NOTE: can be adjusted based on actual wheel stiffness
+            # d_w = 0
+            # k_w = 0
             # update wheel deflection, velocity, and acceleration
             self.wheel_acceleration[wheel_ID][t] = (force - k_w*self.wheel_deflection[wheel_ID][t-1] - d_w*self.wheel_velocity[wheel_ID][t-1]) / M_w
             self.wheel_velocity[wheel_ID][t] = self.wheel_velocity[wheel_ID][t-1] + self.wheel_acceleration[wheel_ID][t] * self.discr.dt
@@ -330,7 +314,7 @@ class DeflectionEBBVertic(Deflection):
 
         
 
-        # # 4.6 Plot deflection as individual frames
+        # # plot static deflection for debugging
         # # =============================================================================
         # # Create output directory for frames
         # output_dir = Path('mobility_plots')
@@ -351,19 +335,20 @@ class DeflectionEBBVertic(Deflection):
 
         # # Loop through each time step and save a frame as a PNG
         # for step in range(deflection_static.shape[0]): # loop through time steps
-        #     if step//60 == 0 or step % 100 == 0:  # Save every 20th frame to reduce number of images
+        #     if step//60==0 or step%100==0 or step==deflection_static.shape[0]-1:  # Save every 20th frame to reduce number of images
         #         plt.figure(figsize=(10, 5))
-        #         plt.plot(deflection_static[step, :], lw=2, label='deflection_static')
-        #         plt.xlim(0, deflection_static.shape[1])  # Set x-axis limits to the number of discrete points
+        #         plt.plot(deflection_static[step, :], lw=2, label='statische Auslenkung')
+        #         # plt.xlim(0, deflection_static.shape[1])  # Set x-axis limits to the number of discrete points
         #         plt.ylim(np.max(deflection_static), np.min(deflection_static))
-        #         plt.xlabel('Position along the rail')
-        #         plt.ylabel('deflection_static [m]')
-        #         plt.title(f'Rail deflection_static - Time Step {step}')
+        #         plt.xlabel('Position [m]')
+        #         plt.ylabel('Auslenkung [m]')
+        #         # plt.title(f'statische Auslenkung bei unbewegter Last')
         #         plt.grid(True)
         #         plt.legend()  # Add legend to show labels
         #         plt.tight_layout()
-        #         plt.savefig(frames_dir / f'frame_{step:04d}.png', dpi=300, bbox_inches='tight')
+        #         plt.savefig(frames_dir / f'frame_{step:04d}_static_deflection.png', dpi=300, bbox_inches='tight')
         #         plt.close()
+
 
         # nx = self.discr.nx
         # self.excit.roughness = list(np.fft.ifft(np.fft.fft(np.random.randn(nx))/np.maximum(1,np.arange(nx))).real * 2e-6)

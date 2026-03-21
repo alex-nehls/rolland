@@ -91,6 +91,34 @@ class MovingForce(MovingExcitation):
     def validate_excitation(self):
         """Validate excitation parameters."""
 
+    def generate_roughness(self,discr):
+        """Generate roughness profile for contact model."""
+        n = discr.nx
+        dx = discr.dx
+
+        k = np.fft.fftfreq(n, dx)
+        PSD = 1/(1+(k/50)**2)
+        PSD[k == 0] = 0  # avoid division by zero at k=0
+
+        rng = np.random.default_rng(42)
+        phase = np.exp(1j * 2*np.pi * rng.random(n//2 + 1))
+
+        # half spectrum
+        amp = np.sqrt(PSD[:n//2 + 1])
+        half = amp * phase
+
+        # build full symmetric spectrum
+        full = np.zeros(n, dtype=complex)
+        full[:n//2 + 1] = half
+        full[n//2 + 1:] = np.conj(half[1:-1][::-1])
+
+        r = np.fft.ifft(full).real
+        std = np.std(r)
+        if std > 1e-12:
+            r *= 12e-6 / std
+
+        self.roughness = list(r)
+
     def force(self, t):
         """Compute force array (contains force over time)."""
         n = len(t)
@@ -112,5 +140,4 @@ class MovingForce(MovingExcitation):
             )
             # concatenating the rampup with the constant and random part
             force_array.extend(constant_part + random_part)
-
         return force_array

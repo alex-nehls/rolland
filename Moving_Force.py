@@ -40,7 +40,6 @@ import pickle
 # =============================================================================
 # 0. TESTING PARAMETERS
 # =============================================================================
-use_precalculated_results = False  # Set to True to use pre-calculated results
 store_deflection          = True   # TODO: this is not implemented yet!
 starting_position         = 80.0   # Starting position [m]
 num_mount                 = 400    # Number of discrete mounting positions
@@ -51,7 +50,9 @@ dt                        = 2.2e-5 # Time step [s]
 velocities                = [60]   # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
 ramp_fraction             = 0.1    # Fraction of total time for ramp up (affects velocity and force)
 static_force              = 65000.0 # Static force amplitude [N]
-use_contact_model           = True
+
+use_precalculated_results   = False
+use_contact_model           = False
 
 # Output directory
 output_dir = Path('mobility_plots')
@@ -120,7 +121,7 @@ else:
             ramp_fraction   = ramp_fraction,
             x_excit         = [starting_position],
             velocity        = float(vel),
-            force_amplitude = static_force,
+            force_amplitude         = static_force,
             use_contact_model       = use_contact_model
         )
 
@@ -131,6 +132,8 @@ else:
             track       = track,        
             bound       = boundary
         )
+
+        excitation.generate_roughness(discretization)
 
         # Solve for deflection
         deflection_results = DeflectionEBBVertic(
@@ -276,38 +279,78 @@ plt.close('all')
 
 
 
-# # =============================================================================
-# # 4.6 Plot deflection as individual frames
-# # =============================================================================
-# # Create output directory for frames
-# frames_dir = output_dir / 'frames'
+# =============================================================================
+# 4.6 Plot deflection as individual frames
+# =============================================================================
+# Create output directory for frames
+frames_dir = output_dir / 'frames'
 
-# # Clear the frames directory if it already exists
-# if frames_dir.exists():
-#     for file in frames_dir.glob('*'):
-#         file.unlink()  # Delete each file in the directory
-# else:
-#     frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
+# Clear the frames directory if it already exists
+if frames_dir.exists():
+    for file in frames_dir.glob('*'):
+        file.unlink()  # Delete each file in the directory
+else:
+    frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
 
-# # Extract deflection data
-# deflection = np.transpose(deflection_results.deflection)
-# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
+# Extract deflection data
+deflection = np.transpose(deflection_results.deflection)
+deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
 
-# # Loop through each time step and save a frame as a PNG
-# for t_idx in range(deflection.shape[0]): # loop through time steps
-#     if (t_idx-4545)//40 == 0 or t_idx%200 == 0:  # Save every 20th frame to reduce number of images
-#         plt.figure(figsize=(10, 5))
-#         plt.plot(deflection[t_idx, :], lw=2, label='Deflection')
-#         plt.xlim(0, deflection.shape[1])  # Set x-axis limits to the number of discrete points
-#         plt.ylim(np.max(deflection), np.min(deflection))
-#         plt.xlabel('Position along the rail')
-#         plt.ylabel('Deflection [m]')
-#         plt.title(f'Rail Deflection - Time Step {t_idx}')
-#         plt.grid(True)
-#         plt.legend()  # Add legend to show labels
-#         plt.tight_layout()
-#         plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
-#         plt.close()
+# Loop through each time step and save a frame as a PNG
+for t_idx in range(deflection.shape[0]): # loop through time steps
+    # if (t_idx-4545)//40 == 0 or t_idx%200 == 0:  # Save every 20th frame to reduce number of images
+    if t_idx in [1000, 4545, 37000]:  # Save specific frames of interest
+
+        # Set y-axis limits based on deflection range, with some padding
+        # lower_y =np.max(deflection)
+        # upper_y = np.min(deflection)
+        # lower_y =np.max(deflection)
+        # upper_y = np.min(deflection)
+        upper_y_zoom = -2e-5
+        lower_y_zoom= 1e-5
+
+
+        # Set x-axis limits to focus on the region around the excitation point, with some padding
+        if t_idx == 1000:
+            lower_x = 1400
+            upper_x = 1650
+        if t_idx == 4545:
+            lower_x = 1400
+            upper_x = 1650
+        if t_idx == 37000:
+            lower_x = 1450
+            upper_x = 3100
+
+        plt.figure(figsize=(10, 5))
+        plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
+        if t_idx == 4545:
+            max_deflection = np.min(deflection[t_idx, :])
+            plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
+        plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
+        plt.ylim(np.max(deflection), np.min(deflection))
+        plt.xlabel('Position [m]')
+        plt.ylabel('Auslenkung [m]')
+        # plt.title(f'Rail Deflection - Time Step {t_idx}')
+        plt.grid(True)
+        plt.legend()  # Add legend to show labels
+        plt.tight_layout()
+        plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
+        plt.close()
+
+        # Additional plot with different y-axis limits
+        if t_idx == 4545:
+            plt.figure(figsize=(10, 5))
+            plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
+            plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
+            plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
+            plt.ylim(lower_y_zoom, upper_y_zoom)  # Set smaller y-axis limits to zoom in on the deflection range
+            plt.xlabel('Position [m]')
+            plt.ylabel('Auslenkung [m]')
+            plt.grid(True)
+            plt.legend()  # Add legend to show labels
+            plt.tight_layout()
+            plt.savefig(frames_dir / f'frame_{t_idx:04d}_adjusted_ylim.png', dpi=300, bbox_inches='tight')
+            plt.close()
 
 
 # # 4.1 Plot deflection over time
