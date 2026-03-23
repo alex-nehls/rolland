@@ -96,26 +96,16 @@ class MovingForce(MovingExcitation):
         n = discr.nx
         dx = discr.dx
 
-        k = np.fft.fftfreq(n, dx)
-        PSD = 1/(1+(k/50)**2)
-        PSD[k == 0] = 0  # avoid division by zero at k=0
+        k = 2*np.pi * np.fft.fftfreq(n, dx)  # wichtig!!
 
-        rng = np.random.default_rng(42)
-        phase = np.exp(1j * 2*np.pi * rng.random(n//2 + 1))
+        PSD = 1 / (1 + (k/200)**2)   # kontrollierbarer!
 
-        # half spectrum
-        amp = np.sqrt(PSD[:n//2 + 1])
-        half = amp * phase
+        phase = np.exp(1j * 2*np.pi * np.random.rand(n))
 
-        # build full symmetric spectrum
-        full = np.zeros(n, dtype=complex)
-        full[:n//2 + 1] = half
-        full[n//2 + 1:] = np.conj(half[1:-1][::-1])
+        roughness_fft = np.sqrt(PSD) * phase
+        r = np.real(np.fft.ifft(roughness_fft))
 
-        r = np.fft.ifft(full).real
-        std = np.std(r)
-        if std > 1e-12:
-            r *= 22e-6 / std
+        r *= 25e-6 / np.std(r)   # ~5 µm RMS
 
         self.roughness = list(r)
 

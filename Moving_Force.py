@@ -42,7 +42,7 @@ import pickle
 # =============================================================================
 store_deflection          = True    # TODO: this is not implemented yet!
 starting_position         = 80.0    # Starting position [m]
-num_mount                 = 400     # Number of discrete mounting positions
+num_mount                 = 600     # Number of discrete mounting positions
 distance                  = 0.6     # Distance between sleepers [m]
 l_bound                   = 40.0    # Width of boundary domain
 dt                        = 2.2e-5  # Time step [s]
@@ -51,9 +51,9 @@ ramp_fraction             = 0.1     # Fraction of total time for ramp up (affect
 static_force              = 65000.0 # Static force amplitude [N]
 freq_limit                = 2000
 
-req_simt                    = 1       # Required simulation time [s]
-cut_initial                 = 10000   # Number of initial time steps to cut
-use_precalculated_results   = True
+req_simt                    = 2       # Required simulation time [s]
+cut_initial                 = 30000   # Number of initial time steps to cut
+use_precalculated_results   = False
 use_contact_model           = True
 
 
@@ -146,8 +146,8 @@ else:
             bound       = boundary
         )
 
-        # excitation.generate_roughness(discretization)
-        excitation.generate_harmonic_roughness(discretization, frequency=1/0.046)  # add harmonic roughness at 100 Hz
+        excitation.generate_roughness(discretization)
+        # excitation.generate_harmonic_roughness(discretization, frequency=1/0.046)  # add harmonic roughness at 100 Hz
 
         # Solve for deflection
         deflection_results = DeflectionEBBVertic(

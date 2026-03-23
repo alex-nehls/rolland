@@ -193,7 +193,7 @@ class DeflectionEBBVertic(Deflection):
                 alpha       = 1                     # NOTE: hardcoded parameter, get from wheel geometry if available
                 C           = ((2*(1-nu))/(G*np.sqrt(Ra)))**(2/3) * alpha
 
-                # C = 2*C  # NOTE: this is a hack to increase the contact stiffness, needs to be fixed with correct parameters ASAP
+                C = 4*C  # NOTE: this is a hack to increase the contact stiffness, needs to be fixed with correct parameters ASAP
 
                 for i in range(max_iter):
                     # Calculate rail deflection, roughness, and wheel deflection
