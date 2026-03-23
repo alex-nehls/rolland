@@ -242,7 +242,7 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
     plt.plot(time_array, deflection_results.force, color='green', linewidth=1.5, label='Kraft im Zeitbereich')
     plt.xlabel('Zeit [s]')
     plt.ylabel('Kraft [N]')
-    plt.xlim(0.6, 0.7)  # Limit x-axis to the requested simulation time
+    plt.xlim(0, req_simt)  # Limit x-axis to the requested simulation time
     plt.title('Kraftverlauf im Zeitbereich')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
