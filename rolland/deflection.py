@@ -174,6 +174,12 @@ class DeflectionEBBVertic(Deflection):
         # create empty force array with length equal to number of DOFs (2*nx)
         f_vec = zeros(2 * self.discr.nx)
 
+
+        # ramp_fraction = self.excit.ramp_fraction
+        # n = self.discr.nt
+        # init_period = int(ramp_fraction * n)-1
+
+
         wheel_ID = 0
         for pos in excitation_pos:
             if self.excit.use_contact_model:
@@ -188,7 +194,6 @@ class DeflectionEBBVertic(Deflection):
                 C           = ((2*(1-nu))/(G*np.sqrt(Ra)))**(2/3) * alpha
 
                 for i in range(max_iter):
-
                     # Calculate rail deflection, roughness, and wheel deflection
                     y_r = self.interpolate(pos, u1)                     # Interpolated rail deflection at excitation point
                     y_s = self.interpolate(pos, self.excit.roughness)   # Interpolated track roughness at excitation point
@@ -229,15 +234,15 @@ class DeflectionEBBVertic(Deflection):
             f_vec[lower_idx] += force * weight_lower
             f_vec[upper_idx] += force * weight_upper
 
-
+            preload = self.excit.force_amplitude  # Preload force, can be adjusted based on actual preload conditions
             M_w = 600  # Mass of the wheel, NOTE: can be adjusted based on actual wheel mass
             d_w = 2e4  # Wheel damping, NOTE: can be adjusted based on actual wheel damping
             k_w = 1e8   # Wheel stiffness, NOTE: can be adjusted based on actual wheel stiffness
             # d_w = 0
             # k_w = 0
             # update wheel deflection, velocity, and acceleration
-            self.wheel_acceleration[wheel_ID][t] = (force - k_w*self.wheel_deflection[wheel_ID][t-1] - d_w*self.wheel_velocity[wheel_ID][t-1]) / M_w
-            
+            self.wheel_acceleration[wheel_ID][t] = (force - preload) / M_w
+
             self.wheel_velocity[wheel_ID][t] = self.wheel_velocity[wheel_ID][t-1] + self.wheel_acceleration[wheel_ID][t] * self.discr.dt
             self.wheel_deflection[wheel_ID][t] = self.wheel_deflection[wheel_ID][t-1] + self.wheel_velocity[wheel_ID][t] * self.discr.dt
 

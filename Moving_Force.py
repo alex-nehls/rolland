@@ -45,14 +45,14 @@ starting_position         = 80.0    # Starting position [m]
 num_mount                 = 400     # Number of discrete mounting positions
 distance                  = 0.6     # Distance between sleepers [m]
 l_bound                   = 40.0    # Width of boundary domain
-req_simt                  = 1       # Required simulation time [s]
 dt                        = 2.2e-5  # Time step [s]
 velocities                = [60]    # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
 ramp_fraction             = 0.1     # Fraction of total time for ramp up (affects velocity and force)
 static_force              = 65000.0 # Static force amplitude [N]
-cut_initial               = 10000   # Number of initial time steps to cut for frequency response calculation, to remove ramp-up effects
 freq_limit                = 2000
 
+req_simt                    = 1       # Required simulation time [s]
+cut_initial                 = 10000   # Number of initial time steps to cut
 use_precalculated_results   = False
 use_contact_model           = True
 
