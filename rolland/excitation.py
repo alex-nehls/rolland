@@ -115,9 +115,24 @@ class MovingForce(MovingExcitation):
         r = np.fft.ifft(full).real
         std = np.std(r)
         if std > 1e-12:
-            r *= 12e-6 / std
+            r *= 22e-6 / std
 
         self.roughness = list(r)
+
+    def generate_harmonic_roughness(self, discr, frequency):
+        """Generate harmonic roughness profile for contact model.
+
+        Parameters
+        ----------
+        discr : object
+            Discretization object containing spatial domain information.
+        frequency : float
+            Frequency of the harmonic roughness [Hz].
+        """
+        n = discr.nx
+        dx = discr.dx
+        x = np.linspace(0, n * dx, n)
+        self.roughness = list(2.5e-5 * np.sin(2 * np.pi * frequency * x))
 
     def force(self, t):
         """Compute force array (contains force over time)."""

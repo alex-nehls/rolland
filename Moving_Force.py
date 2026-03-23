@@ -53,7 +53,7 @@ freq_limit                = 2000
 
 req_simt                    = 1       # Required simulation time [s]
 cut_initial                 = 10000   # Number of initial time steps to cut
-use_precalculated_results   = False
+use_precalculated_results   = True
 use_contact_model           = True
 
 
@@ -146,7 +146,8 @@ else:
             bound       = boundary
         )
 
-        excitation.generate_roughness(discretization)
+        # excitation.generate_roughness(discretization)
+        excitation.generate_harmonic_roughness(discretization, frequency=1/0.046)  # add harmonic roughness at 100 Hz
 
         # Solve for deflection
         deflection_results = DeflectionEBBVertic(
@@ -241,6 +242,7 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
     plt.plot(time_array, deflection_results.force, color='green', linewidth=1.5, label='Kraft im Zeitbereich')
     plt.xlabel('Zeit [s]')
     plt.ylabel('Kraft [N]')
+    plt.xlim(0.6, 0.7)  # Limit x-axis to the requested simulation time
     plt.title('Kraftverlauf im Zeitbereich')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
@@ -322,56 +324,70 @@ plt.close('all')
 
 
 
-# =============================================================================
-# 4.6 Plot deflection as individual frames
-# =============================================================================
-# Extract deflection data
-deflection = np.transpose(deflection_results.deflection)
-deflection = -1 * deflection
-deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
+# # =============================================================================
+# # 4.6 Plot deflection as individual frames
+# # =============================================================================
+# # Extract deflection data
+# deflection = np.transpose(deflection_results.deflection)
+# deflection = -1 * deflection
+# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
 
-# Loop through each time step and save a frame as a PNG
-for t_idx in range(deflection.shape[0]): # loop through time steps
-    if (t_idx%100==0 and t_idx//1000==0) or t_idx%1000==0:  # Save every 1000th frame to reduce number of images
-        # Set x-axis limits
-        upper_x = deflection.shape[1]  
-        lower_x = 0
+# # Loop through each time step and save a frame as a PNG
+# for t_idx in range(deflection.shape[0]): # loop through time steps
+#     if (t_idx%100==0 and t_idx//1000==0) or t_idx%1000==0:  # Save every 1000th frame to reduce number of images
+#         # Set x-axis limits
+#         upper_x = deflection.shape[1]  
+#         lower_x = 0
 
-        # Set y-axis limits
-        upper_y = np.max(deflection)
-        lower_y = np.min(deflection)
+#         # Set y-axis limits
+#         upper_y = np.max(deflection)
+#         lower_y = np.min(deflection)
 
-        plt.figure(figsize=(10, 5))
-        plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
-        # if t_idx == 37000:
-        #     max_deflection = np.max(deflection[t_idx, :])
-        #     plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
-        plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
-        plt.ylim(lower_y, upper_y)
-        plt.xlabel('Position [m]')
-        plt.ylabel('Auslenkung [m]')
-        # plt.title(f'Rail Deflection - Time Step {t_idx}')
-        plt.grid(True)
-        plt.legend()  # Add legend to show labels
-        plt.tight_layout()
-        plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
-        plt.close()
+#         plt.figure(figsize=(10, 5))
+#         plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
+#         # if t_idx == 37000:
+#         #     max_deflection = np.max(deflection[t_idx, :])
+#         #     plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
+#         plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
+#         plt.ylim(lower_y, upper_y)
+#         plt.xlabel('Position [m]')
+#         plt.ylabel('Auslenkung [m]')
+#         # plt.title(f'Rail Deflection - Time Step {t_idx}')
+#         plt.grid(True)
+#         plt.legend()  # Add legend to show labels
+#         plt.tight_layout()
+#         plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
+#         plt.close()
 
-        # # Additional plot with zoomed y-axis to better visualize deflection range
-        # if t_idx == 37000:
-        #     plt.figure(figsize=(10, 5))
-        #     plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
-        #     plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
-        #     plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
-        #     plt.ylim(lower_y_zoom, upper_y_zoom)  # Set smaller y-axis limits to zoom in on the deflection range
-        #     plt.xlabel('Position [m]')
-        #     plt.ylabel('Auslenkung [m]')
-        #     plt.grid(True)
-        #     plt.legend()  # Add legend to show labels
-        #     plt.tight_layout()
-        #     plt.savefig(frames_dir / f'frame_{t_idx:04d}_adjusted_ylim.png', dpi=300, bbox_inches='tight')
-        #     plt.close()
+#         # # Additional plot with zoomed y-axis to better visualize deflection range
+#         # if t_idx == 37000:
+#         #     plt.figure(figsize=(10, 5))
+#         #     plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
+#         #     plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
+#         #     plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
+#         #     plt.ylim(lower_y_zoom, upper_y_zoom)  # Set smaller y-axis limits to zoom in on the deflection range
+#         #     plt.xlabel('Position [m]')
+#         #     plt.ylabel('Auslenkung [m]')
+#         #     plt.grid(True)
+#         #     plt.legend()  # Add legend to show labels
+#         #     plt.tight_layout()
+#         #     plt.savefig(frames_dir / f'frame_{t_idx:04d}_adjusted_ylim.png', dpi=300, bbox_inches='tight')
+#         #     plt.close()
 
+# # =============================================================================
+# # 9. PLOT PENETRATION DEPTH OVER TIME
+# # =============================================================================
+# time_array = np.linspace(0, len(deflection_results.delta_lin) * dt, len(deflection_results.delta_lin))  # Time in seconds
+# plt.figure(figsize=(10, 5))
+# plt.plot(time_array, deflection_results.delta_lin, color='purple', linewidth=1.5, label='Eindringtiefe')
+# plt.xlabel('Zeit [s]')
+# plt.ylabel('Eindringtiefe [m]')
+# plt.title('Eindringtiefe über der Zeit')
+# plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+# plt.legend()
+# plt.tight_layout()
+# plt.savefig(output_dir / 'penetration_depth_time.png', dpi=300, bbox_inches='tight')
+# plt.close()
 
 
 

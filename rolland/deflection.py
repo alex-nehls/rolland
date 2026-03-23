@@ -193,6 +193,8 @@ class DeflectionEBBVertic(Deflection):
                 alpha       = 1                     # NOTE: hardcoded parameter, get from wheel geometry if available
                 C           = ((2*(1-nu))/(G*np.sqrt(Ra)))**(2/3) * alpha
 
+                # C = 2*C  # NOTE: this is a hack to increase the contact stiffness, needs to be fixed with correct parameters ASAP
+
                 for i in range(max_iter):
                     # Calculate rail deflection, roughness, and wheel deflection
                     y_r = self.interpolate(pos, u1)                     # Interpolated rail deflection at excitation point
@@ -202,6 +204,7 @@ class DeflectionEBBVertic(Deflection):
                     # Calculate geometric penetration
                     # y_r: rail deflection, positive if rail moves downwards TODO: flip it
                     delta_lin = - y_r + y_s - y_w
+                    self.delta_lin[wheel_ID][t] = delta_lin  # Store linear penetration for current time step
 
                     if delta_lin <= 0:
                         force = 0
@@ -273,7 +276,8 @@ class DeflectionEBBVertic(Deflection):
         self.wheel_deflection           = [zeros(nt) for _ in self.excitation_indices]
         self.wheel_velocity             = [zeros(nt) for _ in self.excitation_indices]
         self.wheel_acceleration         = [zeros(nt) for _ in self.excitation_indices]
-        
+        self.delta_lin                  = [zeros(nt) for _ in self.excitation_indices]
+
         # Factorization of matrix A (LU decomposition)
         self.factoriz = splu(self.discr.A)
 
