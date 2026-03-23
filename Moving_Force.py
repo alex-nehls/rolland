@@ -54,7 +54,7 @@ cut_initial               = 10000   # Number of initial time steps to cut for fr
 freq_limit                = 2000
 
 use_precalculated_results   = True
-use_contact_model           = False
+use_contact_model           = True
 
 
 
@@ -215,7 +215,26 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
     receptance = Pyf / Pff
     mobility = 1j * omega * receptance
 
-    plt.plot(f, 20*np.log10(abs(Pff)))
+
+
+
+    # =============================================================================
+    # 7. PLOT FORCE SPECTRUM
+    # =============================================================================
+    plt.figure(figsize=(10, 5))
+    plt.plot(freqs, 20 * np.log10(np.abs(Pff)), color='blue', linewidth=1.5, label='Kraftspektrum')
+    plt.xlabel('Frequenz [Hz]')
+    plt.ylabel('Amplitude [dB]')
+    plt.title('Kraftspektrum (Power Spectral Density)')
+    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_dir / 'force_spectrum.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+
+
+
 
     # Filter to 0-2000 Hz
     mask = (freqs >= 0) & (freqs <= freq_limit)
@@ -227,7 +246,7 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
     plt.title(f'Rezeptanz - {vel} m/s')
     plt.grid(True)
     plt.suptitle(f'Kontaktpunkt {i+1} - {vel} m/s')
-    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    # plt.tight_layout(rect=[0, 0.03, 1, 0.95])
     plt.savefig(str(output_dir / f'mobility_receptance_v{vel:03d}_wheel{i+1}.png'), dpi=300, bbox_inches='tight')
     plt.close()
 
@@ -434,3 +453,4 @@ for t_idx in range(deflection.shape[0]): # loop through time steps
 #     plt.tight_layout()
 #     plt.savefig(output_dir / 'quasi_static_force_excitation.png', dpi=300, bbox_inches='tight')
 #     plt.close()
+
