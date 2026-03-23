@@ -359,6 +359,7 @@ class DeflectionEBBVertic(Deflection):
 
         # loop for calculating deflection at each time step
         # NOTE: starts from t=1 because we need defl at t-1 and t-2 for the Crank-Nicolson scheme
+        self.velocity = []
         for t in range(1, self.discr.nt):
             # Calculate current positions based on velocity with ramp-up
             ramp_steps = int(self.excit.ramp_fraction * self.discr.nt)  # number of time steps for velocity ramp-up
@@ -370,6 +371,7 @@ class DeflectionEBBVertic(Deflection):
                 if t == ramp_steps:
                     print(f"Time step {t}: Velocity ramp-up complete - Current velocity: {current_velocity:.2f} m/s")
                     # print(f"Time step {t}: Force ramp-up complete - Current force: {self.force[t]:.2f} N") TODO: add correct force print
+            self.velocity.append(current_velocity)
 
             dx = (current_velocity * t * self.discr.dt) / self.discr.dx  # Calculate how many grid points the load has moved
             excitation_pos = [idx + dx for idx in self.excitation_indices]  # Update excitation indices for current time step

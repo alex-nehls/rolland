@@ -40,18 +40,20 @@ import pickle
 # =============================================================================
 # 0. TESTING PARAMETERS
 # =============================================================================
-store_deflection          = True   # TODO: this is not implemented yet!
-starting_position         = 80.0   # Starting position [m]
-num_mount                 = 400    # Number of discrete mounting positions
-distance                  = 0.6    # Distance between sleepers [m]
-l_bound                   = 40.0   # Width of boundary domain
-req_simt                  = 1      # Required simulation time [s]
-dt                        = 2.2e-5 # Time step [s]
-velocities                = [60]   # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
-ramp_fraction             = 0.1    # Fraction of total time for ramp up (affects velocity and force)
+store_deflection          = True    # TODO: this is not implemented yet!
+starting_position         = 80.0    # Starting position [m]
+num_mount                 = 400     # Number of discrete mounting positions
+distance                  = 0.6     # Distance between sleepers [m]
+l_bound                   = 40.0    # Width of boundary domain
+req_simt                  = 1       # Required simulation time [s]
+dt                        = 2.2e-5  # Time step [s]
+velocities                = [60]    # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
+ramp_fraction             = 0.1     # Fraction of total time for ramp up (affects velocity and force)
 static_force              = 65000.0 # Static force amplitude [N]
+cut_initial               = 10000   # Number of initial time steps to cut for frequency response calculation, to remove ramp-up effects
+freq_limit                = 2000
 
-use_precalculated_results   = False
+use_precalculated_results   = True
 use_contact_model           = False
 
 
@@ -158,18 +160,15 @@ else:
             pickle.dump(deflection_results, f)
 
 
+
+
+
+
+
 # =============================================================================
 # 4. POSTPROCESSING - Frequency Response
 # =============================================================================
 t = np.linspace(0, req_simt, len(deflection_results.contact_point_deflection[0]))   # time array
-
-# cut the ramp part from the results to avoid transient effects in the FFT
-cut_initial = 10000     # TODO: base this on ramp_fraction and total number of time steps
-freq_limit = 2000
-
-
-
-
 force = deflection_results.force[cut_initial:]
 fs = 1/dt
 
@@ -183,8 +182,6 @@ freqs, Pff = welch(force,
 
 # # FFT of force, cut ramp part
 # force_fft = fft(force)
-
-
 
 
 
@@ -300,34 +297,42 @@ deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail defl
 
 # Loop through each time step and save a frame as a PNG
 for t_idx in range(deflection.shape[0]): # loop through time steps
-    # if (t_idx-4545)//40 == 0 or t_idx%200 == 0:  # Save every 20th frame to reduce number of images
-    if t_idx in [1000, 4545, 37000]:  # Save specific frames of interest
-
-        # Set y-axis limits based on deflection range, with some padding
-        # lower_y =np.max(deflection)
-        # upper_y = np.min(deflection)
-        lower_y = -6e-4
-        upper_y = 1e-4
-        upper_y_zoom = 2e-5
-        lower_y_zoom = -1e-5
-
+    if (t_idx%100==0 and t_idx//1000==0) or t_idx%1000==0:  # Save every 1000th frame to reduce number of images
+    # if t_idx in [1000, 4545, 37000]:  # Save specific frames of interest
 
         # Set x-axis limits to focus on the region around the excitation point, with some padding
-        if t_idx == 1000:
-            lower_x = 1400
-            upper_x = 1700
-        if t_idx == 4545:
-            lower_x = 1400
-            upper_x = 1700
-        if t_idx == 37000:
-            lower_x = 1450
-            upper_x = 3100
+        # upper_x = 1900
+        # lower_x = 1200
+
+        upper_x = deflection.shape[1]  # Set x-axis limits to the number of discrete points
+        lower_x = 0
+        
+        # if t_idx == 1000:
+        #     upper_x = 1700
+        #     lower_x = 1400
+        # if t_idx == 4545:
+        #     upper_x = 1700
+        #     lower_x = 1400
+        # if t_idx == 37000:
+        #     upper_x = 3100
+        #     lower_x = 1450
+
+
+        # Set y-axis limits based on deflection range
+        upper_y = np.max(deflection)
+        lower_y = np.min(deflection)
+
+        # upper_y = 1e-4
+        # lower_y = -6e-4
+
+        # upper_y_zoom = 4e-5
+        # lower_y_zoom = -1e-5
 
         plt.figure(figsize=(10, 5))
         plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
-        if t_idx == 4545:
-            max_deflection = np.max(deflection[t_idx, :])
-            plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
+        # if t_idx == 37000:
+        #     max_deflection = np.max(deflection[t_idx, :])
+        #     plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
         plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
         plt.ylim(lower_y, upper_y)
         plt.xlabel('Position [m]')
@@ -339,20 +344,20 @@ for t_idx in range(deflection.shape[0]): # loop through time steps
         plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
         plt.close()
 
-        # Additional plot with different y-axis limits
-        if t_idx == 4545:
-            plt.figure(figsize=(10, 5))
-            plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
-            plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
-            plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
-            plt.ylim(lower_y_zoom, upper_y_zoom)  # Set smaller y-axis limits to zoom in on the deflection range
-            plt.xlabel('Position [m]')
-            plt.ylabel('Auslenkung [m]')
-            plt.grid(True)
-            plt.legend()  # Add legend to show labels
-            plt.tight_layout()
-            plt.savefig(frames_dir / f'frame_{t_idx:04d}_adjusted_ylim.png', dpi=300, bbox_inches='tight')
-            plt.close()
+        # # Additional plot with zoomed y-axis to better visualize deflection range
+        # if t_idx == 37000:
+        #     plt.figure(figsize=(10, 5))
+        #     plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
+        #     plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
+        #     plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
+        #     plt.ylim(lower_y_zoom, upper_y_zoom)  # Set smaller y-axis limits to zoom in on the deflection range
+        #     plt.xlabel('Position [m]')
+        #     plt.ylabel('Auslenkung [m]')
+        #     plt.grid(True)
+        #     plt.legend()  # Add legend to show labels
+        #     plt.tight_layout()
+        #     plt.savefig(frames_dir / f'frame_{t_idx:04d}_adjusted_ylim.png', dpi=300, bbox_inches='tight')
+        #     plt.close()
 
 
 # # 4.1 Plot deflection over time
@@ -380,15 +385,52 @@ for t_idx in range(deflection.shape[0]): # loop through time steps
 #     plot_type='loglog',
 # )
 
-# 4.4 Calculate Track Decay Rate (TDR)
-tdr = TDR(results = deflection_results)
+# # 4.4 Calculate Track Decay Rate (TDR)
+# tdr = TDR(results = deflection_results)
 
-# 4.5 Plot Track Decay Rate (TDR)
-plt.figure()
-resp.plot([(tdr.freq, tdr.tdr)],
-    title='Track-Decay-Rate',
-    x_label='f [Hz]',
-    y_label='TDR [dB/m]',
-    plot_type='loglog')
-plt.savefig(str(output_dir / 'track_decay_rate.png'), dpi=300, bbox_inches='tight')
-plt.close()
+# # 4.5 Plot Track Decay Rate (TDR)
+# plt.figure()
+# resp.plot([(tdr.freq, tdr.tdr)],
+#     title='Track-Decay-Rate',
+#     x_label='f [Hz]',
+#     y_label='TDR [dB/m]',
+#     plot_type='loglog')
+# plt.savefig(str(output_dir / 'track_decay_rate.png'), dpi=300, bbox_inches='tight')
+# plt.close()
+
+# # =============================================================================
+# # 5. PLOT VELOCITY OVER TIME
+# # =============================================================================
+# time_array = np.arange(0, len(deflection_results.velocity) * dt, dt)  # Time in seconds
+# plt.figure(figsize=(10, 5))
+# plt.plot(time_array, deflection_results.velocity, lw=2, label='Geschwindigkeit')
+# plt.xlabel('Zeit [s]')
+# plt.ylabel('Geschwindigkeit [m/s]')
+# # plt.title('Geschwindigkeit über Zeit')
+# plt.grid(True)
+# plt.legend()
+# plt.tight_layout()
+# plt.savefig(output_dir / 'velocity_over_time.png', dpi=300, bbox_inches='tight')
+# plt.close()
+
+# # =============================================================================
+# # 6. PLOT QUASI-STATIC FORCE EXCITATION
+# # =============================================================================
+# if not use_contact_model:
+#     time_array = np.arange(0, len(deflection_results.force) * dt, dt)  # Time in seconds
+#     static_force_array = [static_force] * len(deflection_results.force)
+#     static_force_array[:4545] = np.linspace(0, static_force, 4545)  # Linear ramp up for static force
+#     random_force_array = np.array(deflection_results.force) - static_force
+#     random_force_array[:4545] = np.zeros(len(random_force_array[:4545]))  # Set random force to zero during ramp up
+
+#     plt.figure(figsize=(10, 5))
+#     plt.bar(time_array, static_force_array, width=dt, label='Statische Kraft', color='blue')
+#     plt.bar(time_array, random_force_array, width=dt, bottom=static_force_array, label='Stochastischer Anteil', color='orange')
+#     plt.xlabel('Zeit [s]')
+#     plt.ylabel('Kraft [N]')
+#     # plt.title('Quasi-statische Kraftanregung über Zeit')
+#     plt.grid(True)
+#     plt.legend()
+#     plt.tight_layout()
+#     plt.savefig(output_dir / 'quasi_static_force_excitation.png', dpi=300, bbox_inches='tight')
+#     plt.close()
