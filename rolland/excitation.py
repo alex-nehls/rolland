@@ -121,15 +121,16 @@ class MovingForce(MovingExcitation):
 
     def force(self, t):
         """Compute force array (contains force over time)."""
-        n = len(t)
-        force_array = []
-        self.ramp_length = int(self.ramp_fraction * n)
-        
-        # Linear ramp up
-        for i in range(self.ramp_length):
-            force_array.append(self.force_amplitude * (i / self.ramp_length))
-        
-        if not self.use_contact_model:
+        if self.use_contact_model:
+            return []  # force will be computed in the contact model based on roughness
+        else:
+            # Linear ramp up
+            n = len(t)
+            force_array = []
+            self.ramp_length = int(self.ramp_fraction * n)
+            for i in range(self.ramp_length):
+                force_array.append(self.force_amplitude * (i / self.ramp_length))
+            
             # random force between force_amplitude and 2*force_amplitude
             constant_part = [self.force_amplitude] * (n - self.ramp_length)
             np.random.seed(42)  # für Reproduzierbarkeit
@@ -140,4 +141,5 @@ class MovingForce(MovingExcitation):
             )
             # concatenating the rampup with the constant and random part
             force_array.extend(constant_part + random_part)
-        return force_array
+
+            return force_array

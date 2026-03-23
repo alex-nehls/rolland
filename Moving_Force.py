@@ -53,7 +53,7 @@ static_force              = 65000.0 # Static force amplitude [N]
 cut_initial               = 10000   # Number of initial time steps to cut for frequency response calculation, to remove ramp-up effects
 freq_limit                = 2000
 
-use_precalculated_results   = True
+use_precalculated_results   = False
 use_contact_model           = True
 
 
@@ -218,6 +218,7 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
 
 
 
+
     # =============================================================================
     # 7. PLOT FORCE SPECTRUM
     # =============================================================================
@@ -232,12 +233,27 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
     plt.savefig(output_dir / 'force_spectrum.png', dpi=300, bbox_inches='tight')
     plt.close()
 
-
+    # =============================================================================
+    # 8. PLOT FORCE IN TIME DOMAIN
+    # =============================================================================
+    time_array = np.linspace(0, len(deflection_results.force) * dt, len(deflection_results.force))  # Time in seconds
+    plt.figure(figsize=(10, 5))
+    plt.plot(time_array, deflection_results.force, color='green', linewidth=1.5, label='Kraft im Zeitbereich')
+    plt.xlabel('Zeit [s]')
+    plt.ylabel('Kraft [N]')
+    plt.title('Kraftverlauf im Zeitbereich')
+    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(output_dir / 'force_time_domain.png', dpi=300, bbox_inches='tight')
+    plt.close()
 
 
 
     # Filter to 0-2000 Hz
     mask = (freqs >= 0) & (freqs <= freq_limit)
+
+
 
     # plot individual velocity
     plt.plot(freqs[mask], 20*np.log10(np.abs(receptance[mask])), linewidth=1)
@@ -317,35 +333,13 @@ deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail defl
 # Loop through each time step and save a frame as a PNG
 for t_idx in range(deflection.shape[0]): # loop through time steps
     if (t_idx%100==0 and t_idx//1000==0) or t_idx%1000==0:  # Save every 1000th frame to reduce number of images
-    # if t_idx in [1000, 4545, 37000]:  # Save specific frames of interest
-
-        # Set x-axis limits to focus on the region around the excitation point, with some padding
-        # upper_x = 1900
-        # lower_x = 1200
-
-        upper_x = deflection.shape[1]  # Set x-axis limits to the number of discrete points
+        # Set x-axis limits
+        upper_x = deflection.shape[1]  
         lower_x = 0
-        
-        # if t_idx == 1000:
-        #     upper_x = 1700
-        #     lower_x = 1400
-        # if t_idx == 4545:
-        #     upper_x = 1700
-        #     lower_x = 1400
-        # if t_idx == 37000:
-        #     upper_x = 3100
-        #     lower_x = 1450
 
-
-        # Set y-axis limits based on deflection range
+        # Set y-axis limits
         upper_y = np.max(deflection)
         lower_y = np.min(deflection)
-
-        # upper_y = 1e-4
-        # lower_y = -6e-4
-
-        # upper_y_zoom = 4e-5
-        # lower_y_zoom = -1e-5
 
         plt.figure(figsize=(10, 5))
         plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
@@ -377,6 +371,10 @@ for t_idx in range(deflection.shape[0]): # loop through time steps
         #     plt.tight_layout()
         #     plt.savefig(frames_dir / f'frame_{t_idx:04d}_adjusted_ylim.png', dpi=300, bbox_inches='tight')
         #     plt.close()
+
+
+
+
 
 
 # # 4.1 Plot deflection over time
@@ -453,4 +451,5 @@ for t_idx in range(deflection.shape[0]): # loop through time steps
 #     plt.tight_layout()
 #     plt.savefig(output_dir / 'quasi_static_force_excitation.png', dpi=300, bbox_inches='tight')
 #     plt.close()
+
 
