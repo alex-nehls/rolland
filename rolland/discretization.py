@@ -93,6 +93,8 @@ class DiscretizationEBBVertic(Discretization):
                              (6 * self.track.rail.mr)) ** (1 / 4) * self.dt ** (1 / 2))
         
         self.dx = 0.6 / (0.6 // dx_min)             # NOTE: space step [m]
+        # self.dx = 0.02
+
 
         self.bx_upd = self.dx / (((self.track.rail.E * self.track.rail.Iyr) /
                                   (6 * self.track.rail.mr)) ** (1 / 4) * self.dt ** (1 / 2))
