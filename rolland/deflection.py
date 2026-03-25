@@ -245,7 +245,6 @@ class DeflectionEBBVertic(Deflection):
             # k_w = 0
             # update wheel deflection, velocity, and acceleration
             self.wheel_acceleration[wheel_ID][t] = (force - preload) / M_w
-
             self.wheel_velocity[wheel_ID][t] = self.wheel_velocity[wheel_ID][t-1] + self.wheel_acceleration[wheel_ID][t] * self.discr.dt
             self.wheel_deflection[wheel_ID][t] = self.wheel_deflection[wheel_ID][t-1] + self.wheel_velocity[wheel_ID][t] * self.discr.dt
 
