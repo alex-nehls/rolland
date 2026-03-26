@@ -53,7 +53,7 @@ freq_limit                = 2000
 
 req_simt                    = 2       # Required simulation time [s]
 cut_initial                 = 30000   # Number of initial time steps to cut
-use_precalculated_results   = False
+use_precalculated_results   = True
 use_contact_model           = True
 
 
@@ -215,7 +215,7 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
 
     receptance = Pyf / Pff
     mobility = 1j * omega * receptance
-
+    mask = (freqs >= 0) & (freqs <= freq_limit)
 
 
 
@@ -224,7 +224,7 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
     # 7. PLOT FORCE SPECTRUM
     # =============================================================================
     plt.figure(figsize=(10, 5))
-    plt.plot(freqs, 20 * np.log10(np.abs(Pff)), color='blue', linewidth=1.5, label='Kraftspektrum')
+    plt.plot(freqs[mask], 20 * np.log10(np.abs(Pff[mask])), color='blue', linewidth=1.5, label='Kraftspektrum')
     plt.xlabel('Frequenz [Hz]')
     plt.ylabel('Amplitude [dB]')
     plt.title('Kraftspektrum (Power Spectral Density)')
@@ -242,7 +242,7 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
     plt.plot(time_array, deflection_results.force, color='green', linewidth=1.5, label='Kraft im Zeitbereich')
     plt.xlabel('Zeit [s]')
     plt.ylabel('Kraft [N]')
-    plt.xlim(0, req_simt)  # Limit x-axis to the requested simulation time
+    plt.xlim(1.75, 1.85)  # Limit x-axis to the requested simulation time
     plt.title('Kraftverlauf im Zeitbereich')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
