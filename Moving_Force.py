@@ -20,80 +20,82 @@ from rolland.excitation             import MovingForce
 from rolland import(
     PMLRailDampVertic,
     DiscretizationEBBVerticConst,
-    DeflectionEBBVertic)
-from rolland.postprocessing import(
-    Response as resp,
-    TDR)
-import numpy as np
-import matplotlib.pyplot as plt
+    DeflectionEBBVertic
+)
+
+# Import external libraries
+from scipy.fft              import fft, fftfreq
+from scipy.signal           import welch
+from scipy.signal           import csd
+from pathlib                import Path
+import numpy                as np
+import matplotlib.pyplot    as plt
+import matplotlib.animation as animation
 import os
 import csv
 import math
-from scipy.fft  import fft, fftfreq
-from scipy.signal import welch
-from scipy.signal import csd
-from pathlib    import Path
-import matplotlib.animation as animation
 import pickle
 
 
 # =============================================================================
-# 0. TESTING PARAMETERS
+# 0. INITIALIZATION
 # =============================================================================
-store_deflection          = True    # TODO: this is not implemented yet!
+
 starting_position         = 80.0    # Starting position [m]
-num_mount                 = 600     # Number of discrete mounting positions
+num_mount                 = 600     # Number of discrete mounting positions [-]
 distance                  = 0.6     # Distance between sleepers [m]
-l_bound                   = 40.0    # Width of boundary domain
+l_bound                   = 40.0    # Width of boundary domain [m]
+req_simt                  = 2       # Required simulation time [s]
 dt                        = 2.2e-5  # Time step [s]
+ramp_fraction             = 0.1     # Fraction of total time for ramp up [-] NOTE: affects velocity and force
 velocities                = [60]    # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
-ramp_fraction             = 0.1     # Fraction of total time for ramp up (affects velocity and force)
 static_force              = 65000.0 # Static force amplitude [N]
-freq_limit                = 2000
+freq_limit                = 2000    # Frequency limit for plots [Hz]
+cut_initial               = 30000   # Number of initial time steps to cut from results TODO: base on ramp_fraction and req_simt
+use_precalculated_results = True
+use_contact_model         = True
+store_deflection          = True    # TODO: implement option to only store deflection at contact points
 
-req_simt                    = 2       # Required simulation time [s]
-cut_initial                 = 30000   # Number of initial time steps to cut
-use_precalculated_results   = True
-use_contact_model           = True
-
-
-
-# Output directory
-output_dir = Path('mobility_plots')
-output_dir.mkdir(exist_ok=True)
 # TODO: add some prints as progress indicators
 
-# Create output directory for frames
-frames_dir = output_dir / 'frames'
 
-# Clear the frames directory if it already exists
+# Output directory for plots
+output_dir = Path('mobility_plots')
+output_dir.mkdir(exist_ok=True)
+
+# Output directory for deflection frames
+frames_dir = output_dir / 'frames'
 if frames_dir.exists():
     for file in frames_dir.glob('*'):
-        file.unlink()  # Delete each file in the directory
+        file.unlink()
 else:
-    frames_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist
+    frames_dir.mkdir(exist_ok=True)
+
 
 # =============================================================================
 # 1. TRACK DEFINITION
 # =============================================================================
-# Create a ballasted single rail track model with periodic supports
+
 track = SimplePeriodicBallastedSingleRailTrack(
-    rail    = NORDBORG, # rail profile with parameters according to Nordborg paper
-    # rail    = UIC60,   # UIC60 rail profile
-    pad     = DiscrPad(
-                sp = [300e6, 0],    # Pad Stiffness [N/m]
-                dp = [18000, 0],    # Pad Damping [Ns/m]
-                # eta_p = 0.15      # Pad loss factor [-]
+    rail = NORDBORG,        # rail profile with parameters according to Nordborg paper
+    pad = DiscrPad(
+        sp = [300e6, 0],    # Pad Stiffness [N/m]
+        dp = [18000, 0],    # Pad Damping [Ns/m]
+        # eta_p = 0.15      # Pad loss factor [-]
     ),
-    sleeper = Sleeper(ms=150),      # Sleeper mass [kg]
+    sleeper = Sleeper(
+        ms = 150            # Sleeper mass [kg]
+    ),
     ballast = Ballast(
-                sb = [150e6, 0],    # Ballast stiffness [N/m]
-                db = [48000, 0],    # Ballast damping [Ns/m]
-                # eta_b = 0.4       # Ballast loss factor [-]
+        sb = [150e6, 0],    # Ballast stiffness [N/m]
+        db = [48000, 0],    # Ballast damping [Ns/m]
+        # eta_b = 0.4       # Ballast loss factor [-]
     ),
-    num_mount   = num_mount,        # Number of discrete mounting positions
-    distance    = distance          # Distance between sleepers [m]
+    num_mount = num_mount,  # Number of discrete mounting positions
+    distance  = distance    # Distance between sleepers [m]
 )
+
+
 ppf = math.pi/(2*distance**2) * math.sqrt(track.rail.E*track.rail.Iyr / track.rail.mr) # first pinned-pinned frequency
 print(f"First pinned-pinned frequency: {ppf:.2f} Hz")
 
@@ -146,8 +148,8 @@ else:
             bound       = boundary
         )
 
-        excitation.generate_roughness(discretization)
-        # excitation.generate_harmonic_roughness(discretization, frequency=1/0.046)  # add harmonic roughness at 100 Hz
+        # excitation.generate_roughness(discretization)
+        excitation.generate_harmonic_roughness(discretization, frequency=1/0.046)  # add harmonic roughness at 100 Hz
 
         # Solve for deflection
         deflection_results = DeflectionEBBVertic(
@@ -224,10 +226,11 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
     # 7. PLOT FORCE SPECTRUM
     # =============================================================================
     plt.figure(figsize=(10, 5))
-    plt.plot(freqs[mask], 20 * np.log10(np.abs(Pff[mask])), color='blue', linewidth=1.5, label='Kraftspektrum')
+    plt.plot(freqs, 20 * np.log10(np.abs(Pff)), color='blue', linewidth=1.5, label='Kraftspektrum')
+    # plt.plot(freqs[mask], 20 * np.log10(np.abs(Pff[mask])), color='blue', linewidth=1.5, label='Kraftspektrum')
     plt.xlabel('Frequenz [Hz]')
     plt.ylabel('Amplitude [dB]')
-    plt.title('Kraftspektrum (Power Spectral Density)')
+    plt.title('Kraftspektrum')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
     plt.tight_layout()
@@ -239,11 +242,11 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
     # =============================================================================
     time_array = np.linspace(0, len(deflection_results.force) * dt, len(deflection_results.force))  # Time in seconds
     plt.figure(figsize=(10, 5))
-    plt.plot(time_array, deflection_results.force, color='green', linewidth=1.5, label='Kraft im Zeitbereich')
+    plt.plot(time_array, deflection_results.force, color='green', linewidth=1.5, label='Kraft')
     plt.xlabel('Zeit [s]')
     plt.ylabel('Kraft [N]')
-    plt.xlim(1.75, 1.85)  # Limit x-axis to the requested simulation time
-    plt.title('Kraftverlauf im Zeitbereich')
+    plt.xlim(0, req_simt)  # Limit x-axis to the requested simulation time
+    plt.title('Kraftverlauf')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
     plt.tight_layout()
