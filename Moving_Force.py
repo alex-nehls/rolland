@@ -37,6 +37,9 @@ import math
 import pickle
 
 
+# TODO: add some prints as progress indicators
+
+
 # =============================================================================
 # 0. INITIALIZATION
 # =============================================================================
@@ -52,24 +55,22 @@ velocities                = [60]    # Velocities to simulate [m/s] NOTE: always 
 static_force              = 65000.0 # Static force amplitude [N]
 freq_limit                = 2000    # Frequency limit for plots [Hz]
 cut_initial               = 30000   # Number of initial time steps to cut from results TODO: base on ramp_fraction and req_simt
-use_precalculated_results = True
-use_contact_model         = True
+use_precalculated_results = True    # Load pre-calculated results NOTE: no simulation will be performed!
+use_contact_model         = True    # Use contact model or quasi-static force excitation TODO: switch to string based option
 store_deflection          = True    # TODO: implement option to only store deflection at contact points
 
-# TODO: add some prints as progress indicators
+# prepare output directores
+def prepare_directory(output_dir):
+    if output_dir.exists():
+        for file in output_dir.glob('*'):
+            file.unlink()
+    else:
+        output_dir.mkdir(exist_ok=True)
 
-
-# Output directory for plots
-output_dir = Path('mobility_plots')
-output_dir.mkdir(exist_ok=True)
-
-# Output directory for deflection frames
-frames_dir = output_dir / 'frames'
-if frames_dir.exists():
-    for file in frames_dir.glob('*'):
-        file.unlink()
-else:
-    frames_dir.mkdir(exist_ok=True)
+output_dir = Path('mobility_plots') # Output directory for plots and results
+frames_dir = Path('frames')         # Output directory for deflection frames
+prepare_directory(output_dir)
+prepare_directory(frames_dir)
 
 
 # =============================================================================
@@ -94,25 +95,15 @@ track = SimplePeriodicBallastedSingleRailTrack(
     num_mount = num_mount,  # Number of discrete mounting positions
     distance  = distance    # Distance between sleepers [m]
 )
-
-
-ppf = math.pi/(2*distance**2) * math.sqrt(track.rail.E*track.rail.Iyr / track.rail.mr) # first pinned-pinned frequency
-print(f"First pinned-pinned frequency: {ppf:.2f} Hz")
-
-# =============================================================================
-# 2. SIMULATION SETUP
-# =============================================================================
-# Define boundary conditions (Perfectly Matched Layer absorbing boundary)
-boundary = PMLRailDampVertic(l_bound = l_bound)  # width of boundary domain
-
-# clear mobility plots directory
-for file in output_dir.glob('*.png'):
-    os.remove(file)
+boundary = PMLRailDampVertic(
+    l_bound = l_bound       # width of boundary domain [m]
+)
 
 
 # =============================================================================
-# 3. VELOCITY SWEEP SIMULATION OR LOAD PRE-CALCULATED RESULTS
+# 2. VELOCITY SWEEP SIMULATION OR LOAD PRE-CALCULATED RESULTS
 # =============================================================================
+
 if use_precalculated_results:
     print("Loading pre-calculated results...")
     with open(output_dir / 'deflection_results.pkl', 'rb') as f:
@@ -129,16 +120,20 @@ if use_precalculated_results:
 
 else:
     for vel in velocities:
-        spf = track.distance / vel  # time for one sleeper passage
+        # compute characteristic frequencies for given velocity
         print(f"Computing velocity: {vel} m/s ({vel*3.6:.1f} km/h)")
+        spf = track.distance / vel  # sleeper passage frequency
+        print(f"Sleeper passage frequency: {1/spf:.2f} Hz")
+        ppf = math.pi/(2*distance**2) * math.sqrt(track.rail.E*track.rail.Iyr / track.rail.mr) # pinned-pinned frequency
+        print(f"First pinned-pinned frequency: {ppf:.2f} Hz")
 
         # Define moving load excitation
         excitation = MovingForce(
-            ramp_fraction   = ramp_fraction,
-            x_excit         = [starting_position],
-            velocity        = float(vel),
-            force_amplitude         = static_force,
-            use_contact_model       = use_contact_model
+            x_excit             = [starting_position],  # Initial position of moving load [m]
+            velocity            = float(vel),           # Velocity of moving load [m/s]
+            ramp_fraction       = ramp_fraction,        # Fraction of total time for ramp up [-]     
+            force_amplitude     = static_force,         # Static force amplitude [N]
+            use_contact_model   = use_contact_model     # Use contact model for force calculation (True/False
         )
 
         # Discretize domain
@@ -211,7 +206,7 @@ else:
             plt.close()
 
 # =============================================================================
-# 4. POSTPROCESSING - Frequency Response
+# 3. POSTPROCESSING - Frequency Response
 # =============================================================================
 
 
