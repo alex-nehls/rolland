@@ -129,6 +129,7 @@ if use_precalculated_results:
 
 else:
     for vel in velocities:
+        spf = track.distance / vel  # time for one sleeper passage
         print(f"Computing velocity: {vel} m/s ({vel*3.6:.1f} km/h)")
 
         # Define moving load excitation
@@ -158,29 +159,61 @@ else:
             excit            = excitation
         )
 
+
         # Save deflection_results to a file
         with open(output_dir / 'deflection_results.pkl', 'wb') as f:
             pickle.dump(deflection_results, f)
 
+        # Process each contact point
+        for i, deflection in enumerate(deflection_results.contact_point_deflection):
+            deflection = deflection[cut_initial:]  # cut ramp part
 
 
 
+            t = np.linspace(0, req_simt, len(deflection_results.contact_point_deflection[0]))   # time array
+            force = deflection_results.force[cut_initial:]
+            fs = 1/dt
 
 
+            freqs, Pff = welch(force,
+                        fs=fs,
+                        window="hann",
+                        nperseg=8192,
+                        noverlap=4096)
+            
+            freqs, Pyy = welch(deflection,
+                        fs=fs,
+                        window="hann",
+                        nperseg=8192,
+                        noverlap=4096)
+            
+            
+
+
+            omega = 2 * np.pi * freqs                       # FFT angular sample frequencies
+            
+            # Calculate FRFs
+            receptance = Pyy / Pff
+            mobility = 1j * omega * receptance
+
+            # Filter to 0-2000 Hz
+            mask = (freqs >= 0) & (freqs <= freq_limit)
+
+            # Plot individual velocity
+            plt.figure(figsize=(10, 5))
+            plt.plot(freqs[mask], 20 * np.log10(np.abs(receptance[mask])), linewidth=1, color='orange')
+            plt.xlabel('Frequenz [Hz]')
+            plt.ylabel('Rezeptanz [m/N]')
+            plt.grid(True)
+            plt.legend(['Geschwindigkeit: ' + str(vel) + ' m/s'])
+            plt.tight_layout()
+            plt.savefig(str(output_dir / f'mobility_receptance_v{vel:03d}_wheel{i+1}.png'), dpi=300, bbox_inches='tight')
+            plt.close()
 
 # =============================================================================
 # 4. POSTPROCESSING - Frequency Response
 # =============================================================================
-t = np.linspace(0, req_simt, len(deflection_results.contact_point_deflection[0]))   # time array
-force = deflection_results.force[cut_initial:]
-fs = 1/dt
 
-
-freqs, Pff = welch(force,
-               fs=fs,
-               window="hann",
-               nperseg=8192,
-               noverlap=4096)
 
 
 # # FFT of force, cut ramp part
@@ -260,17 +293,6 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
 
 
 
-    # plot individual velocity
-    plt.plot(freqs[mask], 20*np.log10(np.abs(receptance[mask])), linewidth=1)
-    plt.xlabel('Frequenz [Hz]')
-    plt.ylabel('Rezeptanz [m/N]')
-    plt.title(f'Rezeptanz - {vel} m/s')
-    plt.grid(True)
-    plt.suptitle(f'Kontaktpunkt {i+1} - {vel} m/s')
-    # plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    plt.savefig(str(output_dir / f'mobility_receptance_v{vel:03d}_wheel{i+1}.png'), dpi=300, bbox_inches='tight')
-    plt.close()
-
     # collect data for overall plot (only first contact point)
     all_receptance = [] # [vel, freq, mobility, receptance]
     if i == 0:
@@ -327,40 +349,41 @@ plt.close('all')
 
 
 
-# # =============================================================================
-# # 4.6 Plot deflection as individual frames
-# # =============================================================================
-# # Extract deflection data
-# deflection = np.transpose(deflection_results.deflection)
-# deflection = -1 * deflection
-# deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
+# =============================================================================
+# 4.6 Plot deflection as individual frames
+# =============================================================================
+# Extract deflection data
+deflection = np.transpose(deflection_results.deflection)
+deflection = -1 * deflection
+deflection = deflection[:, :deflection.shape[1] // 2]  # Take only the rail deflection part
 
-# # Loop through each time step and save a frame as a PNG
-# for t_idx in range(deflection.shape[0]): # loop through time steps
-#     if (t_idx%100==0 and t_idx//1000==0) or t_idx%1000==0:  # Save every 1000th frame to reduce number of images
-#         # Set x-axis limits
-#         upper_x = deflection.shape[1]  
-#         lower_x = 0
+# Loop through each time step and save a frame as a PNG
+for t_idx in range(deflection.shape[0]): # loop through time steps
+    # if (t_idx%100==0 and t_idx//1000==0) or t_idx%1000==0:  # Save every 1000th frame to reduce number of images
+    if  t_idx  == discretization.nt-1:  # Save only the last frame
+        # Set x-axis limits
+        upper_x = deflection.shape[1]  
+        lower_x = 0
 
-#         # Set y-axis limits
-#         upper_y = np.max(deflection)
-#         lower_y = np.min(deflection)
+        # Set y-axis limits
+        upper_y = np.max(deflection)
+        lower_y = np.min(deflection)
 
-#         plt.figure(figsize=(10, 5))
-#         plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
-#         # if t_idx == 37000:
-#         #     max_deflection = np.max(deflection[t_idx, :])
-#         #     plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
-#         plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
-#         plt.ylim(lower_y, upper_y)
-#         plt.xlabel('Position [m]')
-#         plt.ylabel('Auslenkung [m]')
-#         # plt.title(f'Rail Deflection - Time Step {t_idx}')
-#         plt.grid(True)
-#         plt.legend()  # Add legend to show labels
-#         plt.tight_layout()
-#         plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
-#         plt.close()
+        plt.figure(figsize=(10, 5))
+        plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
+        # if t_idx == 37000:
+        #     max_deflection = np.max(deflection[t_idx, :])
+        #     plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
+        plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
+        plt.ylim(lower_y, upper_y)
+        plt.xlabel('Position [m]')
+        plt.ylabel('Auslenkung [m]')
+        # plt.title(f'Rail Deflection - Time Step {t_idx}')
+        plt.grid(True)
+        plt.legend()  # Add legend to show labels
+        plt.tight_layout()
+        plt.savefig(frames_dir / f'frame_{t_idx:04d}.png', dpi=300, bbox_inches='tight')
+        plt.close()
 
 #         # # Additional plot with zoomed y-axis to better visualize deflection range
 #         # if t_idx == 37000:
@@ -368,7 +391,7 @@ plt.close('all')
 #         #     plt.plot(deflection[t_idx, :], lw=2, label='Auslenkung der Schiene')
 #         #     plt.axhline(y=max_deflection, color='orange', linestyle='--', label='Maximale Auslenkung')
 #         #     plt.xlim(lower_x, upper_x)  # Set x-axis limits to the number of discrete points
-#         #     plt.ylim(lower_y_zoom, upper_y_zoom)  # Set smaller y-axis limits to zoom in on the deflection range
+#         #     plt.ylim(lower_y, upper_y_zoom)  # Set smaller y-axis limits to zoom in on the deflection range
 #         #     plt.xlabel('Position [m]')
 #         #     plt.ylabel('Auslenkung [m]')
 #         #     plt.grid(True)
