@@ -48,16 +48,16 @@ starting_position         = 80.0    # Starting position [m]
 num_mount                 = 600     # Number of discrete mounting positions [-]
 distance                  = 0.6     # Distance between sleepers [m]
 l_bound                   = 40.0    # Width of boundary domain [m]
-req_simt                  = 2       # Required simulation time [s]
-dt                        = 2.2e-5  # Time step [s]
+req_simt                  = 1       # Required simulation time [s]
+dt                        = 1.8e-5  # Time step [s]
 ramp_fraction             = 0.1     # Fraction of total time for ramp up [-] NOTE: affects velocity and force
-velocities                = [60]    # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
+velocities                = [40,60]    # Velocities to simulate [m/s] NOTE: always give a list, even for a single velocity
 static_force              = 65000.0 # Static force amplitude [N]
 freq_limit                = 2000    # Frequency limit for plots [Hz]
-cut_initial               = 30000   # Number of initial time steps to cut from results TODO: base on ramp_fraction and req_simt
-use_precalculated_results = True    # Load pre-calculated results NOTE: no simulation will be performed!
-use_contact_model         = True    # Use contact model or quasi-static force excitation TODO: switch to string based option
-store_deflection          = True    # TODO: implement option to only store deflection at contact points
+cut_initial               = 10000   # Number of initial time steps to cut from results TODO: base on ramp_fraction and req_simt
+use_precalculated_results = False    # Load pre-calculated results NOTE: no simulation will be performed!
+use_contact_model         = False    # Use contact model or quasi-static force excitation TODO: switch to string based option
+store_deflection          = False    # TODO: implement option to only store deflection at contact points
 
 # prepare output directores
 def prepare_directory(output_dir):
@@ -104,10 +104,12 @@ boundary = PMLRailDampVertic(
 # 2. VELOCITY SWEEP SIMULATION OR LOAD PRE-CALCULATED RESULTS
 # =============================================================================
 
+all_receptance = [] # [vel, freq, mobility, receptance]
+
 if use_precalculated_results:
     print("Loading pre-calculated results...")
-    with open(output_dir / 'deflection_results.pkl', 'rb') as f:
-        deflection_results = pickle.load(f)
+    with open(output_dir / 'deflection_results.pkl', 'rb') as results:
+        deflection_results = pickle.load(results)
 
     vel = 60    # TODO: WARNING: this is hardcoded for the plot titles, should be adapted if loading results for different velocities
     # Discretize domain
@@ -122,8 +124,8 @@ else:
     for vel in velocities:
         # compute characteristic frequencies for given velocity
         print(f"Computing velocity: {vel} m/s ({vel*3.6:.1f} km/h)")
-        spf = track.distance / vel  # sleeper passage frequency
-        print(f"Sleeper passage frequency: {1/spf:.2f} Hz")
+        spf = track.distance / vel  # sleeper passing frequency
+        print(f"Sleeper passing frequency: {1/spf:.2f} Hz")
         ppf = math.pi/(2*distance**2) * math.sqrt(track.rail.E*track.rail.Iyr / track.rail.mr) # pinned-pinned frequency
         print(f"First pinned-pinned frequency: {ppf:.2f} Hz")
 
@@ -156,141 +158,33 @@ else:
 
 
         # Save deflection_results to a file
-        with open(output_dir / 'deflection_results.pkl', 'wb') as f:
-            pickle.dump(deflection_results, f)
-
-        # Process each contact point
-        for i, deflection in enumerate(deflection_results.contact_point_deflection):
-            deflection = deflection[cut_initial:]  # cut ramp part
+        with open(output_dir / 'deflection_results.pkl', 'wb') as results:
+            pickle.dump(deflection_results, results)
 
 
 
-            t = np.linspace(0, req_simt, len(deflection_results.contact_point_deflection[0]))   # time array
-            force = deflection_results.force[cut_initial:]
-            fs = 1/dt
+        deflection = deflection_results.contact_point_deflection[0]
+        deflection = deflection[cut_initial:]  # cut ramp part
+        force = deflection_results.force[cut_initial:]
+        fs = 1/dt
+        
+        freqs, Pyf = csd(deflection, force,
+            fs=fs,
+            window="hann",
+            nperseg=8192,
+            noverlap=4096)
+        freqs, Pff = welch(force,
+            fs=fs,
+            window="hann",
+            nperseg=8192,
+            noverlap=4096)
 
+        omega = 2 * np.pi * freqs                       # FFT angular sample frequencies
+        receptance = Pyf / Pff
+        mobility = 1j * omega * receptance
+        mask = (freqs >= 0) & (freqs <= freq_limit)
 
-            freqs, Pff = welch(force,
-                        fs=fs,
-                        window="hann",
-                        nperseg=8192,
-                        noverlap=4096)
-            
-            freqs, Pyy = welch(deflection,
-                        fs=fs,
-                        window="hann",
-                        nperseg=8192,
-                        noverlap=4096)
-            
-            
-
-
-            omega = 2 * np.pi * freqs                       # FFT angular sample frequencies
-            
-            # Calculate FRFs
-            receptance = Pyy / Pff
-            mobility = 1j * omega * receptance
-
-            # Filter to 0-2000 Hz
-            mask = (freqs >= 0) & (freqs <= freq_limit)
-
-            # Plot individual velocity
-            plt.figure(figsize=(10, 5))
-            plt.plot(freqs[mask], 20 * np.log10(np.abs(receptance[mask])), linewidth=1, color='orange')
-            plt.xlabel('Frequenz [Hz]')
-            plt.ylabel('Rezeptanz [m/N]')
-            plt.grid(True)
-            plt.legend(['Geschwindigkeit: ' + str(vel) + ' m/s'])
-            plt.tight_layout()
-            plt.savefig(str(output_dir / f'mobility_receptance_v{vel:03d}_wheel{i+1}.png'), dpi=300, bbox_inches='tight')
-            plt.close()
-
-# =============================================================================
-# 3. POSTPROCESSING - Frequency Response
-# =============================================================================
-
-
-
-# # FFT of force, cut ramp part
-# force_fft = fft(force)
-
-
-
-# Process each contact point
-for i, deflection in enumerate(deflection_results.contact_point_deflection):
-    deflection = deflection[cut_initial:]  # cut ramp part
-    
-    freqs, Pyy = welch(deflection,
-                fs=fs,
-                window="hann",
-                nperseg=8192,
-                noverlap=4096)
-    
-    f, Pyf = csd(deflection, force,
-             fs=fs,
-             window="hann",
-             nperseg=8192,
-             noverlap=4096)
-
-
-
-    # Fast Fourier Transform of deflection at contact point
-    # deflection_fft = fft(deflection[cut_initial:])  # FFT of deflection at contact point, cut ramp part
-    # freqs = fftfreq(len(t[cut_initial:]), dt)       # FFT sample frequencies
-    omega = 2 * np.pi * freqs                       # FFT angular sample frequencies
-    
-    # Calculate FRFs
-    # mobility = 1j * omega * deflection_fft / force_fft  # [m/s/N]
-    # receptance = deflection_fft / force_fft             # [m/N]
-
-    receptance = Pyf / Pff
-    mobility = 1j * omega * receptance
-    mask = (freqs >= 0) & (freqs <= freq_limit)
-
-
-
-
-    # =============================================================================
-    # 7. PLOT FORCE SPECTRUM
-    # =============================================================================
-    plt.figure(figsize=(10, 5))
-    plt.plot(freqs, 20 * np.log10(np.abs(Pff)), color='blue', linewidth=1.5, label='Kraftspektrum')
-    # plt.plot(freqs[mask], 20 * np.log10(np.abs(Pff[mask])), color='blue', linewidth=1.5, label='Kraftspektrum')
-    plt.xlabel('Frequenz [Hz]')
-    plt.ylabel('Amplitude [dB]')
-    plt.title('Kraftspektrum')
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(output_dir / 'force_spectrum.png', dpi=300, bbox_inches='tight')
-    plt.close()
-
-    # =============================================================================
-    # 8. PLOT FORCE IN TIME DOMAIN
-    # =============================================================================
-    time_array = np.linspace(0, len(deflection_results.force) * dt, len(deflection_results.force))  # Time in seconds
-    plt.figure(figsize=(10, 5))
-    plt.plot(time_array, deflection_results.force, color='green', linewidth=1.5, label='Kraft')
-    plt.xlabel('Zeit [s]')
-    plt.ylabel('Kraft [N]')
-    plt.xlim(0, req_simt)  # Limit x-axis to the requested simulation time
-    plt.title('Kraftverlauf')
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(output_dir / 'force_time_domain.png', dpi=300, bbox_inches='tight')
-    plt.close()
-
-
-
-    # Filter to 0-2000 Hz
-    mask = (freqs >= 0) & (freqs <= freq_limit)
-
-
-
-    # collect data for overall plot (only first contact point)
-    all_receptance = [] # [vel, freq, mobility, receptance]
-    if i == 0:
+        # collect data for overall plot (only first contact point)
         with np.errstate(divide='ignore', invalid='ignore'):
             mobility_db = 20 * np.log10(np.abs(mobility[mask]))
             receptance_db = 20 * np.log10(np.abs(receptance[mask]))
@@ -298,44 +192,134 @@ for i, deflection in enumerate(deflection_results.contact_point_deflection):
             receptance_db[np.isneginf(receptance_db)] = -300    # Replace -inf with a large negative value
         all_receptance.append((vel, freqs[mask], mobility_db, receptance_db))
 
-    # overall plot for all velocities
-    if vel == velocities[-1] and i == 0:
-        plt.figure(figsize=(10, 5))
-        for v, freq, mobility, receptance in all_receptance:
-            plt.plot(freq, receptance, label=f'{v} m/s', linewidth=1)
-            plt.xlabel('Frequenz [Hz]')
-            plt.ylabel('Receptance [dB re m/N]')
-            plt.grid(True)
-            plt.legend()
-            plt.tight_layout()
-        plt.savefig(str(output_dir / 'receptance_all_velocities.png'), dpi=300, bbox_inches='tight')
 
 
-        # Optional:
-        # fetch Nordborg data for comparison
-        with open('nordborg_data_sharp.csv') as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=';')
-            frequencies = []
-            receptances = []
-            for row in csv_reader:
-                frequencies.append(float(str.replace(row[0], ',', '.')))
-                receptances.append(float(str.replace(row[1], ',', '.')))
 
-        # Interpolate to equally spaced frequencies
-        freq_interp = np.linspace(0, freq_limit, freq_limit)
-        receptance_interp = np.interp(freq_interp, frequencies, receptances)
+        # # Process each contact point
+        # for i, deflection in enumerate(deflection_results.contact_point_deflection):
 
-        plt.figure(figsize=(10, 5))
-        plt.plot(freq_interp, receptance_interp, label='Vergleichsdaten (Nordborg)', linewidth=1)
-        for v, freq, mobility, receptance in all_receptance:
-            if v == 60:
-                plt.plot(freq, receptance, label=f'Simulation', linewidth=1)
-        plt.xlabel('Frequenz [Hz]')
-        plt.ylabel('Rezeptanz [dB re 1 m/N]')
-        plt.grid(True)
-        plt.legend()
-        plt.tight_layout()
-        plt.savefig(str(output_dir / 'receptance_60_Nordborg.png'), dpi=300, bbox_inches='tight')
+
+
+        #     freqs, Pff = welch(force,
+        #                 fs=fs,
+        #                 window="hann",
+        #                 nperseg=8192,
+        #                 noverlap=4096)
+            
+        #     freqs, Pyy = welch(deflection,
+        #                 fs=fs,
+        #                 window="hann",
+        #                 nperseg=8192,
+        #                 noverlap=4096)
+            
+            
+
+
+        #     omega = 2 * np.pi * freqs                       # FFT angular sample frequencies
+            
+        #     # Calculate FRFs
+        #     receptance = Pyy / Pff
+        #     mobility = 1j * omega * receptance
+
+        #     # Filter to 0-2000 Hz
+        #     mask = (freqs >= 0) & (freqs <= freq_limit)
+
+        #     # Plot individual velocity
+        #     plt.figure(figsize=(10, 5))
+        #     plt.plot(freqs[mask], 20 * np.log10(np.abs(receptance[mask])), linewidth=1, color='orange')
+        #     plt.xlabel('Frequenz [Hz]')
+        #     plt.ylabel('Rezeptanz [m/N]')
+        #     plt.grid(True)
+        #     plt.legend(['Geschwindigkeit: ' + str(vel) + ' m/s'])
+        #     plt.tight_layout()
+        #     plt.savefig(str(output_dir / f'mobility_receptance_v{vel:03d}_wheel{i+1}.png'), dpi=300, bbox_inches='tight')
+        #     plt.close()
+
+# =============================================================================
+# 3. POSTPROCESSING - Frequency Response
+# =============================================================================
+
+
+# Process each contact point
+# for i, deflection in enumerate(deflection_results.contact_point_deflection):
+
+
+
+
+
+
+# =============================================================================
+# 7. PLOT FORCE SPECTRUM
+# =============================================================================
+plt.figure(figsize=(10, 5))
+plt.plot(freqs, 20 * np.log10(np.abs(Pff)), color='blue', linewidth=1.5, label='Kraftspektrum')
+# plt.plot(freqs[mask], 20 * np.log10(np.abs(Pff[mask])), color='blue', linewidth=1.5, label='Kraftspektrum')
+plt.xlabel('Frequenz [Hz]')
+plt.ylabel('Amplitude [dB]')
+plt.title('Kraftspektrum')
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.legend()
+plt.tight_layout()
+plt.savefig(output_dir / 'force_spectrum.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+# =============================================================================
+# 8. PLOT FORCE IN TIME DOMAIN
+# =============================================================================
+time_array = np.linspace(0, len(deflection_results.force) * dt, len(deflection_results.force))  # Time in seconds
+plt.figure(figsize=(10, 5))
+plt.plot(time_array, deflection_results.force, color='green', linewidth=1.5, label='Kraft')
+plt.xlabel('Zeit [s]')
+plt.ylabel('Kraft [N]')
+plt.xlim(0, req_simt)  # Limit x-axis to the requested simulation time
+plt.title('Kraftverlauf')
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.legend()
+plt.tight_layout()
+plt.savefig(output_dir / 'force_time_domain.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+
+
+
+
+# overall plot for all velocities
+plt.figure(figsize=(10, 5))
+for v, freq, mobility, receptance in all_receptance:
+    plt.plot(freq, receptance, label=f'{v} m/s', linewidth=1)
+    plt.xlabel('Frequenz [Hz]')
+    plt.ylabel('Receptance [dB re m/N]')
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+plt.savefig(str(output_dir / 'receptance_all_velocities.png'), dpi=300, bbox_inches='tight')
+
+
+# Optional:
+# fetch Nordborg data for comparison
+with open('nordborg_data_sharp.csv') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=';')
+    frequencies = []
+    receptances = []
+    for row in csv_reader:
+        frequencies.append(float(str.replace(row[0], ',', '.')))
+        receptances.append(float(str.replace(row[1], ',', '.')))
+
+# Interpolate to equally spaced frequencies
+freq_interp = np.linspace(0, freq_limit, freq_limit)
+receptance_interp = np.interp(freq_interp, frequencies, receptances)
+
+plt.figure(figsize=(10, 5))
+plt.plot(freq_interp, receptance_interp, label='Vergleichsdaten (Nordborg)', linewidth=1)
+for v, freq, mobility, receptance in all_receptance:
+    if v == 60:
+        plt.plot(freq, receptance, label=f'Simulation', linewidth=1)
+plt.xlabel('Frequenz [Hz]')
+plt.ylabel('Rezeptanz [dB re 1 m/N]')
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.savefig(str(output_dir / 'receptance_60_Nordborg.png'), dpi=300, bbox_inches='tight')
 
 # Optional: Clear memory
 plt.close('all')
